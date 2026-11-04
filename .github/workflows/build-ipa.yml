@@ -21,8 +21,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Check Xcode
-        run: xcodebuild -version
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.3.app/Contents/Developer
+          xcodebuild -version
       - name: Test update and navigation rules
         run: |
           if [ -f Package.swift ]; then swift test; fi
@@ -40,7 +42,7 @@ jobs:
       - name: Package IPA for device signing
         run: |
           set -euo pipefail
-          APP="$(find _build -type d -name Feather.app -maxdepth 4 | head -n 1)"
+          APP="$(find _build -type d -name Feather.app | head -n 1)"
           test -n "$APP"
           mkdir -p packages "$RUNNER_TEMP/package/Payload"
           ditto "$APP" "$RUNNER_TEMP/package/Payload/Feather.app"

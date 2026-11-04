@@ -13,6 +13,7 @@ import OSLog
 final class SigningHandler: NSObject {
 	private let _fileManager = FileManager.default
 	private let _uuid = UUID().uuidString
+	var resultUUID: String { _uuid }
 	private var _movedAppPath: URL?
 	// using uuid string is the best way to find the
 	// app we want to sign, it does not matter what
@@ -123,12 +124,9 @@ final class SigningHandler: NSObject {
 			throw SigningFileHandlerError.missingCertifcate
 		}
 		
+		if let error = handler.hadError { throw error }
 		try await self.move()
 		try await self.addToDatabase()
-		
-		if let error = handler.hadError {
-			throw error
-		}
 	}
 	
 	func move() async throws {
@@ -149,36 +147,17 @@ final class SigningHandler: NSObject {
 	}
 	
 	func addToDatabase() async throws {
-		let app = try await _directory()
-		
-		guard let appUrl = _fileManager.getPath(in: app, for: "app") else {
-			return
-		}
-		
-		await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-			let bundle = Bundle(url: appUrl)
-			
-			Storage.shared.addSigned(
-				uuid: _uuid,
-				source: _app.source,
-				certificate: _options.signingOption != .default ? nil : appCertificate,
-				appName: bundle?.name,
-				appIdentifier: bundle?.bundleIdentifier,
-				appVersion: bundle?.version,
-				appIcon: bundle?.iconFileName
-			) { _ in
-				Logger.signing.info("[\(self._uuid)] Added to database")
-				continuation.resume()
-			}
-		}
-		
-		Storage.shared.copySourceMetadata(
-			from: _app.uuid,
-			to: _uuid,
-			kind: .signed
-		)
-	}
-	
+        let directory = try await _directory()
+        guard let appURL = _fileManager.getPath(in: directory, for: "app"), let bundle = Bundle(url: appURL) else { throw ReleaseError.invalidApp }
+        try await MainActor.run {
+            Storage.shared.addSigned(uuid: _uuid, source: _app.source, certificate: _options.signingOption != .default ? nil : appCertificate, appName: bundle.name, appIdentifier: bundle.bundleIdentifier, appVersion: bundle.version, appIcon: bundle.iconFileName) { _ in }
+            Storage.shared.copySourceMetadata(from: _app.uuid, to: _uuid, kind: .signed)
+            do { try Storage.shared.context.save() }
+            catch { Storage.shared.context.rollback(); throw error }
+            GitHubReleases.shared.copy(from: _app.uuid, to: _uuid)
+        }
+    }
+
 	private func _directory() async throws -> URL {
 		// Documents/Feather/Signed/\(UUID)
 		_fileManager.signed(_uuid)

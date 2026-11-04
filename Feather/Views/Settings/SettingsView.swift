@@ -41,12 +41,6 @@ struct SettingsView: View {
 	var body: some View {
 		NBNavigationView(.localized("Settings")) {
 			Form {
-				#if !NIGHTLY && !DEBUG
-					SettingsDonationCellView(site: _donationsUrl)
-				#endif
-                
-				_feedback()
-                
 				Section {
 					NavigationLink(destination: AppearanceView()) {
 						Label(.localized("Appearance"), systemImage: "paintbrush")
@@ -54,6 +48,7 @@ struct SettingsView: View {
 					NavigationLink(destination: AppIconView(currentIcon: $_currentIcon)) {
 						Label(.localized("App Icon"), systemImage: "app.badge")
 					}
+					NavigationLink(destination: NavigatorView()) { Label("Navigator", systemImage: "rectangle.bottomthird.inset.filled") }
 				}
                 
 				NBSection(.localized("Certificates")) {
@@ -103,28 +98,6 @@ struct SettingsView: View {
 
 // MARK: - View extension
 extension SettingsView {
-	@ViewBuilder
-	private func _feedback() -> some View {
-		Section {
-			NavigationLink(destination: AboutView()) {
-				Label {
-					Text(verbatim: .localized("About %@", arguments: Bundle.main.name))
-				} icon: {
-					FRAppIconView(size: 23)
-				}
-			}
-            
-			Button(.localized("Submit Feedback"), systemImage: "safari") {
-				UIApplication.open(URL(string: "\(_githubUrl)/issues/new/choose")!)
-			}
-			Button(.localized("GitHub Repository"), systemImage: "safari") {
-				UIApplication.open(_githubUrl)
-			}
-		} footer: {
-			Text(.localized("If any issues occur within the app please report it via the GitHub repository. When submitting an issue, make sure to submit detailed information."))
-		}
-	}
-    
 	@ViewBuilder
 	private func _directories() -> some View {
 		NBSection(.localized("Misc")) {

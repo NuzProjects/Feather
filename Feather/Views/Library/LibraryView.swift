@@ -18,6 +18,7 @@ struct LibraryView: View {
 	@State private var _selectedSigningAppPresenting: AnyApp?
 	@State private var _selectedInstallAppPresenting: AnyApp?
 	@State private var _isImportingPresenting = false
+	@State private var _isGitHubPresenting = false
 	@State private var _isDownloadingPresenting = false
 	@State private var _alertDownloadString: String = "" // for _isDownloadingPresenting
 	@State private var _updateCheckRotation = 0.0
@@ -193,9 +194,10 @@ struct LibraryView: View {
 					.presentationDragIndicator(.visible)
 			}
 			.fullScreenCover(item: $_selectedSigningAppPresenting) { app in
-				SigningView(app: app.base)
+				SigningView(app: app.base, replacementUUID: app.replacementUUID, preferredIdentifier: app.preferredIdentifier)
 					.compatNavigationTransition(id: app.base.uuid ?? "", ns: _namespace)
 			}
+			.sheet(isPresented: $_isGitHubPresenting) { GitHubImportView() }
 			.sheet(isPresented: $_isImportingPresenting) {
 				FileImporterRepresentableView(
 					allowedContentTypes:  [.ipa, .tipa],
@@ -224,10 +226,13 @@ struct LibraryView: View {
 					}
 				}
 			}
-			.onReceive(NotificationCenter.default.publisher(for: Notification.Name("Feather.installApp"))) { _ in
-				if let latest = _signedApps.first {
+			.onReceive(NotificationCenter.default.publisher(for: Notification.Name("Feather.installApp"))) { notification in
+				if let latest = notification.object as? Signed ?? _signedApps.first {
 					_selectedInstallAppPresenting = AnyApp(base: latest)
 				}
+			}
+			.onReceive(NotificationCenter.default.publisher(for: Notification.Name("Feather.signApp"))) { notification in
+				_selectedSigningAppPresenting = notification.object as? AnyApp
 			}
 			.onChange(of: _editMode) { mode in
 				if mode == .inactive {
@@ -245,6 +250,7 @@ struct LibraryView: View {
 extension LibraryView {
 	@ViewBuilder
 	private func _importActions() -> some View {
+		Button("Import from GitHub", systemImage: "chevron.left.forwardslash.chevron.right") { _isGitHubPresenting = true }
 		Button(.localized("Import from Files"), systemImage: "folder") {
 			_isImportingPresenting = true
 		}
@@ -286,6 +292,7 @@ extension LibraryView {
 	}
 	
 	private func _checkForUpdates() async {
+		await GitHubReleases.shared.check(force: true)
 		let localApps = _signedApps.map { $0 as AppInfoPresentable } + _importedApps.map { $0 as AppInfoPresentable }
 		await updateManager.checkForUpdates(
 			sources: Array(_sources),

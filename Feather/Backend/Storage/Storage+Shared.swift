@@ -21,12 +21,14 @@ extension Storage {
 		return FileManager.default.getPath(in: url, for: "app")
 	}
 	
+	@MainActor
 	func deleteApp(for app: AppInfoPresentable) {
 		do {
 			if let url = getUuidDirectory(for: app) {
 				try? FileManager.default.removeItem(at: url)
 			}
 			deleteSourceMetadata(for: app.uuid)
+			GitHubReleases.shared.remove(app.uuid)
 			if let object = app as? NSManagedObject {
 				context.delete(object)
 			}
@@ -46,6 +48,8 @@ extension Storage {
 struct AnyApp: Identifiable {
 	let base: AppInfoPresentable
 	var archive: Bool = false
+	var replacementUUID: String? = nil
+	var preferredIdentifier: String? = nil
 	
 	var id: String {
 		base.uuid ?? UUID().uuidString

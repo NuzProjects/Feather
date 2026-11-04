@@ -12,7 +12,7 @@ import NukeUI
 @available(iOS 18, *)
 struct ExtendedTabbarView: View {
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
-	@AppStorage("Feather.tabCustomization") var customization = TabViewCustomization()
+	@ObservedObject private var navigator = NavigatorPreferences.shared
 	@StateObject var viewModel = SourcesViewModel.shared
 	
 	@State private var _isAddingPresenting = false
@@ -25,20 +25,10 @@ struct ExtendedTabbarView: View {
 		
 	var body: some View {
 		TabView {
-			ForEach(TabEnum.defaultTabs, id: \.hashValue) { tab in
-				Tab(tab.title, systemImage: tab.icon) {
+			ForEach(navigator.tabs, id: \.hashValue) { tab in
+				Tab(navigator.showLabels ? tab.title : "", systemImage: tab.icon) {
 					TabEnum.view(for: tab)
 				}
-			}
-			
-			ForEach(TabEnum.customizableTabs, id: \.hashValue) { tab in
-				Tab(tab.title, systemImage: tab.icon) {
-					TabEnum.view(for: tab)
-				}
-				.customizationID("tab.\(tab.rawValue)")
-				.defaultVisibility(.hidden, for: .tabBar)
-				.customizationBehavior(.reorderable, for: .tabBar, .sidebar)
-				.hidden(horizontalSizeClass == .compact)
 			}
 			
 			TabSection("Sources") {
@@ -72,7 +62,6 @@ struct ExtendedTabbarView: View {
 			.hidden(horizontalSizeClass == .compact)
 		}
 		.tabViewStyle(.sidebarAdaptable)
-		.tabViewCustomization($customization)
 		.sheet(isPresented: $_isAddingPresenting) {
 			SourcesAddView()
 				.presentationDetents([.medium])

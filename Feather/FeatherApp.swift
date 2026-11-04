@@ -9,10 +9,12 @@ import SwiftUI
 import Nuke
 import IDeviceSwift
 import OSLog
+import UserNotifications
 
 @main
 struct FeatherApp: App {
 	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+	@Environment(\.scenePhase) private var scenePhase
 	
 	let heartbeat = HeartbeatManager.shared
 	
@@ -39,6 +41,9 @@ struct FeatherApp: App {
 				}
 			}
 			// dear god help me
+			.onChange(of: scenePhase) { phase in
+				if phase == .active { Task { await GitHubReleases.shared.check(); GitHubReleases.schedule() } }
+			}
 			.onAppear {
 				if let style = UIUserInterfaceStyle(rawValue: UserDefaults.standard.integer(forKey: "Feather.userInterfaceStyle")) {
 					UIApplication.topViewController()?.view.window?.overrideUserInterfaceStyle = style
@@ -151,11 +156,14 @@ struct FeatherApp: App {
 	}
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) { completionHandler([.banner, .sound, .list]) }
 	func application(
 		_ application: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		GitHubReleases.register()
+		UNUserNotificationCenter.current().delegate = self
 		_createPipeline()
 		_createDocumentsDirectories()
 		ResetView.clearWorkCache()

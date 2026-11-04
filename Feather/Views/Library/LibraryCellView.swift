@@ -13,6 +13,7 @@ import NimbleViews
 struct LibraryCellView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	@Environment(\.editMode) private var editMode
+	@ObservedObject private var github = GitHubReleases.shared
 	@ObservedObject private var updateManager = UpdateManager.shared
 	@State private var _signedUpdateConfirmation: AppUpdate?
 	@State private var _isSignedUpdateConfirmationPresented = false
@@ -88,9 +89,12 @@ struct LibraryCellView: View {
 				_toggleSelection()
 			}
 		}
-		.swipeActions {
+		.swipeActions(edge: .trailing, allowsFullSwipe: false) {
 			if !isEditing {
 				_actions(for: app)
+				if let uuid = app.uuid, github.updates[uuid] != nil {
+					Button("Update", systemImage: "arrow.down.circle") { github.update(app) }.tint(.blue).disabled(github.busy.contains(uuid))
+				}
 			}
 		}
 		.contextMenu {
@@ -138,7 +142,7 @@ extension LibraryCellView {
 	private func _appIcon(for app: AppInfoPresentable) -> some View {
 		FRAppIconView(app: app, size: 57)
 			.overlay(alignment: .topTrailing) {
-				if updateManager.update(for: app) != nil {
+				if updateManager.update(for: app) != nil || github.updates[app.uuid ?? ""] != nil {
 					Image(systemName: "arrow.down.circle.fill")
 						.font(.system(size: 18, weight: .semibold))
 						.symbolRenderingMode(.palette)
@@ -170,6 +174,7 @@ extension LibraryCellView {
 	
 	@ViewBuilder
 	private func _contextActionsExtra(for app: AppInfoPresentable) -> some View {
+		if let uuid = app.uuid, github.updates[uuid] != nil { Button("Update", systemImage: "arrow.down.circle") { github.update(app) }.disabled(github.busy.contains(uuid)) }
 		if let update = updateManager.update(for: app) {
 			Button(.localized("Update"), systemImage: "arrow.down.circle") {
 				if app.isSigned {
@@ -191,7 +196,7 @@ extension LibraryCellView {
 				selectedInstallAppPresenting = AnyApp(base: app)
 			}
 			Button(.localized("Re-sign"), systemImage: "signature") {
-				selectedSigningAppPresenting = AnyApp(base: app)
+				ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
 			}
 			Button(.localized("Export"), systemImage: "square.and.arrow.up") {
 				selectedInstallAppPresenting = AnyApp(base: app, archive: true)
@@ -201,7 +206,7 @@ extension LibraryCellView {
 				selectedInstallAppPresenting = AnyApp(base: app)
 			}
 			Button(.localized("Sign"), systemImage: "signature") {
-				selectedSigningAppPresenting = AnyApp(base: app)
+				ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
 			}
 		}
 	}
@@ -244,7 +249,7 @@ extension LibraryCellView {
 				}
 			} else {
 				Button {
-					selectedSigningAppPresenting = AnyApp(base: app)
+					ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
 				} label: {
 					FRExpirationPillView(
 						title: .localized("Sign"),

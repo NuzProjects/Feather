@@ -12,6 +12,7 @@ import SwiftUI
 final class AppFileHandler: NSObject, @unchecked Sendable {
 	private let _fileManager = FileManager.default
 	private let _uuid = UUID().uuidString
+	var resultUUID: String { _uuid }
 	private let _uniqueWorkDir: URL
 	var uniqueWorkDirPayload: URL?
 
@@ -105,33 +106,19 @@ final class AppFileHandler: NSObject, @unchecked Sendable {
 		try? _fileManager.removeItem(at: _uniqueWorkDir)
 	}
 	
-	func addToDatabase() async throws {
-		let app = try await _directory()
-		
-		guard let appUrl = _fileManager.getPath(in: app, for: "app") else {
-			return
-		}
-		
-		let bundle = Bundle(url: appUrl)
-		
-		Storage.shared.addImported(
-			uuid: _uuid,
-			source: _sourceProvenance?.sourceRepositoryURL,
-			appName: bundle?.name,
-			appIdentifier: bundle?.bundleIdentifier,
-			appVersion: bundle?.version,
-			appIcon: bundle?.iconFileName
-		) { _ in }
-		
-		if let sourceProvenance = _sourceProvenance {
-			Storage.shared.addSourceMetadata(
-				for: _uuid,
-				kind: .imported,
-				provenance: sourceProvenance
-			)
-		}
-	}
-	
+	func addToDatabase(replacing uuid: String? = nil) async throws {
+        let app = try await _directory()
+        guard let appURL = _fileManager.getPath(in: app, for: "app"), let bundle = Bundle(url: appURL), bundle.bundleIdentifier != nil else { throw ReleaseError.invalidApp }
+        let existing = try await ReplacementCoordinator.shared.duplicateImport(name: bundle.name, replacing: uuid)
+        try await MainActor.run {
+            Storage.shared.addImported(uuid: _uuid, source: _sourceProvenance?.sourceRepositoryURL, appName: bundle.name, appIdentifier: bundle.bundleIdentifier, appVersion: bundle.version, appIcon: bundle.iconFileName) { _ in }
+            if let provenance = _sourceProvenance { Storage.shared.addSourceMetadata(for: _uuid, kind: .imported, provenance: provenance) }
+            do { try Storage.shared.context.save() }
+            catch { Storage.shared.context.rollback(); throw error }
+            if let existing { Storage.shared.deleteApp(for: existing) }
+        }
+    }
+
 	private func _directory() async throws -> URL {
 		// Documents/Feather/Unsigned/\(UUID)
 		_fileManager.unsigned(_uuid)

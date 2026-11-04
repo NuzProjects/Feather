@@ -17,6 +17,8 @@ enum FR {
 		_ ipa: URL,
 		download: Download? = nil,
 		sourceProvenance: SourceAppProvenance? = nil,
+		replacingImport: String? = nil,
+		onImported: ((Imported) -> Void)? = nil,
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
@@ -30,13 +32,15 @@ enum FR {
 				try await handler.copy()
 				try await handler.extract()
 				try await handler.move()
-				try await handler.addToDatabase()
+				try await handler.addToDatabase(replacing: replacingImport)
 				try? await handler.clean()
 				await MainActor.run {
+					if let imported = try? Storage.shared.context.fetch(Imported.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) { onImported?(imported) }
 					completion(nil)
 				}
 			} catch {
 				try? await handler.clean()
+				try? FileManager.default.removeItem(at: FileManager.default.unsigned(handler.resultUUID))
 				await MainActor.run {
 					completion(error)
 				}
@@ -49,6 +53,7 @@ enum FR {
 		using options: Options,
 		icon: UIImage?,
 		certificate: CertificatePair?,
+		onSigned: ((Signed) -> Void)? = nil,
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
@@ -61,6 +66,7 @@ enum FR {
 				try await handler.modify()
 				try? await handler.clean()
 				await MainActor.run {
+					if let signed = try? Storage.shared.context.fetch(Signed.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) { onSigned?(signed) }
 					completion(nil)
 				}
 			} catch {

@@ -36,8 +36,12 @@ struct SigningView: View {
 	}
 	
 	var app: AppInfoPresentable
+	var replacementUUID: String?
+	var preferredIdentifier: String?
 	
-	init(app: AppInfoPresentable) {
+	init(app: AppInfoPresentable, replacementUUID: String? = nil, preferredIdentifier: String? = nil) {
+		self.replacementUUID = replacementUUID
+		self.preferredIdentifier = preferredIdentifier
 		self.app = app
 		let storedCert = UserDefaults.standard.integer(forKey: "feather.selectedCert")
 		__temporaryCertificate = State(initialValue: storedCert)
@@ -92,6 +96,7 @@ struct SigningView: View {
 				) {
 					_temporaryOptions = OptionsManager.shared.options
 					appIcon = nil
+				_applyReplacement()
 				}
 			}
 			.sheet(isPresented: $_isAltPickerPresenting) { SigningAlternativeIconView(app: app, appIcon: $appIcon, isModifing: .constant(true)) }
@@ -143,6 +148,7 @@ struct SigningView: View {
 			{
 				_temporaryOptions.appName = newName
 			}
+			_applyReplacement()
 		}
 	}
 }
@@ -263,7 +269,13 @@ extension SigningView {
 
 // MARK: - Extension: View (import)
 extension SigningView {
-	private func _start() {
+	private func _applyReplacement() {
+        guard let preferredIdentifier else { return }
+        _temporaryOptions.appIdentifier = preferredIdentifier
+        _temporaryOptions.appVersion = nil
+        if let old = GitHubReleases.shared.allApps().first(where: { $0.uuid == replacementUUID }), let cert = Storage.shared.getCertificate(from: old), let index = certificates.firstIndex(where: { $0.objectID == cert.objectID }) { _temporaryCertificate = index }
+    }
+    private func _start() {
 		guard
 			_selectedCert() != nil || _temporaryOptions.signingOption != .default
 		else {
@@ -283,8 +295,13 @@ extension SigningView {
 			app,
 			using: _temporaryOptions,
 			icon: appIcon,
-			certificate: _selectedCert()
-		) { error in
+			certificate: _selectedCert(),
+            onSigned: { signed in
+                if let replacementUUID, let old = GitHubReleases.shared.allApps().first(where: { $0.uuid == replacementUUID }), old.uuid != signed.uuid {
+                    Storage.shared.deleteApp(for: old)
+                }
+            }
+        ) { error in
 			if let error {
 				let ok = UIAlertAction(title: .localized("Dismiss"), style: .cancel) { _ in
 					dismiss()
