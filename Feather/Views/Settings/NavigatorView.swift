@@ -20,7 +20,7 @@ struct NavigatorView: View {
         NBList("Navigator") {
             Section {
                 Toggle(isOn: $preferences.showLabels) { Label("Show Labels", systemImage: "textformat") }
-            }
+            } footer: { Text("Show or hide the text under each icon in the navigation bar.") }
             Section {
                 ForEach(preferences.tabs, id: \.self) { tab in
                     row(tab, visible: true)
@@ -32,10 +32,10 @@ struct NavigatorView: View {
                         preferences.set(tabs)
                     }
                 }
-            } header: { Text("Navigation") } footer: { Text("Use Reorder to arrange tabs.") }
+            } header: { Text("Navigation") } footer: { Text("Choose which tabs appear in the navigation bar and drag to reorder them. Settings is always available.") }
             let hidden = TabEnum.allCases.filter { !preferences.tabs.contains($0) }
             if !hidden.isEmpty {
-                Section("Hidden") { ForEach(hidden, id: \.self) { row($0, visible: false) } }
+                Section { ForEach(hidden, id: \.self) { row($0, visible: false) } } header: { Text("Hidden") } footer: { Text("Hidden tabs can be added back to the navigation bar at any time.") }
             }
         }
         .symbolVariant(.fill)

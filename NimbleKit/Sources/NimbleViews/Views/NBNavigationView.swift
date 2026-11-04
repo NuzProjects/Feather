@@ -27,6 +27,19 @@ public struct NBNavigationView<Content>: View where Content: View {
 			_content
 				.navigationTitle(_title)
 				.navigationBarTitleDisplayMode(_mode)
+				.toolbarBackground(.visible, for: .navigationBar)
+				.modifier(TopEdgeBlur())
+		}
+	}
+}
+
+/// Keeps the system navigation bar blur visible so scrolling content never shows above the title.
+private struct TopEdgeBlur: ViewModifier {
+	func body(content: Content) -> some View {
+		if #available(iOS 26.0, *) {
+			content.scrollEdgeEffectStyle(.soft, for: .top)
+		} else {
+			content
 		}
 	}
 }
