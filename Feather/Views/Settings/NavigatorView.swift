@@ -16,7 +16,7 @@ final class NavigatorPreferences: ObservableObject {
 struct NavigatorView: View {
     @ObservedObject private var preferences = NavigatorPreferences.shared
     var body: some View {
-        NBList("Navigator") {
+        NBList("Navigator", type: .list) {
             NBSection("Appearance") { Toggle("Show Labels", isOn: $preferences.showLabels) }
             NBSection("Navigation") {
                 ForEach(preferences.tabs, id: \.self) { tab in
@@ -33,6 +33,7 @@ struct NavigatorView: View {
                 NBSection("Hidden") { ForEach(hidden, id: \.self) { row($0, visible: false) } }
             }
         }
+        .listStyle(.insetGrouped)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { EditButton() } }
     }
     private func row(_ tab: TabEnum, visible: Bool) -> some View {
