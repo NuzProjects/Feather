@@ -30,7 +30,7 @@ struct NavigatorView: View {
                         preferences.set(tabs)
                     }
                 }
-            } footer: { Text("Use Reorder to arrange tabs. Settings always stays available.") }
+            } footer: { Text("Use Reorder to arrange tabs.") }
             let hidden = TabEnum.allCases.filter { !preferences.tabs.contains($0) }
             if !hidden.isEmpty {
                 NBSection("Hidden") { ForEach(hidden, id: \.self) { row($0, visible: false) } }
@@ -42,11 +42,11 @@ struct NavigatorView: View {
     }
     private func row(_ tab: TabEnum, visible: Bool) -> some View {
         HStack(spacing: 18) {
-            Image(systemName: tab.icon)
+            Image(systemName: tab.icon).symbolVariant(.fill)
                 .font(.system(size: 24, weight: .medium))
                 .frame(width: 56, height: 56)
                 .background(Color(uiColor: .quaternarySystemFill), in: RoundedRectangle(cornerRadius: 14))
-            NBTitleWithSubtitleView(title: tab.title, subtitle: tab == .settings ? "Always available" : (visible ? "Shown in navigation" : "Hidden from navigation"), linelimit: 0)
+            Text(tab.title).frame(maxWidth: .infinity, alignment: .leading)
             if tab != .settings {
                 Button(visible ? "Hide" : "Show") {
                     withAnimation(.smooth(duration: 0.25)) { preferences.set(visible ? preferences.tabs.filter { $0 != tab } : preferences.tabs + [tab]) }

@@ -67,7 +67,6 @@ struct SettingsView: View {
 				}
                 
 				NBSection(.localized("Features")) {
-                    NavigationLink(destination: DataTransferView()) { Label("Backups", systemImage: "externaldrive") }
 					NavigationLink(destination: ConfigurationView()) {
 						Label(.localized("Signing Options"), systemImage: "signature")
 					}
@@ -76,6 +75,9 @@ struct SettingsView: View {
 					}
 					NavigationLink(destination: InstallationView()) {
 						Label(.localized("Installation"), systemImage: "arrow.down.circle")
+					}
+					NavigationLink(destination: DataTransferView()) {
+						Label("Transfer Data", systemImage: "externaldrive")
 					}
 				} footer: {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
@@ -90,6 +92,7 @@ struct SettingsView: View {
 				} footer: {
 					Text(.localized("Reset the applications sources, certificates, apps, and general contents."))
 				}
+				.symbolVariant(.fill)
 			}
 		}
 	}

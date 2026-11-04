@@ -8,13 +8,9 @@ struct DataTransferView: View {
     @State private var message: String?
     var body: some View {
         Form {
-            Section("Settings") {
-                Button("Export Settings", systemImage: "square.and.arrow.up") { export(includeApps: false) }
-                Button("Import Settings", systemImage: "square.and.arrow.down") { picker = .import }
-            }
-            Section("Full Backup") {
-                Button("Export All Data", systemImage: "square.and.arrow.up") { export(includeApps: true) }
-                Button("Import Backup", systemImage: "square.and.arrow.down") { picker = .import }
+            Section {
+                Button("Export Data", systemImage: "square.and.arrow.up") { export(includeApps: true) }
+                Button("Import Data", systemImage: "square.and.arrow.down") { picker = .import }
             }
             Section("Old Feather Installer") {
                 Button("Import Old Feather Backup", systemImage: "arrow.down.doc") { picker = .import }
@@ -26,7 +22,8 @@ struct DataTransferView: View {
             }
             if busy { ProgressView("Transferring…") }
         }
-        .navigationTitle("Backups")
+        .symbolVariant(.fill)
+        .navigationTitle("Transfer Data")
         .disabled(busy)
         .sheet(item: $picker) { kind in
             TransferPicker(kind: kind, exportFolder: exportFolder) { url in
@@ -41,7 +38,7 @@ struct DataTransferView: View {
                 }
             }
         }
-        .alert("Backups", isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })) { Button("OK") { message = nil } } message: { Text(message ?? "") }
+        .alert("Transfer Data", isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })) { Button("OK") { message = nil } } message: { Text(message ?? "") }
     }
     private func export(includeApps: Bool) {
         Task {
