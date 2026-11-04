@@ -76,8 +76,10 @@ extension AppIconView {
 		icon: AppIconView.AltIcon
 	) -> some View {
 		Button {
-			UIApplication.shared.setAlternateIconName(icon.key) { _ in
-				currentIcon = UIApplication.shared.alternateIconName
+			UIApplication.shared.setAlternateIconName(icon.key) { error in
+				DispatchQueue.main.async {
+					withAnimation(.snappy) { currentIcon = error == nil ? icon.key : UIApplication.shared.alternateIconName }
+				}
 			}
 		} label: {
 			HStack(spacing: 18) {
@@ -91,7 +93,7 @@ extension AppIconView {
 				)
 				
 				if currentIcon == icon.key {
-					Image(systemName: "checkmark").bold()
+					Image(systemName: "checkmark").bold().transition(.scale.combined(with: .opacity))
 				}
 			}
 		}

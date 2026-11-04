@@ -6,7 +6,7 @@ struct TabbarView: View {
     @State private var selected: TabEnum = NavigatorPreferences.shared.tabs.first ?? .settings
 
     var body: some View {
-        TabView(selection: $selected) {
+        TabView(selection: Binding(get: { selected }, set: { new in if new != selected { TabTransition.crossfade() }; selected = new })) {
             ForEach(navigator.tabs, id: \.self) { tab in
                 TabEnum.view(for: tab)
                     .environment(\.managedObjectContext, Storage.shared.context)
@@ -56,5 +56,18 @@ private extension UIView {
         if let bar = self as? UITabBar { return bar }
         for sub in subviews { if let bar = sub.firstTabBar { return bar } }
         return nil
+    }
+}
+
+/// Cross-dissolves the page area when switching tabs.
+enum TabTransition {
+    @MainActor static func crossfade() {
+        guard let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).flatMap(\.windows).first(where: \.isKeyWindow),
+              let bar = window.firstTabBar else { return }
+        let height = bar.convert(bar.bounds, to: window).minY
+        guard height > 0, let snapshot = window.resizableSnapshotView(from: CGRect(x: 0, y: 0, width: window.bounds.width, height: height), afterScreenUpdates: false, withCapInsets: .zero) else { return }
+        snapshot.isUserInteractionEnabled = false
+        window.addSubview(snapshot)
+        UIView.animate(withDuration: 0.28, delay: 0.04, options: [.curveEaseInOut, .allowUserInteraction]) { snapshot.alpha = 0 } completion: { _ in snapshot.removeFromSuperview() }
     }
 }

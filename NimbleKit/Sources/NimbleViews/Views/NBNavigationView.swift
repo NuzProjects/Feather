@@ -27,7 +27,6 @@ public struct NBNavigationView<Content>: View where Content: View {
 			_content
 				.navigationTitle(_title)
 				.navigationBarTitleDisplayMode(_mode)
-				.toolbarBackground(.visible, for: .navigationBar)
 				.modifier(TopEdgeBlur())
 		}
 	}
@@ -37,9 +36,9 @@ public struct NBNavigationView<Content>: View where Content: View {
 private struct TopEdgeBlur: ViewModifier {
 	func body(content: Content) -> some View {
 		if #available(iOS 26.0, *) {
-			content.scrollEdgeEffectStyle(.soft, for: .top)
+			content.scrollEdgeEffectStyle(.hard, for: .top)
 		} else {
-			content
+			content.toolbarBackground(.visible, for: .navigationBar)
 		}
 	}
 }
