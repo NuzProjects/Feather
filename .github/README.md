@@ -49,7 +49,8 @@ To properly contribute and test potentially new localizations, you can head over
 
 ## Acknowledgements
 
-- [Samara](https://github.com/claration) - The maker
+- [NuzFlameV2](https://github.com/NuzProjects) - Creator of the fork
+- [Samara](https://github.com/claration) - The original creator
 - [idevice](https://github.com/jkcoxson/idevice) - Backend for builds with this included, used for communication with `installd`.
 - [*.backloop.dev](https://backloop.dev/) - localhost with public CA signed SSL certificate
 - [Vapor](https://github.com/vapor/vapor) - A server-side Swift HTTP web framework.
