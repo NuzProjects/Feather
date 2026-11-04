@@ -132,7 +132,7 @@ enum FeatherTransfer {
             for url in created.reversed() { try? FileManager.default.removeItem(at: url) }
             throw error
         }
-        for (name, value) in preferences where name != "Feather.tabCustomization" { UserDefaults.standard.set(rebase(value, from: oldHome), forKey: name) }
+        for (name, value) in preferences { UserDefaults.standard.set(rebase(value, from: oldHome), forKey: name) }
         if let uuid = manifest["selectedCertificate"] as? String {
             let request = NSFetchRequest<NSManagedObject>(entityName: "CertificatePair")
             request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]

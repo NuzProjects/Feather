@@ -5,17 +5,23 @@ on:
     branches: [main]
     paths: ['Feather/**', 'Feather.xcodeproj/**', 'Feather.xcconfig', 'Package.swift', 'Tests/**', '.github/workflows/build-ipa.yml']
   workflow_dispatch:
+    inputs:
+      runner:
+        description: Mac runner
+        type: choice
+        options: [macos-15-intel, macos-26]
+        default: macos-15-intel
 
 permissions:
   contents: read
 
 concurrency:
-  group: native-iphone-build-${{ github.ref }}
+  group: native-iphone-build-${{ github.ref }}-${{ inputs.runner || 'macos-15-intel' }}
   cancel-in-progress: true
 
 jobs:
   build:
-    runs-on: macos-15-intel
+    runs-on: ${{ inputs.runner || 'macos-15-intel' }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +38,8 @@ jobs:
           path: |
             ${{ runner.temp }}/Feather
             ~/Library/Caches/org.swift.swiftpm
-          key: feather-xcode26.3-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+          key: feather-xcode26.3-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+          restore-keys: feather-xcode26.3-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
       - name: Test update and navigation rules
         run: |
           if [ -f Package.swift ]; then swift test; fi
@@ -70,30 +77,33 @@ jobs:
       - name: Build regular Feather transfer helper
         run: |
           set -euo pipefail
-          HELPER="$RUNNER_TEMP/feather-transfer"
+          HELPER="$RUNNER_TEMP/feather-transfer-files"
           mkdir -p "$HELPER"
-          git archive 31ab6de | tar -x -C "$HELPER"
-          cp -R IDeviceKitten Zsign "$HELPER/"
-          mkdir -p "$HELPER/Feather/Views/Settings/Transfer" "$HELPER/Feather/Backend/Updates/Core"
-          cp Feather/Views/Settings/Transfer/*.swift "$HELPER/Feather/Views/Settings/Transfer/"
-          cp Feather/Backend/Updates/Core/TransferFiles.swift "$HELPER/Feather/Backend/Updates/Core/"
-          cp Feather.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved "$HELPER/Feather.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
-          python3 - "$HELPER" <<'PY'
-          import sys
+          cp Feather/Views/Settings/Transfer/*.swift "$HELPER/"
+          cp Feather/Backend/Updates/Core/TransferFiles.swift "$HELPER/"
+          cp Feather/Backend/Storage/Storage.swift "$HELPER/"
+          git restore --source=31ab6de --worktree -- Feather
+          mkdir -p Feather/Views/Settings/Transfer Feather/Backend/Updates/Core
+          cp "$HELPER/DataTransferView.swift" "$HELPER/FeatherTransfer.swift" Feather/Views/Settings/Transfer/
+          cp "$HELPER/TransferFiles.swift" Feather/Backend/Updates/Core/
+          cp "$HELPER/Storage.swift" Feather/Backend/Storage/
+          python3 - <<'PY'
           from pathlib import Path
-          p = Path(sys.argv[1]) / 'Feather/Views/Settings/SettingsView.swift'
+          p = Path('Feather/Views/Settings/SettingsView.swift')
           s = p.read_text()
           s = s.replace('\t\t\t\t_directories()', '\t\t\t\tSection { NavigationLink(destination: DataTransferView()) { Label("Transfer Data", systemImage: "arrow.left.arrow.right") } }\n\t\t\t\t_directories()')
           p.write_text(s)
           PY
-          xcodebuild -workspace "$HELPER/Feather.xcworkspace" -scheme Feather -configuration Release \
+          xcodebuild -resolvePackageDependencies -workspace Feather.xcworkspace -scheme Feather \
+            -derivedDataPath "$RUNNER_TEMP/Feather" 2>&1 | tee -a "$RUNNER_TEMP/build.log"
+          xcodebuild -workspace Feather.xcworkspace -scheme Feather -configuration Release \
             -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/Feather" \
             -disableAutomaticPackageResolution -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO \
             FEATHER_PRODUCT_BUNDLE_IDENTIFIER=thewonderofyou.Feather \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES \
             2>&1 | tee -a "$RUNNER_TEMP/build.log"
           mkdir -p "$RUNNER_TEMP/helper-package/Payload"
-          ditto "$HELPER/_build/Applications/Feather.app" "$RUNNER_TEMP/helper-package/Payload/Feather.app"
+          ditto _build/Applications/Feather.app "$RUNNER_TEMP/helper-package/Payload/Feather.app"
           cp deps/server.crt deps/server.pem deps/commonName.txt "$RUNNER_TEMP/helper-package/Payload/Feather.app/"
           cd "$RUNNER_TEMP/helper-package"
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa" Payload
