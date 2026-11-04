@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: iphone-build-${{ github.ref }}
+  group: native-iphone-build-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
