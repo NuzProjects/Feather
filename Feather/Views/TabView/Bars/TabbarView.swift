@@ -13,6 +13,19 @@ private struct NativeNavigator: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UITabBarController {
         let controller = UITabBarController()
         controller.delegate = context.coordinator
+        let panel = UIHostingController(rootView: SigningProgressPanel())
+        panel.sizingOptions = .intrinsicContentSize
+        panel.view.backgroundColor = .clear
+        panel.view.translatesAutoresizingMaskIntoConstraints = false
+        controller.addChild(panel)
+        controller.view.addSubview(panel.view)
+        NSLayoutConstraint.activate([
+            panel.view.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
+            panel.view.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
+            panel.view.bottomAnchor.constraint(equalTo: controller.tabBar.topAnchor, constant: -10)
+        ])
+        panel.didMove(toParent: controller)
+        context.coordinator.panel = panel
         return controller
     }
     func updateUIViewController(_ controller: UITabBarController, context: Context) {
@@ -37,6 +50,7 @@ private struct NativeNavigator: UIViewControllerRepresentable {
         controller.tabBar.setNeedsLayout()
     }
     final class Coordinator: NSObject, UITabBarControllerDelegate {
+        var panel: UIHostingController<SigningProgressPanel>?
         var pages: [TabEnum: UIHostingController<AnyView>] = [:]
     }
 }

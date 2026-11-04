@@ -163,6 +163,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 		_ application: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+        let navigation = UINavigationBarAppearance()
+        navigation.configureWithTransparentBackground()
+        navigation.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        navigation.backgroundColor = .clear
+        navigation.shadowColor = .clear
+        UINavigationBar.appearance().standardAppearance = navigation
+        UINavigationBar.appearance().scrollEdgeAppearance = navigation
+        UINavigationBar.appearance().compactAppearance = navigation
 		GitHubReleases.register()
 		UNUserNotificationCenter.current().delegate = self
 		_createPipeline()

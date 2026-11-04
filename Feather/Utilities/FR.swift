@@ -58,16 +58,19 @@ enum FR {
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
-			let handler = SigningHandler(app: app, options: options)
+            let job = await MainActor.run { SigningProgress.shared.begin(name: app.name ?? "App") }
+            let handler = SigningHandler(app: app, options: options, progressID: job)
 			handler.appCertificate = certificate
 			handler.appIcon = icon
 			
 			do {
 				try await handler.copy()
+				await SigningProgress.shared.stage(job, .preparing)
 				try await handler.modify()
 				try? await handler.clean()
 				await MainActor.run {
-					guard let signed = try? Storage.shared.context.fetch(Signed.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { completion(ReleaseError.invalidApp); return }
+					guard let signed = try? Storage.shared.context.fetch(Signed.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { SigningProgress.shared.finish(job, success: false); completion(ReleaseError.invalidApp); return }
+                    SigningProgress.shared.finish(job, success: true)
                     onSigned?(signed)
 					completion(nil)
 				}
@@ -75,6 +78,7 @@ enum FR {
 				try? await handler.clean()
                 try? FileManager.default.removeItem(at: FileManager.default.signed(handler.resultUUID))
 				await MainActor.run {
+					SigningProgress.shared.finish(job, success: false)
 					completion(error)
 				}
 			}

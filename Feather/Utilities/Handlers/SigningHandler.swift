@@ -18,6 +18,7 @@ final class SigningHandler: NSObject {
 	// using uuid string is the best way to find the
 	// app we want to sign, it does not matter what
 	// type of app it is
+	private let progressID: UUID?
 	private var _app: AppInfoPresentable
 	private var _options: Options
 	private let _uniqueWorkDir: URL
@@ -30,7 +31,8 @@ final class SigningHandler: NSObject {
 	var appIcon: UIImage?
 	var appCertificate: CertificatePair?
 	
-	init(app: AppInfoPresentable, options: Options = OptionsManager.shared.options) {
+	init(app: AppInfoPresentable, options: Options = OptionsManager.shared.options, progressID: UUID? = nil) {
+		self.progressID = progressID
 		self._app = app
 		self._options = options
 		self._uniqueWorkDir = _fileManager.temporaryDirectory
@@ -115,6 +117,7 @@ final class SigningHandler: NSObject {
 			_options.signingOption == .default,
 			appCertificate != nil
 		{
+			await SigningProgress.shared.stage(progressID, .signing)
 			try await handler.sign()
 //		} else if _options.signingOption == .adhoc {
 //			try await handler.adhocSign()
@@ -125,6 +128,7 @@ final class SigningHandler: NSObject {
 		}
 		
 		if let error = handler.hadError { throw error }
+		await SigningProgress.shared.stage(progressID, .saving)
 		try await self.move()
 		try await self.addToDatabase()
 	}

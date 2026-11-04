@@ -1,4 +1,5 @@
 import SwiftUI
+import NimbleViews
 final class NavigatorPreferences: ObservableObject {
     static let shared = NavigatorPreferences()
     @Published var showLabels: Bool { didSet { UserDefaults.standard.set(showLabels, forKey: "Navigator.labels") } }
@@ -15,30 +16,40 @@ final class NavigatorPreferences: ObservableObject {
 struct NavigatorView: View {
     @ObservedObject private var preferences = NavigatorPreferences.shared
     var body: some View {
-        List {
-            Section { Toggle("Show Labels", isOn: $preferences.showLabels) }
-            Section {
+        NBList("Navigator") {
+            NBSection("Appearance") { Toggle("Show Labels", isOn: $preferences.showLabels) }
+            NBSection("Navigation") {
                 ForEach(preferences.tabs, id: \.self) { tab in
-                    HStack {
-                        Label(tab.title, systemImage: tab.icon)
-                        Spacer()
-                    }.deleteDisabled(tab == .settings)
+                    row(tab, visible: true)
                 }
                 .onMove { indices, offset in
-                    var tabs = preferences.tabs; tabs.move(fromOffsets: indices, toOffset: offset); preferences.set(tabs)
+                    var tabs = preferences.tabs
+                    tabs.move(fromOffsets: indices, toOffset: offset)
+                    preferences.set(tabs)
                 }
-                .onDelete { indices in
-                    preferences.set(preferences.tabs.enumerated().filter { !indices.contains($0.offset) || $0.element == .settings }.map(\.element))
-                }
-            } header: { Text("Navigation Items") } footer: { Text("Drag to reorder. Settings always stays available.") }
+            } footer: { Text("Use Edit to reorder. Settings always stays available.") }
             let hidden = TabEnum.allCases.filter { !preferences.tabs.contains($0) }
             if !hidden.isEmpty {
-                Section("Add Navigation Item") {
-                    ForEach(hidden, id: \.self) { tab in
-                        Button { preferences.set(preferences.tabs + [tab]) } label: { Label(tab.title, systemImage: "plus.circle") }
-                    }
-                }
+                NBSection("Hidden") { ForEach(hidden, id: \.self) { row($0, visible: false) } }
             }
-        }.environment(\.editMode, .constant(.active)).navigationTitle("Navigator")
+        }
+        .toolbar { ToolbarItem(placement: .topBarTrailing) { EditButton() } }
+    }
+    private func row(_ tab: TabEnum, visible: Bool) -> some View {
+        HStack(spacing: 18) {
+            Image(systemName: tab.icon)
+                .font(.system(size: 24, weight: .medium))
+                .frame(width: 56, height: 56)
+                .background(Color(uiColor: .quaternarySystemFill), in: RoundedRectangle(cornerRadius: 14))
+            NBTitleWithSubtitleView(title: tab.title, subtitle: tab == .settings ? "Always available" : (visible ? "Shown in navigation" : "Hidden from navigation"), linelimit: 0)
+            if tab != .settings {
+                Button(visible ? "Hide" : "Show") {
+                    preferences.set(visible ? preferences.tabs.filter { $0 != tab } : preferences.tabs + [tab])
+                }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+            }
+        }
+        .padding(.vertical, 4)
     }
 }

@@ -13,33 +13,33 @@ import NimbleViews
 struct SigningView: View {
 	@Environment(\.dismiss) var dismiss
 	@StateObject private var _optionsManager = OptionsManager.shared
-	
+
 	@State private var _temporaryOptions: Options = OptionsManager.shared.options
 	@State private var _temporaryCertificate: Int
 	@State private var _isAltPickerPresenting = false
 	@State private var _isFilePickerPresenting = false
 	@State private var _isImagePickerPresenting = false
 	@State private var _isSigning = false
-	@State private var _signedResult: Signed?
+
 	@State private var _selectedPhoto: PhotosPickerItem? = nil
 	@State var appIcon: UIImage?
-	
+
 	// MARK: Fetch
 	@FetchRequest(
 		entity: CertificatePair.entity(),
 		sortDescriptors: [NSSortDescriptor(keyPath: \CertificatePair.date, ascending: false)],
 		animation: .snappy
 	) private var certificates: FetchedResults<CertificatePair>
-	
+
 	private func _selectedCert() -> CertificatePair? {
 		guard certificates.indices.contains(_temporaryCertificate) else { return nil }
 		return certificates[_temporaryCertificate]
 	}
-	
+
 	var app: AppInfoPresentable
 	var replacementUUID: String?
 	var preferredIdentifier: String?
-	
+
 	init(app: AppInfoPresentable, replacementUUID: String? = nil, preferredIdentifier: String? = nil) {
 		self.replacementUUID = replacementUUID
 		self.preferredIdentifier = preferredIdentifier
@@ -47,7 +47,7 @@ struct SigningView: View {
 		let storedCert = UserDefaults.standard.integer(forKey: "feather.selectedCert")
 		__temporaryCertificate = State(initialValue: storedCert)
 	}
-		
+
 	// MARK: Body
 	var body: some View {
 		NBNavigationView("", displayMode: .inline) {
@@ -55,13 +55,14 @@ struct SigningView: View {
 				_customizationOptions(for: app)
 				_cert()
 				_customizationProperties(for: app)
-				
+
 				// horrible
 				Rectangle()
 					.foregroundStyle(.clear)
 					.frame(height: 30)
 					.listRowBackground(EmptyView())
 			}
+			.disabled(_isSigning)
 			.overlay {
 				VStack(spacing: 0) {
 					Spacer()
@@ -76,6 +77,7 @@ struct SigningView: View {
 									.padding()
 							}
 							.buttonStyle(.plain)
+							.disabled(_isSigning)
 							.offset(y: UIDevice.current.userInterfaceIdiom == .pad ? -20 : -40)
 						}
 				}
@@ -114,7 +116,7 @@ struct SigningView: View {
 			.photosPicker(isPresented: $_isImagePickerPresenting, selection: $_selectedPhoto)
 			.onChange(of: _selectedPhoto) { newValue in
 				guard let newValue else { return }
-				
+
 				Task {
 					if let data = try? await newValue.loadTransferable(type: Data.self),
 					   let image = UIImage(data: data)?.resizeToSquare() {
@@ -122,7 +124,7 @@ struct SigningView: View {
 					}
 				}
 			}
-			.disabled(_isSigning)
+
 			.animation(.smooth, value: _isSigning)
 		}
 		.onAppear {
@@ -135,14 +137,14 @@ struct SigningView: View {
 			{
 				_temporaryOptions.appIdentifier = "\(identifier).\(_optionsManager.options.ppqString)"
 			}
-			
+
 			if
 				let currentBundleId = app.identifier,
 				let newBundleId = _temporaryOptions.identifiers[currentBundleId]
 			{
 				_temporaryOptions.appIdentifier = newBundleId
 			}
-			
+
 			if
 				let currentName = app.name,
 				let newName = _temporaryOptions.displayNames[currentName]
@@ -171,7 +173,7 @@ extension SigningView {
 					FRAppIconView(app: app, size: 56)
 				}
 			}
-			
+
 			_infoCell(.localized("Name"), desc: _temporaryOptions.appName ?? app.name) {
 				SigningPropertiesView(
 					title: .localized("Name"),
@@ -195,7 +197,7 @@ extension SigningView {
 			}
 		}
 	}
-	
+
 	@ViewBuilder
 	private func _cert() -> some View {
 		NBSection(.localized("Signing")) {
@@ -214,7 +216,7 @@ extension SigningView {
 			}
 		}
 	}
-	
+
 	@ViewBuilder
 	private func _customizationProperties(for app: AppInfoPresentable) -> some View {
 		NBSection(.localized("Advanced")) {
@@ -225,27 +227,27 @@ extension SigningView {
 						options: $_temporaryOptions.optional()
 					)
 				}
-				
+
 				NavigationLink(.localized("Frameworks & PlugIns")) {
 					SigningFrameworksView(
 						app: app,
 						options: $_temporaryOptions.optional()
 					)
 				}
-			
+
 				NavigationLink(.localized("Entitlements") + " (BETA)") {
 					SigningEntitlementsView(
 						bindingValue: $_temporaryOptions.appEntitlementsFile
 					)
 				}
-				
+
 				NavigationLink(.localized("Tweaks")) {
 					SigningTweaksView(
 						options: $_temporaryOptions
 					)
 				}
 			}
-			
+
 			NavigationLink(.localized("Properties")) {
 				Form { SigningOptionsView(
 					options: $_temporaryOptions,
@@ -255,7 +257,7 @@ extension SigningView {
 			}
 		}
 	}
-	
+
 	@ViewBuilder
 	private func _infoCell<V: View>(_ title: String, desc: String?, @ViewBuilder destination: () -> V) -> some View {
 		NavigationLink {
@@ -291,14 +293,16 @@ extension SigningView {
 		let generator = UIImpactFeedbackGenerator(style: .light)
 		generator.impactOccurred()
 		_isSigning = true
-		
+
 		FR.signPackageFile(
 			app,
 			using: _temporaryOptions,
 			icon: appIcon,
 			certificate: _selectedCert(),
             onSigned: { signed in
-                _signedResult = signed
+                if _temporaryOptions.post_installAppAfterSigned {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { NotificationCenter.default.post(name: Notification.Name("Feather.installApp"), object: signed) }
+                }
                 if let replacementUUID, let old = GitHubReleases.shared.allApps().first(where: { $0.uuid == replacementUUID }), old.uuid != signed.uuid {
                     Storage.shared.deleteApp(for: old)
                 }
@@ -308,7 +312,7 @@ extension SigningView {
 				let ok = UIAlertAction(title: .localized("Dismiss"), style: .cancel) { _ in
 					dismiss()
 				}
-				
+
 				UIAlertController.showAlert(
 					title: "Error",
 					message: error.localizedDescription,
@@ -321,14 +325,10 @@ extension SigningView {
 				{
 					Storage.shared.deleteApp(for: app)
 				}
-				
-				if _temporaryOptions.post_installAppAfterSigned {
-					DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-						NotificationCenter.default.post(name: Notification.Name("Feather.installApp"), object: _signedResult)
-					}
-				}
+
 				dismiss()
 			}
 		}
+        dismiss()
 	}
 }
