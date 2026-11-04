@@ -16,6 +16,8 @@ struct SourcesView: View {
 	#if !NIGHTLY && !DEBUG
 		@AppStorage("Feather.shouldStar") private var _shouldStar: Int = 0
 	#endif
+	@ObservedObject private var githubSources = GitHubSources.shared
+	@State private var githubRepository: GitHubRepository?
 	@StateObject var viewModel = SourcesViewModel.shared
 	@State private var _isAddingPresenting = false
 	@State private var _addingSourceLoading = false
@@ -35,6 +37,14 @@ struct SourcesView: View {
 	var body: some View {
 		NBNavigationView(.localized("Sources")) {
 			NBListAdaptable {
+                if !githubSources.repositories.isEmpty {
+                    Section("GitHub") {
+                        ForEach(githubSources.repositories) { repository in
+                            Button { githubRepository = repository } label: { Label(repository.slug, systemImage: "chevron.left.forwardslash.chevron.right") }
+                            .swipeActions { Button("Remove", role: .destructive) { githubSources.remove(repository) } }
+                        }
+                    }
+                }
 				if !_filteredSources.isEmpty {
 					Section {
 						NavigationLink {
@@ -76,7 +86,7 @@ struct SourcesView: View {
 			}
 			.searchable(text: $_searchText, placement: .platform())
 			.overlay {
-				if _filteredSources.isEmpty {
+				if _filteredSources.isEmpty && githubSources.repositories.isEmpty {
 					if #available(iOS 17, *) {
 						ContentUnavailableView {
 							Label(.localized("No Repositories"), systemImage: "globe.desk.fill")
@@ -105,6 +115,7 @@ struct SourcesView: View {
 			.refreshable {
 				await viewModel.fetchSources(_sources, refresh: true)
 			}
+			.sheet(item: $githubRepository) { GitHubImportView(repositoryInput: $0.slug) }
 			.sheet(isPresented: $_isAddingPresenting) {
 				SourcesAddView()
 			}

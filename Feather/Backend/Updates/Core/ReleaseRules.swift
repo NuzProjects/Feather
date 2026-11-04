@@ -1,5 +1,6 @@
 import Foundation
-struct GitHubRepository: Codable, Equatable, Hashable {
+struct GitHubRepository: Codable, Equatable, Hashable, Identifiable {
+    var id: String { slug }
     let owner: String
     let name: String
     var slug: String { "\(owner)/\(name)" }

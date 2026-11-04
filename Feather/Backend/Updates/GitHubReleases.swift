@@ -14,7 +14,7 @@ struct GitHubTracking: Codable {
 @MainActor
 final class GitHubReleases: ObservableObject {
     static let shared = GitHubReleases()
-    static let refreshID = "dev.madebynuz.Feather.release-refresh"
+    static let refreshID = "dev.madebynuz.dev.feather.release-refresh"
     @Published var updates: [String: GitHubTracking] = [:]
     @Published var busy: Set<String> = []
     @Published var lastError: String?

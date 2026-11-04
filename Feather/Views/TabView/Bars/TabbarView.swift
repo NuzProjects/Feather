@@ -1,29 +1,42 @@
-//
-//  TabbarView.swift
-//  feather
-//
-//  Created by samara on 23.03.2025.
-//
-
 import SwiftUI
+import UIKit
 
 struct TabbarView: View {
-	@ObservedObject private var navigator = NavigatorPreferences.shared
-	@State private var selectedTab: TabEnum = .sources
+    @ObservedObject private var navigator = NavigatorPreferences.shared
+    var body: some View { NativeNavigator(tabs: navigator.tabs, showLabels: navigator.showLabels).ignoresSafeArea() }
+}
 
-	var body: some View {
-		TabView(selection: $selectedTab) {
-			ForEach(navigator.tabs, id: \.hashValue) { tab in
-				TabEnum.view(for: tab)
-					.tabItem {
-						if navigator.showLabels { Label(tab.title, systemImage: tab.icon) } else { Image(systemName: tab.icon).accessibilityLabel(tab.title) }
-					}
-					.tag(tab)
-			}
-		}
-		.onAppear { if !navigator.tabs.contains(selectedTab) { selectedTab = navigator.tabs.first ?? .settings } }
-		.onChange(of: navigator.tabs) { tabs in
-			if !tabs.contains(selectedTab) { selectedTab = .settings }
-		}
-	}
+private struct NativeNavigator: UIViewControllerRepresentable {
+    let tabs: [TabEnum]
+    let showLabels: Bool
+    func makeCoordinator() -> Coordinator { Coordinator() }
+    func makeUIViewController(context: Context) -> UITabBarController {
+        let controller = UITabBarController()
+        controller.delegate = context.coordinator
+        return controller
+    }
+    func updateUIViewController(_ controller: UITabBarController, context: Context) {
+        let selected = controller.selectedViewController
+        let pages: [UIViewController] = tabs.map { tab in
+            let page: UIHostingController<AnyView>
+            if let existing = context.coordinator.pages[tab] { page = existing }
+            else {
+                page = UIHostingController(rootView: AnyView(TabEnum.view(for: tab).environment(\.managedObjectContext, Storage.shared.context)))
+                context.coordinator.pages[tab] = page
+            }
+            page.tabBarItem.title = showLabels ? tab.title : nil
+            page.tabBarItem.image = UIImage(systemName: tab.icon)
+            page.tabBarItem.accessibilityLabel = tab.title
+            return page
+        }
+        if controller.viewControllers != pages {
+            controller.setViewControllers(pages, animated: false)
+            if let selected, pages.contains(selected) { controller.selectedViewController = selected }
+            else if let settings = context.coordinator.pages[.settings] { controller.selectedViewController = settings }
+        }
+        controller.tabBar.setNeedsLayout()
+    }
+    final class Coordinator: NSObject, UITabBarControllerDelegate {
+        var pages: [TabEnum: UIHostingController<AnyView>] = [:]
+    }
 }

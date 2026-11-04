@@ -22,7 +22,6 @@ struct NavigatorView: View {
                     HStack {
                         Label(tab.title, systemImage: tab.icon)
                         Spacer()
-                        if tab == .settings { Image(systemName: "lock.fill").foregroundStyle(.secondary).accessibilityLabel("Always visible") }
                     }.deleteDisabled(tab == .settings)
                 }
                 .onMove { indices, offset in

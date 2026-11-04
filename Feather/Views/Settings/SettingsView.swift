@@ -80,6 +80,7 @@ struct SettingsView: View {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
 				}
                 
+				Section { NavigationLink(destination: DataTransferView()) { Label("Transfer Data", systemImage: "arrow.left.arrow.right") } }
 				_directories()
                 
 				Section {
