@@ -9,6 +9,7 @@ Sideloading app meant for developer certificates.
 
 
 </div>
+
 ## Notice
 **This is a fork of [Feather](https://github.com/claration/Feather) with several UX and signing improvements. I intend for this repository to receive all Feather updates, as well as any modifications I see fit.**
 *__This Feather fork is under the GPL-3.0 license, and we do NOT collect any data from any user__*
