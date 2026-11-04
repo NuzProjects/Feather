@@ -294,13 +294,14 @@ extension SigningView {
 		generator.impactOccurred()
 		_isSigning = true
 
+		let options = _temporaryOptions
 		FR.signPackageFile(
 			app,
-			using: _temporaryOptions,
+			using: options,
 			icon: appIcon,
 			certificate: _selectedCert(),
             onSigned: { signed in
-                if _temporaryOptions.post_installAppAfterSigned {
+                if options.post_installAppAfterSigned {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { NotificationCenter.default.post(name: Notification.Name("Feather.installApp"), object: signed) }
                 }
                 if let replacementUUID, let old = GitHubReleases.shared.allApps().first(where: { $0.uuid == replacementUUID }), old.uuid != signed.uuid {
@@ -320,7 +321,7 @@ extension SigningView {
 				)
 			} else {
 				if
-					_temporaryOptions.post_deleteAppAfterSigned,
+					options.post_deleteAppAfterSigned,
 					!app.isSigned
 				{
 					Storage.shared.deleteApp(for: app)

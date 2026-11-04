@@ -37,7 +37,7 @@ private struct NativeNavigator: UIViewControllerRepresentable {
                 page = UIHostingController(rootView: AnyView(TabEnum.view(for: tab).environment(\.managedObjectContext, Storage.shared.context)))
                 context.coordinator.pages[tab] = page
             }
-            page.tabBarItem.title = showLabels ? tab.title : nil
+            page.tabBarItem.title = showLabels ? tab.title : ""
             page.tabBarItem.image = UIImage(systemName: tab.icon)
             page.tabBarItem.accessibilityLabel = tab.title
             return page

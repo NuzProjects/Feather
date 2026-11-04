@@ -77,9 +77,27 @@ enum FeatherTransfer {
         for record in records {
             guard let entity = record["entity"] as? String, entities.contains(entity), let attributes = record["attributes"] as? [String: Any] else { throw Failure.invalid }
             _ = try key(entity, attributes)
+            if entity != "AltSource" {
+                let uuid = attributes[entity == "AppSourceMetadata" ? "appUUID" : "uuid"] as? String
+                guard uuid.flatMap(UUID.init(uuidString:)) != nil else { throw Failure.invalid }
+            }
+            if let certificate = record["certificate"] as? String, UUID(uuidString: certificate) == nil { throw Failure.invalid }
             guard let description = Storage.shared.container.managedObjectModel.entitiesByName[entity] else { throw Failure.invalid }
             for (name, attribute) in description.attributesByName where !attribute.isOptional && attribute.defaultValue == nil {
                 guard attributes[name] != nil else { throw Failure.invalid }
+            }
+            for (name, value) in attributes {
+                guard let attribute = description.attributesByName[name] else { continue }
+                let valid: Bool
+                switch attribute.attributeType {
+                case .stringAttributeType: valid = value is String
+                case .dateAttributeType: valid = value is Date
+                case .booleanAttributeType, .integer16AttributeType, .integer32AttributeType, .integer64AttributeType, .doubleAttributeType, .floatAttributeType: valid = value is NSNumber
+                case .URIAttributeType: valid = (value as? String).flatMap(URL.init(string:)) != nil
+                case .binaryDataAttributeType: valid = value is Data
+                default: valid = false
+                }
+                guard valid else { throw Failure.invalid }
             }
         }
         let source = folder.appendingPathComponent("Documents", isDirectory: true)
