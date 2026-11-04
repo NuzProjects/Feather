@@ -22,6 +22,7 @@ public struct NBListAdaptable<Content>: View where Content: View {
 				_content
 			}
 			.listStyle(.plain)
+			.listRowSeparator(.hidden)
 		} else {
 			NBGrid {
 				_content

@@ -29,6 +29,8 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 	
 	public func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
 		let picker = UIDocumentPickerViewController(forOpeningContentTypes: allowedContentTypes, asCopy: true)
+		// Open in the Downloads folder (iCloud Drive) by default; the system falls back silently if unavailable.
+		picker.directoryURL = URL(fileURLWithPath: "/private/var/mobile/Library/Mobile Documents/com~apple~CloudDocs/Downloads", isDirectory: true)
 		picker.delegate = context.coordinator
 		picker.allowsMultipleSelection = allowsMultipleSelection
 		return picker
