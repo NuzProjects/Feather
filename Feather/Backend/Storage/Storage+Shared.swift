@@ -29,6 +29,7 @@ extension Storage {
 			}
 			deleteSourceMetadata(for: app.uuid)
 			GitHubReleases.shared.remove(app.uuid)
+			SigningHistory.shared.remove(app.uuid)
 			if let object = app as? NSManagedObject {
 				context.delete(object)
 			}

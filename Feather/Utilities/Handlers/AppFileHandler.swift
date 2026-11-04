@@ -109,8 +109,7 @@ final class AppFileHandler: NSObject, @unchecked Sendable {
 	func addToDatabase(replacing uuid: String? = nil) async throws {
         let app = try await _directory()
         guard let appURL = _fileManager.getPath(in: app, for: "app"), let bundle = Bundle(url: appURL), bundle.bundleIdentifier != nil else { throw ReleaseError.invalidApp }
-        let existing = try await ReplacementCoordinator.shared.duplicateImport(name: bundle.name, replacing: uuid)
-        try await MainActor.run {
+        try await ReplacementCoordinator.shared.commitImport(name: bundle.name, replacing: uuid) { existing in
             Storage.shared.addImported(uuid: _uuid, source: _sourceProvenance?.sourceRepositoryURL, appName: bundle.name, appIdentifier: bundle.bundleIdentifier, appVersion: bundle.version, appIcon: bundle.iconFileName) { _ in }
             if let provenance = _sourceProvenance { Storage.shared.addSourceMetadata(for: _uuid, kind: .imported, provenance: provenance) }
             do { try Storage.shared.context.save() }

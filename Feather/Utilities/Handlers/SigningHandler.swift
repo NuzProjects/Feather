@@ -39,7 +39,7 @@ final class SigningHandler: NSObject {
 	}
 	
 	func copy() async throws {
-		guard let appUrl = Storage.shared.getAppDirectory(for: _app) else {
+		guard let appUrl = await MainActor.run(body: { Storage.shared.getAppDirectory(for: _app) }) else {
 			throw SigningFileHandlerError.appNotFound
 		}
 
@@ -155,6 +155,7 @@ final class SigningHandler: NSObject {
             do { try Storage.shared.context.save() }
             catch { Storage.shared.context.rollback(); throw error }
             GitHubReleases.shared.copy(from: _app.uuid, to: _uuid)
+            SigningHistory.shared.record(_options, for: _uuid)
         }
     }
 
@@ -438,7 +439,8 @@ extension SigningHandler {
 		}
 		
 		let ourTeamIdentifier = ourEntitlements.TeamIdentifier[0]
-		let ourBundleIdentifer = options.appIdentifier ?? _app.identifier
+		let originalIdentifier = await MainActor.run { _app.identifier }
+		let ourBundleIdentifer = options.appIdentifier ?? originalIdentifier
 		
 		var baseDictionary: [String: Any] = (ourEntitlements.Entitlements ?? [:]).mapValues { $0.value }
 		let additionsDictionary: [String: Any] = binaryEntitlementsDict

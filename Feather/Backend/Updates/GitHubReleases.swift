@@ -1,3 +1,4 @@
+import NimbleExtensions
 import SwiftUI
 import CoreData
 import UserNotifications
@@ -49,8 +50,9 @@ final class GitHubReleases: ObservableObject {
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
         return try JSONDecoder().decode([GitHubRelease].self, from: data).filter { !$0.draft && !$0.ipaAssets.isEmpty }
     }
-    func check(force: Bool = false) async {
-        guard !checking, force || Date().timeIntervalSince(lastCheck) > 1800 else { return }
+    @discardableResult
+    func check(force: Bool = false) async -> Bool {
+        guard !checking, force || Date().timeIntervalSince(lastCheck) > 1800 else { return true }
         checking = true; defer { checking = false }
         var cache: [GitHubRepository: [GitHubRelease]] = [:]
         let apps = allApps()
@@ -76,6 +78,7 @@ final class GitHubReleases: ObservableObject {
             } catch { failed = true; lastError = error.localizedDescription }
         }
         if !failed { lastCheck = Date() }
+        return !failed && !Task.isCancelled
     }
     private func notify(app: AppInfoPresentable, update: GitHubTracking, id: String) async -> Bool {
         let center = UNUserNotificationCenter.current()
@@ -98,6 +101,7 @@ final class GitHubReleases: ObservableObject {
         let oldUUID = old?.uuid
         let oldIdentifier = old?.identifier
         let oldWasSigned = old?.isSigned == true
+        let oldOptions = SigningHistory.shared.options(for: oldUUID)
         let oldCertificate = old.flatMap { Storage.shared.getCertificate(from: $0) }
         let previous = oldUUID.flatMap { tracking[$0] }
         let replacementImport = oldWasSigned ? allApps().first(where: {
@@ -107,8 +111,8 @@ final class GitHubReleases: ObservableObject {
         let key = oldUUID ?? selection.repository.slug
         guard !busy.contains(key) else { return }
         busy.insert(key); defer { busy.remove(key) }
-        let background = UIApplication.shared.beginBackgroundTask(withName: "GitHub IPA")
-        defer { if background != .invalid { UIApplication.shared.endBackgroundTask(background) } }
+        let lease = UpdateBackgroundLease()
+        defer { lease.end() }
         let (temporary, response) = try await URLSession.shared.download(from: selection.asset.browser_download_url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -125,7 +129,7 @@ final class GitHubReleases: ObservableObject {
         tracking[uuid] = selection; save()
         guard let old else { return }
         if let certificate = oldCertificate {
-            var options = OptionsManager.shared.options
+            var options = oldOptions ?? OptionsManager.shared.options
             options.appIdentifier = oldIdentifier
             options.appVersion = nil
             options.signingOption = .default
@@ -156,10 +160,25 @@ final class GitHubReleases: ObservableObject {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: refreshID, using: nil) { task in
             let work = Task { @MainActor in
                 schedule()
-                await shared.check(force: true)
-                task.setTaskCompleted(success: !Task.isCancelled)
+                let success = await shared.check(force: true)
+                task.setTaskCompleted(success: success)
             }
             task.expirationHandler = { work.cancel() }
         }
+    }
+}
+
+@MainActor
+private final class UpdateBackgroundLease {
+    private var identifier: UIBackgroundTaskIdentifier = .invalid
+    init() {
+        identifier = UIApplication.shared.beginBackgroundTask(withName: "GitHub IPA") { [weak self] in
+            Task { @MainActor in self?.end() }
+        }
+    }
+    func end() {
+        guard identifier != .invalid else { return }
+        UIApplication.shared.endBackgroundTask(identifier)
+        identifier = .invalid
     }
 }

@@ -37,16 +37,24 @@ jobs:
           if [ -f Package.swift ]; then swift test; fi
       - name: Prepare install server assets
         run: make deps
-      - name: Build iPhone app
+      - name: Resolve Swift packages
         run: |
           set -o pipefail
           git config --global http.version HTTP/1.1
+          for attempt in 1 2; do
+            if xcodebuild -resolvePackageDependencies -workspace Feather.xcworkspace -scheme Feather \
+              -derivedDataPath "$RUNNER_TEMP/Feather" 2>&1 | tee "$RUNNER_TEMP/build.log"; then exit 0; fi
+          done
+          exit 1
+      - name: Build iPhone app
+        run: |
+          set -o pipefail
           xcodebuild -workspace Feather.xcworkspace -scheme Feather -configuration Release \
             -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/Feather" \
-            -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO \
+            -disableAutomaticPackageResolution -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO \
             FEATHER_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.Feather \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} \
-            ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES 2>&1 | tee "$RUNNER_TEMP/build.log"
+            ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES 2>&1 | tee -a "$RUNNER_TEMP/build.log"
       - name: Package IPA for device signing
         run: |
           set -euo pipefail
