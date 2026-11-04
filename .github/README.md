@@ -1,7 +1,3 @@
-[![GitHub Release](https://img.shields.io/github/v/release/claration/Feather?include_prereleases)](https://github.com/claration/Feather/releases)
-[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/claration/Feather/total)](https://github.com/claration/Feather/releases)
-[![GitHub License](https://img.shields.io/github/license/claration/Feather?color=%23C96FAD)](https://github.com/claration/Feather/blob/main/LICENSE)
-[![Sponsor Me](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/khcrysalis)
 
 <div align="center">
 
@@ -13,14 +9,17 @@ Sideloading app meant for developer certificates.
 
 
 </div>
+## Notice
+**This is a fork of [Feather](https://github.com/claration/Feather) with several UX and signing improvements. I intend for this repository to receive all Feather updates, as well as any modifications I see fit.**
+*__This Feather fork is under the GPL-3.0 license, and we do NOT collect any data from any user__*
 
 ## Features
 
-- User friendly, and clean UI.
+- User-friendly and clean UI.
 - Sign and install applications.
 - Supports [AltStore](https://faq.altstore.io/distribute-your-apps/make-a-source#apps) repositories.
 - View detailed information about apps and your certificates.
-- Configurable signing options mainly for modifying the app, such as appearance and allowing support for the files app.
+- Configurable signing options mainly for modifying the app, such as appearance and allowing support for the Files app.
   - This includes patching apps for compatibility and Liquid Glass.
 - Tweak support for advanced users, using [Ellekit](https://github.com/tealbathingsuit/ellekit) for injection. 
   - Supports injecting `.deb` and `.dylib` files.
@@ -41,18 +40,11 @@ Visit [releases](https://github.com/claration/Feather/releases) and get the late
 
 ## Translating
 
-Feather now has translation support, all localizations are located in `Feather/Resources/Localizable.xcstrings`.
+Feather now supports translation; all localizations are in `Feather/Resources/Localizable.xcstrings`.
 
 To add a new language, open Xcode and use the interface to add/contribute to languages.
 
-To properly contribute and test potentially test localizations, you can head over to the [contributing guide](./CONTRIBUTING.md).
-
-## Sponsors
-
-| Thanks to all my [sponsors](https://github.com/sponsors/claration)!! |
-|:--------------------------------------------------------------------:|
-| <img src="https://sponsors.claration.dev/sponsors.png">              |
-| _**"samara is cute" - Vendicated**_                                  |
+To properly contribute and test potentially new localizations, you can head over to the [contributing guide](./CONTRIBUTING.md).
 
 ## Acknowledgements
 
@@ -60,10 +52,10 @@ To properly contribute and test potentially test localizations, you can head ove
 - [idevice](https://github.com/jkcoxson/idevice) - Backend for builds with this included, used for communication with `installd`.
 - [*.backloop.dev](https://backloop.dev/) - localhost with public CA signed SSL certificate
 - [Vapor](https://github.com/vapor/vapor) - A server-side Swift HTTP web framework.
-- [Zsign](https://github.com/zhlynn/zsign) - Allowing to sign on-device, reimplimented to work on other platforms such as iOS.
+- [Zsign](https://github.com/zhlynn/zsign) - Allows signing on-device, re-implemented to work on other platforms such as iOS.
 - [LiveContainer](https://github.com/LiveContainer/LiveContainer) - Fixes/some help
 - [Nuke](https://github.com/kean/Nuke) - Image caching.
-- [Asspp](https://github.com/Lakr233/Asspp) - Some code for setting up the http server.
+- [Asspp](https://github.com/Lakr233/Asspp) - Some code for setting up the HTTP server.
 - [plistserver](https://github.com/nekohaxx/plistserver) - Hosted on https://api.palera.in.
 
 ## License 
