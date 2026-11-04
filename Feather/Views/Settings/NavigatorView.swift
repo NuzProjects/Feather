@@ -17,9 +17,11 @@ struct NavigatorView: View {
     @State private var editMode: EditMode = .inactive
     @ObservedObject private var preferences = NavigatorPreferences.shared
     var body: some View {
-        NBList("Navigator", type: .list) {
-            NBSection("Appearance") { Toggle("Show Labels", isOn: $preferences.showLabels) }
-            NBSection("Navigation") {
+        NBList("Navigator") {
+            Section {
+                Toggle(isOn: $preferences.showLabels) { Label("Show Labels", systemImage: "textformat") }
+            }
+            Section {
                 ForEach(preferences.tabs, id: \.self) { tab in
                     row(tab, visible: true)
                 }
@@ -30,31 +32,26 @@ struct NavigatorView: View {
                         preferences.set(tabs)
                     }
                 }
-            } footer: { Text("Use Reorder to arrange tabs.") }
+            } header: { Text("Navigation") } footer: { Text("Use Reorder to arrange tabs.") }
             let hidden = TabEnum.allCases.filter { !preferences.tabs.contains($0) }
             if !hidden.isEmpty {
-                NBSection("Hidden") { ForEach(hidden, id: \.self) { row($0, visible: false) } }
+                Section("Hidden") { ForEach(hidden, id: \.self) { row($0, visible: false) } }
             }
         }
-        .listStyle(.insetGrouped)
+        .symbolVariant(.fill)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { Button(editMode.isEditing ? "Done" : "Reorder") { withAnimation(.smooth(duration: 0.25)) { editMode = editMode.isEditing ? .inactive : .active } } } }
         .environment(\.editMode, $editMode)
     }
     private func row(_ tab: TabEnum, visible: Bool) -> some View {
-        HStack(spacing: 18) {
-            Image(systemName: tab.icon).symbolVariant(.fill)
-                .font(.system(size: 24, weight: .medium))
-                .frame(width: 56, height: 56)
-                .background(Color(uiColor: .quaternarySystemFill), in: RoundedRectangle(cornerRadius: 14))
-            Text(tab.title).frame(maxWidth: .infinity, alignment: .leading)
+        HStack {
+            Label(tab.title, systemImage: tab.icon)
+            Spacer()
             if tab != .settings {
                 Button(visible ? "Hide" : "Show") {
                     withAnimation(.smooth(duration: 0.25)) { preferences.set(visible ? preferences.tabs.filter { $0 != tab } : preferences.tabs + [tab]) }
                 }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
+                .buttonStyle(.borderless)
             }
         }
-        .padding(.vertical, 4)
     }
 }

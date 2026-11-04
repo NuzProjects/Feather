@@ -43,11 +43,12 @@ struct DownloadButtonView: View {
 			} else {
 				Button {
 					if let url = app.currentDownloadUrl {
-						_ = downloadManager.startDownload(
+						let started = downloadManager.startDownload(
 							from: url,
 							id: app.currentUniqueId,
 							sourceProvenance: _sourceProvenance()
 						)
+						started.iconURL = app.iconURL
 					}
 				} label: {
 					Text(.localized("Get"))

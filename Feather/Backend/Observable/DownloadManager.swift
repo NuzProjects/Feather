@@ -13,6 +13,7 @@ import BackgroundTasks
 class Download: ObservableObject, Identifiable, @unchecked Sendable {
 	@Published var displayName: String?
 	@Published var appIcon: UIImage?
+	var iconURL: URL?
 	@Published var progress: Double = 0.0
 	@Published var bytesDownloaded: Int64 = 0
 	@Published var totalBytes: Int64 = 0

@@ -1,5 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
+import NimbleViews
 
 struct DataTransferView: View {
     @State private var busy = false
@@ -7,23 +8,22 @@ struct DataTransferView: View {
     @State private var exportFolder: URL?
     @State private var message: String?
     var body: some View {
-        Form {
+        NBList("Transfer Data") {
             Section {
                 Button("Export Data", systemImage: "square.and.arrow.up") { export(includeApps: true) }
                 Button("Import Data", systemImage: "square.and.arrow.down") { picker = .import }
-            }
-            Section("Old Feather Installer") {
+            } footer: { Text("Copy your sources, apps, certificates and settings to or from another Feather install.") }
+            Section {
                 Button("Import Old Feather Backup", systemImage: "arrow.down.doc") { picker = .import }
                 if let helper = Bundle.main.url(forResource: "LegacyTransfer", withExtension: "ipa") {
                     Button("Export Transfer Installer", systemImage: "square.and.arrow.up") { exportFolder = helper; picker = .export }
                 } else {
                     Link("Get Transfer Installer", destination: URL(string: "https://github.com/NuzProjects/Feather/releases/download/iphone-test-build-14/Feather-Transfer.ipa")!)
                 }
-            }
+            } header: { Text("Old Feather Installer") }
             if busy { ProgressView("Transferring…") }
         }
         .symbolVariant(.fill)
-        .navigationTitle("Transfer Data")
         .disabled(busy)
         .sheet(item: $picker) { kind in
             TransferPicker(kind: kind, exportFolder: exportFolder) { url in

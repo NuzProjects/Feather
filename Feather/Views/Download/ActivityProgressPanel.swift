@@ -1,4 +1,5 @@
 import SwiftUI
+import NukeUI
 
 @MainActor
 final class ImportProgress: ObservableObject {
@@ -44,23 +45,19 @@ struct ActivityProgressPanel: View {
 private struct DownloadProgressCard: View {
     @ObservedObject var download: Download
     var body: some View {
-        ImportProgressCard(name: download.displayName ?? download.fileName, icon: download.appIcon, fraction: download.overallProgress)
+        ImportProgressCard(name: download.displayName ?? download.fileName, icon: download.appIcon, iconURL: download.iconURL, fraction: download.overallProgress)
     }
 }
 
 private struct ImportProgressCard: View {
     let name: String
     let icon: UIImage?
+    var iconURL: URL? = nil
     let fraction: Double
     var body: some View {
         surface {
             HStack(spacing: 12) {
-                Group {
-                    if let icon { Image(uiImage: icon).resizable().scaledToFit() }
-                    else { Image(systemName: "doc").font(.title2).frame(maxWidth: .infinity, maxHeight: .infinity).background(.quaternary) }
-                }
-                .frame(width: 42, height: 42)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                iconView
                 VStack(alignment: .leading, spacing: 7) {
                     HStack {
                         Text(name).font(.subheadline.weight(.semibold)).lineLimit(1)
@@ -80,5 +77,29 @@ private struct ImportProgressCard: View {
     @ViewBuilder private func surface<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         if #available(iOS 26, *) { content().glassEffect(.regular, in: RoundedRectangle(cornerRadius: 22)) }
         else { content().background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22)) }
+    }
+}
+
+private extension ImportProgressCard {
+    var iconSize: CGFloat { 42 }
+    var iconShape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: iconSize * (ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 26, minorVersion: 0, patchVersion: 0)) ? 0.2677 : 0.2337), style: .continuous)
+    }
+    @ViewBuilder var iconView: some View {
+        Group {
+            if let icon { Image(uiImage: icon).resizable().scaledToFill() }
+            else if let iconURL {
+                LazyImage(url: iconURL) { state in
+                    if let image = state.image { image.resizable().scaledToFill() } else { placeholder }
+                }
+            } else { placeholder }
+        }
+        .frame(width: iconSize, height: iconSize)
+        .clipShape(iconShape)
+        .overlay(iconShape.strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
+    }
+    var placeholder: some View {
+        Image(systemName: "app.fill").font(.title3).foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity).background(.quaternary)
     }
 }
