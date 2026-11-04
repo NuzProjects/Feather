@@ -66,3 +66,10 @@ enum NavigatorRules {
         return result
     }
 }
+
+struct ReplacementIdentity {
+    let bundleIdentifier: String
+    func apply(to info: NSMutableDictionary) {
+        info["CFBundleIdentifier"] = bundleIdentifier
+    }
+}

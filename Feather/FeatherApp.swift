@@ -41,6 +41,7 @@ struct FeatherApp: App {
 				}
 			}
 			// dear god help me
+			.task { await GitHubReleases.shared.check(); GitHubReleases.schedule() }
 			.onChange(of: scenePhase) { phase in
 				if phase == .active { Task { await GitHubReleases.shared.check(); GitHubReleases.schedule() } }
 			}

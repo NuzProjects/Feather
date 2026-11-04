@@ -25,6 +25,13 @@ jobs:
         run: |
           sudo xcode-select -s /Applications/Xcode_26.3.app/Contents/Developer
           xcodebuild -version
+      - uses: actions/cache/restore@v4
+        id: dependencies
+        with:
+          path: |
+            ${{ runner.temp }}/Feather
+            ~/Library/Caches/org.swift.swiftpm
+          key: feather-xcode26.3-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
       - name: Test update and navigation rules
         run: |
           if [ -f Package.swift ]; then swift test; fi
@@ -33,7 +40,8 @@ jobs:
       - name: Build iPhone app
         run: |
           set -o pipefail
-          xcodebuild -project Feather.xcodeproj -scheme Feather -configuration Release \
+          git config --global http.version HTTP/1.1
+          xcodebuild -workspace Feather.xcworkspace -scheme Feather -configuration Release \
             -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/Feather" \
             -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO \
             FEATHER_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.Feather \
@@ -56,6 +64,13 @@ jobs:
           path: packages/Feather.ipa
           if-no-files-found: error
           retention-days: 14
+      - uses: actions/cache/save@v4
+        if: always() && steps.dependencies.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/Feather
+            ~/Library/Caches/org.swift.swiftpm
+          key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Save build log
         if: failure()
         uses: actions/upload-artifact@v4

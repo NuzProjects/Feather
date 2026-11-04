@@ -72,6 +72,7 @@ struct LibraryCellView: View {
 				linelimit: 0
 			)
 			
+			if github.busy.contains(app.uuid ?? "") { ProgressView().accessibilityLabel("Updating app") }
 			if !isEditing {
 				_buttonActions(for: app)
 			}

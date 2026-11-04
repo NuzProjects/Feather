@@ -21,6 +21,7 @@ struct TabbarView: View {
 					.tag(tab)
 			}
 		}
+		.onAppear { if !navigator.tabs.contains(selectedTab) { selectedTab = navigator.tabs.first ?? .settings } }
 		.onChange(of: navigator.tabs) { tabs in
 			if !tabs.contains(selectedTab) { selectedTab = .settings }
 		}

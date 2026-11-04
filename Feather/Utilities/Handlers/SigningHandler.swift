@@ -195,7 +195,7 @@ extension SigningHandler {
 		// MARK: Prominant values
 		
 		if let customIdentifier = options.appIdentifier {
-			infoDictionary.setObject(customIdentifier, forKey: "CFBundleIdentifier" as NSCopying)
+			ReplacementIdentity(bundleIdentifier: customIdentifier).apply(to: infoDictionary)
 		}
 		if let customName = options.appName {
 			infoDictionary.setObject(customName, forKey: "CFBundleDisplayName" as NSCopying)

@@ -26,7 +26,7 @@ struct ExtendedTabbarView: View {
 	var body: some View {
 		TabView {
 			ForEach(navigator.tabs, id: \.hashValue) { tab in
-				Tab(navigator.showLabels ? tab.title : "", systemImage: tab.icon) {
+				Tab(tab.title, systemImage: tab.icon) {
 					TabEnum.view(for: tab)
 				}
 			}

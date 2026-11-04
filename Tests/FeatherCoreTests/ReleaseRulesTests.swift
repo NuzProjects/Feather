@@ -1,6 +1,13 @@
 import XCTest
 @testable import FeatherCore
 final class ReleaseRulesTests: XCTestCase {
+    func testReplacementPreservesIncomingVersionAndBuild() {
+        let output: NSMutableDictionary = ["CFBundleIdentifier": "new.id", "CFBundleShortVersionString": "2.4", "CFBundleVersion": "2409"]
+        ReplacementIdentity(bundleIdentifier: "existing.id").apply(to: output)
+        XCTAssertEqual(output["CFBundleIdentifier"] as? String, "existing.id")
+        XCTAssertEqual(output["CFBundleShortVersionString"] as? String, "2.4")
+        XCTAssertEqual(output["CFBundleVersion"] as? String, "2409")
+    }
     func testRepositoryParsing() throws {
         XCTAssertEqual(try GitHubRepository("https://github.com/owner/app/releases/tag/v2").slug, "owner/app")
         XCTAssertEqual(try GitHubRepository("owner/app.git").slug, "owner/app")

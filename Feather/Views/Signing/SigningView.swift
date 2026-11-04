@@ -20,6 +20,7 @@ struct SigningView: View {
 	@State private var _isFilePickerPresenting = false
 	@State private var _isImagePickerPresenting = false
 	@State private var _isSigning = false
+	@State private var _signedResult: Signed?
 	@State private var _selectedPhoto: PhotosPickerItem? = nil
 	@State var appIcon: UIImage?
 	
@@ -297,6 +298,7 @@ extension SigningView {
 			icon: appIcon,
 			certificate: _selectedCert(),
             onSigned: { signed in
+                _signedResult = signed
                 if let replacementUUID, let old = GitHubReleases.shared.allApps().first(where: { $0.uuid == replacementUUID }), old.uuid != signed.uuid {
                     Storage.shared.deleteApp(for: old)
                 }
@@ -322,7 +324,7 @@ extension SigningView {
 				
 				if _temporaryOptions.post_installAppAfterSigned {
 					DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-						NotificationCenter.default.post(name: Notification.Name("Feather.installApp"), object: nil)
+						NotificationCenter.default.post(name: Notification.Name("Feather.installApp"), object: _signedResult)
 					}
 				}
 				dismiss()

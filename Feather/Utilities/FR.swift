@@ -35,7 +35,8 @@ enum FR {
 				try await handler.addToDatabase(replacing: replacingImport)
 				try? await handler.clean()
 				await MainActor.run {
-					if let imported = try? Storage.shared.context.fetch(Imported.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) { onImported?(imported) }
+					guard let imported = try? Storage.shared.context.fetch(Imported.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { completion(ReleaseError.invalidApp); return }
+                    onImported?(imported)
 					completion(nil)
 				}
 			} catch {
@@ -66,11 +67,13 @@ enum FR {
 				try await handler.modify()
 				try? await handler.clean()
 				await MainActor.run {
-					if let signed = try? Storage.shared.context.fetch(Signed.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) { onSigned?(signed) }
+					guard let signed = try? Storage.shared.context.fetch(Signed.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { completion(ReleaseError.invalidApp); return }
+                    onSigned?(signed)
 					completion(nil)
 				}
 			} catch {
 				try? await handler.clean()
+                try? FileManager.default.removeItem(at: FileManager.default.signed(handler.resultUUID))
 				await MainActor.run {
 					completion(error)
 				}

@@ -95,7 +95,16 @@ final class GitHubReleases: ObservableObject {
         do { try await center.add(UNNotificationRequest(identifier: id, content: content, trigger: nil)); return true } catch { return false }
     }
     func importAsset(_ selection: GitHubTracking, replacing old: AppInfoPresentable? = nil) async throws {
-        let key = old?.uuid ?? selection.repository.slug
+        let oldUUID = old?.uuid
+        let oldIdentifier = old?.identifier
+        let oldWasSigned = old?.isSigned == true
+        let oldCertificate = old.flatMap { Storage.shared.getCertificate(from: $0) }
+        let previous = oldUUID.flatMap { tracking[$0] }
+        let replacementImport = oldWasSigned ? allApps().first(where: {
+            guard !$0.isSigned, let uuid = $0.uuid, let tracked = tracking[uuid], let previous else { return false }
+            return tracked.repository == previous.repository && tracked.release.id == previous.release.id && tracked.asset.id == previous.asset.id
+        })?.uuid : oldUUID
+        let key = oldUUID ?? selection.repository.slug
         guard !busy.contains(key) else { return }
         busy.insert(key); defer { busy.remove(key) }
         let background = UIApplication.shared.beginBackgroundTask(withName: "GitHub IPA")
@@ -108,16 +117,16 @@ final class GitHubReleases: ObservableObject {
         let ipa = folder.appendingPathComponent("download.ipa")
         try FileManager.default.moveItem(at: temporary, to: ipa)
         let imported: Imported = try await withCheckedThrowingContinuation { continuation in
-            FR.handlePackageFile(ipa, replacingImport: old?.isSigned == false ? old?.uuid : nil, onImported: { app in continuation.resume(returning: app) }) { error in
+            FR.handlePackageFile(ipa, replacingImport: replacementImport, onImported: { app in continuation.resume(returning: app) }) { error in
                 if let error { continuation.resume(throwing: error) }
             }
         }
         guard let uuid = imported.uuid else { throw ReleaseError.invalidApp }
         tracking[uuid] = selection; save()
         guard let old else { return }
-        if let certificate = Storage.shared.getCertificate(from: old) {
+        if let certificate = oldCertificate {
             var options = OptionsManager.shared.options
-            options.appIdentifier = old.identifier
+            options.appIdentifier = oldIdentifier
             options.appVersion = nil
             options.signingOption = .default
             let signed: Signed = try await withCheckedThrowingContinuation { continuation in
@@ -125,10 +134,10 @@ final class GitHubReleases: ObservableObject {
                     if let error { continuation.resume(throwing: error) }
                 }
             }
-            if old.isSigned { Storage.shared.deleteApp(for: old) }
+            if oldWasSigned { Storage.shared.deleteApp(for: old) }
             NotificationCenter.default.post(name: .init("Feather.installApp"), object: signed)
         } else {
-            NotificationCenter.default.post(name: .init("Feather.signApp"), object: AnyApp(base: imported, replacementUUID: old.isSigned ? old.uuid : nil, preferredIdentifier: old.identifier))
+            NotificationCenter.default.post(name: .init("Feather.signApp"), object: AnyApp(base: imported, replacementUUID: oldWasSigned ? oldUUID : nil, preferredIdentifier: oldIdentifier))
         }
     }
     func update(_ app: AppInfoPresentable) {
