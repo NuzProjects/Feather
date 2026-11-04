@@ -23,7 +23,8 @@ enum FeatherTransfer {
                 var attributes: [String: Any] = [:]
                 for (key, description) in object.entity.attributesByName {
                     guard let value = object.value(forKey: key) else { continue }
-                    attributes[key] = description.attributeType == .URIAttributeType ? (value as? URL)?.absoluteString : value
+                    if description.attributeType == .URIAttributeType, let url = value as? URL { attributes[key] = url.absoluteString }
+                    else { attributes[key] = value }
                 }
                 var record: [String: Any] = ["entity": name, "attributes": attributes]
                 if name == "Signed", let certificate = object.value(forKey: "certificate") as? NSManagedObject, let uuid = certificate.value(forKey: "uuid") as? String { record["certificate"] = uuid }
@@ -114,7 +115,8 @@ enum FeatherTransfer {
                 for (name, description) in object.entity.attributesByName {
                     guard let raw = attributes[name] else { continue }
                     let value = rebase(raw, from: oldHome)
-                    object.setValue(description.attributeType == .URIAttributeType ? (value as? String).flatMap(URL.init(string:)) : value, forKey: name)
+                    if description.attributeType == .URIAttributeType { object.setValue((value as? String).flatMap(URL.init(string:)), forKey: name) }
+                    else { object.setValue(value, forKey: name) }
                 }
                 existing[identifier] = object; inserted[identifier] = object
             }

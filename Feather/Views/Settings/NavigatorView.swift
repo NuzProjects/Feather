@@ -14,6 +14,7 @@ final class NavigatorPreferences: ObservableObject {
     }
 }
 struct NavigatorView: View {
+    @State private var editMode: EditMode = .inactive
     @ObservedObject private var preferences = NavigatorPreferences.shared
     var body: some View {
         NBList("Navigator", type: .list) {
@@ -35,6 +36,7 @@ struct NavigatorView: View {
         }
         .listStyle(.insetGrouped)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { EditButton() } }
+        .environment(\.editMode, $editMode)
     }
     private func row(_ tab: TabEnum, visible: Bool) -> some View {
         HStack(spacing: 18) {

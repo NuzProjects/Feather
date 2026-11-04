@@ -44,7 +44,8 @@ private struct NativeNavigator: UIViewControllerRepresentable {
         }
         if controller.viewControllers != pages {
             controller.setViewControllers(pages, animated: false)
-            if let selected, pages.contains(selected) { controller.selectedViewController = selected }
+            if selected == nil { controller.selectedViewController = pages.first }
+            else if let selected, pages.contains(selected) { controller.selectedViewController = selected }
             else if let settings = context.coordinator.pages[.settings] { controller.selectedViewController = settings }
         }
         controller.tabBar.setNeedsLayout()
