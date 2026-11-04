@@ -10,8 +10,8 @@ private struct NativeNavigator: UIViewControllerRepresentable {
     let tabs: [TabEnum]
     let showLabels: Bool
     func makeCoordinator() -> Coordinator { Coordinator() }
-    func makeUIViewController(context: Context) -> UITabBarController {
-        let controller = UITabBarController()
+    func makeUIViewController(context: Context) -> NativeTabController {
+        let controller = NativeTabController()
         controller.delegate = context.coordinator
         let panel = UIHostingController(rootView: SigningProgressPanel())
         panel.sizingOptions = .intrinsicContentSize
@@ -26,9 +26,10 @@ private struct NativeNavigator: UIViewControllerRepresentable {
         ])
         panel.didMove(toParent: controller)
         context.coordinator.panel = panel
+        controller.progressPanel = panel.view
         return controller
     }
-    func updateUIViewController(_ controller: UITabBarController, context: Context) {
+    func updateUIViewController(_ controller: NativeTabController, context: Context) {
         let selected = controller.selectedViewController
         let pages: [UIViewController] = tabs.map { tab in
             let page: UIHostingController<AnyView>
@@ -53,5 +54,13 @@ private struct NativeNavigator: UIViewControllerRepresentable {
     final class Coordinator: NSObject, UITabBarControllerDelegate {
         var panel: UIHostingController<SigningProgressPanel>?
         var pages: [TabEnum: UIHostingController<AnyView>] = [:]
+    }
+}
+
+private final class NativeTabController: UITabBarController {
+    weak var progressPanel: UIView?
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let progressPanel { view.bringSubviewToFront(progressPanel) }
     }
 }
