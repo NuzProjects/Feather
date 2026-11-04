@@ -231,7 +231,7 @@ struct LibraryView: View {
 extension LibraryView {
 	@ViewBuilder
 	private func _importActions() -> some View {
-		Button("Import from GitHub", systemImage: "chevron.left.forwardslash.chevron.right") { _isGitHubPresenting = true }
+		Button { _isGitHubPresenting = true } label: { Label { Text("Import from GitHub") } icon: { Image("GitHubMark").renderingMode(.template) } }
 		Button(.localized("Import from Files"), systemImage: "folder") {
 			_isImportingPresenting = true
 		}

@@ -13,7 +13,7 @@ private struct NativeNavigator: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> NativeTabController {
         let controller = NativeTabController()
         controller.delegate = context.coordinator
-        let panel = UIHostingController(rootView: SigningProgressPanel())
+        let panel = UIHostingController(rootView: ActivityProgressPanel())
         panel.sizingOptions = .intrinsicContentSize
         panel.view.backgroundColor = .clear
         panel.view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,12 +39,13 @@ private struct NativeNavigator: UIViewControllerRepresentable {
                 context.coordinator.pages[tab] = page
             }
             page.tabBarItem.title = showLabels ? tab.title : ""
-            page.tabBarItem.image = UIImage(systemName: tab.icon)
+            page.tabBarItem.image = UIImage(systemName: tab.icon + ".fill") ?? UIImage(systemName: tab.icon)
+            page.tabBarItem.selectedImage = UIImage(systemName: tab.icon + ".fill") ?? page.tabBarItem.image
             page.tabBarItem.accessibilityLabel = tab.title
             return page
         }
         if controller.viewControllers != pages {
-            controller.setViewControllers(pages, animated: false)
+            controller.setViewControllers(pages, animated: controller.view.window != nil)
             if selected == nil { controller.selectedViewController = pages.first }
             else if let selected, pages.contains(selected) { controller.selectedViewController = selected }
             else if let settings = context.coordinator.pages[.settings] { controller.selectedViewController = settings }
@@ -52,7 +53,7 @@ private struct NativeNavigator: UIViewControllerRepresentable {
         controller.tabBar.setNeedsLayout()
     }
     final class Coordinator: NSObject, UITabBarControllerDelegate {
-        var panel: UIHostingController<SigningProgressPanel>?
+        var panel: UIHostingController<ActivityProgressPanel>?
         var pages: [TabEnum: UIHostingController<AnyView>] = [:]
     }
 }

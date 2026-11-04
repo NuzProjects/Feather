@@ -18,24 +18,37 @@ enum FR {
 		download: Download? = nil,
 		sourceProvenance: SourceAppProvenance? = nil,
 		replacingImport: String? = nil,
+		progressID: UUID? = nil,
 		onImported: ((Imported) -> Void)? = nil,
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
+            let importID = await MainActor.run { progressID ?? (download == nil ? ImportProgress.shared.begin(ipa.lastPathComponent) : nil) }
 			let handler = AppFileHandler(
 				file: ipa,
 				download: download,
-				sourceProvenance: sourceProvenance
+				sourceProvenance: sourceProvenance,
+                progressID: importID
 			)
 			
 			do {
 				try await handler.copy()
-				try await handler.extract()
+				await ImportProgress.shared.update(importID, fraction: 0.1)
+                try await handler.extract()
+                if let payload = handler.uniqueWorkDirPayload, let directory = FileManager.default.getPath(in: payload, for: "app") {
+                    let name = Bundle(url: directory)?.name
+                    let icon = iconTest(directory)
+                    await MainActor.run {
+                        ImportProgress.shared.update(importID, fraction: 0.85, name: name, icon: icon)
+                        download?.displayName = name; download?.appIcon = icon
+                    }
+                }
 				try await handler.move()
 				try await handler.addToDatabase(replacing: replacingImport)
 				try? await handler.clean()
 				await MainActor.run {
-					guard let imported = try? Storage.shared.context.fetch(Imported.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { completion(ReleaseError.invalidApp); return }
+					guard let imported = try? Storage.shared.context.fetch(Imported.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { ImportProgress.shared.finish(importID, success: false); completion(ReleaseError.invalidApp); return }
+                    ImportProgress.shared.finish(importID, success: true)
                     onImported?(imported)
 					completion(nil)
 				}
@@ -43,6 +56,7 @@ enum FR {
 				try? await handler.clean()
 				try? FileManager.default.removeItem(at: FileManager.default.unsigned(handler.resultUUID))
 				await MainActor.run {
+					ImportProgress.shared.finish(importID, success: false)
 					completion(error)
 				}
 			}

@@ -13,12 +13,12 @@ enum FeatherTransfer {
         }
     }
     private static let entities = ["CertificatePair", "Imported", "Signed", "AltSource", "AppSourceMetadata"]
-    static func export() async throws -> URL {
+    static func export(includeApps: Bool = true) async throws -> URL {
         guard DownloadManager.shared.downloads.isEmpty else { throw Failure.busy }
         let context = Storage.shared.context
         try context.save()
         var records: [[String: Any]] = []
-        for name in entities where Storage.shared.container.managedObjectModel.entitiesByName[name] != nil {
+        for name in entities where includeApps && Storage.shared.container.managedObjectModel.entitiesByName[name] != nil {
             for object in try context.fetch(NSFetchRequest<NSManagedObject>(entityName: name)) {
                 var attributes: [String: Any] = [:]
                 for (key, description) in object.entity.attributesByName {
@@ -32,7 +32,7 @@ enum FeatherTransfer {
             }
         }
         let defaults = UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier ?? "") ?? [:]
-        var manifest: [String: Any] = ["format": "FeatherTransfer", "version": 1, "home": NSHomeDirectory(), "records": records, "preferences": defaults]
+        var manifest: [String: Any] = ["format": "FeatherTransfer", "version": 1, "home": NSHomeDirectory(), "records": records, "preferences": defaults, "settingsOnly": !includeApps]
         let request = NSFetchRequest<NSManagedObject>(entityName: "CertificatePair")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         let certificates = try context.fetch(request)
@@ -45,7 +45,8 @@ enum FeatherTransfer {
             try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
             do {
                 try data.write(to: folder.appendingPathComponent("Manifest.plist"), options: .atomic)
-                _ = try TransferFiles.merge(from: documents, to: folder.appendingPathComponent("Documents"))
+                if includeApps { _ = try TransferFiles.merge(from: documents, to: folder.appendingPathComponent("Documents")) }
+                else { try FileManager.default.createDirectory(at: folder.appendingPathComponent("Documents"), withIntermediateDirectories: true) }
                 return folder
             } catch { try? FileManager.default.removeItem(at: folder); throw error }
         }.value

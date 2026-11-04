@@ -24,14 +24,11 @@ struct FeatherApp: App {
 	var body: some Scene {
 		WindowGroup {
 			VStack {
-				DownloadHeaderView(downloadManager: downloadManager)
-					.transition(.move(edge: .top).combined(with: .opacity))
 				VariedTabbarView()
 					.environment(\.managedObjectContext, storage.context)
 					.onOpenURL(perform: _handleURL)
 					.transition(.move(edge: .top).combined(with: .opacity))
 			}
-			.animation(.smooth, value: downloadManager.manualDownloads.description)
 			.onReceive(NotificationCenter.default.publisher(for: .heartbeatInvalidHost)) { _ in
 				DispatchQueue.main.async {
 					UIAlertController.showAlertWithOk(
@@ -163,14 +160,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 		_ application: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
-        let navigation = UINavigationBarAppearance()
-        navigation.configureWithTransparentBackground()
-        navigation.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-        navigation.backgroundColor = .clear
-        navigation.shadowColor = .clear
-        UINavigationBar.appearance().standardAppearance = navigation
-        UINavigationBar.appearance().scrollEdgeAppearance = navigation
-        UINavigationBar.appearance().compactAppearance = navigation
 		GitHubReleases.register()
 		UNUserNotificationCenter.current().delegate = self
 		_createPipeline()

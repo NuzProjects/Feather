@@ -20,13 +20,16 @@ final class AppFileHandler: NSObject, @unchecked Sendable {
 	private let _install: Bool
 	private let _download: Download?
 	private let _sourceProvenance: SourceAppProvenance?
+	private let progressID: UUID?
 	
 	init(
 		file ipa: URL,
 		install: Bool = false,
 		download: Download? = nil,
-		sourceProvenance: SourceAppProvenance? = nil
+		sourceProvenance: SourceAppProvenance? = nil,
+        progressID: UUID? = nil
 	) {
+		self.progressID = progressID
 		self._ipa = ipa
 		self._install = install
 		self._download = download
@@ -67,6 +70,7 @@ final class AppFileHandler: NSObject, @unchecked Sendable {
 						overwrite: true,
 						password: nil,
 						progress: { progress in
+                            Task { @MainActor in ImportProgress.shared.update(self.progressID, fraction: 0.1 + progress * 0.7) }
 							if let download = download {
 								DispatchQueue.main.async {
 									download.unpackageProgress = progress

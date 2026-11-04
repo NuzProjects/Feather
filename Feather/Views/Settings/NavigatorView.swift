@@ -24,18 +24,20 @@ struct NavigatorView: View {
                     row(tab, visible: true)
                 }
                 .onMove { indices, offset in
-                    var tabs = preferences.tabs
-                    tabs.move(fromOffsets: indices, toOffset: offset)
-                    preferences.set(tabs)
+                    withAnimation(.smooth(duration: 0.25)) {
+                        var tabs = preferences.tabs
+                        tabs.move(fromOffsets: indices, toOffset: offset)
+                        preferences.set(tabs)
+                    }
                 }
-            } footer: { Text("Use Edit to reorder. Settings always stays available.") }
+            } footer: { Text("Use Reorder to arrange tabs. Settings always stays available.") }
             let hidden = TabEnum.allCases.filter { !preferences.tabs.contains($0) }
             if !hidden.isEmpty {
                 NBSection("Hidden") { ForEach(hidden, id: \.self) { row($0, visible: false) } }
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar { ToolbarItem(placement: .topBarTrailing) { EditButton() } }
+        .toolbar { ToolbarItem(placement: .topBarTrailing) { Button(editMode.isEditing ? "Done" : "Reorder") { withAnimation(.smooth(duration: 0.25)) { editMode = editMode.isEditing ? .inactive : .active } } } }
         .environment(\.editMode, $editMode)
     }
     private func row(_ tab: TabEnum, visible: Bool) -> some View {
@@ -47,7 +49,7 @@ struct NavigatorView: View {
             NBTitleWithSubtitleView(title: tab.title, subtitle: tab == .settings ? "Always available" : (visible ? "Shown in navigation" : "Hidden from navigation"), linelimit: 0)
             if tab != .settings {
                 Button(visible ? "Hide" : "Show") {
-                    preferences.set(visible ? preferences.tabs.filter { $0 != tab } : preferences.tabs + [tab])
+                    withAnimation(.smooth(duration: 0.25)) { preferences.set(visible ? preferences.tabs.filter { $0 != tab } : preferences.tabs + [tab]) }
                 }
                 .buttonStyle(.bordered)
                 .buttonBorderShape(.capsule)

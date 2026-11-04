@@ -67,6 +67,7 @@ struct SettingsView: View {
 				}
                 
 				NBSection(.localized("Features")) {
+                    NavigationLink(destination: DataTransferView()) { Label("Backups", systemImage: "externaldrive") }
 					NavigationLink(destination: ConfigurationView()) {
 						Label(.localized("Signing Options"), systemImage: "signature")
 					}
@@ -80,7 +81,6 @@ struct SettingsView: View {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
 				}
                 
-				Section { NavigationLink(destination: DataTransferView()) { Label("Transfer Data", systemImage: "arrow.left.arrow.right") } }
 				_directories()
                 
 				Section {

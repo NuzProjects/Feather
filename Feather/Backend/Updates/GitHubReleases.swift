@@ -111,9 +111,13 @@ final class GitHubReleases: ObservableObject {
         let key = oldUUID ?? selection.repository.slug
         guard !busy.contains(key) else { return }
         busy.insert(key); defer { busy.remove(key) }
+        let progressID = ImportProgress.shared.begin(selection.asset.name)
+        var importSucceeded = false
+        defer { ImportProgress.shared.finish(progressID, success: importSucceeded) }
         let lease = UpdateBackgroundLease()
         defer { lease.end() }
-        let (temporary, response) = try await URLSession.shared.download(from: selection.asset.browser_download_url)
+        let delegate = GitHubDownloadProgress(id: progressID)
+        let (temporary, response) = try await URLSession.shared.download(for: URLRequest(url: selection.asset.browser_download_url), delegate: delegate)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
@@ -121,11 +125,12 @@ final class GitHubReleases: ObservableObject {
         let ipa = folder.appendingPathComponent("download.ipa")
         try FileManager.default.moveItem(at: temporary, to: ipa)
         let imported: Imported = try await withCheckedThrowingContinuation { continuation in
-            FR.handlePackageFile(ipa, replacingImport: replacementImport, onImported: { app in continuation.resume(returning: app) }) { error in
+            FR.handlePackageFile(ipa, replacingImport: replacementImport, progressID: progressID, onImported: { app in continuation.resume(returning: app) }) { error in
                 if let error { continuation.resume(throwing: error) }
             }
         }
         guard let uuid = imported.uuid else { throw ReleaseError.invalidApp }
+        importSucceeded = true
         tracking[uuid] = selection; save()
         guard let old else { return }
         if let certificate = oldCertificate {
@@ -180,5 +185,16 @@ private final class UpdateBackgroundLease {
         guard identifier != .invalid else { return }
         UIApplication.shared.endBackgroundTask(identifier)
         identifier = .invalid
+    }
+}
+
+private final class GitHubDownloadProgress: NSObject, URLSessionDownloadDelegate, @unchecked Sendable {
+    let id: UUID
+    init(id: UUID) { self.id = id }
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {}
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        guard totalBytesExpectedToWrite > 0 else { return }
+        let fraction = 0.7 * Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
+        Task { @MainActor in ImportProgress.shared.update(id, fraction: fraction) }
     }
 }

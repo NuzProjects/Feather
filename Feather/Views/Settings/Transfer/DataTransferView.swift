@@ -8,23 +8,25 @@ struct DataTransferView: View {
     @State private var message: String?
     var body: some View {
         Form {
-            Section {
-                Button("Export a Copy", systemImage: "square.and.arrow.up") {
-                    Task {
-                        busy = true; defer { busy = false }
-                        do { exportFolder = try await FeatherTransfer.export(); picker = .export }
-                        catch { message = error.localizedDescription }
-                    }
-                }
-                Button("Import Feather Backup", systemImage: "square.and.arrow.down") { picker = .import }
-            } footer: { Text("Copies apps, certificates, sources, and preferences. The original copy stays intact. Existing apps and files in this copy are kept when merging.") }
-            Section {
-                Text("To transfer from regular Feather, use the optional transfer helper with the exact bundle ID and signing identity of your installed Feather. Install over it without deleting it, then export a copy here and import that backup in the new app.")
+            Section("Settings") {
+                Button("Export Settings", systemImage: "square.and.arrow.up") { export(includeApps: false) }
+                Button("Import Settings", systemImage: "square.and.arrow.down") { picker = .import }
             }
-            Section { Text("Backups include certificates and their passwords. Keep the backup private.").foregroundStyle(.secondary) }
+            Section("Full Backup") {
+                Button("Export All Data", systemImage: "square.and.arrow.up") { export(includeApps: true) }
+                Button("Import Backup", systemImage: "square.and.arrow.down") { picker = .import }
+            }
+            Section("Old Feather Installer") {
+                Button("Import Old Feather Backup", systemImage: "arrow.down.doc") { picker = .import }
+                if let helper = Bundle.main.url(forResource: "LegacyTransfer", withExtension: "ipa") {
+                    Button("Export Transfer Installer", systemImage: "square.and.arrow.up") { exportFolder = helper; picker = .export }
+                } else {
+                    Link("Get Transfer Installer", destination: URL(string: "https://github.com/NuzProjects/Feather/releases/download/iphone-test-build-14/Feather-Transfer.ipa")!)
+                }
+            }
             if busy { ProgressView("Transferring…") }
         }
-        .navigationTitle("Transfer Data")
+        .navigationTitle("Backups")
         .disabled(busy)
         .sheet(item: $picker) { kind in
             TransferPicker(kind: kind, exportFolder: exportFolder) { url in
@@ -39,7 +41,14 @@ struct DataTransferView: View {
                 }
             }
         }
-        .alert("Transfer Data", isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })) { Button("OK") { message = nil } } message: { Text(message ?? "") }
+        .alert("Backups", isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })) { Button("OK") { message = nil } } message: { Text(message ?? "") }
+    }
+    private func export(includeApps: Bool) {
+        Task {
+            busy = true; defer { busy = false }
+            do { exportFolder = try await FeatherTransfer.export(includeApps: includeApps); picker = .export }
+            catch { message = error.localizedDescription }
+        }
     }
 }
 

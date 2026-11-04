@@ -40,7 +40,7 @@ struct SourcesView: View {
                 if !githubSources.repositories.isEmpty {
                     Section("GitHub") {
                         ForEach(githubSources.repositories) { repository in
-                            Button { githubRepository = repository } label: { Label(repository.slug, systemImage: "chevron.left.forwardslash.chevron.right") }
+                            Button { githubRepository = repository } label: { Label { Text(repository.slug) } icon: { Image("GitHubMark").renderingMode(.template) } }
                             .swipeActions { Button("Remove", role: .destructive) { githubSources.remove(repository) } }
                         }
                     }

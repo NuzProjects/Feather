@@ -10,18 +10,22 @@ on:
         description: Mac runner
         type: choice
         options: [macos-15-intel, macos-26]
-        default: macos-15-intel
+        default: macos-26
+      include_transfer_helper:
+        description: Bundle the optional legacy transfer installer
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
 concurrency:
-  group: native-iphone-build-${{ github.ref }}-${{ inputs.runner || 'macos-15-intel' }}
+  group: native-iphone-build-${{ github.ref }}-${{ inputs.runner || 'macos-26' }}
   cancel-in-progress: true
 
 jobs:
   build:
-    runs-on: ${{ inputs.runner || 'macos-15-intel' }}
+    runs-on: ${{ inputs.runner || 'macos-26' }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -75,6 +79,7 @@ jobs:
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather.ipa" Payload
           unzip -t "$GITHUB_WORKSPACE/packages/Feather.ipa"
       - name: Build regular Feather transfer helper
+        if: inputs.include_transfer_helper == true
         run: |
           set -euo pipefail
           HELPER="$RUNNER_TEMP/feather-transfer-files"
@@ -91,7 +96,7 @@ jobs:
           from pathlib import Path
           p = Path('Feather/Views/Settings/SettingsView.swift')
           s = p.read_text()
-          s = s.replace('\t\t\t\t_directories()', '\t\t\t\tSection { NavigationLink(destination: DataTransferView()) { Label("Transfer Data", systemImage: "arrow.left.arrow.right") } }\n\t\t\t\t_directories()')
+          s = s.replace('NBSection(.localized("Features")) {', 'NBSection(.localized("Features")) {\n                    NavigationLink(destination: DataTransferView()) { Label("Backups", systemImage: "externaldrive") }')
           p.write_text(s)
           PY
           xcodebuild -resolvePackageDependencies -workspace Feather.xcworkspace -scheme Feather \
@@ -108,6 +113,9 @@ jobs:
           cd "$RUNNER_TEMP/helper-package"
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa" Payload
           unzip -t "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa"
+          cp "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa" "$RUNNER_TEMP/package/Payload/Feather.app/LegacyTransfer.ipa"
+          cd "$RUNNER_TEMP/package"
+          /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather.ipa" Payload
       - uses: actions/upload-artifact@v4
         with:
           name: Feather-iPhone-IPA
