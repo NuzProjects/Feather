@@ -11,19 +11,20 @@ enum WhatsNew {
 
     // Update for every release.
     static let features: [Item] = [
+        Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Update Feather from Settings → Updates without sideloading it again."),
         Item(icon: "externaldrive", title: "Backup & Transfer", detail: "Back up everything, or just certificates, sources and settings, and restore it on any device."),
         Item(icon: "xmark.octagon", title: "Revoked Certificates", detail: "Feather checks your certificates with Apple and tells you when one is revoked."),
-        Item(icon: "lock.rotation", title: "SSL Certificate Check", detail: "Feather picks up a renewed Fully Local certificate on launch and offers to switch back."),
-        Item(icon: "exclamationmark.bubble", title: "Clearer Signing Errors", detail: "Signing problems are explained in plain words, with what to do next."),
         Item(icon: "clock.badge.exclamationmark", title: "Certificate Warnings", detail: "A notification before your certificate expires."),
+        Item(icon: "magnifyingglass", title: "Search Apps in Sources", detail: "Search finds apps across all your sources, and each source shows when it last updated."),
+        Item(icon: "hand.draw", title: "Swipe Actions", detail: "Swipe apps in Library to install, sign, export or delete them."),
+        Item(icon: "xmark.circle", title: "Cancel Anytime", detail: "Tap the progress panel to cancel signing or a download."),
         Item(icon: "hand.wave.fill", title: "Welcome Guide", detail: "A quick walkthrough for new installs.")
     ]
 
     static let fixes: [Item] = [
-        Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Update Feather from Settings → Updates without sideloading it again."),
-        Item(icon: "server.rack", title: "Semi Local by Default", detail: "Installs use Semi Local, since the Fully Local SSL certificate expired."),
-        Item(icon: "doc.badge.plus", title: "Importing Files", detail: "Importing certificates, IPAs and other files works again."),
-        Item(icon: "signature", title: "Signing Apps with Extensions", detail: "Apps like Feather now sign with certificates made for one app.")
+        Item(icon: "exclamationmark.bubble", title: "Clearer Signing Errors", detail: "Signing problems are explained in plain words, with what to do next."),
+        Item(icon: "server.rack", title: "Semi Local by Default", detail: "Installs use Semi Local, since the Fully Local SSL certificate expired. Feather offers to switch back once it's renewed."),
+        Item(icon: "signature", title: "Signing Apps with Extensions", detail: "Apps with extensions sign correctly, including with certificates made for one app.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

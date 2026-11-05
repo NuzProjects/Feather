@@ -8,6 +8,7 @@
 import CoreData
 import UIKit.UIImpactFeedbackGenerator
 import Zsign
+import NimbleExtensions
 
 // MARK: - Class extension: certificate
 extension Storage {
@@ -71,15 +72,27 @@ extension Storage {
 					cert.revoked = true
 					self.saveContext()
 					UINotificationFeedbackGenerator().notificationOccurred(.error)
-					UIAlertController.showAlertWithOk(
-						title: "Certificate Revoked",
-						message: "Apple revoked \(cert.nickname ?? "a certificate"). Apps signed with it won't open anymore, so add a new certificate in Settings → Certificates."
-					)
+					self._presentWhenFree {
+						UIAlertController.showAlertWithOk(
+							$0,
+							title: "Certificate Revoked",
+							message: "Apple revoked \(cert.nickname ?? "a certificate"). Apps signed with it won't open anymore, so add a new certificate in Settings → Certificates."
+						)
+					}
 				}
 			}
 		}
 	}
 	
+	/// Waits for any sheet that's opening or closing, so the alert isn't dropped.
+	private func _presentWhenFree(attempts: Int = 20, _ show: @escaping (UIViewController) -> Void) {
+		if let top = UIApplication.topViewController(), !top.isBeingPresented, !top.isBeingDismissed {
+			show(top)
+		} else if attempts > 0 {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { self._presentWhenFree(attempts: attempts - 1, show) }
+		}
+	}
+
 	/// Checks every certificate with Apple, at most every 6 hours.
 	func checkAllRevocations() {
 		let key = "Feather.lastRevocationCheck"

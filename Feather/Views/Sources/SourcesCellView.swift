@@ -16,6 +16,8 @@ struct SourcesCellView: View {
 
 	var source: AltSource
 
+	private static let relativeFormatter = RelativeDateTimeFormatter()
+
 	private var lastUpdated: Date? {
 		viewModel.sources[source]?.apps.compactMap { $0.currentDate?.date }.max()
 	}
@@ -23,7 +25,7 @@ struct SourcesCellView: View {
 	private var subtitle: String {
 		let url = source.sourceURL?.absoluteString ?? ""
 		guard let lastUpdated else { return url }
-		let relative = RelativeDateTimeFormatter().localizedString(for: lastUpdated, relativeTo: Date())
+		let relative = Self.relativeFormatter.localizedString(for: lastUpdated, relativeTo: Date())
 		return "Updated \(relative)\n\(url)"
 	}
 

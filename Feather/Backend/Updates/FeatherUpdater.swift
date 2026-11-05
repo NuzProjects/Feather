@@ -73,7 +73,9 @@ final class FeatherUpdater: ObservableObject {
         guard !isBusy else { return }
         phase = .checking
         do {
-            let releases = try await GitHubReleases.shared.releases(Self.repository)
+            // Official versions only get official releases; betas get everything.
+            let onBeta = currentVersion.localizedCaseInsensitiveContains("beta")
+            let releases = try await GitHubReleases.shared.releases(Self.repository).filter { onBeta || !$0.prerelease }
             latest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
             phase = .idle
         } catch {
