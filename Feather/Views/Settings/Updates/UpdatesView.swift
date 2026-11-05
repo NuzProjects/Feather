@@ -11,7 +11,7 @@ struct UpdatesView: View {
             Section {
                 LabeledContent("Current Version", value: updater.currentVersion)
                 if let latest = updater.latest {
-                    LabeledContent("Latest Release", value: latest.name ?? latest.tag_name)
+                    LabeledContent("Latest Release", value: FeatherUpdater.displayName(latest))
                     if let date = latest.published_at.flatMap(ISO8601DateFormatter().date(from:)) {
                         LabeledContent("Published", value: date.formatted(date: .abbreviated, time: .shortened))
                     }

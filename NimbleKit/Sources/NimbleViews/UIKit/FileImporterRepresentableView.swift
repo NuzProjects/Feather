@@ -64,19 +64,23 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 			init(_ run: @escaping ([URL]) -> Void) { self.run = run }
 		}
 
+		/// Coordinated copies, so iCloud and other cloud files are downloaded first.
 		nonisolated private static func copies(of urls: [URL]) -> [URL] {
-			urls.compactMap { url -> URL? in
+			urls.map { url -> URL in
 				let scoped = url.startAccessingSecurityScopedResource()
 				defer { if scoped { url.stopAccessingSecurityScopedResource() } }
 				let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 				let copy = folder.appendingPathComponent(url.lastPathComponent)
-				do {
-					try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-					try FileManager.default.copyItem(at: url, to: copy)
-					return copy
-				} catch {
-					return nil
+				var copied = false
+				var error: NSError?
+				NSFileCoordinator(filePresenter: nil).coordinate(readingItemAt: url, options: [], error: &error) { readable in
+					do {
+						try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+						try FileManager.default.copyItem(at: readable, to: copy)
+						copied = true
+					} catch {}
 				}
+				return copied ? copy : url
 			}
 		}
 		

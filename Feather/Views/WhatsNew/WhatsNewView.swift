@@ -20,6 +20,7 @@ enum WhatsNew {
     ]
 
     static let fixes: [Item] = [
+        Item(icon: "doc.badge.plus", title: "Importing Files", detail: "Picking files from iCloud and other locations works again."),
         Item(icon: "rectangle.on.rectangle", title: "Widget", detail: "The widget now loads your data and uses your accent color."),
         Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Feather can now sign and install itself, so the updater works."),
         Item(icon: "signature", title: "Signing Feather", detail: "Apps with extensions, like Feather itself, now sign with certificates made for one app."),

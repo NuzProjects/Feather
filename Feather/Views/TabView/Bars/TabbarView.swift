@@ -54,7 +54,7 @@ struct TabbarView: View {
             Button("Update") { installingFromPrompt = true; updater.install() }
             Button("Later", role: .cancel) { updater.skip(release) }
         } message: { release in
-            Text("\(release.name ?? release.tag_name) is ready to install.\n\n\(updater.plainReleaseNotes ?? "")")
+            Text("Feather \(FeatherUpdater.displayName(release)) is ready to install.\n\n\(updater.plainReleaseNotes ?? "")")
         }
         .onChange(of: updater.phase) { phase in
             guard installingFromPrompt else { return }

@@ -49,6 +49,11 @@ final class FeatherUpdater: ObservableObject {
         releaseNotes?.replacingOccurrences(of: "**", with: "").replacingOccurrences(of: "__", with: "")
     }
 
+    static func displayName(_ release: GitHubRelease) -> String {
+        let name = release.name ?? release.tag_name
+        return name.hasPrefix("Update ") ? String(name.dropFirst(7)) : name
+    }
+
     var isBusy: Bool { phase == .checking || phase == .downloading || phase == .signing }
 
     func check() async {
