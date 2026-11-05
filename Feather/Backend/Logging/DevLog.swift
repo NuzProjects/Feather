@@ -19,6 +19,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 	private let pendingCrashURL: URL
 	private(set) var sessionURL: URL
 	private(set) var didCrashLastLaunch = false
+	private var crashPromptShown = false
 	private let launchDate = Date()
 	private let queue = DispatchQueue(label: "Feather.DevLog", qos: .utility)
 	private var handle: FileHandle?
@@ -79,6 +80,13 @@ final class DevLog: NSObject, @unchecked Sendable {
 		NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: nil, queue: nil) { [weak self] _ in
 			self?.log(.warning, "Memory warning", category: "App")
 		}
+	}
+
+	/// True once per launch when the previous launch crashed, so the prompt never shows twice.
+	func takeCrashPrompt() -> Bool {
+		guard didCrashLastLaunch, !crashPromptShown else { return false }
+		crashPromptShown = true
+		return true
 	}
 
 	// MARK: Logging

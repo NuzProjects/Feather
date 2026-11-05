@@ -13,7 +13,11 @@ struct ExpandableText: View {
 	let lineLimit: Int
 
 	@State private var expanded: Bool = false
-	@State private var truncated: Bool = false
+	@State private var limitedHeight: CGFloat = 0
+	@State private var fullHeight: CGFloat = 0
+
+	/// True when the full text is taller than the collapsed text, measured in the text's own font.
+	private var truncated: Bool { fullHeight > limitedHeight + 1 }
 
 	var body: some View {
 		VStack(alignment: .leading, spacing: 4) {
@@ -22,19 +26,20 @@ struct ExpandableText: View {
 				.foregroundStyle(.primary)
 				.contentTransition(.identity)
 				.fixedSize(horizontal: false, vertical: true)
-				.background(
-					Text(text)
-						.lineLimit(lineLimit)
-						.background(GeometryReader { proxy in
-							Color.clear
-								.onAppear {
-									let totalHeight = proxy.size.height
-									let lineHeight = UIFont.preferredFont(forTextStyle: .body).lineHeight
-									truncated = totalHeight > lineHeight * CGFloat(lineLimit)
-								}
-						})
-						.hidden()
-				)
+				.frame(maxWidth: .infinity, alignment: .leading)
+				.background(alignment: .topLeading) {
+					ZStack(alignment: .topLeading) {
+						Text(text)
+							.lineLimit(lineLimit)
+							.fixedSize(horizontal: false, vertical: true)
+							.background(_HeightReader { limitedHeight = $0 })
+						Text(text)
+							.fixedSize(horizontal: false, vertical: true)
+							.background(_HeightReader { fullHeight = $0 })
+					}
+					.hidden()
+					.allowsHitTesting(false)
+				}
 				.contentShape(Rectangle())
 				.onTapGesture {
 					guard truncated else { return }
@@ -60,3 +65,14 @@ struct ExpandableText: View {
 	}
 }
 
+private struct _HeightReader: View {
+	let onChange: (CGFloat) -> Void
+
+	var body: some View {
+		GeometryReader { proxy in
+			Color.clear
+				.onAppear { onChange(proxy.size.height) }
+				.onChange(of: proxy.size.height) { onChange($0) }
+		}
+	}
+}

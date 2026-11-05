@@ -210,7 +210,6 @@ extension CertificateOverviewDetailView {
 					if _isCheckingRevocation { ProgressView() }
 				}
 			}
-			.disabled(_isCheckingRevocation)
 			if let directory = Storage.shared.getUuidDirectory(for: cert), let shared = directory.toSharedDocumentsURL() {
 				Button(.localized("Open in Files"), systemImage: "folder") {
 					UIApplication.open(shared)

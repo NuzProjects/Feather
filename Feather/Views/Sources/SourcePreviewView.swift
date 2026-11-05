@@ -6,11 +6,8 @@ import NukeUI
 // MARK: - View
 /// Preview of a source that hasn't been added yet: its info and apps, with an Add button.
 struct SourcePreviewView: View {
-	@Environment(\.dismiss) private var dismiss
-
 	let url: URL
 	let repository: ASRepository
-	var onAdded: (() -> Void)? = nil
 
 	@State private var _isAdded = false
 	@State private var _isAdding = false
@@ -90,7 +87,6 @@ extension SourcePreviewView {
 				_isAdding = false
 				_isAdded = true
 				UINotificationFeedbackGenerator().notificationOccurred(.success)
-				onAdded?()
 			}
 		} label: {
 			Group {

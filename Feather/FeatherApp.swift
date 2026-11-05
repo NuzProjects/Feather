@@ -55,7 +55,7 @@ struct FeatherApp: App {
 	}
 	
 	private func _offerCrashLogsIfNeeded() {
-		guard DevLog.shared.didCrashLastLaunch else { return }
+		guard DevLog.shared.takeCrashPrompt() else { return }
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 			UIAlertController.showAlertWithCancel(
 				title: "Feather Closed Unexpectedly",

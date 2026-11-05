@@ -10,13 +10,20 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
+        Item(icon: "checkmark.seal", title: "Certificate Overview", detail: "Tap the certificate in Settings to see how long it has left, what it can do, which devices it covers and which apps you signed with it."),
+        Item(icon: "person.text.rectangle", title: "Revocation Check", detail: "Check Revocation shows its progress and tells you whether Apple revoked the certificate."),
+        Item(icon: "ladybug", title: "Developer Logs", detail: "Crash reports and errors in Settings → Misc. Export them or save them to Files when you report a bug."),
         Item(icon: "globe.desk", title: "Source Preview", detail: "Tap a featured source in Add Source to browse its apps before adding it."),
-        Item(icon: "person.text.rectangle", title: "Revocation Check", detail: "Check Revocation shows its progress and tells you the result.")
+        Item(icon: "arrow.down.app", title: "Smoother Updates", detail: "The update popup opens Settings → Updates, and one progress bar covers signing and installing."),
+        Item(icon: "chevron.left.forwardslash.chevron.right", title: "GitHub in Settings", detail: "Star Feather, report an issue or open About right from Settings."),
+        Item(icon: "dock.rectangle", title: "Navigator", detail: "A cleaner Navigator icon, and the tab bar animates when showing or hiding labels.")
     ]
 
     static let fixes: [Item] = [
-        Item(icon: "checkmark.seal", title: "Certificates", detail: "Tapping a certificate in the list selects it again. Open its overview from the certificate shown in Settings."),
-        Item(icon: "chevron.left.forwardslash.chevron.right", title: "GitHub Sources", detail: "Tapping a GitHub source opens the import sheet again.")
+        Item(icon: "text.alignleft", title: "Expandable Text", detail: "Descriptions and release notes expand without flashing, and More shows up whenever text is cut off."),
+        Item(icon: "link", title: "Links", detail: "GitHub links and the featured source point to this fork, and the \"open an issue\" text is translated again."),
+        Item(icon: "textformat.size", title: "What's New", detail: "Larger section titles, and only this version's changes are listed."),
+        Item(icon: "app.dashed", title: "Panel Icons", detail: "Signing and download panel icons no longer have a light outline.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

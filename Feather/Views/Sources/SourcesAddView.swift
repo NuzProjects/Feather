@@ -101,9 +101,7 @@ struct SourcesAddView: View {
 					NBSection(.localized("Featured")) {
 						ForEach(_filteredRecommendedSourcesData, id: \.url) { (url, source) in
 							NavigationLink {
-								SourcePreviewView(url: url, repository: source) {
-									_refreshFilteredRecommendedSourcesData()
-								}
+								SourcePreviewView(url: url, repository: source)
 							} label: {
 								HStack(spacing: 2) {
 									FRIconCellView(
@@ -147,6 +145,7 @@ struct SourcesAddView: View {
 					}
 				}
 			}
+			.onAppear(perform: _refreshFilteredRecommendedSourcesData)
 			.animation(.default, value: _filteredRecommendedSourcesData.map { $0.data.id ?? "" })
 			.task {
 				await _fetchRecommendedRepositories()
