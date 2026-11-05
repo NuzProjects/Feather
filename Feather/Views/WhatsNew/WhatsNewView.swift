@@ -10,10 +10,14 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
-        Item(icon: "dock.rectangle", title: "Navigator", detail: "A cleaner Navigator icon, and the tab bar animates smoothly when showing or hiding labels.")
+        Item(icon: "gauge.with.dots.needle.67percent", title: "Certificate Overview", detail: "See how long each certificate has left, what it can do, which devices it covers and which apps you signed with it."),
+        Item(icon: "ladybug", title: "Developer Logs", detail: "Crash reports and errors in Settings → Misc. Export them or save them to Files when you report a bug."),
+        Item(icon: "chevron.left.forwardslash.chevron.right", title: "GitHub in Settings", detail: "Star Feather, report an issue or open About right from Settings.")
     ]
 
-    static let fixes: [Item] = []
+    static let fixes: [Item] = [
+        Item(icon: "link", title: "Links", detail: "GitHub links and the featured source now point to this fork, and the \"open an issue\" text is translated again.")
+    ]
 
     private static let seenKey = "WhatsNew.seenVersion"
 
