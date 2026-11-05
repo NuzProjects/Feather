@@ -6,7 +6,7 @@
 **Sign and install apps on your iPhone or iPad with your own developer certificate. No computer needed, and it updates itself.**
 
 [![Latest release](https://img.shields.io/github/v/release/NuzProjects/Feather?label=release&color=848ef9)](https://github.com/NuzProjects/Feather/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/NuzProjects/Feather/total?color=848ef9)](https://github.com/NuzProjects/Feather/releases)
+[![Downloads](https://img.shields.io/github/downloads/NuzProjects/Feather/total?label=downloads&color=848ef9&cacheSeconds=3600)](https://github.com/NuzProjects/Feather/releases)
 [![Stars](https://img.shields.io/github/stars/NuzProjects/Feather?style=flat&color=848ef9)](https://github.com/NuzProjects/Feather/stargazers)
 [![License](https://img.shields.io/github/license/NuzProjects/Feather?color=848ef9)](https://github.com/NuzProjects/Feather/blob/main/LICENSE)
 

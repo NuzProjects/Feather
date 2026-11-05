@@ -12,7 +12,7 @@ enum WhatsNew {
     static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "pencil", title: "Library Edit Button", detail: "Edit no longer disappears or stops working after you leave Library. Leaving a page also ends editing on Library and Navigator.")
+        Item(icon: "pencil", title: "Smoother Edit Button", detail: "Edit and Done in Library fade smoothly, and the buttons no longer jump when you start or stop editing.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

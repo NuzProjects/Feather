@@ -145,29 +145,45 @@ struct LibraryView: View {
 			}
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) {
-					Button(_editMode.isEditing ? String.localized("Done") : String.localized("Edit")) {
-						withAnimation(.smooth(duration: 0.25)) {
+					Button {
+						withAnimation(.easeInOut(duration: 0.2)) {
 							_editMode = _editMode.isEditing ? .inactive : .active
 						}
+					} label: {
+						// Both titles stay laid out so the button never changes width; only their opacity changes.
+						ZStack {
+							Text(.localized("Edit")).opacity(_editMode.isEditing ? 0 : 1)
+							Text(.localized("Done")).opacity(_editMode.isEditing ? 1 : 0)
+						}
+						.animation(.easeInOut(duration: 0.2), value: _editMode)
 					}
-					.fontWeight(_editMode.isEditing ? .semibold : .regular)
 				}
 				
 				ToolbarItem(placement: .topBarTrailing) {
-					if _editMode.isEditing {
-						Button(role: .destructive) {
-							_bulkDeleteSelectedApps()
-						} label: {
-							Label(.localized("Delete"), systemImage: "trash")
-						}
-						.disabled(_selectedAppUUIDs.isEmpty)
-					} else {
+					// Import and Delete share one fixed slot and cross-fade, so the toolbar doesn't jump.
+					ZStack {
 						Menu {
 							_importActions()
 						} label: {
-							Label(.localized("Import"), systemImage: "plus")
+							Image(systemName: "plus")
 						}
+						.opacity(_editMode.isEditing ? 0 : 1)
+						.allowsHitTesting(!_editMode.isEditing)
+						.accessibilityHidden(_editMode.isEditing)
+						
+						Button {
+							_bulkDeleteSelectedApps()
+						} label: {
+							Image(systemName: "trash")
+								.foregroundStyle(_selectedAppUUIDs.isEmpty ? Color.secondary : Color.red)
+						}
+						.disabled(_selectedAppUUIDs.isEmpty)
+						.opacity(_editMode.isEditing ? 1 : 0)
+						.allowsHitTesting(_editMode.isEditing)
+						.accessibilityHidden(!_editMode.isEditing)
+						.accessibilityLabel(String.localized("Delete"))
 					}
+					.animation(.easeInOut(duration: 0.2), value: _editMode)
 				}
 			}
 			.environment(\.editMode, $_editMode)

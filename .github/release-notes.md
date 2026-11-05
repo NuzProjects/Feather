@@ -1,5 +1,4 @@
-## Update 1.2.1
+## Update 1.2.2
 
 **Bug Fixes:**
-* Edit in Library no longer disappears or stops working after leaving the page
-* Leaving Library or Navigator ends editing so the buttons stay usable
+* Edit and Done in Library fade smoothly, and the toolbar buttons no longer jump
