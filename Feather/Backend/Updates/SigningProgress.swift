@@ -25,13 +25,16 @@ final class SigningProgress: ObservableObject {
         let name: String
         let icon: UIImage?
         var stage: Stage
+        /// Feather signing its own update; shown in the update bar instead of its own card.
+        let isUpdate: Bool
     }
     @Published private(set) var jobs: [Job] = []
+    var visibleJobs: [Job] { jobs.filter { !$0.isUpdate } }
     private var leases: [UUID: UIBackgroundTaskIdentifier] = [:]
     private var cancelled: Set<UUID> = []
     func begin(name: String, icon: UIImage? = nil) -> UUID {
         let id = UUID()
-        jobs.append(Job(id: id, name: name, icon: icon, stage: .copying))
+        jobs.append(Job(id: id, name: name, icon: icon, stage: .copying, isUpdate: FeatherUpdater.shared.phase == .signing))
         leases[id] = UIApplication.shared.beginBackgroundTask(withName: "Sign app") { [weak self] in
             Task { @MainActor in self?.endLease(id) }
         }
@@ -75,13 +78,13 @@ struct SigningProgressPanel: View {
     @State private var confirming: SigningProgress.Job?
     var body: some View {
         ZStack {
-            if let job = progress.jobs.first {
+            if let job = progress.visibleJobs.first {
                 card(job)
                     .transition(.progressPanel)
                     .onTapGesture { if job.stage.isActive { confirming = job } }
             }
         }
-        .animation(.smooth(duration: 0.4), value: progress.jobs.first?.id)
+        .animation(.smooth(duration: 0.4), value: progress.visibleJobs.first?.id)
         .confirmationDialog("Cancel signing \(confirming?.name ?? "")?", isPresented: Binding(get: { confirming != nil }, set: { if !$0 { confirming = nil } }), titleVisibility: .visible) {
             Button("Cancel Signing", role: .destructive) { if let job = confirming { progress.cancel(job.id) } }
             Button("Keep Signing", role: .cancel) {}
@@ -97,7 +100,7 @@ struct SigningProgressPanel: View {
                         Text(job.stage.title).font(.caption).foregroundStyle(.secondary)
                     }
                     Spacer(minLength: 8)
-                    if progress.jobs.count > 1 { Text("+\(progress.jobs.count - 1)").font(.caption.monospacedDigit()) }
+                    if progress.visibleJobs.count > 1 { Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit()) }
                 }
                 ProgressView(value: job.stage.fraction)
                     .accessibilityLabel(job.stage.title)
@@ -109,7 +112,58 @@ struct SigningProgressPanel: View {
     }
 }
 
-/// The 42pt app icon used by the signing and update install panels.
+/// One bar for Feather's own update: download, sign and install.
+struct UpdateProgressPanel: View {
+    @ObservedObject private var updater = FeatherUpdater.shared
+    @ObservedObject private var signing = SigningProgress.shared
+    @ObservedObject private var imports = ImportProgress.shared
+    @State private var icon: UIImage?
+
+    private var state: (title: String, fraction: Double)? {
+        if updater.signedUpdate != nil {
+            return (updater.installLabel ?? "Installing", 0.7 + updater.installFraction * 0.3)
+        }
+        switch updater.phase {
+        case .downloading:
+            if let job = imports.jobs.first(where: \.isUpdate) { return ("Preparing update", 0.1 + job.fraction * 0.1) }
+            return ("Downloading update", 0.05)
+        case .signing:
+            let stage = signing.jobs.first(where: \.isUpdate)?.stage
+            return (stage?.title ?? "Signing app", 0.2 + (stage?.fraction ?? 0) * 0.5)
+        default:
+            return nil
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            if let state { card(state).transition(.progressPanel) }
+        }
+        .animation(.smooth(duration: 0.4), value: state != nil)
+        .task { icon = await Task.detached { iconTest(Bundle.main.bundleURL) }.value }
+    }
+
+    private func card(_ state: (title: String, fraction: Double)) -> some View {
+        ProgressPanelSurface {
+            VStack(alignment: .leading, spacing: 9) {
+                HStack(spacing: 12) {
+                    ProgressPanelIcon(image: icon)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Feather").font(.subheadline.weight(.semibold)).lineLimit(1)
+                        Text(state.title).font(.caption).foregroundStyle(.secondary)
+                    }
+                    Spacer(minLength: 8)
+                }
+                ProgressView(value: min(1, max(0, state.fraction)))
+                    .accessibilityLabel(state.title)
+            }.padding(16)
+        }
+        .padding(.horizontal, 12)
+        .animation(.smooth, value: state.fraction)
+    }
+}
+
+/// The 42pt app icon used by the signing and update panels.
 struct ProgressPanelIcon: View {
     let image: UIImage?
     var body: some View {

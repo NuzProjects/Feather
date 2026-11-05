@@ -9,10 +9,12 @@ final class ImportProgress: ObservableObject {
         var name: String
         var icon: UIImage?
         var fraction: Double
+        /// Importing Feather's own update; shown in the update bar instead of its own card.
+        var isUpdate = false
     }
     @Published private(set) var jobs: [Job] = []
     func begin(_ name: String) -> UUID {
-        let id = UUID(); jobs.append(Job(id: id, name: name, fraction: 0)); return id
+        let id = UUID(); jobs.append(Job(id: id, name: name, fraction: 0, isUpdate: FeatherUpdater.shared.phase == .downloading)); return id
     }
     func update(_ id: UUID?, fraction: Double, name: String? = nil, icon: UIImage? = nil) {
         guard let id, let index = jobs.firstIndex(where: { $0.id == id }) else { return }
@@ -33,14 +35,16 @@ final class ImportProgress: ObservableObject {
 struct ActivityProgressPanel: View {
     @ObservedObject private var downloads = DownloadManager.shared
     @ObservedObject private var imports = ImportProgress.shared
+    private var importJob: ImportProgress.Job? { imports.jobs.first { !$0.isUpdate } }
     var body: some View {
         VStack(spacing: 8) {
+            UpdateProgressPanel()
             SigningProgressPanel()
             if let download = downloads.downloads.first { DownloadProgressCard(download: download).transition(.progressPanel) }
-            else if let job = imports.jobs.first { ImportProgressCard(name: job.name, icon: job.icon, fraction: job.fraction).transition(.progressPanel) }
+            else if let job = importJob { ImportProgressCard(name: job.name, icon: job.icon, fraction: job.fraction).transition(.progressPanel) }
         }
         .animation(.smooth(duration: 0.4), value: downloads.downloads.first?.id)
-        .animation(.smooth(duration: 0.4), value: imports.jobs.first?.id)
+        .animation(.smooth(duration: 0.4), value: importJob?.id)
     }
 }
 

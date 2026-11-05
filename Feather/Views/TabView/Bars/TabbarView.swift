@@ -21,17 +21,23 @@ struct TabbarView: View {
         .symbolVariant(.fill)
         .background(TabLabelApplier(tabs: navigator.tabs, showLabels: navigator.showLabels))
         .overlay(alignment: .bottom) {
-            VStack(spacing: 8) {
-                ActivityProgressPanel()
-                // Feather's own update installs in a card styled like the signing panel.
-                if let update = updater.signedUpdate {
-                    InstallPreviewView(app: update.base, asPanel: true, onClose: { updater.signedUpdate = nil })
+            ActivityProgressPanel()
+                .padding(.bottom, 58)
+                .background(alignment: .bottom) {
+                    // Feather's own update installs here with no card; its progress shows in the update bar.
+                    if let update = updater.signedUpdate {
+                        InstallPreviewView(
+                            app: update.base,
+                            inBackground: true,
+                            onClose: { updater.signedUpdate = nil },
+                            onProgress: { label, fraction in
+                                updater.installLabel = label
+                                updater.installFraction = fraction
+                            }
+                        )
                         .id(update.id)
-                        .transition(.progressPanel)
+                    }
                 }
-            }
-            .animation(.smooth(duration: 0.4), value: updater.signedUpdate?.id)
-            .padding(.bottom, 58)
         }
         .onChange(of: navigator.tabs) { tabs in
             if !tabs.contains(selected) { selected = tabs.contains(.settings) ? .settings : (tabs.first ?? .settings) }

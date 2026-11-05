@@ -10,7 +10,12 @@ final class FeatherUpdater: ObservableObject {
 
     @Published private(set) var latest: GitHubRelease?
     @Published private(set) var phase: Phase = .idle
-    @Published var signedUpdate: AnyApp?
+    @Published var signedUpdate: AnyApp? {
+        didSet { if signedUpdate?.id != oldValue?.id { installLabel = nil; installFraction = 0 } }
+    }
+    /// Install status of signedUpdate, shown in the update bar.
+    @Published var installLabel: String?
+    @Published var installFraction: Double = 0
     @Published var promptRelease: GitHubRelease?
     /// Set to push Settings → Updates (from the launch update popup).
     @Published var openUpdatesPage = false

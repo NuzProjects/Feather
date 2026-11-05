@@ -26,16 +26,17 @@ struct InstallPreviewView: View {
 	@StateObject var installer: ServerInstaller
 	
 	@State var isSharing: Bool
-	/// Floating card styled like the signing panel (used for Feather's own updates).
-	let asPanel: Bool
+	/// Installs without its own card (Feather's updates show progress in the update bar instead).
+	let inBackground: Bool
 	let onClose: (() -> Void)?
-	@State private var _panelIcon: UIImage?
+	let onProgress: ((String, Double) -> Void)?
 
-	init(app: AppInfoPresentable, isSharing: Bool = false, asPanel: Bool = false, onClose: (() -> Void)? = nil) {
+	init(app: AppInfoPresentable, isSharing: Bool = false, inBackground: Bool = false, onClose: (() -> Void)? = nil, onProgress: ((String, Double) -> Void)? = nil) {
 		self.app = app
 		self.isSharing = isSharing
-		self.asPanel = asPanel
+		self.inBackground = inBackground
 		self.onClose = onClose
+		self.onProgress = onProgress
 		let viewModel = InstallerStatusViewModel(isIdevice: UserDefaults.standard.integer(forKey: "Feather.installationMethod") == 1)
 		self._viewModel = StateObject(wrappedValue: viewModel)
 		self._installer = StateObject(wrappedValue: try! ServerInstaller(app: app, viewModel: viewModel))
@@ -83,7 +84,7 @@ struct InstallPreviewView: View {
 					#if !targetEnvironment(macCatalyst)
 					BackgroundAudioManager.shared.stop()
 					#endif
-					if asPanel {
+					if inBackground {
 						let failed: Bool = { if case .broken = newStatus { return true }; return false }()
 						DispatchQueue.main.asyncAfter(deadline: .now() + (failed ? 4 : 1.5)) { _close() }
 					}
@@ -92,8 +93,12 @@ struct InstallPreviewView: View {
 				}
 			}
 		}
+		.onReceive(viewModel.objectWillChange) { _ in
+			guard let onProgress else { return }
+			DispatchQueue.main.async { onProgress(viewModel.statusLabel, min(1, max(0, viewModel.overallProgress))) }
+		}
 		.onAppear(perform: _install)
-		
+
 		#if !targetEnvironment(macCatalyst)
 		.onAppear {
 			BackgroundAudioManager.shared.start()
@@ -116,8 +121,9 @@ struct InstallPreviewView: View {
 
 	@ViewBuilder
 	private func _content() -> some View {
-		if asPanel {
-			_panel()
+		if inBackground {
+			// Nothing to show, but stays in the hierarchy so Semi Local's install page can open.
+			Color.clear.frame(width: 1, height: 1).allowsHitTesting(false)
 		} else {
 			ZStack {
 				InstallProgressView(app: app, viewModel: viewModel)
@@ -128,32 +134,6 @@ struct InstallPreviewView: View {
 			.background(Color(UIColor.secondarySystemBackground))
 			.clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
 			.padding()
-		}
-	}
-
-	/// Same layout, size and surface as SigningProgressPanel's card.
-	private func _panel() -> some View {
-		ProgressPanelSurface {
-			VStack(alignment: .leading, spacing: 9) {
-				HStack(spacing: 12) {
-					ProgressPanelIcon(image: _panelIcon)
-					VStack(alignment: .leading, spacing: 2) {
-						Text(app.name ?? "Feather").font(.subheadline.weight(.semibold)).lineLimit(1)
-						Text(viewModel.statusLabel).font(.caption).foregroundStyle(.secondary)
-					}
-					Spacer(minLength: 8)
-				}
-				ProgressView(value: min(1, max(0, viewModel.overallProgress)))
-					.accessibilityLabel(viewModel.statusLabel)
-			}.padding(16)
-		}
-		.padding(.horizontal, 12)
-		.contentShape(Rectangle())
-		.animation(.smooth, value: viewModel.statusLabel)
-		.animation(.smooth, value: viewModel.overallProgress)
-		.task {
-			let directory = Storage.shared.getAppDirectory(for: app)
-			_panelIcon = await Task.detached { directory.flatMap { iconTest($0) } }.value
 		}
 	}
 

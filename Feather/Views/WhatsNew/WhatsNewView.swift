@@ -11,8 +11,7 @@ enum WhatsNew {
 
     // Replace (don't add to) these every release: only this version's changes.
     static let features: [Item] = [
-        Item(icon: "arrow.down.app", title: "Update Shortcut", detail: "Tapping Update on the update popup opens Settings → Updates and starts the update."),
-        Item(icon: "rectangle.bottomthird.inset.filled", title: "Update Install Panel", detail: "Installing an update shows the same floating panel as signing.")
+        Item(icon: "rectangle.bottomthird.inset.filled", title: "One Update Bar", detail: "Updating shows a single progress bar covering signing and installing.")
     ]
 
     static let fixes: [Item] = []
