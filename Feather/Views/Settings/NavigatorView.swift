@@ -41,6 +41,7 @@ struct NavigatorView: View {
         .symbolVariant(.fill)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { Button(editMode.isEditing ? "Done" : "Reorder") { withAnimation(.smooth(duration: 0.25)) { editMode = editMode.isEditing ? .inactive : .active } } } }
         .environment(\.editMode, $editMode)
+        .onDisappear { editMode = .inactive }
     }
     private func row(_ tab: TabEnum, visible: Bool) -> some View {
         HStack {

@@ -145,28 +145,35 @@ struct LibraryView: View {
 			}
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) {
-					EditButton()
+					Button(_editMode.isEditing ? String.localized("Done") : String.localized("Edit")) {
+						withAnimation(.smooth(duration: 0.25)) {
+							_editMode = _editMode.isEditing ? .inactive : .active
+						}
+					}
+					.fontWeight(_editMode.isEditing ? .semibold : .regular)
 				}
 				
-				if _editMode.isEditing {
-					NBToolbarButton(
-						.localized("Delete"),
-						systemImage: "trash",
-						isDisabled: _selectedAppUUIDs.isEmpty
-					) {
-						_bulkDeleteSelectedApps()
-					}
-				} else {
-					NBToolbarMenu(
-						systemImage: "plus",
-						style: .icon,
-						placement: .topBarTrailing
-					) {
-						_importActions()
+				ToolbarItem(placement: .topBarTrailing) {
+					if _editMode.isEditing {
+						Button(role: .destructive) {
+							_bulkDeleteSelectedApps()
+						} label: {
+							Label(.localized("Delete"), systemImage: "trash")
+						}
+						.disabled(_selectedAppUUIDs.isEmpty)
+					} else {
+						Menu {
+							_importActions()
+						} label: {
+							Label(.localized("Import"), systemImage: "plus")
+						}
 					}
 				}
 			}
 			.environment(\.editMode, $_editMode)
+			.onDisappear {
+				_editMode = .inactive
+			}
 			.sheet(item: $_selectedInfoAppPresenting) { app in
 				LibraryInfoView(app: app.base)
 			}
