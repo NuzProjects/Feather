@@ -15,7 +15,8 @@ enum WhatsNew {
     ]
 
     static let fixes: [Item] = [
-        Item(icon: "checkmark.seal", title: "Certificates", detail: "Tapping a certificate in the list selects it again. Open its overview from the certificate shown in Settings.")
+        Item(icon: "checkmark.seal", title: "Certificates", detail: "Tapping a certificate in the list selects it again. Open its overview from the certificate shown in Settings."),
+        Item(icon: "chevron.left.forwardslash.chevron.right", title: "GitHub Sources", detail: "Tapping a GitHub source opens the import sheet again.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

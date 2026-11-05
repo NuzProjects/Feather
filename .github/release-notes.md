@@ -7,3 +7,4 @@
 **Bug Fixes:**
 * Tapping a certificate in the Certificates list selects it again
 * The certificate overview opens from the certificate shown in Settings
+* GitHub sources open the import sheet again
