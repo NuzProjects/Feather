@@ -19,6 +19,10 @@ on:
         description: Publish a GitHub release so Settings → Updates shows it (notes come from .github/release-notes.md)
         type: boolean
         default: false
+      delete_beta_releases:
+        description: Only delete every beta pre-release and its tag (skips the build)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -28,7 +32,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  delete-beta-releases:
+    if: inputs.delete_beta_releases == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete beta pre-releases and their tags
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh api --paginate "repos/$GH_REPO/releases?per_page=100" \
+            --jq '.[] | select(.prerelease == true and (.tag_name | test("beta"; "i"))) | .tag_name' > tags.txt
+          echo "Deleting $(wc -l < tags.txt) beta releases"
+          while read -r tag; do
+            [ -n "$tag" ] || continue
+            echo "Deleting $tag"
+            gh release delete "$tag" --yes --cleanup-tag
+          done < tags.txt
   build:
+    if: inputs.delete_beta_releases != true
     runs-on: ${{ inputs.runner || 'macos-26' }}
     timeout-minutes: 45
     permissions:
