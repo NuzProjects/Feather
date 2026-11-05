@@ -31,16 +31,17 @@ struct TabbarView: View {
                 UserDefaults.standard.set(1, forKey: "Feather.serverMethod")
                 UserDefaults.standard.set(true, forKey: "Feather.serverMethodSemiLocal")
             }
-            CertificateExpiry.refresh()
             SSLCertificateCheck.run()
             Storage.shared.checkAllRevocations()
-            if Onboarding.shouldShow { showOnboarding = true }
-            else if WhatsNew.shouldShow { showWhatsNew = true }
+            if Onboarding.shouldShow { showOnboarding = true; return }
+            CertificateExpiry.refresh()
+            if WhatsNew.shouldShow { showWhatsNew = true }
             else { await updater.checkOnLaunch() }
         }
         .fullScreenCover(isPresented: $showOnboarding, onDismiss: {
             Onboarding.markSeen()
             WhatsNew.markSeen()
+            CertificateExpiry.refresh()
         }) {
             OnboardingView()
         }

@@ -16,22 +16,14 @@ enum WhatsNew {
         Item(icon: "lock.rotation", title: "SSL Certificate Check", detail: "Feather picks up a renewed Fully Local certificate on launch and offers to switch back."),
         Item(icon: "exclamationmark.bubble", title: "Clearer Signing Errors", detail: "Signing problems are explained in plain words, with what to do next."),
         Item(icon: "clock.badge.exclamationmark", title: "Certificate Warnings", detail: "A notification before your certificate expires."),
-        Item(icon: "hand.wave.fill", title: "Welcome Guide", detail: "A quick walkthrough for new installs."),
-        Item(icon: "arrow.clockwise", title: "Pull to Refresh", detail: "Pull down in Library to check for app updates."),
-        Item(icon: "iphone.radiowaves.left.and.right", title: "Haptics", detail: "Feel when signing finishes, fails or is cancelled."),
-        Item(icon: "sparkles", title: "What's New", detail: "This sheet shows what changed after each update.")
+        Item(icon: "hand.wave.fill", title: "Welcome Guide", detail: "A quick walkthrough for new installs.")
     ]
 
     static let fixes: [Item] = [
-        Item(icon: "arrow.down.app", title: "Updating Feather", detail: "Feather goes to the Home Screen after sending the update so iOS can install it."),
-        Item(icon: "server.rack", title: "Semi Local by Default", detail: "Installs use Semi Local unless you switch it in Settings → Installation → Server."),
-        Item(icon: "lock.trianglebadge.exclamationmark", title: "Expired SSL Certificate", detail: "Fully Local installs now explain when the SSL certificate has expired instead of getting stuck on Ready."),
-        Item(icon: "paintpalette", title: "Accent Swipe Actions", detail: "Library swipe buttons and the signing panel match your style."),
+        Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Update Feather from Settings → Updates without sideloading it again."),
+        Item(icon: "server.rack", title: "Semi Local by Default", detail: "Installs use Semi Local, since the Fully Local SSL certificate expired."),
         Item(icon: "doc.badge.plus", title: "Importing Files", detail: "Importing certificates, IPAs and other files works again."),
-        Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Feather can now sign and install itself, so the updater works."),
-        Item(icon: "signature", title: "Signing Feather", detail: "Apps with extensions, like Feather itself, now sign with certificates made for one app."),
-        Item(icon: "text.alignleft", title: "Update Popup", detail: "Release notes in the update popup are now clean text."),
-        Item(icon: "app.badge", title: "Updates Badge", detail: "Removed the badge on Settings → Updates.")
+        Item(icon: "signature", title: "Signing Apps with Extensions", detail: "Apps like Feather now sign with certificates made for one app.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

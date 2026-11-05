@@ -28,8 +28,21 @@ final class FeatherUpdater: ObservableObject {
         return (try? FileManager.default.attributesOfItem(atPath: url.path))?[.modificationDate] as? Date
     }
 
+    /// "1.0.1 Beta 13" → [1, 0, 1, 13]; a final release ranks above its betas.
+    static func versionKey(_ text: String) -> [Int]? {
+        let parts = text.lowercased().components(separatedBy: " beta")
+        let numbers = parts[0].trimmingCharacters(in: .whitespaces).split(separator: ".").compactMap { Int($0) }
+        guard !numbers.isEmpty else { return nil }
+        let padded = numbers + Array(repeating: 0, count: max(0, 3 - numbers.count))
+        guard parts.count > 1 else { return padded + [Int.max] }
+        return padded + [Int(parts[1].trimmingCharacters(in: .whitespaces)) ?? 1]
+    }
+
     var updateAvailable: Bool {
         guard let latest else { return false }
+        if let new = Self.versionKey(Self.displayName(latest)), let current = Self.versionKey(currentVersion) {
+            return new.lexicographicallyPrecedes(current) == false && new != current
+        }
         if let installed = UserDefaults.standard.object(forKey: installedKey) as? Int64 { return latest.id != installed }
         guard let published = latest.published_at.flatMap(ISO8601DateFormatter().date(from:)), let installDate else { return false }
         return published > installDate
@@ -88,6 +101,8 @@ final class FeatherUpdater: ObservableObject {
         }
         phase = .downloading
         Task {
+            var importedCopy: Imported?
+            defer { if let importedCopy, importedCopy.managedObjectContext != nil { Storage.shared.deleteApp(for: importedCopy) } }
             do {
                 let (temporary, response) = try await URLSession.shared.download(from: asset.browser_download_url)
                 guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
@@ -97,13 +112,17 @@ final class FeatherUpdater: ObservableObject {
                 let ipa = folder.appendingPathComponent("Feather.ipa")
                 try FileManager.default.moveItem(at: temporary, to: ipa)
 
+                // Replace an earlier Feather import, or pass "" so no "Replace Imported App?" prompt appears.
+                let previous = ((try? Storage.shared.context.fetch(Imported.fetchRequest())) ?? []).first { $0.identifier == Bundle.main.bundleIdentifier }
                 let imported: Imported = try await withCheckedThrowingContinuation { continuation in
-                    FR.handlePackageFile(ipa, onImported: { continuation.resume(returning: $0) }) { error in
+                    FR.handlePackageFile(ipa, replacingImport: previous?.uuid ?? "", onImported: { continuation.resume(returning: $0) }) { error in
                         if let error { continuation.resume(throwing: error) }
                     }
                 }
+                importedCopy = imported
                 phase = .signing
-                var options = OptionsManager.shared.options
+                // Plain options so the user's tweaks and custom settings never go into Feather itself.
+                var options = Options.defaultOptions
                 options.appIdentifier = Bundle.main.bundleIdentifier
                 options.appName = nil
                 options.appVersion = nil
@@ -113,7 +132,10 @@ final class FeatherUpdater: ObservableObject {
                         if let error { continuation.resume(throwing: error) }
                     }
                 }
-                Storage.shared.deleteApp(for: imported)
+                // Keep only the newest signed copy of Feather in Library.
+                for old in (try? Storage.shared.context.fetch(Signed.fetchRequest())) ?? [] where old.identifier == signed.identifier && old.uuid != signed.uuid {
+                    Storage.shared.deleteApp(for: old)
+                }
                 UserDefaults.standard.set(release.id, forKey: installedKey)
                 phase = .ready
                 signedUpdate = AnyApp(base: signed)
