@@ -20,10 +20,10 @@ enum WhatsNew {
     ]
 
     static let fixes: [Item] = [
+        Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Feather can now sign and install itself, so the updater works."),
         Item(icon: "signature", title: "Signing Feather", detail: "Apps with extensions, like Feather itself, now sign with certificates made for one app."),
         Item(icon: "text.alignleft", title: "Update Popup", detail: "Release notes in the update popup are now clean text."),
-        Item(icon: "app.badge", title: "Updates Badge", detail: "Removed the badge on Settings → Updates."),
-        Item(icon: "number", title: "Cleaner Version", detail: "The build number no longer shows next to the version.")
+        Item(icon: "app.badge", title: "Updates Badge", detail: "Removed the badge on Settings → Updates.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"
