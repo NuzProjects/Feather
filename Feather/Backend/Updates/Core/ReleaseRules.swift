@@ -32,6 +32,7 @@ struct GitHubAsset: Codable, Identifiable, Equatable {
     let id: Int64
     let name: String
     let browser_download_url: URL
+    var size: Int64? = nil
     var isIPA: Bool { name.lowercased().hasSuffix(".ipa") && browser_download_url.scheme == "https" && browser_download_url.host == "github.com" }
 }
 struct GitHubRelease: Codable, Identifiable, Equatable {

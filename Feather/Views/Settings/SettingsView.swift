@@ -57,7 +57,9 @@ struct SettingsView: View {
 				NBSection(.localized("Certificates")) {
                     
 					if let cert = selectedCertificate {
-						CertificatesCellView(cert: cert)
+						NavigationLink(destination: CertificateOverviewDetailView(cert: cert)) {
+							CertificatesCellView(cert: cert)
+						}
 					} else {
 						Text(.localized("No Certificate"))
 							.font(.footnote)
@@ -66,12 +68,9 @@ struct SettingsView: View {
 					NavigationLink(destination: CertificatesView()) {
 						Label(.localized("Certificates"), systemImage: "checkmark.seal")
 					}
-					NavigationLink(destination: CertificatesOverviewView()) {
-						Label("Certificate Overview", systemImage: "gauge.with.dots.needle.67percent")
-					}
                  
 				} footer: {
-					Text(String.localized("Add and manage certificates used for signing applications.") + " Overview shows expiry, capabilities, devices and the apps signed with each one.")
+					Text(.localized("Add and manage certificates used for signing applications."))
 				}
                 
 				NBSection(.localized("Features")) {
