@@ -84,7 +84,6 @@ extension Storage {
 		}
 	}
 	
-	/// Waits for any sheet that's opening or closing, so the alert isn't dropped.
 	private func _presentWhenFree(attempts: Int = 20, _ show: @escaping (UIViewController) -> Void) {
 		if let top = UIApplication.topViewController(), !top.isBeingPresented, !top.isBeingDismissed {
 			show(top)
@@ -93,7 +92,6 @@ extension Storage {
 		}
 	}
 
-	/// Checks every certificate with Apple, at most every 6 hours.
 	func checkAllRevocations() {
 		let key = "Feather.lastRevocationCheck"
 		let last = UserDefaults.standard.object(forKey: key) as? Date ?? .distantPast

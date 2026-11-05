@@ -24,7 +24,6 @@ struct TabbarView: View {
             ActivityProgressPanel()
                 .padding(.bottom, 58)
                 .background(alignment: .bottom) {
-                    // Feather's own update installs here with no card; its progress shows in the update bar.
                     if let update = updater.signedUpdate {
                         InstallPreviewView(
                             app: update.base,
@@ -73,7 +72,6 @@ struct TabbarView: View {
         ) { release in
             Button("Update") {
                 if navigator.tabs.contains(.settings) {
-                    // Show progress on Settings → Updates, which reports failures itself.
                     if selected != .settings { TabTransition.crossfade() }
                     selected = .settings
                     updater.openUpdatesPage = true
@@ -114,14 +112,26 @@ private struct TabLabelApplier: UIViewControllerRepresentable {
     final class Applier: UIViewController {
         var tabs: [TabEnum] = []
         var showLabels = true
+        private var appliedLabels: Bool?
         override func viewDidAppear(_ animated: Bool) { super.viewDidAppear(animated); apply() }
         func apply() {
             guard let window = view.window, let bar = window.firstTabBar, let items = bar.items, items.count == tabs.count else { return }
-            for (item, tab) in zip(items, tabs) {
-                item.title = showLabels ? tab.title : nil
-                item.accessibilityLabel = tab.title
-                item.imageInsets = showLabels ? .zero : UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+            let showLabels = showLabels
+            let update = {
+                for (item, tab) in zip(items, self.tabs) {
+                    item.title = showLabels ? tab.title : nil
+                    item.accessibilityLabel = tab.title
+                    item.imageInsets = showLabels ? .zero : UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+                }
+                bar.setNeedsLayout()
+                bar.layoutIfNeeded()
             }
+            if let appliedLabels, appliedLabels != showLabels, !UIAccessibility.isReduceMotionEnabled {
+                UIView.transition(with: bar, duration: 0.32, options: [.transitionCrossDissolve, .allowUserInteraction, .beginFromCurrentState], animations: update)
+            } else {
+                update()
+            }
+            appliedLabels = showLabels
         }
     }
 }

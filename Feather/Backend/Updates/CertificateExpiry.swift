@@ -10,7 +10,6 @@ enum CertificateExpiry {
         Storage.shared.getCertificate(for: UserDefaults.standard.integer(forKey: "feather.selectedCert"))
     }
 
-    /// Reschedules warnings for the selected certificate.
     static func refresh() {
         let center = UNUserNotificationCenter.current()
         let prefix = prefix

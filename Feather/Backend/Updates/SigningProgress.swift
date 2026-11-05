@@ -25,7 +25,6 @@ final class SigningProgress: ObservableObject {
         let name: String
         let icon: UIImage?
         var stage: Stage
-        /// Feather signing its own update; shown in the update bar instead of its own card.
         let isUpdate: Bool
     }
     @Published private(set) var jobs: [Job] = []
@@ -112,7 +111,6 @@ struct SigningProgressPanel: View {
     }
 }
 
-/// One bar for Feather's own update: download, sign and install.
 struct UpdateProgressPanel: View {
     @ObservedObject private var updater = FeatherUpdater.shared
     @ObservedObject private var signing = SigningProgress.shared
@@ -163,7 +161,6 @@ struct UpdateProgressPanel: View {
     }
 }
 
-/// The 42pt app icon used by the signing and update panels.
 struct ProgressPanelIcon: View {
     let image: UIImage?
     var body: some View {
@@ -177,7 +174,6 @@ struct ProgressPanelIcon: View {
     }
 }
 
-/// The card background shared by the signing and update install panels.
 struct ProgressPanelSurface<Content: View>: View {
     @ViewBuilder let content: () -> Content
     var body: some View {

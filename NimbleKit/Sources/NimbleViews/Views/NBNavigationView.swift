@@ -32,7 +32,6 @@ public struct NBNavigationView<Content>: View where Content: View {
 	}
 }
 
-/// Soft top edge blur.
 private struct _SoftTopEdge: ViewModifier {
 	func body(content: Content) -> some View {
 		if #available(iOS 26.0, *) {

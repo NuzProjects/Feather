@@ -51,7 +51,7 @@ struct SettingsView: View {
 					NavigationLink(destination: AppIconView(currentIcon: $_currentIcon)) {
 						Label(.localized("App Icon"), systemImage: "app.badge")
 					}
-					NavigationLink(destination: NavigatorView()) { Label("Navigator", systemImage: "rectangle.bottomthird.inset.filled") }
+					NavigationLink(destination: NavigatorView()) { Label("Navigator", systemImage: "dock.rectangle") }
 				}
                 
 				NBSection(.localized("Certificates")) {

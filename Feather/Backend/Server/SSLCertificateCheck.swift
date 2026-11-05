@@ -2,7 +2,6 @@ import Foundation
 import NimbleJSON
 import UIKit
 
-/// Picks up a renewed backloop.dev certificate so Fully Local can work again.
 enum SSLCertificateCheck {
     private static let offeredKey = "Feather.renewedSSLOffered"
 

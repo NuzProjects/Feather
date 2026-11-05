@@ -9,7 +9,6 @@ final class ImportProgress: ObservableObject {
         var name: String
         var icon: UIImage?
         var fraction: Double
-        /// Importing Feather's own update; shown in the update bar instead of its own card.
         var isUpdate = false
     }
     @Published private(set) var jobs: [Job] = []

@@ -46,7 +46,6 @@ public struct NBSection<Content, Footer>: View
 	
 	public var body: some View {
 		if _inlineHeaders {
-			// Unpinned header so it scrolls under the top bar
 			Section {
 				_header
 					.listRowSeparator(.hidden)
@@ -113,7 +112,6 @@ private struct NBInlineSectionHeadersKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
-	/// Draws section headers as rows instead of pinned headers.
 	var nbInlineSectionHeaders: Bool {
 		get { self[NBInlineSectionHeadersKey.self] }
 		set { self[NBInlineSectionHeadersKey.self] = newValue }

@@ -34,7 +34,6 @@ struct SourcesAddView: View {
 	
 	@State var recommendedSourcesData: [(url: URL, data: ASRepository)] = []
 	let recommendedSources: [URL] = [
-		// Top rated first
 		"https://cdn.altstore.io/file/altstore/apps.json",
 		"https://github.com/LiveContainer/LiveContainer/releases/download/nightly/apps_nightly.json",
 		"https://alt.getutm.app",

@@ -9,9 +9,8 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    // Replace (don't add to) these every release: only this version's changes.
     static let features: [Item] = [
-        Item(icon: "rectangle.bottomthird.inset.filled", title: "One Update Bar", detail: "Updating shows a single progress bar covering signing and installing.")
+        Item(icon: "dock.rectangle", title: "Navigator", detail: "A cleaner Navigator icon, and the tab bar animates smoothly when showing or hiding labels.")
     ]
 
     static let fixes: [Item] = []
@@ -20,7 +19,6 @@ enum WhatsNew {
 
     static var version: String { FeatherUpdater.shared.currentVersion }
 
-    /// Shows automatically only for official releases, not betas.
     static var shouldShow: Bool {
         !version.localizedCaseInsensitiveContains("beta") && UserDefaults.standard.string(forKey: seenKey) != version
     }

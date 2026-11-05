@@ -26,7 +26,6 @@ struct InstallPreviewView: View {
 	@StateObject var installer: ServerInstaller
 	
 	@State var isSharing: Bool
-	/// Installs without its own card (Feather's updates show progress in the update bar instead).
 	let inBackground: Bool
 	let onClose: (() -> Void)?
 	let onProgress: ((String, Double) -> Void)?
@@ -63,7 +62,6 @@ struct InstallPreviewView: View {
 				}
 				
 				if case .installing = newStatus {
-					// iOS won't replace Feather while it's running, so close it once the update is sent.
 					if app.identifier == Bundle.main.bundleIdentifier {
 						DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 							UIApplication.shared.suspend()
@@ -122,7 +120,6 @@ struct InstallPreviewView: View {
 	@ViewBuilder
 	private func _content() -> some View {
 		if inBackground {
-			// Nothing to show, but stays in the hierarchy so Semi Local's install page can open.
 			Color.clear.frame(width: 1, height: 1).allowsHitTesting(false)
 		} else {
 			ZStack {

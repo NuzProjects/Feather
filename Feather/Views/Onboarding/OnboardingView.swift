@@ -3,7 +3,6 @@ import SwiftUI
 enum Onboarding {
     private static let seenKey = "Onboarding.seen"
 
-    /// New installs only: existing users with certificates or sources skip it.
     @MainActor static var shouldShow: Bool {
         guard !UserDefaults.standard.bool(forKey: seenKey) else { return false }
         if !Storage.shared.getAllCertificates().isEmpty || !Storage.shared.getSources().isEmpty {

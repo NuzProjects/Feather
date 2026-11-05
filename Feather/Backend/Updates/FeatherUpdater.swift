@@ -13,11 +13,9 @@ final class FeatherUpdater: ObservableObject {
     @Published var signedUpdate: AnyApp? {
         didSet { if signedUpdate?.id != oldValue?.id { installLabel = nil; installFraction = 0 } }
     }
-    /// Install status of signedUpdate, shown in the update bar.
     @Published var installLabel: String?
     @Published var installFraction: Double = 0
     @Published var promptRelease: GitHubRelease?
-    /// Set to push Settings → Updates (from the launch update popup).
     @Published var openUpdatesPage = false
 
     private let installedKey = "Updates.installedRelease"
@@ -35,7 +33,6 @@ final class FeatherUpdater: ObservableObject {
         return (try? FileManager.default.attributesOfItem(atPath: url.path))?[.modificationDate] as? Date
     }
 
-    /// "1.0.1 Beta 13" → [1, 0, 1, 13]; a final release ranks above its betas.
     static func versionKey(_ text: String) -> [Int]? {
         let parts = text.lowercased().components(separatedBy: " beta")
         let numbers = parts[0].trimmingCharacters(in: .whitespaces).split(separator: ".").compactMap { Int($0) }
@@ -80,7 +77,6 @@ final class FeatherUpdater: ObservableObject {
         guard !isBusy else { return }
         phase = .checking
         do {
-            // Official versions only get official releases; betas get everything.
             let onBeta = currentVersion.localizedCaseInsensitiveContains("beta")
             let releases = try await GitHubReleases.shared.releases(Self.repository).filter { onBeta || !$0.prerelease }
             latest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
@@ -121,7 +117,6 @@ final class FeatherUpdater: ObservableObject {
                 let ipa = folder.appendingPathComponent("Feather.ipa")
                 try FileManager.default.moveItem(at: temporary, to: ipa)
 
-                // Replace an earlier Feather import, or pass "" so no "Replace Imported App?" prompt appears.
                 let previous = ((try? Storage.shared.context.fetch(Imported.fetchRequest())) ?? []).first { $0.identifier == Bundle.main.bundleIdentifier }
                 let imported: Imported = try await withCheckedThrowingContinuation { continuation in
                     FR.handlePackageFile(ipa, replacingImport: previous?.uuid ?? "", onImported: { continuation.resume(returning: $0) }) { error in
@@ -130,7 +125,6 @@ final class FeatherUpdater: ObservableObject {
                 }
                 importedCopy = imported
                 phase = .signing
-                // Plain options so the user's tweaks and custom settings never go into Feather itself.
                 var options = Options.defaultOptions
                 options.appIdentifier = Bundle.main.bundleIdentifier
                 options.appName = nil
@@ -141,7 +135,6 @@ final class FeatherUpdater: ObservableObject {
                         if let error { continuation.resume(throwing: error) }
                     }
                 }
-                // Keep only the newest signed copy of Feather in Library.
                 for old in (try? Storage.shared.context.fetch(Signed.fetchRequest())) ?? [] where old.identifier == signed.identifier && old.uuid != signed.uuid {
                     Storage.shared.deleteApp(for: old)
                 }

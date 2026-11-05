@@ -355,7 +355,6 @@ extension SigningHandler {
 		}
 	}
 	
-	// A profile for one exact app ID can't sign extensions, and iOS refuses to install the app if they stay.
 	private func _removeExtensionsIfProfileIsExplicit(for app: URL) async throws {
 		guard let certificate = appCertificate else { return }
 		let identifier = await MainActor.run {
@@ -586,7 +585,6 @@ enum SigningFileHandlerError: Error, LocalizedError {
 		}
 	}
 
-	/// Catches certificate problems before signing starts.
 	@MainActor
 	static func check(_ certificate: CertificatePair?) throws {
 		guard let certificate else { throw missingCertifcate }

@@ -73,7 +73,6 @@ extension ServerInstaller {
 		)
 	}
 	
-	/// Whether iOS still trusts the Fully Local SSL certificate (it fails silently once expired).
 	static func isCertificateTrusted() -> Bool {
 		guard let url = getUrl("server", ext: "crt"), let pem = try? String(contentsOf: url, encoding: .utf8) else { return false }
 		return isTrusted(pem: pem)

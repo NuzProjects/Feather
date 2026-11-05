@@ -3,7 +3,12 @@
 
 <img title="Feather" alt="Feather" height="180" src="landing.png">
 
-Sideloading app meant for developer certificates.
+**Sign and install apps on your iPhone or iPad with your own developer certificate. No computer needed, and it updates itself.**
+
+[![Latest release](https://img.shields.io/github/v/release/NuzProjects/Feather?label=release&color=848ef9)](https://github.com/NuzProjects/Feather/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/NuzProjects/Feather/total?color=848ef9)](https://github.com/NuzProjects/Feather/releases)
+[![Stars](https://img.shields.io/github/stars/NuzProjects/Feather?style=flat&color=848ef9)](https://github.com/NuzProjects/Feather/stargazers)
+[![License](https://img.shields.io/github/license/NuzProjects/Feather?color=848ef9)](https://github.com/NuzProjects/Feather/blob/main/LICENSE)
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="demo-dark.png"><source media="(prefers-color-scheme: light)" srcset="demo-light.png"><img alt="Feather" src="demo-light.png"></picture></p>
 
@@ -13,6 +18,17 @@ Sideloading app meant for developer certificates.
 ## Notice
 **This is a fork of [Feather](https://github.com/claration/Feather) with several UX and signing improvements. I intend for this repository to receive all Feather updates, as well as any modifications I see fit.**
 *__This Feather fork is under the GPL-3.0 license, and we do NOT collect any data from any user__*
+
+## What's new in this fork
+
+- **In-app updates.** Feather downloads, signs and installs its own updates from Settings → Updates, then closes itself so iOS can finish.
+- **Live progress.** Signing, downloads and imports show in a floating glass panel. Tap it to cancel.
+- **Certificate alerts.** Warnings before a certificate expires, and an alert as soon as one is revoked.
+- **Backup & Transfer.** Back up everything (or everything except apps) and restore it on another device.
+- **GitHub sources.** Add a GitHub repository and install IPAs straight from its releases.
+- **Navigator.** Choose, hide and reorder tabs, and show or hide tab labels.
+- **Clearer signing errors.** Plain-language messages instead of raw error codes.
+- **Better Sources.** Search apps across sources and see when each source last updated.
 
 ## Features
 
@@ -30,12 +46,12 @@ Sideloading app meant for developer certificates.
 
 ## Download
 
-Visit [releases](https://github.com/claration/Feather/releases) and get the latest `.ipa`.
+Visit [releases](https://github.com/NuzProjects/Feather/releases) and get the latest `.ipa`. Once installed, Feather keeps itself up to date from Settings → Updates.
 
-<a href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/claration/Feather/refs/heads/main/app-repo.json" target="_blank">
+<a href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json" target="_blank">
    <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/AltSource_Blue.png?raw=true" alt="Add AltSource" width="200">
 </a>
-<a href="https://github.com/claration/Feather/releases/latest/download/Feather.ipa" target="_blank">
+<a href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa" target="_blank">
    <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/Download_Blue.png?raw=true" alt="Download .ipa" width="200">
 </a>
 
@@ -62,6 +78,6 @@ To properly contribute and test potentially new localizations, you can head over
 
 ## License 
 
-This project is licensed under the GPL-3.0 license. You can see the full details of the license [here](https://github.com/claration/Feather/blob/main/LICENSE). It's under this specific license because I wanted to make a project that is transparent to the user thats related to certificate paired sideloading, before this project there weren't any open source projects that filled in this gap.
+This project is licensed under the GPL-3.0 license. You can see the full details of the license [here](https://github.com/NuzProjects/Feather/blob/main/LICENSE). It's under this specific license because I wanted to make a project that is transparent to the user thats related to certificate paired sideloading, before this project there weren't any open source projects that filled in this gap.
 
 By contributing to this project, you agree to license your code under the GPL-3.0 license as well (including agreeing to license exceptions), ensuring that your work, like all other contributions, remains freely accessible and open.

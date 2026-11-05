@@ -1,0 +1,32 @@
+{
+  "name": "Feather (NuzProjects)",
+  "identifier": "dev.madebynuz.feather-repo",
+  "subtitle": "On-device signing with in-app updates",
+  "iconURL": "https://raw.githubusercontent.com/NuzProjects/Feather/main/Feather/Resources/Assets.xcassets/AppIcon.appiconset/feather.png",
+  "website": "https://github.com/NuzProjects/Feather",
+  "tintColor": "848ef9",
+  "apps": [
+    {
+      "name": "Feather",
+      "bundleIdentifier": "dev.madebynuz.dev.feather",
+      "developerName": "NuzFlameV2",
+      "subtitle": "On-device signing with in-app updates",
+      "localizedDescription": "A fork of Feather that signs and installs apps on your iPhone or iPad with your own developer certificate. It adds in-app updates, a customizable tab bar, Backup & Transfer, GitHub sources, certificate expiry and revocation alerts, and live signing progress.",
+      "iconURL": "https://raw.githubusercontent.com/NuzProjects/Feather/main/Feather/Resources/Assets.xcassets/AppIcon.appiconset/feather.png",
+      "tintColor": "848ef9",
+      "screenshotURLs": [
+        "https://raw.githubusercontent.com/NuzProjects/Feather/main/.github/demo-light.png"
+      ],
+      "versions": [
+        {
+          "version": "1.1.0",
+          "date": "2026-11-05T15:55:06Z",
+          "size": 14358458,
+          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.1.0/Feather.ipa"
+        }
+      ],
+      "appPermissions": {}
+    }
+  ],
+  "news": []
+}
