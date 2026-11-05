@@ -1,1 +1,8 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Questions and help
+    url: https://github.com/NuzProjects/Feather/discussions
+    about: Ask a question or share a source in Discussions.
+  - name: Latest release
+    url: https://github.com/NuzProjects/Feather/releases/latest
+    about: Download the newest Feather.ipa before reporting a bug.

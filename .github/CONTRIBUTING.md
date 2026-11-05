@@ -9,7 +9,7 @@ Any contributions should follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
 - **No usage of any exploits of any kind**.
 - **No contributions related to retrieving any signing certificates owned by companies**.
 - **Modifying any hardcoded links should be discussed before changing**.
-- **If you're planning on making a large contribution, please [make an issue](https://github.com/khcrysalis/Feather) beforehand**.
+- **If you're planning on making a large contribution, please [make an issue](https://github.com/NuzProjects/Feather/issues) beforehand**.
 - **Your contributions should be licensed appropriately**. 
   - Feather: GPLv3
   - AltSourceKit: MIT
@@ -29,7 +29,7 @@ Any contributions should follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 1. Clone the repository
     ```sh
-    git clone https://github.com/khcrysalis/Feather --recursive
+    git clone https://github.com/NuzProjects/Feather --recursive
     ```
     - `Zsign` is a submodule; recursive is required.
 

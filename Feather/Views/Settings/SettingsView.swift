@@ -89,7 +89,21 @@ struct SettingsView: View {
 				}
                 
 				_directories()
-                
+
+				NBSection("GitHub") {
+					Button { UIApplication.open("https://github.com/NuzProjects/Feather") } label: {
+						Label { Text("Star on GitHub") } icon: { Image("GitHubMark").renderingMode(.template) }
+					}
+					Button("Report an Issue", systemImage: "exclamationmark.bubble") {
+						UIApplication.open("https://github.com/NuzProjects/Feather/issues/new/choose")
+					}
+					NavigationLink(destination: AboutView()) {
+						Label(.localized("About"), systemImage: "info.circle")
+					}
+				} footer: {
+					Text("Feather is free and open source. A star helps other people find it.")
+				}
+
 				Section {
 					NavigationLink(destination: ResetView()) {
 						Label(.localized("Reset"), systemImage: "trash")

@@ -5,6 +5,10 @@
 
 **Sign and install apps on your iPhone or iPad with your own developer certificate. No computer needed, and it updates itself.**
 
+An on-device IPA signer and sideloading app for iOS and iPadOS. Free, open source, no jailbreak.
+
+[**Download the IPA**](https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa) · [**Add the AltStore source**](https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json) · [**Report a bug**](https://github.com/NuzProjects/Feather/issues/new/choose)
+
 [![Latest release](https://img.shields.io/github/v/release/NuzProjects/Feather?label=release&color=848ef9)](https://github.com/NuzProjects/Feather/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/NuzProjects/Feather/total?color=848ef9)](https://github.com/NuzProjects/Feather/releases)
 [![Stars](https://img.shields.io/github/stars/NuzProjects/Feather?style=flat&color=848ef9)](https://github.com/NuzProjects/Feather/stargazers)
@@ -54,6 +58,30 @@ Visit [releases](https://github.com/NuzProjects/Feather/releases) and get the la
 <a href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa" target="_blank">
    <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/Download_Blue.png?raw=true" alt="Download .ipa" width="200">
 </a>
+
+## FAQ
+
+**What is Feather?**
+Feather is an iOS app that re-signs `.ipa` files with your own Apple Developer certificate (`.p12` + `.mobileprovision`) and installs them on the same device, with no computer, no jailbreak and no cable.
+
+**Do I need a jailbreak or a Mac/PC?**
+No. Feather runs on stock iOS. You only need a signing certificate.
+
+**How is it different from AltStore or SideStore?**
+AltStore and SideStore sign with a free Apple ID and refresh apps every 7 days. Feather signs with a developer certificate you already have, so apps last as long as the certificate does. It still reads AltStore sources.
+
+**How is this fork different from the original Feather?**
+It adds in-app self-updates, live signing progress, certificate expiry and revocation alerts, Backup & Transfer, GitHub release sources and a customizable tab bar. See [What's new in this fork](#whats-new-in-this-fork).
+
+**Which iOS versions are supported?**
+iOS and iPadOS 16.0 and later.
+
+**Does Feather collect any data?**
+No. There is no tracking or analytics.
+
+## Support the project
+
+If Feather is useful to you, **[star the repo](https://github.com/NuzProjects/Feather/stargazers)**. Stars help other people find it. Bug reports and feature ideas are welcome in [Issues](https://github.com/NuzProjects/Feather/issues).
 
 ## Translating
 
