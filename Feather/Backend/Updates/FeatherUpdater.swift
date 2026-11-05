@@ -20,9 +20,7 @@ final class FeatherUpdater: ObservableObject {
     var currentVersion: String {
         let info = Bundle.main.infoDictionary
         let label = (info?["FeatherVersionLabel"] as? String).flatMap { $0.isEmpty ? nil : $0 }
-        let short = label ?? info?["CFBundleShortVersionString"] as? String ?? "1.0.0"
-        let build = info?["CFBundleVersion"] as? String ?? ""
-        return build.isEmpty ? short : "\(short) (\(build))"
+        return label ?? info?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     }
 
     private var installDate: Date? {

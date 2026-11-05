@@ -6,6 +6,7 @@ struct TabbarView: View {
     @State private var selected: TabEnum = NavigatorPreferences.shared.tabs.first ?? .settings
     @ObservedObject private var updater = FeatherUpdater.shared
     @State private var installingFromPrompt = false
+    @State private var showWhatsNew = false
 
     var body: some View {
         TabView(selection: Binding(get: { selected }, set: { new in if new != selected { TabTransition.crossfade() }; selected = new })) {
@@ -24,7 +25,14 @@ struct TabbarView: View {
         .onChange(of: navigator.tabs) { tabs in
             if !tabs.contains(selected) { selected = tabs.contains(.settings) ? .settings : (tabs.first ?? .settings) }
         }
-        .task { await updater.checkOnLaunch() }
+        .task {
+            if WhatsNew.shouldShow { showWhatsNew = true } else { await updater.checkOnLaunch() }
+        }
+        .sheet(isPresented: $showWhatsNew, onDismiss: { Task { await updater.checkOnLaunch() } }) {
+            WhatsNewView()
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        }
         .alert(
             "Update Available",
             isPresented: Binding(get: { updater.promptRelease != nil }, set: { if !$0 { updater.promptRelease = nil } }),
