@@ -66,9 +66,12 @@ struct SettingsView: View {
 					NavigationLink(destination: CertificatesView()) {
 						Label(.localized("Certificates"), systemImage: "checkmark.seal")
 					}
+					NavigationLink(destination: CertificatesOverviewView()) {
+						Label("Certificate Overview", systemImage: "gauge.with.dots.needle.67percent")
+					}
                  
 				} footer: {
-					Text(.localized("Add and manage certificates used for signing applications."))
+					Text(String.localized("Add and manage certificates used for signing applications.") + " Overview shows expiry, capabilities, devices and the apps signed with each one.")
 				}
                 
 				NBSection(.localized("Features")) {
@@ -134,8 +137,11 @@ extension SettingsView {
 			Button(.localized("Open Certificates"), systemImage: "folder") {
 				UIApplication.open(FileManager.default.certificates.toSharedDocumentsURL()!)
 			}
+			NavigationLink(destination: DeveloperLogsView()) {
+				Label("Developer Logs", systemImage: "ladybug")
+			}
 		} footer: {
-			Text(.localized("All of the apps files are contained in the documents directory, here are some quick links to these."))
+			Text(String.localized("All of the apps files are contained in the documents directory, here are some quick links to these.") + " Developer Logs has crash reports and errors you can export for bug reports.")
 		}
 	}
 }

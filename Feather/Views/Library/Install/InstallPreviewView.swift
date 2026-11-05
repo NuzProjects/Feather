@@ -217,6 +217,7 @@ struct InstallPreviewView: View {
 				}
 			} catch {
 				await progressTask?.cancel()
+				DevLog.shared.error(error, while: "Installing app", category: "Install")
 				
 				await MainActor.run {
 					UIAlertController.showAlertWithOk(

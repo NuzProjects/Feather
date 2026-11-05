@@ -219,7 +219,7 @@ extension DownloadManager: URLSessionDownloadDelegate {
 			
 			try handlePachageFile(url: destinationURL, dl: download)
 		} catch {
-			print("Error handling downloaded file: \(error.localizedDescription)")
+			DevLog.shared.error(error, while: "Handling downloaded file", category: "Downloads")
 		}
 	}
 	
@@ -242,6 +242,9 @@ extension DownloadManager: URLSessionDownloadDelegate {
 	}
 	
 	func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+		if let error, (error as NSError).code != NSURLErrorCancelled {
+			DevLog.shared.error(error, while: "Downloading \(task.originalRequest?.url?.lastPathComponent ?? "file")", category: "Downloads")
+		}
 		guard
 			let _ = error,
 			let downloadTask = task as? URLSessionDownloadTask,

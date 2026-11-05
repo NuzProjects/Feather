@@ -49,7 +49,26 @@ struct FeatherApp: App {
 				
 				UIApplication.topViewController()?.view.window?.tintColor = UIColor(Color(hex: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9"))
 				UIApplication.topViewController()?.view.window?.tintAdjustmentMode = .normal
+				_offerCrashLogsIfNeeded()
 			}
+		}
+	}
+	
+	private func _offerCrashLogsIfNeeded() {
+		guard DevLog.shared.didCrashLastLaunch else { return }
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+			UIAlertController.showAlertWithCancel(
+				title: "Feather Closed Unexpectedly",
+				message: "A crash report was saved. You can share the logs now, or find them later in Settings → Developer Logs.",
+				actions: [
+					UIAlertAction(title: "Share Logs", style: .default) { _ in
+						Task {
+							guard let url = await DevLog.shared.exportBundle() else { return }
+							await MainActor.run { UIActivityViewController.show(activityItems: [url]) }
+						}
+					}
+				]
+			)
 		}
 	}
 	
@@ -161,6 +180,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 		_ application: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		DevLog.shared.start()
 		GitHubReleases.register()
 		UNUserNotificationCenter.current().delegate = self
 		_createPipeline()

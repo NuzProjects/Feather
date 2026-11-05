@@ -55,6 +55,7 @@ enum FR {
 			} catch {
 				try? await handler.clean()
 				try? FileManager.default.removeItem(at: FileManager.default.unsigned(handler.resultUUID))
+				DevLog.shared.error(error, while: "Importing \(ipa.lastPathComponent)", category: "Import")
 				await MainActor.run {
 					ImportProgress.shared.finish(importID, success: false)
 					completion(error)
@@ -95,12 +96,16 @@ enum FR {
 						return
 					}
                     SigningProgress.shared.finish(job, success: true)
+                    DevLog.shared.log(.info, "Signed \(app.name ?? "app") \(app.version ?? "")", category: "Signing")
                     onSigned?(signed)
 					completion(nil)
 				}
 			} catch {
 				try? await handler.clean()
                 try? FileManager.default.removeItem(at: FileManager.default.signed(handler.resultUUID))
+				if !(error is CancellationError) {
+					DevLog.shared.error(error, while: "Signing \(app.name ?? "app") (\(app.identifier ?? "?"))", category: "Signing")
+				}
 				await MainActor.run {
 					SigningProgress.shared.finish(job, success: false)
 					completion(error)
@@ -133,6 +138,7 @@ enum FR {
 					completion(nil)
 				}
 			} catch {
+				DevLog.shared.error(error, while: "Importing certificate", category: "Certificates")
 				await MainActor.run {
 					completion(error)
 				}

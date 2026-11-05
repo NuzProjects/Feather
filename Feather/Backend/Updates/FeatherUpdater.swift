@@ -82,6 +82,7 @@ final class FeatherUpdater: ObservableObject {
             latest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
             phase = .idle
         } catch {
+            DevLog.shared.error(error, while: "Checking for Feather updates", category: "Updates")
             phase = .failed(error.localizedDescription)
         }
     }
@@ -144,6 +145,7 @@ final class FeatherUpdater: ObservableObject {
             } catch is CancellationError {
                 phase = .idle
             } catch {
+                DevLog.shared.error(error, while: "Installing Feather update", category: "Updates")
                 phase = .failed(error.localizedDescription)
             }
         }
