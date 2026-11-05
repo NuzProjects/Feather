@@ -54,7 +54,6 @@ final class SigningProgress: ObservableObject {
         guard !cancelled.contains(id) else { return }
         stage(id, success ? .complete : .failed)
         UINotificationFeedbackGenerator().notificationOccurred(success ? .success : .error)
-        if success { SharedWidgetData.write() }
         endLease(id)
         remove(id, after: success ? 1_500_000_000 : 4_000_000_000)
     }

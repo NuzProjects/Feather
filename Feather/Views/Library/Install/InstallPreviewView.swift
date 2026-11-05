@@ -59,9 +59,7 @@ struct InstallPreviewView: View {
 		.onReceive(viewModel.$status) { newStatus in
 			if _installationMethod == 0 {
 				if case .ready = newStatus {
-					if _serverMethod == 0 && app.identifier == Bundle.main.bundleIdentifier {
-						UIApplication.shared.open(installer.selfInstallPage)
-					} else if _serverMethod == 0 {
+					if _serverMethod == 0 {
 						UIApplication.shared.open(URL(string: installer.iTunesLink)!)
 					} else if _serverMethod == 1 {
 						_isWebviewPresenting = true
@@ -131,13 +129,6 @@ struct InstallPreviewView: View {
 				}
 				.padding()
 				.compatTransition()
-			} else if case .ready = viewModel.status, _serverMethod == 0, app.identifier == Bundle.main.bundleIdentifier {
-				Button {
-					UIApplication.shared.open(installer.selfInstallPage)
-				} label: {
-					NBButton("Try Again", systemImage: "", style: .text)
-				}
-				.padding()
 			}
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
@@ -154,6 +145,16 @@ struct InstallPreviewView: View {
 				
 				if await !isSharing {
 					if await _installationMethod == 0 {
+						if await _serverMethod == 0, !ServerInstaller.isCertificateTrusted() {
+							await MainActor.run {
+								UIAlertController.showAlertWithOk(
+									title: "SSL Certificate Expired",
+									message: "Fully Local uses the backloop.dev certificate, which has expired, so iOS won't install the app. Tap Update SSL Certificates in Settings → Installation → Server, or switch the Server Type to Semi Local.",
+									action: { dismiss() }
+								)
+							}
+							return
+						}
 						await MainActor.run {
 							installer.packageUrl = packageUrl
 							viewModel.status = .ready

@@ -73,6 +73,20 @@ extension ServerInstaller {
 		)
 	}
 	
+	/// Whether iOS still trusts the Fully Local SSL certificate (it fails silently once expired).
+	static func isCertificateTrusted() -> Bool {
+		guard let url = getUrl("server", ext: "crt"), let pem = try? String(contentsOf: url, encoding: .utf8) else { return false }
+		let certificates = pem.components(separatedBy: "-----END CERTIFICATE-----").compactMap { block -> SecCertificate? in
+			let body = block.components(separatedBy: "\n").filter { !$0.isEmpty && !$0.hasPrefix("-----") }.joined()
+			guard let der = Data(base64Encoded: body) else { return nil }
+			return SecCertificateCreateWithData(nil, der as CFData)
+		}
+		guard !certificates.isEmpty else { return false }
+		var trust: SecTrust?
+		guard SecTrustCreateWithCertificates(certificates as CFArray, SecPolicyCreateSSL(true, nil), &trust) == errSecSuccess, let trust else { return false }
+		return SecTrustEvaluateWithError(trust, nil)
+	}
+
 	func readCommonName() -> String? {
 		guard let url = Self.getUrl("commonName", ext: "txt") else {
 			return nil

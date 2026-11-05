@@ -1,6 +1,5 @@
 import Foundation
 import UserNotifications
-import WidgetKit
 
 @MainActor
 enum CertificateExpiry {
@@ -11,21 +10,8 @@ enum CertificateExpiry {
         Storage.shared.getCertificate(for: UserDefaults.standard.integer(forKey: "feather.selectedCert"))
     }
 
-    static func daysLeft(_ date: Date) -> Int {
-        Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: Date()), to: Calendar.current.startOfDay(for: date)).day ?? 0
-    }
-
-    static func countdown(_ date: Date) -> String {
-        let days = daysLeft(date)
-        if date < Date() { return "Expired" }
-        if days == 0 { return "Expires today" }
-        if days == 1 { return "Expires tomorrow" }
-        return "Expires in \(days) days"
-    }
-
-    /// Reschedules warnings for the selected certificate and refreshes the widget.
+    /// Reschedules warnings for the selected certificate.
     static func refresh() {
-        SharedWidgetData.write()
         let center = UNUserNotificationCenter.current()
         let prefix = prefix
         let warningDays = warningDays
@@ -47,38 +33,5 @@ enum CertificateExpiry {
                 center.add(UNNotificationRequest(identifier: prefix + "\(days)", content: content, trigger: trigger))
             }
         }
-    }
-}
-
-/// Shared with the widget through the keychain, since sideload certificates rarely support app groups.
-enum SharedWidgetData {
-    @MainActor
-    static func write() {
-        let certificate = CertificateExpiry.selected
-        let signed = ((try? Storage.shared.context.fetch(Signed.fetchRequest())) ?? [])
-            .sorted { ($0.date ?? .distantPast) > ($1.date ?? .distantPast) }
-            .prefix(3)
-            .compactMap(\.name)
-        var payload: [String: Any] = [
-            "recentApps": Array(signed),
-            "tint": UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9"
-        ]
-        payload["certificateName"] = certificate?.nickname
-        payload["certificateExpiration"] = certificate?.expiration?.timeIntervalSince1970
-        guard let data = try? JSONSerialization.data(withJSONObject: payload) else { return }
-
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: "Feather.Widget",
-            kSecAttrAccount as String: "data"
-        ]
-        let attributes: [String: Any] = [
-            kSecValueData as String: data,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
-        ]
-        if SecItemUpdate(query as CFDictionary, attributes as CFDictionary) == errSecItemNotFound {
-            SecItemAdd(query.merging(attributes) { $1 } as CFDictionary, nil)
-        }
-        WidgetCenter.shared.reloadAllTimelines()
     }
 }

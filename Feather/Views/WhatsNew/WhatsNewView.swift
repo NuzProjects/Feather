@@ -11,8 +11,7 @@ enum WhatsNew {
 
     // Update for every release.
     static let features: [Item] = [
-        Item(icon: "rectangle.on.rectangle", title: "Home Screen Widget", detail: "See your certificate countdown and recently signed apps."),
-        Item(icon: "clock.badge.exclamationmark", title: "Certificate Warnings", detail: "A countdown in Settings and a notification before your certificate expires."),
+        Item(icon: "clock.badge.exclamationmark", title: "Certificate Warnings", detail: "A notification before your certificate expires."),
         Item(icon: "hand.wave.fill", title: "Welcome Guide", detail: "A quick walkthrough for new installs."),
         Item(icon: "arrow.clockwise", title: "Pull to Refresh", detail: "Pull down in Library to check for app updates."),
         Item(icon: "iphone.radiowaves.left.and.right", title: "Haptics", detail: "Feel when signing finishes, fails or is cancelled."),
@@ -20,10 +19,9 @@ enum WhatsNew {
     ]
 
     static let fixes: [Item] = [
-        Item(icon: "arrow.down.app", title: "Updating Feather", detail: "Installing a Feather update no longer gets stuck on Ready."),
+        Item(icon: "lock.trianglebadge.exclamationmark", title: "Expired SSL Certificate", detail: "Fully Local installs now explain when the SSL certificate has expired instead of getting stuck on Ready."),
         Item(icon: "paintpalette", title: "Accent Swipe Actions", detail: "Library swipe buttons and the signing panel match your style."),
         Item(icon: "doc.badge.plus", title: "Importing Files", detail: "Importing certificates, IPAs and other files works again."),
-        Item(icon: "rectangle.on.rectangle", title: "Widget", detail: "The widget now loads your data and uses your accent color."),
         Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Feather can now sign and install itself, so the updater works."),
         Item(icon: "signature", title: "Signing Feather", detail: "Apps with extensions, like Feather itself, now sign with certificates made for one app."),
         Item(icon: "text.alignleft", title: "Update Popup", detail: "Release notes in the update popup are now clean text."),
