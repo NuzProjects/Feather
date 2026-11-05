@@ -23,18 +23,12 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 		self.onDocumentsPicked = onDocumentsPicked
 	}
 	
-	static var lastFolder: URL? {
-		get { UserDefaults.standard.url(forKey: "NBFileImporter.lastFolder") }
-		set { UserDefaults.standard.set(newValue, forKey: "NBFileImporter.lastFolder") }
-	}
-
 	public func makeCoordinator() -> Coordinator {
 		Coordinator(onDocumentsPicked: onDocumentsPicked)
 	}
 	
 	public func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-		let picker = UIDocumentPickerViewController(forOpeningContentTypes: allowedContentTypes, asCopy: false)
-		if let folder = Self.lastFolder { picker.directoryURL = folder }
+		let picker = UIDocumentPickerViewController(forOpeningContentTypes: allowedContentTypes, asCopy: true)
 		picker.delegate = context.coordinator
 		picker.allowsMultipleSelection = allowsMultipleSelection
 		return picker
@@ -42,7 +36,6 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 	
 	public func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
 	
-	@MainActor
 	public class Coordinator: NSObject, UIDocumentPickerDelegate {
 		var onDocumentsPicked: ([URL]) -> Void
 		
@@ -51,37 +44,7 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 		}
 		
 		public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-			if let folder = urls.first?.deletingLastPathComponent() { FileImporterRepresentableView.lastFolder = folder }
-			let callback = _Callback(onDocumentsPicked)
-			DispatchQueue.global(qos: .userInitiated).async {
-				let copies = Coordinator.copies(of: urls)
-				DispatchQueue.main.async { callback.run(copies) }
-			}
-		}
-
-		private final class _Callback: @unchecked Sendable {
-			let run: ([URL]) -> Void
-			init(_ run: @escaping ([URL]) -> Void) { self.run = run }
-		}
-
-		/// Coordinated copies, so iCloud and other cloud files are downloaded first.
-		nonisolated private static func copies(of urls: [URL]) -> [URL] {
-			urls.map { url -> URL in
-				let scoped = url.startAccessingSecurityScopedResource()
-				defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-				let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-				let copy = folder.appendingPathComponent(url.lastPathComponent)
-				var copied = false
-				var error: NSError?
-				NSFileCoordinator(filePresenter: nil).coordinate(readingItemAt: url, options: [], error: &error) { readable in
-					do {
-						try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-						try FileManager.default.copyItem(at: readable, to: copy)
-						copied = true
-					} catch {}
-				}
-				return copied ? copy : url
-			}
+			onDocumentsPicked(urls)
 		}
 		
 		public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
