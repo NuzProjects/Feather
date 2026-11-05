@@ -36,7 +36,9 @@ public struct NBToolbarMenu<Content>: ToolbarContent where Content: View {
 				if _style == .icon {
 					Image(systemName: _icon)
 				} else {
-					Label(_title, systemImage: _icon).labelStyle(.titleOnly)
+					Text(_title)
+						.lineLimit(1)
+						.fixedSize()
 				}
 			}
 		}

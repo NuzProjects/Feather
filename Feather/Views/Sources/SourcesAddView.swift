@@ -26,31 +26,30 @@ struct SourcesAddView: View {
 				let id = data.id ?? url.absoluteString
 				return !Storage.shared.sourceExists(id)
 			}
+			// Keep the curated order: the highest rated, most actively updated sources come first.
 			.sorted { lhs, rhs in
-				let lhsName = lhs.data.name ?? ""
-				let rhsName = rhs.data.name ?? ""
-				return lhsName.localizedCaseInsensitiveCompare(rhsName) == .orderedAscending
+				(recommendedSources.firstIndex(of: lhs.url) ?? .max) < (recommendedSources.firstIndex(of: rhs.url) ?? .max)
 			}
 		_filteredRecommendedSourcesData = filtered
 	}
 	
 	@State var recommendedSourcesData: [(url: URL, data: ASRepository)] = []
 	let recommendedSources: [URL] = [
-		"https://raw.githubusercontent.com/claration/Feather/refs/heads/main/app-repo.json",
-		"https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json",
-		"https://github.com/chachillie/Flycast-iOS/raw/main/flycast-ios.json",
-		"https://xitrix.github.io/iTorrent/AltStore.json",
-		"https://altstore.oatmealdome.me/",
-		"https://raw.githubusercontent.com/LiveContainer/LiveContainer/refs/heads/main/apps.json",
-		"https://pokemmo.com/altstore",
-		"https://provenance-emu.com/apps.json",
-		"https://community-apps.sidestore.io/sidecommunity.json",
+		// Top rated, all checked to be live and updated in 2026.
+		"https://cdn.altstore.io/file/altstore/apps.json",
+		"https://github.com/LiveContainer/LiveContainer/releases/download/nightly/apps_nightly.json",
 		"https://alt.getutm.app",
-		"https://raw.githubusercontent.com/paigely/Navic/refs/heads/master/app-repo.json",
+		"https://provenance-emu.com/apps.json",
+		"https://ish.app/altstore.json",
 		"https://stikdebug.xyz/index.json",
 		"https://apps.manicemu.site/altstore",
+		"https://altstore.oatmealdome.me/",
+		"https://pokemmo.com/altstore",
+		"https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json",
+		"https://xitrix.github.io/iTorrent/AltStore.json",
 		"https://alt.crystall1ne.dev",
-		"https://mikevillarroel.github.io/mikebuilds-source/originals.json"
+		"https://mikevillarroel.github.io/mikebuilds-source/originals.json",
+		"https://raw.githubusercontent.com/claration/Feather/refs/heads/main/app-repo.json"
 	].map { URL(string: $0)! }
 	
 	@State private var _isImporting = false

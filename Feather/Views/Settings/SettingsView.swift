@@ -40,6 +40,12 @@ struct SettingsView: View {
 		NBNavigationView(.localized("Settings")) {
 			Form {
 				Section {
+					NavigationLink(destination: UpdatesView()) {
+						Label("Updates", systemImage: "arrow.down.app")
+					}
+				}
+
+				Section {
 					NavigationLink(destination: AppearanceView()) {
 						Label(.localized("Appearance"), systemImage: "paintbrush")
 					}
