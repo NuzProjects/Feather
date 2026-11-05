@@ -54,7 +54,12 @@ final class SigningProgress: ObservableObject {
 struct SigningProgressPanel: View {
     @ObservedObject private var progress = SigningProgress.shared
     var body: some View {
-        if let job = progress.jobs.first {
+        ZStack {
+            if let job = progress.jobs.first { card(job).transition(.progressPanel) }
+        }
+        .animation(.smooth(duration: 0.4), value: progress.jobs.first?.id)
+    }
+    private func card(_ job: SigningProgress.Job) -> some View {
             surface {
                 VStack(alignment: .leading, spacing: 9) {
                     HStack(spacing: 12) {
@@ -72,7 +77,6 @@ struct SigningProgressPanel: View {
             }
             .padding(.horizontal, 12)
             .animation(.smooth, value: job.stage.rawValue)
-        }
     }
     @ViewBuilder private func surface<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         if #available(iOS 26, *) { content().glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24)) }

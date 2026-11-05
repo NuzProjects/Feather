@@ -36,9 +36,21 @@ struct ActivityProgressPanel: View {
     var body: some View {
         VStack(spacing: 8) {
             SigningProgressPanel()
-            if let download = downloads.downloads.first { DownloadProgressCard(download: download) }
-            else if let job = imports.jobs.first { ImportProgressCard(name: job.name, icon: job.icon, fraction: job.fraction) }
+            if let download = downloads.downloads.first { DownloadProgressCard(download: download).transition(.progressPanel) }
+            else if let job = imports.jobs.first { ImportProgressCard(name: job.name, icon: job.icon, fraction: job.fraction).transition(.progressPanel) }
         }
+        .animation(.smooth(duration: 0.4), value: downloads.downloads.first?.id)
+        .animation(.smooth(duration: 0.4), value: imports.jobs.first?.id)
+    }
+}
+
+extension AnyTransition {
+    /// Fades and gently rises in, then fades and sinks out.
+    static var progressPanel: AnyTransition {
+        .asymmetric(
+            insertion: .opacity.combined(with: .scale(scale: 0.94, anchor: .bottom)).combined(with: .offset(y: 16)),
+            removal: .opacity.combined(with: .scale(scale: 0.96, anchor: .bottom)).combined(with: .offset(y: 10))
+        )
     }
 }
 

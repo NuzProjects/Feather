@@ -3,6 +3,7 @@ import NimbleViews
 
 struct UpdatesView: View {
     @ObservedObject private var updater = FeatherUpdater.shared
+    @State private var alert: String?
 
     var body: some View {
         NBList("Updates") {
@@ -14,8 +15,6 @@ struct UpdatesView: View {
                         LabeledContent("Published", value: date.formatted(date: .abbreviated, time: .shortened))
                     }
                 }
-            } footer: {
-                Text(statusText)
             }
 
             Section {
@@ -31,7 +30,10 @@ struct UpdatesView: View {
                 .disabled(updater.latest == nil || updater.isBusy)
 
                 Button {
-                    Task { await updater.check() }
+                    Task {
+                        await updater.check()
+                        if updater.phase == .idle { alert = updater.updateAvailable ? "A new version of Feather is available." : "Feather is up to date." }
+                    }
                 } label: {
                     HStack {
                         Label("Check for Updates", systemImage: "arrow.clockwise")
@@ -46,6 +48,14 @@ struct UpdatesView: View {
         }
         .symbolVariant(.fill)
         .task { if updater.latest == nil { await updater.check() } }
+        .onChange(of: updater.phase) { phase in
+            if case .failed(let message) = phase { alert = message }
+        }
+        .alert("Updates", isPresented: Binding(get: { alert != nil }, set: { if !$0 { alert = nil } })) {
+            Button("OK") { alert = nil }
+        } message: {
+            Text(alert ?? "")
+        }
         .sheet(item: $updater.signedUpdate) { app in
             InstallPreviewView(app: app.base)
                 .presentationDetents([.height(200)])
@@ -53,16 +63,4 @@ struct UpdatesView: View {
         }
     }
 
-    private var statusText: String {
-        switch updater.phase {
-        case .checking: return "Checking GitHub for a newer version…"
-        case .downloading: return "Downloading the update…"
-        case .signing: return "Signing the update with your certificate…"
-        case .ready: return "The update is signed and ready to install."
-        case .failed(let message): return message
-        case .idle:
-            if updater.latest == nil { return "No releases found yet." }
-            return updater.updateAvailable ? "A new version of Feather is available." : "Feather is up to date."
-        }
-    }
 }

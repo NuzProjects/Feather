@@ -23,14 +23,21 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 		self.onDocumentsPicked = onDocumentsPicked
 	}
 	
+	/// Folder of the most recently picked file, kept across launches.
+	static var lastFolder: URL? {
+		get { UserDefaults.standard.url(forKey: "NBFileImporter.lastFolder") }
+		set { UserDefaults.standard.set(newValue, forKey: "NBFileImporter.lastFolder") }
+	}
+
 	public func makeCoordinator() -> Coordinator {
 		Coordinator(onDocumentsPicked: onDocumentsPicked)
 	}
 	
 	public func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-		let picker = UIDocumentPickerViewController(forOpeningContentTypes: allowedContentTypes, asCopy: true)
-		// Open in the Downloads folder (iCloud Drive) by default; the system falls back silently if unavailable.
-		picker.directoryURL = URL(fileURLWithPath: "/private/var/mobile/Library/Mobile Documents/com~apple~CloudDocs/Downloads", isDirectory: true)
+		let picker = UIDocumentPickerViewController(forOpeningContentTypes: allowedContentTypes, asCopy: false)
+		// Open where the last file came from (normally Downloads). A fixed path can't be used:
+		// when it isn't reachable, the picker falls back to Feather's own folder.
+		if let folder = Self.lastFolder { picker.directoryURL = folder }
 		picker.delegate = context.coordinator
 		picker.allowsMultipleSelection = allowsMultipleSelection
 		return picker
@@ -38,6 +45,7 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 	
 	public func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
 	
+	@MainActor
 	public class Coordinator: NSObject, UIDocumentPickerDelegate {
 		var onDocumentsPicked: ([URL]) -> Void
 		
@@ -46,7 +54,36 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 		}
 		
 		public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-			onDocumentsPicked(urls)
+			// The picker hands back the originals (asCopy: false) so their folder can be remembered;
+			// callers still get private copies, exactly as before.
+			if let folder = urls.first?.deletingLastPathComponent() { FileImporterRepresentableView.lastFolder = folder }
+			let callback = _Callback(onDocumentsPicked)
+			// Copy off the main thread so large IPAs don't freeze the UI.
+			DispatchQueue.global(qos: .userInitiated).async {
+				let copies = Coordinator.copies(of: urls)
+				DispatchQueue.main.async { callback.run(copies) }
+			}
+		}
+
+		private final class _Callback: @unchecked Sendable {
+			let run: ([URL]) -> Void
+			init(_ run: @escaping ([URL]) -> Void) { self.run = run }
+		}
+
+		nonisolated private static func copies(of urls: [URL]) -> [URL] {
+			urls.compactMap { url -> URL? in
+				let scoped = url.startAccessingSecurityScopedResource()
+				defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+				let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+				let copy = folder.appendingPathComponent(url.lastPathComponent)
+				do {
+					try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+					try FileManager.default.copyItem(at: url, to: copy)
+					return copy
+				} catch {
+					return nil
+				}
+			}
 		}
 		
 		public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
