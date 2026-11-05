@@ -42,6 +42,7 @@ struct GitHubRelease: Codable, Identifiable, Equatable {
     let prerelease: Bool
     let published_at: String?
     let assets: [GitHubAsset]
+    var body: String? = nil
     var ipaAssets: [GitHubAsset] { assets.filter(\.isIPA) }
     func matchingAsset(named original: String) -> GitHubAsset? {
         if let exact = ipaAssets.first(where: { $0.name == original }) { return exact }

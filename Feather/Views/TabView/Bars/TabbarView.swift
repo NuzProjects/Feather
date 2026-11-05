@@ -4,6 +4,8 @@ import UIKit
 struct TabbarView: View {
     @ObservedObject private var navigator = NavigatorPreferences.shared
     @State private var selected: TabEnum = NavigatorPreferences.shared.tabs.first ?? .settings
+    @ObservedObject private var updater = FeatherUpdater.shared
+    @State private var installingFromPrompt = false
 
     var body: some View {
         TabView(selection: Binding(get: { selected }, set: { new in if new != selected { TabTransition.crossfade() }; selected = new })) {
@@ -22,10 +24,37 @@ struct TabbarView: View {
         .onChange(of: navigator.tabs) { tabs in
             if !tabs.contains(selected) { selected = tabs.contains(.settings) ? .settings : (tabs.first ?? .settings) }
         }
+        .task { await updater.checkOnLaunch() }
+        .alert(
+            "Update Available",
+            isPresented: Binding(get: { updater.promptRelease != nil }, set: { if !$0 { updater.promptRelease = nil } }),
+            presenting: updater.promptRelease
+        ) { release in
+            Button("Update") { installingFromPrompt = true; updater.install() }
+            Button("Later", role: .cancel) { updater.skip(release) }
+        } message: { release in
+            Text("\(release.name ?? release.tag_name) is ready to install.\n\n\(updater.releaseNotes ?? "")")
+        }
+        .onChange(of: updater.phase) { phase in
+            guard installingFromPrompt else { return }
+            switch phase {
+            case .failed(let message):
+                installingFromPrompt = false
+                UIAlertController.showAlertWithOk(title: "Update Failed", message: message)
+            case .ready, .idle:
+                installingFromPrompt = false
+            default:
+                break
+            }
+        }
+        .sheet(item: $updater.signedUpdate) { app in
+            InstallPreviewView(app: app.base)
+                .presentationDetents([.height(200)])
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 
-/// SwiftUI's tab bar has no label toggle, so the underlying UITabBarItems are updated directly.
 private struct TabLabelApplier: UIViewControllerRepresentable {
     let tabs: [TabEnum]
     let showLabels: Bool
@@ -59,7 +88,6 @@ private extension UIView {
     }
 }
 
-/// Cross-dissolves the page area when switching tabs.
 enum TabTransition {
     @MainActor static func crossfade() {
         guard let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).flatMap(\.windows).first(where: \.isKeyWindow),

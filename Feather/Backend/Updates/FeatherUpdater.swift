@@ -1,8 +1,6 @@
 import Foundation
 import SwiftUI
 
-/// Checks NuzProjects/Feather releases and installs a newer Feather build in place,
-/// signed with the selected certificate and keeping the current bundle identifier.
 @MainActor
 final class FeatherUpdater: ObservableObject {
     static let shared = FeatherUpdater()
@@ -12,10 +10,11 @@ final class FeatherUpdater: ObservableObject {
 
     @Published private(set) var latest: GitHubRelease?
     @Published private(set) var phase: Phase = .idle
-    @Published private(set) var lastChecked: Date?
     @Published var signedUpdate: AnyApp?
+    @Published var promptRelease: GitHubRelease?
 
     private let installedKey = "Updates.installedRelease"
+    private let skippedKey = "Updates.skippedRelease"
     private init() {}
 
     var currentVersion: String {
@@ -25,7 +24,6 @@ final class FeatherUpdater: ObservableObject {
         return build.isEmpty ? short : "\(short) (\(build))"
     }
 
-    /// When this copy of Feather was put on the device. Signing rewrites the executable, so this is never older than the build.
     private var installDate: Date? {
         guard let url = Bundle.main.executableURL else { return nil }
         return (try? FileManager.default.attributesOfItem(atPath: url.path))?[.modificationDate] as? Date
@@ -33,10 +31,19 @@ final class FeatherUpdater: ObservableObject {
 
     var updateAvailable: Bool {
         guard let latest else { return false }
-        let installed = UserDefaults.standard.object(forKey: installedKey) as? Int64
-        if let installed { return latest.id != installed }
+        if let installed = UserDefaults.standard.object(forKey: installedKey) as? Int64 { return latest.id != installed }
         guard let published = latest.published_at.flatMap(ISO8601DateFormatter().date(from:)), let installDate else { return false }
         return published > installDate
+    }
+
+    var releaseNotes: String? {
+        guard let body = latest?.body?.trimmingCharacters(in: .whitespacesAndNewlines), !body.isEmpty else { return nil }
+        return body
+            .components(separatedBy: .newlines)
+            .filter { !$0.hasPrefix("#") }
+            .map { line -> String in line.hasPrefix("* ") || line.hasPrefix("- ") ? "• " + String(line.dropFirst(2)) : line }
+            .joined(separator: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     var isBusy: Bool { phase == .checking || phase == .downloading || phase == .signing }
@@ -47,11 +54,21 @@ final class FeatherUpdater: ObservableObject {
         do {
             let releases = try await GitHubReleases.shared.releases(Self.repository)
             latest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
-            lastChecked = Date()
             phase = .idle
         } catch {
             phase = .failed(error.localizedDescription)
         }
+    }
+
+    func checkOnLaunch() async {
+        await check()
+        if phase != .idle { phase = .idle; return }
+        guard updateAvailable, let latest, UserDefaults.standard.object(forKey: skippedKey) as? Int64 != latest.id else { return }
+        promptRelease = latest
+    }
+
+    func skip(_ release: GitHubRelease) {
+        UserDefaults.standard.set(release.id, forKey: skippedKey)
     }
 
     func install() {
@@ -92,6 +109,8 @@ final class FeatherUpdater: ObservableObject {
                 UserDefaults.standard.set(release.id, forKey: installedKey)
                 phase = .ready
                 signedUpdate = AnyApp(base: signed)
+            } catch is CancellationError {
+                phase = .idle
             } catch {
                 phase = .failed(error.localizedDescription)
             }

@@ -309,6 +309,7 @@ extension SigningView {
                 }
             }
         ) { error in
+			if error is CancellationError { return }
 			if let error {
 				let ok = UIAlertAction(title: .localized("Dismiss"), style: .cancel) { _ in
 					dismiss()

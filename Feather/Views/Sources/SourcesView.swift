@@ -21,7 +21,29 @@ struct SourcesView: View {
 	@State private var _searchText = ""
 	
 	private var _filteredSources: [AltSource] {
-		_sources.filter { _searchText.isEmpty || ($0.name?.localizedCaseInsensitiveContains(_searchText) ?? false) }
+		_sources.filter {
+			_searchText.isEmpty
+			|| ($0.name?.localizedCaseInsensitiveContains(_searchText) ?? false)
+			|| ($0.sourceURL?.absoluteString.localizedCaseInsensitiveContains(_searchText) ?? false)
+		}
+	}
+
+	private struct _AppMatch: Identifiable {
+		let source: AltSource
+		let repository: ASRepository
+		let app: ASRepository.App
+		var id: String { "\(source.objectID.uriRepresentation().absoluteString)|\(app.currentUniqueId)" }
+	}
+
+	private var _matchingApps: [_AppMatch] {
+		guard !_searchText.isEmpty else { return [] }
+		let matches = _sources.flatMap { source -> [_AppMatch] in
+			guard let repository = viewModel.sources[source] else { return [] }
+			return repository.apps
+				.filter { $0.currentName.localizedCaseInsensitiveContains(_searchText) }
+				.map { _AppMatch(source: source, repository: repository, app: $0) }
+		}
+		return Array(matches.prefix(50))
 	}
 	
 	@FetchRequest(
@@ -80,10 +102,27 @@ struct SourcesView: View {
 						}
 					}
 				}
+
+				if !_matchingApps.isEmpty {
+					NBSection("Apps", secondary: _matchingApps.count.description) {
+						ForEach(_matchingApps) { match in
+							NavigationLink {
+								SourceAppsDetailView(sourceURL: match.source.sourceURL, source: match.repository, app: match.app)
+							} label: {
+								FRIconCellView(
+									title: match.app.currentName,
+									subtitle: match.source.name ?? "",
+									iconUrl: match.app.iconURL
+								)
+							}
+							.buttonStyle(.plain)
+						}
+					}
+				}
 			}
-			.searchable(text: $_searchText, placement: .platform())
+			.searchable(text: $_searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search sources and apps")
 			.overlay {
-				if _filteredSources.isEmpty && githubSources.repositories.isEmpty {
+				if _filteredSources.isEmpty && _matchingApps.isEmpty && githubSources.repositories.isEmpty {
 					if #available(iOS 17, *) {
 						ContentUnavailableView {
 							Label(.localized("No Repositories"), systemImage: "globe.desk.fill")

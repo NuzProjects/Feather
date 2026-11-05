@@ -46,8 +46,7 @@ public struct NBSection<Content, Footer>: View
 	
 	public var body: some View {
 		if _inlineHeaders {
-			// Plain lists pin section headers, which then float sharply over the top bar blur.
-			// Render the header as an ordinary row so it scrolls (and blurs) with the content.
+			// Unpinned header so it scrolls under the top bar
 			Section {
 				_header
 					.listRowSeparator(.hidden)
@@ -114,7 +113,7 @@ private struct NBInlineSectionHeadersKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
-	/// When true, `NBSection` draws its header as a regular row instead of a pinned section header.
+	/// Draws section headers as rows instead of pinned headers.
 	var nbInlineSectionHeaders: Bool {
 		get { self[NBInlineSectionHeadersKey.self] }
 		set { self[NBInlineSectionHeadersKey.self] = newValue }

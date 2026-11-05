@@ -26,7 +26,6 @@ struct SourcesAddView: View {
 				let id = data.id ?? url.absoluteString
 				return !Storage.shared.sourceExists(id)
 			}
-			// Keep the curated order: the highest rated, most actively updated sources come first.
 			.sorted { lhs, rhs in
 				(recommendedSources.firstIndex(of: lhs.url) ?? .max) < (recommendedSources.firstIndex(of: rhs.url) ?? .max)
 			}
@@ -35,7 +34,7 @@ struct SourcesAddView: View {
 	
 	@State var recommendedSourcesData: [(url: URL, data: ASRepository)] = []
 	let recommendedSources: [URL] = [
-		// Top rated, all checked to be live and updated in 2026.
+		// Top rated first
 		"https://cdn.altstore.io/file/altstore/apps.json",
 		"https://github.com/LiveContainer/LiveContainer/releases/download/nightly/apps_nightly.json",
 		"https://alt.getutm.app",

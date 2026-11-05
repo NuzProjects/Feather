@@ -17,6 +17,13 @@ struct UpdatesView: View {
                 }
             }
 
+            if let notes = updater.releaseNotes {
+                NBSection("What's New") {
+                    Text(LocalizedStringKey(notes))
+                        .font(.subheadline)
+                }
+            }
+
             Section {
                 Button {
                     updater.install()
@@ -56,11 +63,5 @@ struct UpdatesView: View {
         } message: {
             Text(alert ?? "")
         }
-        .sheet(item: $updater.signedUpdate) { app in
-            InstallPreviewView(app: app.base)
-                .presentationDetents([.height(200)])
-                .presentationDragIndicator(.visible)
-        }
     }
-
 }

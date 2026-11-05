@@ -79,11 +79,17 @@ enum FR {
 			
 			do {
 				try await handler.copy()
+				if await SigningProgress.shared.isCancelled(job) { throw CancellationError() }
 				await SigningProgress.shared.stage(job, .preparing)
 				try await handler.modify()
 				try? await handler.clean()
 				await MainActor.run {
 					guard let signed = try? Storage.shared.context.fetch(Signed.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { SigningProgress.shared.finish(job, success: false); completion(ReleaseError.invalidApp); return }
+					if SigningProgress.shared.isCancelled(job) {
+						Storage.shared.deleteApp(for: signed)
+						completion(CancellationError())
+						return
+					}
                     SigningProgress.shared.finish(job, success: true)
                     onSigned?(signed)
 					completion(nil)

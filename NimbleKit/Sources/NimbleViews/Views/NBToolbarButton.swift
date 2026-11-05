@@ -74,7 +74,6 @@ public struct NBToolbarButton: ToolbarContent {
 				if _style == .icon {
 					Image(systemName: _icon)
 				} else {
-					// Plain text sized to fit: a title-only Label collapses to "…" while the glass button is pressed on iOS 26.
 					Text(_title)
 						.lineLimit(1)
 						.fixedSize()

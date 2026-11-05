@@ -90,11 +90,42 @@ struct LibraryCellView: View {
 				_toggleSelection()
 			}
 		}
-		.swipeActions(edge: .trailing, allowsFullSwipe: false) {
+		.swipeActions(edge: .trailing, allowsFullSwipe: true) {
 			if !isEditing {
 				_actions(for: app)
+				Button(.localized("Get Info"), systemImage: "info.circle") {
+					selectedInfoAppPresenting = AnyApp(base: app)
+				}
+				.tint(.gray)
 				if let uuid = app.uuid, github.updates[uuid] != nil {
 					Button("Update", systemImage: "arrow.down.circle") { github.update(app) }.tint(.blue).disabled(github.busy.contains(uuid))
+				}
+			}
+		}
+		.swipeActions(edge: .leading, allowsFullSwipe: true) {
+			if !isEditing {
+				if app.isSigned {
+					Button(.localized("Install"), systemImage: "square.and.arrow.down") {
+						selectedInstallAppPresenting = AnyApp(base: app)
+					}
+					.tint(.accentColor)
+					Button(.localized("Re-sign"), systemImage: "signature") {
+						ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
+					}
+					.tint(.orange)
+					Button(.localized("Export"), systemImage: "square.and.arrow.up") {
+						selectedInstallAppPresenting = AnyApp(base: app, archive: true)
+					}
+					.tint(.indigo)
+				} else {
+					Button(.localized("Sign"), systemImage: "signature") {
+						ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
+					}
+					.tint(.accentColor)
+					Button(.localized("Install"), systemImage: "square.and.arrow.down") {
+						selectedInstallAppPresenting = AnyApp(base: app)
+					}
+					.tint(.green)
 				}
 			}
 		}

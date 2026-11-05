@@ -23,7 +23,6 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 		self.onDocumentsPicked = onDocumentsPicked
 	}
 	
-	/// Folder of the most recently picked file, kept across launches.
 	static var lastFolder: URL? {
 		get { UserDefaults.standard.url(forKey: "NBFileImporter.lastFolder") }
 		set { UserDefaults.standard.set(newValue, forKey: "NBFileImporter.lastFolder") }
@@ -35,8 +34,6 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 	
 	public func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
 		let picker = UIDocumentPickerViewController(forOpeningContentTypes: allowedContentTypes, asCopy: false)
-		// Open where the last file came from (normally Downloads). A fixed path can't be used:
-		// when it isn't reachable, the picker falls back to Feather's own folder.
 		if let folder = Self.lastFolder { picker.directoryURL = folder }
 		picker.delegate = context.coordinator
 		picker.allowsMultipleSelection = allowsMultipleSelection
@@ -54,11 +51,8 @@ public struct FileImporterRepresentableView: UIViewControllerRepresentable {
 		}
 		
 		public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-			// The picker hands back the originals (asCopy: false) so their folder can be remembered;
-			// callers still get private copies, exactly as before.
 			if let folder = urls.first?.deletingLastPathComponent() { FileImporterRepresentableView.lastFolder = folder }
 			let callback = _Callback(onDocumentsPicked)
-			// Copy off the main thread so large IPAs don't freeze the UI.
 			DispatchQueue.global(qos: .userInitiated).async {
 				let copies = Coordinator.copies(of: urls)
 				DispatchQueue.main.async { callback.run(copies) }

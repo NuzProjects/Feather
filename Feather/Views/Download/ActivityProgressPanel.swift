@@ -45,7 +45,6 @@ struct ActivityProgressPanel: View {
 }
 
 extension AnyTransition {
-    /// Fades and gently rises in, then fades and sinks out.
     static var progressPanel: AnyTransition {
         .asymmetric(
             insertion: .opacity.combined(with: .scale(scale: 0.94, anchor: .bottom)).combined(with: .offset(y: 16)),
@@ -56,8 +55,15 @@ extension AnyTransition {
 
 private struct DownloadProgressCard: View {
     @ObservedObject var download: Download
+    @State private var confirming = false
     var body: some View {
         ImportProgressCard(name: download.displayName ?? download.fileName, icon: download.appIcon, iconURL: download.iconURL, fraction: download.overallProgress)
+            .contentShape(Rectangle())
+            .onTapGesture { confirming = true }
+            .confirmationDialog("Cancel downloading \(download.displayName ?? download.fileName)?", isPresented: $confirming, titleVisibility: .visible) {
+                Button("Cancel Download", role: .destructive) { DownloadManager.shared.cancelDownload(download) }
+                Button("Keep Downloading", role: .cancel) {}
+            }
     }
 }
 

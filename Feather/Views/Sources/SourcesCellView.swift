@@ -12,16 +12,27 @@ import NukeUI
 // MARK: - View
 struct SourcesCellView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
-	
+	@ObservedObject private var viewModel = SourcesViewModel.shared
+
 	var source: AltSource
-	
-	// MARK: Body
+
+	private var lastUpdated: Date? {
+		viewModel.sources[source]?.apps.compactMap { $0.currentDate?.date }.max()
+	}
+
+	private var subtitle: String {
+		let url = source.sourceURL?.absoluteString ?? ""
+		guard let lastUpdated else { return url }
+		let relative = RelativeDateTimeFormatter().localizedString(for: lastUpdated, relativeTo: Date())
+		return "Updated \(relative)\n\(url)"
+	}
+
 	var body: some View {
 		let isRegular = horizontalSizeClass != .compact
-		
+
 		FRIconCellView(
 			title: source.name ?? .localized("Unknown"),
-			subtitle: source.sourceURL?.absoluteString ?? "",
+			subtitle: subtitle,
 			iconUrl: source.iconURL
 		)
 		.padding(isRegular ? 12 : 0)
