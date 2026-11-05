@@ -101,25 +101,9 @@ extension CertificatesView {
 			}
 		}()
 		
-		if _bindingSelectedCert == nil {
-			NavigationLink {
-				CertificateOverviewDetailView(cert: cert)
-			} label: {
-				_cellLabel(for: cert, at: index, cornerRadius: cornerRadius)
-			}
-			.buttonStyle(.plain)
-		} else {
-			Button {
-				_selectedCertBinding.wrappedValue = index
-			} label: {
-				_cellLabel(for: cert, at: index, cornerRadius: cornerRadius)
-			}
-			.buttonStyle(.plain)
-		}
-	}
-	
-	@ViewBuilder
-	private func _cellLabel(for cert: CertificatePair, at index: Int, cornerRadius: CGFloat) -> some View {
+		Button {
+			_selectedCertBinding.wrappedValue = index
+		} label: {
 			CertificatesCellView(
 				cert: cert
 			)
@@ -136,12 +120,6 @@ extension CertificatesView {
 					)
 			)
 			.contextMenu {
-				if _bindingSelectedCert == nil, _selectedCertBinding.wrappedValue != index {
-					Button("Use This Certificate", systemImage: "checkmark.circle") {
-						_selectedCertBinding.wrappedValue = index
-						CertificateExpiry.refresh()
-					}
-				}
 				_contextActions(for: cert)
 				if cert.isDefault != true {
 					Divider()
@@ -151,6 +129,8 @@ extension CertificatesView {
 			.transaction {
 				$0.animation = nil
 			}
+		}
+		.buttonStyle(.plain)
 	}
 	
 	@ViewBuilder

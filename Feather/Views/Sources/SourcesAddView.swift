@@ -100,18 +100,25 @@ struct SourcesAddView: View {
 				if !_filteredRecommendedSourcesData.isEmpty {
 					NBSection(.localized("Featured")) {
 						ForEach(_filteredRecommendedSourcesData, id: \.url) { (url, source) in
-							HStack(spacing: 2) {
-								FRIconCellView(
-									title: source.name ?? .localized("Unknown"),
-									subtitle: url.absoluteString,
-									iconUrl: source.currentIconURL
-								)
-								Button {
-									Storage.shared.addSource(url, repository: source) { _ in
-										_refreshFilteredRecommendedSourcesData()
+							NavigationLink {
+								SourcePreviewView(url: url, repository: source) {
+									_refreshFilteredRecommendedSourcesData()
+								}
+							} label: {
+								HStack(spacing: 2) {
+									FRIconCellView(
+										title: source.name ?? .localized("Unknown"),
+										subtitle: url.absoluteString,
+										iconUrl: source.currentIconURL
+									)
+									Button {
+										Storage.shared.addSource(url, repository: source) { _ in
+											_refreshFilteredRecommendedSourcesData()
+										}
+									} label: {
+										NBButton(.localized("Add"), systemImage: "arrow.down", style: .text)
 									}
-								} label: {
-									NBButton(.localized("Add"), systemImage: "arrow.down", style: .text)
+									.buttonStyle(.borderless)
 								}
 							}
 						}

@@ -1,7 +1,9 @@
-## Update 1.1.1 Beta 8
+## Update 1.1.1 Beta 9
 
 **New Features:**
-* Larger section titles in What's New
+* Tap a featured source in Add Source to preview its apps before adding it
+* Check Revocation shows a loading indicator and the result
 
 **Bug Fixes:**
-* Expanding a description or release notes no longer flashes
+* Tapping a certificate in the Certificates list selects it again
+* The certificate overview opens from the certificate shown in Settings

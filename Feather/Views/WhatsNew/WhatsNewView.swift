@@ -10,11 +10,12 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
-        Item(icon: "textformat.size", title: "What's New", detail: "Section titles are larger and easier to read.")
+        Item(icon: "globe.desk", title: "Source Preview", detail: "Tap a featured source in Add Source to browse its apps before adding it."),
+        Item(icon: "person.text.rectangle", title: "Revocation Check", detail: "Check Revocation shows its progress and tells you the result.")
     ]
 
     static let fixes: [Item] = [
-        Item(icon: "text.alignleft", title: "Smoother Descriptions", detail: "Expanding a description or release notes no longer flashes.")
+        Item(icon: "checkmark.seal", title: "Certificates", detail: "Tapping a certificate in the list selects it again. Open its overview from the certificate shown in Settings.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

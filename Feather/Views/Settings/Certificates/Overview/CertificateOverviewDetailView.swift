@@ -1,5 +1,6 @@
 import SwiftUI
 import NimbleViews
+import Zsign
 
 // MARK: - View
 struct CertificateOverviewDetailView: View {
@@ -7,6 +8,7 @@ struct CertificateOverviewDetailView: View {
 	@ObservedObject var cert: CertificatePair
 	@State private var _data: Certificate?
 	@State private var _isCheckingRevocation = false
+	@State private var _revocationAlert: (title: String, message: String)?
 
 	private var _index: Int? {
 		Storage.shared.getAllCertificates().firstIndex { $0.uuid == cert.uuid }
@@ -28,6 +30,14 @@ struct CertificateOverviewDetailView: View {
 		}
 		.onAppear {
 			_data = Storage.shared.getProvisionFileDecoded(for: cert)
+		}
+		.alert(
+			_revocationAlert?.title ?? "",
+			isPresented: Binding(get: { _revocationAlert != nil }, set: { if !$0 { _revocationAlert = nil } })
+		) {
+			Button("OK") { _revocationAlert = nil }
+		} message: {
+			Text(_revocationAlert?.message ?? "")
 		}
 	}
 }
@@ -191,14 +201,50 @@ extension CertificateOverviewDetailView {
 					UINotificationFeedbackGenerator().notificationOccurred(.success)
 				}
 			}
-			Button("Check Revocation", systemImage: "person.text.rectangle") {
-				Storage.shared.revokagedCertificate(for: cert)
-				UIImpactFeedbackGenerator(style: .light).impactOccurred()
+			Button {
+				_checkRevocation()
+			} label: {
+				HStack {
+					Label("Check Revocation", systemImage: "person.text.rectangle")
+					Spacer()
+					if _isCheckingRevocation { ProgressView() }
+				}
 			}
-			.disabled(cert.revoked)
+			.disabled(_isCheckingRevocation)
 			if let directory = Storage.shared.getUuidDirectory(for: cert), let shared = directory.toSharedDocumentsURL() {
 				Button(.localized("Open in Files"), systemImage: "folder") {
 					UIApplication.open(shared)
+				}
+			}
+		}
+	}
+
+	private func _checkRevocation() {
+		guard !_isCheckingRevocation else { return }
+		_isCheckingRevocation = true
+		let name = cert.nickname ?? _data?.Name ?? "This certificate"
+		let provision = Storage.shared.getFile(.provision, from: cert)?.path ?? ""
+		let p12 = Storage.shared.getFile(.certificate, from: cert)?.path ?? ""
+		let password = cert.password ?? ""
+		DispatchQueue.global(qos: .userInitiated).async {
+			Zsign.checkRevokage(provisionPath: provision, p12Path: p12, p12Password: password) { status, _, error in
+				DispatchQueue.main.async {
+					_isCheckingRevocation = false
+					switch status {
+					case 0:
+						if cert.revoked { cert.revoked = false; Storage.shared.saveContext() }
+						UINotificationFeedbackGenerator().notificationOccurred(.success)
+						_revocationAlert = ("Not Revoked", "\(name) is valid and hasn't been revoked.")
+					case 1:
+						cert.revoked = true
+						Storage.shared.saveContext()
+						UINotificationFeedbackGenerator().notificationOccurred(.error)
+						_revocationAlert = ("Revoked", "Apple revoked \(name). Apps signed with it won't open anymore, so add a new certificate.")
+					default:
+						UINotificationFeedbackGenerator().notificationOccurred(.warning)
+						DevLog.shared.log(.error, "Revocation check failed: \(error ?? "unknown error")", category: "Certificates")
+						_revocationAlert = ("Couldn't Check", error ?? "Try again in a moment.")
+					}
 				}
 			}
 		}
