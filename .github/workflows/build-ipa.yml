@@ -15,6 +15,10 @@ on:
         description: Bundle the optional legacy transfer installer
         type: boolean
         default: false
+      publish_release:
+        description: Publish a GitHub release so Settings → Updates shows it (notes come from .github/release-notes.md)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -27,6 +31,8 @@ jobs:
   build:
     runs-on: ${{ inputs.runner || 'macos-26' }}
     timeout-minutes: 45
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -124,6 +130,19 @@ jobs:
           path: packages/*.ipa
           if-no-files-found: error
           retention-days: 14
+      - name: Publish release
+        if: inputs.publish_release == true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          LABEL="$(sed -n 's/^FEATHER_VERSION_LABEL=//p' Feather.xcconfig)"
+          SLUG="$(echo "$LABEL" | tr '[:upper:]' '[:lower:]' | sed -E 's/ beta ?/-beta/; s/ /-/g')"
+          TAG="v${SLUG}-build${{ github.run_number }}"
+          PRERELEASE=""
+          case "$LABEL" in *[Bb]eta*) PRERELEASE="--prerelease" ;; esac
+          gh release create "$TAG" packages/Feather.ipa --target "$GITHUB_SHA" \
+            --title "Update $LABEL" --notes-file .github/release-notes.md $PRERELEASE
       - uses: actions/cache/save@v4
         if: always() && steps.dependencies.outputs.cache-hit != 'true'
         with:
