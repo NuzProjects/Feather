@@ -23,6 +23,7 @@ enum WhatsNew {
     ]
 
     static let fixes: [Item] = [
+        Item(icon: "arrow.down.app", title: "Updating Feather", detail: "Feather goes to the Home Screen after sending the update so iOS can install it."),
         Item(icon: "server.rack", title: "Semi Local by Default", detail: "Installs use Semi Local unless you switch it in Settings → Installation → Server."),
         Item(icon: "lock.trianglebadge.exclamationmark", title: "Expired SSL Certificate", detail: "Fully Local installs now explain when the SSL certificate has expired instead of getting stuck on Ready."),
         Item(icon: "paintpalette", title: "Accent Swipe Actions", detail: "Library swipe buttons and the signing panel match your style."),

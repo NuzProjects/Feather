@@ -63,6 +63,12 @@ struct InstallPreviewView: View {
 				}
 				
 				if case .installing = newStatus {
+					// iOS won't replace Feather while it's on screen, so step aside to the Home Screen.
+					if app.identifier == Bundle.main.bundleIdentifier {
+						DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+							UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+						}
+					}
 					if progressTask == nil {
 						progressTask = startInstallProgressPolling(
 							bundleID: app.identifier!,
