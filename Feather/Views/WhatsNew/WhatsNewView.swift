@@ -9,22 +9,11 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    // Update for every release.
-    static let features: [Item] = [
-        Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Update Feather from Settings → Updates without sideloading it again."),
-        Item(icon: "externaldrive", title: "Backup & Transfer", detail: "Back up everything, or just certificates, sources and settings, and restore it on any device."),
-        Item(icon: "xmark.octagon", title: "Revoked Certificates", detail: "Feather checks your certificates with Apple and tells you when one is revoked."),
-        Item(icon: "clock.badge.exclamationmark", title: "Certificate Warnings", detail: "A notification before your certificate expires."),
-        Item(icon: "magnifyingglass", title: "Search Apps in Sources", detail: "Search finds apps across all your sources, and each source shows when it last updated."),
-        Item(icon: "hand.draw", title: "Swipe Actions", detail: "Swipe apps in Library to install, sign, export or delete them."),
-        Item(icon: "xmark.circle", title: "Cancel Anytime", detail: "Tap the progress panel to cancel signing or a download."),
-        Item(icon: "hand.wave.fill", title: "Welcome Guide", detail: "A quick walkthrough for new installs.")
-    ]
+    // Replace (don't add to) these every release: only this version's changes.
+    static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "exclamationmark.bubble", title: "Clearer Signing Errors", detail: "Signing problems are explained in plain words, with what to do next."),
-        Item(icon: "server.rack", title: "Semi Local by Default", detail: "Installs use Semi Local, since the Fully Local SSL certificate expired. Feather offers to switch back once it's renewed."),
-        Item(icon: "signature", title: "Signing Apps with Extensions", detail: "Apps with extensions sign correctly, including with certificates made for one app.")
+        Item(icon: "app.dashed", title: "App Icons", detail: "Removed the light edge around app icons in the signing and download panels.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"
@@ -57,7 +46,9 @@ struct WhatsNewView: View {
                     }
                     .padding(.top, 36)
 
-                    group("New Features", WhatsNew.features)
+                    if !WhatsNew.features.isEmpty {
+                        group("New Features", WhatsNew.features)
+                    }
                     if !WhatsNew.fixes.isEmpty {
                         group("Bug Fixes", WhatsNew.fixes)
                     }
