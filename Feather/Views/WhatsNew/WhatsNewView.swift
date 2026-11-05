@@ -11,6 +11,10 @@ enum WhatsNew {
 
     // Update for every release.
     static let features: [Item] = [
+        Item(icon: "externaldrive", title: "Backup & Transfer", detail: "Back up everything, or just certificates, sources and settings, and restore it on any device."),
+        Item(icon: "xmark.octagon", title: "Revoked Certificates", detail: "Feather checks your certificates with Apple and tells you when one is revoked."),
+        Item(icon: "lock.rotation", title: "SSL Certificate Check", detail: "Feather picks up a renewed Fully Local certificate on launch and offers to switch back."),
+        Item(icon: "exclamationmark.bubble", title: "Clearer Signing Errors", detail: "Signing problems are explained in plain words, with what to do next."),
         Item(icon: "clock.badge.exclamationmark", title: "Certificate Warnings", detail: "A notification before your certificate expires."),
         Item(icon: "hand.wave.fill", title: "Welcome Guide", detail: "A quick walkthrough for new installs."),
         Item(icon: "arrow.clockwise", title: "Pull to Refresh", detail: "Pull down in Library to check for app updates."),

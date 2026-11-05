@@ -569,14 +569,29 @@ enum SigningFileHandlerError: Error, LocalizedError {
 	case missingCertifcate
 	case disinjectFailed
 	case signFailed
-	
+	case certificateExpired(Date)
+	case certificateRevoked
+	case certificateFilesMissing
+
 	var errorDescription: String? {
 		switch self {
-		case .appNotFound: "Unable to locate bundle path."
-		case .infoPlistNotFound: "Unable to locate info.plist path."
-		case .missingCertifcate: "No certificate was specified."
-		case .disinjectFailed: "Removing mach-O load paths failed."
-		case .signFailed: "Signing failed."
+		case .appNotFound: "Feather couldn't find the app inside this file. The IPA may be damaged, so try downloading it again."
+		case .infoPlistNotFound: "This app is missing its Info.plist, so it can't be signed. Try a different copy of the IPA."
+		case .missingCertifcate: "No certificate is selected. Add or pick one in Settings → Certificates."
+		case .disinjectFailed: "Feather couldn't remove the selected tweaks or libraries from this app. Try signing without removing them."
+		case .signFailed: "Signing didn't finish. This usually means the certificate's password is wrong or the provisioning profile doesn't belong to the certificate. Try importing the certificate again."
+		case .certificateExpired(let date): "This certificate expired on \(date.formatted(date: .abbreviated, time: .omitted)). Add a new certificate in Settings → Certificates."
+		case .certificateRevoked: "Apple revoked this certificate, so apps signed with it won't open. Add a new certificate in Settings → Certificates."
+		case .certificateFilesMissing: "This certificate's files are missing. Delete it and import it again in Settings → Certificates."
 		}
+	}
+
+	/// Catches certificate problems before signing starts.
+	@MainActor
+	static func check(_ certificate: CertificatePair?) throws {
+		guard let certificate else { throw missingCertifcate }
+		if certificate.revoked { throw certificateRevoked }
+		if let expiration = certificate.expiration, expiration < Date() { throw certificateExpired(expiration) }
+		guard Storage.shared.getFile(.certificate, from: certificate) != nil, Storage.shared.getFile(.provision, from: certificate) != nil else { throw certificateFilesMissing }
 	}
 }

@@ -81,7 +81,7 @@ struct SettingsView: View {
 						Label(.localized("Installation"), systemImage: "arrow.down.circle")
 					}
 					NavigationLink(destination: DataTransferView()) {
-						Label("Transfer Data", systemImage: "externaldrive")
+						Label("Backup & Transfer", systemImage: "externaldrive")
 					}
 				} footer: {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))

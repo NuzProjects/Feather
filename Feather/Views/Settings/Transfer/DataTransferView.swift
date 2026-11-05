@@ -8,11 +8,12 @@ struct DataTransferView: View {
     @State private var exportFolder: URL?
     @State private var message: String?
     var body: some View {
-        NBList("Transfer Data") {
+        NBList("Backup & Transfer") {
             Section {
-                Button("Export Data", systemImage: "square.and.arrow.up") { export(includeApps: true) }
-                Button("Import Data", systemImage: "square.and.arrow.down") { picker = .import }
-            } footer: { Text("Copy your sources, apps, certificates and settings to or from another Feather install.") }
+                Button("Back Up Everything", systemImage: "square.and.arrow.up") { export(includeApps: true) }
+                Button("Back Up Without Apps", systemImage: "square.and.arrow.up.on.square") { export(includeApps: false) }
+                Button("Restore Backup", systemImage: "square.and.arrow.down") { picker = .import }
+            } footer: { Text("Everything includes your apps, certificates, sources and settings. Without Apps keeps only certificates, sources and settings, so the backup stays small. Restoring adds to what's already here.") }
             if busy { ProgressView("Transferring…") }
         }
         .symbolVariant(.fill)
@@ -25,12 +26,12 @@ struct DataTransferView: View {
                     busy = true; defer { busy = false }
                     do {
                         let count = try await FeatherTransfer.restore(url)
-                        message = "Copied \(count) records. Close and reopen Feather to load transferred preferences. The original app is unchanged."
+                        message = "Restored \(count) items. Close and reopen Feather to load the restored settings."
                     } catch { message = error.localizedDescription }
                 }
             }
         }
-        .alert("Transfer Data", isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })) { Button("OK") { message = nil } } message: { Text(message ?? "") }
+        .alert("Backup & Transfer", isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })) { Button("OK") { message = nil } } message: { Text(message ?? "") }
     }
     private func export(includeApps: Bool) {
         Task {

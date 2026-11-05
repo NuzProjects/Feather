@@ -70,11 +70,27 @@ extension Storage {
 				DispatchQueue.main.async {
 					cert.revoked = true
 					self.saveContext()
+					UINotificationFeedbackGenerator().notificationOccurred(.error)
+					UIAlertController.showAlertWithOk(
+						title: "Certificate Revoked",
+						message: "Apple revoked \(cert.nickname ?? "a certificate"). Apps signed with it won't open anymore, so add a new certificate in Settings → Certificates."
+					)
 				}
 			}
 		}
 	}
 	
+	/// Checks every certificate with Apple, at most every 6 hours.
+	func checkAllRevocations() {
+		let key = "Feather.lastRevocationCheck"
+		let last = UserDefaults.standard.object(forKey: key) as? Date ?? .distantPast
+		guard Date().timeIntervalSince(last) > 6 * 3600 else { return }
+		UserDefaults.standard.set(Date(), forKey: key)
+		for cert in (try? context.fetch(CertificatePair.fetchRequest())) ?? [] {
+			revokagedCertificate(for: cert)
+		}
+	}
+
 	enum FileRequest: String {
 		case certificate = "p12"
 		case provision = "mobileprovision"

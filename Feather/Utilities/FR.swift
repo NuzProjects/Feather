@@ -79,6 +79,9 @@ enum FR {
 			handler.appIcon = icon
 			
 			do {
+				if options.signingOption == .default {
+					try await MainActor.run { try SigningFileHandlerError.check(certificate) }
+				}
 				try await handler.copy()
 				if await SigningProgress.shared.isCancelled(job) { throw CancellationError() }
 				await SigningProgress.shared.stage(job, .preparing)

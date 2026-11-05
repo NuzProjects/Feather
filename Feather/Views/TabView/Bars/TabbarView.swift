@@ -32,6 +32,8 @@ struct TabbarView: View {
                 UserDefaults.standard.set(true, forKey: "Feather.serverMethodSemiLocal")
             }
             CertificateExpiry.refresh()
+            SSLCertificateCheck.run()
+            Storage.shared.checkAllRevocations()
             if Onboarding.shouldShow { showOnboarding = true }
             else if WhatsNew.shouldShow { showWhatsNew = true }
             else { await updater.checkOnLaunch() }

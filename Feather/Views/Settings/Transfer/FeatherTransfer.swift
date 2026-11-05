@@ -7,7 +7,7 @@ enum FeatherTransfer {
         case invalid, busy
         var errorDescription: String? {
             switch self {
-            case .invalid: return "Choose a complete Feather backup folder exported from Settings → Transfer Data."
+            case .invalid: return "Choose a complete Feather backup folder exported from Settings → Backup & Transfer."
             case .busy: return "Wait for active downloads to finish before transferring data."
             }
         }
@@ -18,7 +18,8 @@ enum FeatherTransfer {
         let context = Storage.shared.context
         try context.save()
         var records: [[String: Any]] = []
-        for name in entities where includeApps && Storage.shared.container.managedObjectModel.entitiesByName[name] != nil {
+        let exported = includeApps ? entities : ["CertificatePair", "AltSource"]
+        for name in exported where Storage.shared.container.managedObjectModel.entitiesByName[name] != nil {
             for object in try context.fetch(NSFetchRequest<NSManagedObject>(entityName: name)) {
                 var attributes: [String: Any] = [:]
                 for (key, description) in object.entity.attributesByName {
@@ -46,7 +47,12 @@ enum FeatherTransfer {
             do {
                 try data.write(to: folder.appendingPathComponent("Manifest.plist"), options: .atomic)
                 if includeApps { _ = try TransferFiles.merge(from: documents, to: folder.appendingPathComponent("Documents")) }
-                else { try FileManager.default.createDirectory(at: folder.appendingPathComponent("Documents"), withIntermediateDirectories: true) }
+                else {
+                    let certificates = documents.appendingPathComponent("Certificates")
+                    let target = folder.appendingPathComponent("Documents/Certificates")
+                    try FileManager.default.createDirectory(at: target, withIntermediateDirectories: true)
+                    if FileManager.default.fileExists(atPath: certificates.path) { _ = try TransferFiles.merge(from: certificates, to: target) }
+                }
                 return folder
             } catch { try? FileManager.default.removeItem(at: folder); throw error }
         }.value
