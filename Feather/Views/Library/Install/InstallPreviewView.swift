@@ -36,14 +36,6 @@ struct InstallPreviewView: View {
 	
 	// MARK: Body
 	var body: some View {
-		let cornerRadius = {
-			if #available(iOS 26.0, *) {
-				28.0
-			} else {
-				10.5
-			}
-		}()
-		
 		ZStack {
 			InstallProgressView(app: app, viewModel: viewModel)
 			_status()
@@ -51,7 +43,7 @@ struct InstallPreviewView: View {
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
 		.background(Color(UIColor.secondarySystemBackground))
-		.cornerRadius(cornerRadius)
+		.clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
 		.padding()
 		.sheet(isPresented: $_isWebviewPresenting) {
 			SafariRepresentableView(url: installer.pageEndpoint).ignoresSafeArea()
