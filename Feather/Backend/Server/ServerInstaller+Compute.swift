@@ -93,6 +93,21 @@ extension ServerInstaller {
 		return image.pngData()!
 	}
 
+	/// Safari opens this page so the install request doesn't come from Feather itself.
+	var selfInstallPage: URL {
+		var comps = URLComponents(url: pageEndpoint, resolvingAgainstBaseURL: false)!
+		comps.path = "/self-install"
+		return comps.url!
+	}
+
+	var selfInstallHTML: String {
+		"""
+		<html style="background-color: black;">
+		<script type="text/javascript">window.location="\(iTunesLink)"</script>
+		</html>
+		"""
+	}
+
 	var html: String {
 		"""
 		<html style="background-color: black;">

@@ -59,7 +59,9 @@ struct InstallPreviewView: View {
 		.onReceive(viewModel.$status) { newStatus in
 			if _installationMethod == 0 {
 				if case .ready = newStatus {
-					if _serverMethod == 0 {
+					if _serverMethod == 0 && app.identifier == Bundle.main.bundleIdentifier {
+						UIApplication.shared.open(installer.selfInstallPage)
+					} else if _serverMethod == 0 {
 						UIApplication.shared.open(URL(string: installer.iTunesLink)!)
 					} else if _serverMethod == 1 {
 						_isWebviewPresenting = true
@@ -129,6 +131,13 @@ struct InstallPreviewView: View {
 				}
 				.padding()
 				.compatTransition()
+			} else if case .ready = viewModel.status, _serverMethod == 0, app.identifier == Bundle.main.bundleIdentifier {
+				Button {
+					UIApplication.shared.open(installer.selfInstallPage)
+				} label: {
+					NBButton("Try Again", systemImage: "", style: .text)
+				}
+				.padding()
 			}
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)

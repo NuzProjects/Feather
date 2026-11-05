@@ -20,6 +20,7 @@ enum WhatsNew {
     ]
 
     static let fixes: [Item] = [
+        Item(icon: "arrow.down.app", title: "Updating Feather", detail: "Installing a Feather update no longer gets stuck on Ready."),
         Item(icon: "paintpalette", title: "Accent Swipe Actions", detail: "Library swipe buttons and the signing panel match your style."),
         Item(icon: "doc.badge.plus", title: "Importing Files", detail: "Importing certificates, IPAs and other files works again."),
         Item(icon: "rectangle.on.rectangle", title: "Widget", detail: "The widget now loads your data and uses your accent color."),

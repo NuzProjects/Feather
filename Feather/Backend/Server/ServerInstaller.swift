@@ -77,6 +77,10 @@ class ServerInstaller: Identifiable, ObservableObject {
 					}
 
 				}
+			case "/self-install":
+				var headers = HTTPHeaders()
+				headers.add(name: .contentType, value: "text/html")
+				return Response(status: .ok, headers: headers, body: .init(string: self.selfInstallHTML))
 			case "/install":
 				var headers = HTTPHeaders()
 				headers.add(name: .contentType, value: "text/html")

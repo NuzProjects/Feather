@@ -36,9 +36,9 @@ struct UpdatesView: View {
                         if updater.phase == .downloading || updater.phase == .signing { ProgressView() }
                     }
                 }
-                .disabled(updater.latest == nil || updater.isBusy)
 
                 Button {
+                    guard !updater.isBusy else { return }
                     Task {
                         await updater.check()
                         if updater.phase == .idle { alert = updater.updateAvailable ? "A new version of Feather is available." : "Feather is up to date." }
@@ -50,7 +50,6 @@ struct UpdatesView: View {
                         if updater.phase == .checking { ProgressView() }
                     }
                 }
-                .disabled(updater.isBusy)
             } footer: {
                 Text("Feather downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept.")
             }
