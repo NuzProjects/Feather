@@ -44,6 +44,7 @@ final class SigningProgress: ObservableObject {
         guard let job = jobs.first(where: { $0.id == id }), job.stage.isActive else { return }
         cancelled.insert(id)
         stage(id, .cancelled)
+        UINotificationFeedbackGenerator().notificationOccurred(.warning)
         endLease(id)
         remove(id, after: 1_200_000_000)
     }
@@ -51,6 +52,8 @@ final class SigningProgress: ObservableObject {
     func finish(_ id: UUID, success: Bool) {
         guard !cancelled.contains(id) else { return }
         stage(id, success ? .complete : .failed)
+        UINotificationFeedbackGenerator().notificationOccurred(success ? .success : .error)
+        if success { SharedWidgetData.write() }
         endLease(id)
         remove(id, after: success ? 1_500_000_000 : 4_000_000_000)
     }

@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 enum WhatsNew {
     struct Item: Identifiable {
         let icon: String
@@ -10,12 +11,12 @@ enum WhatsNew {
 
     // Update for every release.
     static let features: [Item] = [
-        Item(icon: "sparkles", title: "What's New", detail: "This sheet shows what changed each time Feather updates."),
-        Item(icon: "arrow.down.app.fill", title: "Update Popup", detail: "Feather tells you when a new version is ready and installs it for you."),
-        Item(icon: "xmark.circle.fill", title: "Tap to Cancel", detail: "Tap the progress panel to cancel signing or a download."),
-        Item(icon: "magnifyingglass", title: "Search Sources", detail: "Find apps across all of your sources at once."),
-        Item(icon: "clock.fill", title: "Last Updated", detail: "See when each source last updated its apps."),
-        Item(icon: "hand.draw.fill", title: "Swipe Actions", detail: "Swipe library apps to sign, install or delete them.")
+        Item(icon: "rectangle.on.rectangle", title: "Home Screen Widget", detail: "See your certificate countdown and recently signed apps."),
+        Item(icon: "clock.badge.exclamationmark", title: "Certificate Warnings", detail: "A countdown in Settings and a notification before your certificate expires."),
+        Item(icon: "hand.wave.fill", title: "Welcome Guide", detail: "A quick walkthrough for new installs."),
+        Item(icon: "arrow.clockwise", title: "Pull to Refresh", detail: "Pull down in Library to check for app updates."),
+        Item(icon: "iphone.radiowaves.left.and.right", title: "Haptics", detail: "Feel when signing finishes, fails or is cancelled."),
+        Item(icon: "sparkles", title: "What's New", detail: "This sheet shows what changed after each update.")
     ]
 
     static let fixes: [Item] = [

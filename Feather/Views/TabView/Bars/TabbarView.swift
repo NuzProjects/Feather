@@ -7,6 +7,7 @@ struct TabbarView: View {
     @ObservedObject private var updater = FeatherUpdater.shared
     @State private var installingFromPrompt = false
     @State private var showWhatsNew = false
+    @State private var showOnboarding = false
 
     var body: some View {
         TabView(selection: Binding(get: { selected }, set: { new in if new != selected { TabTransition.crossfade() }; selected = new })) {
@@ -26,7 +27,16 @@ struct TabbarView: View {
             if !tabs.contains(selected) { selected = tabs.contains(.settings) ? .settings : (tabs.first ?? .settings) }
         }
         .task {
-            if WhatsNew.shouldShow { showWhatsNew = true } else { await updater.checkOnLaunch() }
+            CertificateExpiry.refresh()
+            if Onboarding.shouldShow { showOnboarding = true }
+            else if WhatsNew.shouldShow { showWhatsNew = true }
+            else { await updater.checkOnLaunch() }
+        }
+        .fullScreenCover(isPresented: $showOnboarding, onDismiss: {
+            Onboarding.markSeen()
+            WhatsNew.markSeen()
+        }) {
+            OnboardingView()
         }
         .sheet(isPresented: $showWhatsNew, onDismiss: { Task { await updater.checkOnLaunch() } }) {
             WhatsNewView()

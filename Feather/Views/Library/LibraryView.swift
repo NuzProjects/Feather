@@ -116,6 +116,7 @@ struct LibraryView: View {
 				}
 			}
 			.searchable(text: $_searchText, placement: .platform())
+			.refreshable { await _checkForUpdates() }
 			.compatSearchScopes($_selectedScope) {
 				ForEach(Scope.allCases, id: \.displayName) { scope in
 					Text(scope.displayName).tag(scope)

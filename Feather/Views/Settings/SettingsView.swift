@@ -61,6 +61,11 @@ struct SettingsView: View {
                     
 					if let cert = selectedCertificate {
 						CertificatesCellView(cert: cert)
+						if let expiration = cert.expiration {
+							let days = CertificateExpiry.daysLeft(expiration)
+							Label(CertificateExpiry.countdown(expiration), systemImage: "clock.badge.exclamationmark")
+								.foregroundStyle(days < 3 ? Color.red : days < 7 ? Color.orange : Color.secondary)
+						}
 					} else {
 						Text(.localized("No Certificate"))
 							.font(.footnote)
@@ -102,6 +107,8 @@ struct SettingsView: View {
 				}
 				.symbolVariant(.fill)
 			}
+			.onAppear { CertificateExpiry.refresh() }
+			.onChange(of: _storedSelectedCert) { _ in CertificateExpiry.refresh() }
 		}
 	}
 }

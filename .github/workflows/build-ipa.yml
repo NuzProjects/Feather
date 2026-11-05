@@ -3,7 +3,7 @@ name: Build IPA
 on:
   push:
     branches: [main]
-    paths: ['Feather/**', 'Feather.xcodeproj/**', 'Feather.xcconfig', 'Package.swift', 'Tests/**', '.github/workflows/build-ipa.yml']
+    paths: ['Feather/**', 'FeatherWidget/**', 'Feather.xcodeproj/**', 'Feather.xcconfig', 'Package.swift', 'Tests/**', '.github/workflows/build-ipa.yml']
   workflow_dispatch:
     inputs:
       runner:
