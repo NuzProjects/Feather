@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NimbleViews
+import NimbleExtensions
 import IDeviceSwift
 import OSLog
 
@@ -63,10 +64,10 @@ struct InstallPreviewView: View {
 				}
 				
 				if case .installing = newStatus {
-					// iOS won't replace Feather while it's on screen, so step aside to the Home Screen.
+					// iOS won't replace Feather while it's running, so close it once the update is sent.
 					if app.identifier == Bundle.main.bundleIdentifier {
-						DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-							UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+						DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+							UIApplication.shared.suspend()
 						}
 					}
 					if progressTask == nil {

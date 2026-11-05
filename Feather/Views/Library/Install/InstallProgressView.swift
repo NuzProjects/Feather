@@ -28,12 +28,12 @@ struct InstallProgressView: View {
 	@ViewBuilder
 	private func _appIcon() -> some View {
 		ZStack {
-			FRAppIconView(app: app)
+			FRAppIconView(app: app, size: 54, lineWidth: 0)
 				.opacity(0.2)
 				.frame(width: 54, height: 54)
 				.foregroundStyle(Color.black)
 			
-			FRAppIconView(app: app)
+			FRAppIconView(app: app, size: 54, lineWidth: 0)
 				.frame(width: 54, height: 54)
 				.mask(
 					ZStack {
