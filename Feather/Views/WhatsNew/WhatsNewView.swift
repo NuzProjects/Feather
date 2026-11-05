@@ -10,11 +10,12 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
-        Item(icon: "checkmark.seal", title: "Certificate Overview", detail: "Tap a certificate to see how long it has left, what it can do, which devices it covers and which apps you signed with it."),
-        Item(icon: "chevron.left.forwardslash.chevron.right", title: "GitHub Source Preview", detail: "Tap a GitHub source to preview it like any other app, with release notes, version history and a Get button.")
+        Item(icon: "textformat.size", title: "What's New", detail: "Section titles are larger and easier to read.")
     ]
 
-    static let fixes: [Item] = []
+    static let fixes: [Item] = [
+        Item(icon: "text.alignleft", title: "Smoother Descriptions", detail: "Expanding a description or release notes no longer flashes.")
+    ]
 
     private static let seenKey = "WhatsNew.seenVersion"
 
@@ -75,9 +76,8 @@ struct WhatsNewView: View {
     private func group(_ title: String, _ items: [WhatsNew.Item]) -> some View {
         VStack(alignment: .leading, spacing: 18) {
             Text(title)
-                .font(.footnote.weight(.semibold))
-                .foregroundStyle(.secondary)
-                .textCase(.uppercase)
+                .font(.title3.bold())
+                .foregroundStyle(.primary)
             ForEach(items) { item in
                 HStack(alignment: .top, spacing: 16) {
                     Image(systemName: item.icon)

@@ -19,6 +19,9 @@ struct ExpandableText: View {
 		VStack(alignment: .leading, spacing: 4) {
 			Text(text)
 				.lineLimit(expanded ? nil : lineLimit)
+				.foregroundStyle(.primary)
+				.contentTransition(.identity)
+				.fixedSize(horizontal: false, vertical: true)
 				.background(
 					Text(text)
 						.lineLimit(lineLimit)
@@ -32,22 +35,26 @@ struct ExpandableText: View {
 						})
 						.hidden()
 				)
-				.onTapGesture {pGesture in
-					withAnimation {
+				.contentShape(Rectangle())
+				.onTapGesture {
+					guard truncated else { return }
+					withAnimation(.easeInOut(duration: 0.25)) {
 						expanded.toggle()
 					}
 				}
 
 			if truncated {
 				Button(action: {
-					withAnimation {
+					withAnimation(.easeInOut(duration: 0.25)) {
 						expanded.toggle()
 					}
 				}) {
 					Text(expanded ? .localized("Less") : .localized("More"))
 						.font(.caption)
 						.foregroundColor(.accentColor)
+						.contentTransition(.identity)
 				}
+				.buttonStyle(.borderless)
 			}
 		}
 	}
