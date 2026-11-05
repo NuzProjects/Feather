@@ -117,7 +117,6 @@ private extension ImportProgressCard {
         .overlay(iconShape.strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
     }
     var placeholder: some View {
-        Image(systemName: "app.fill").font(.title3).foregroundStyle(.secondary)
-            .frame(maxWidth: .infinity, maxHeight: .infinity).background(.quaternary)
+        Image("App_Unknown").resizable().scaledToFill()
     }
 }

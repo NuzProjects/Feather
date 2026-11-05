@@ -23,14 +23,15 @@ final class SigningProgress: ObservableObject {
     struct Job: Identifiable {
         let id: UUID
         let name: String
+        let icon: UIImage?
         var stage: Stage
     }
     @Published private(set) var jobs: [Job] = []
     private var leases: [UUID: UIBackgroundTaskIdentifier] = [:]
     private var cancelled: Set<UUID> = []
-    func begin(name: String) -> UUID {
+    func begin(name: String, icon: UIImage? = nil) -> UUID {
         let id = UUID()
-        jobs.append(Job(id: id, name: name, stage: .copying))
+        jobs.append(Job(id: id, name: name, icon: icon, stage: .copying))
         leases[id] = UIApplication.shared.beginBackgroundTask(withName: "Sign app") { [weak self] in
             Task { @MainActor in self?.endLease(id) }
         }
@@ -91,7 +92,13 @@ struct SigningProgressPanel: View {
         surface {
             VStack(alignment: .leading, spacing: 9) {
                 HStack(spacing: 12) {
-                    Image(systemName: job.stage == .complete ? "checkmark.seal.fill" : "signature").font(.title3)
+                    Group {
+                        if let icon = job.icon { Image(uiImage: icon).resizable().scaledToFill() }
+                        else { Image("App_Unknown").resizable().scaledToFill() }
+                    }
+                    .frame(width: 42, height: 42)
+                    .clipShape(RoundedRectangle(cornerRadius: 42 * 0.2337, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 42 * 0.2337, style: .continuous).strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(job.name).font(.subheadline.weight(.semibold)).lineLimit(1)
                         Text(job.stage.title).font(.caption).foregroundStyle(.secondary)

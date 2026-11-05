@@ -20,6 +20,7 @@ enum WhatsNew {
     ]
 
     static let fixes: [Item] = [
+        Item(icon: "paintpalette", title: "Accent Swipe Actions", detail: "Library swipe buttons and the signing panel match your style."),
         Item(icon: "doc.badge.plus", title: "Importing Files", detail: "Importing certificates, IPAs and other files works again."),
         Item(icon: "rectangle.on.rectangle", title: "Widget", detail: "The widget now loads your data and uses your accent color."),
         Item(icon: "arrow.down.app", title: "Feather Updates Itself", detail: "Feather can now sign and install itself, so the updater works."),

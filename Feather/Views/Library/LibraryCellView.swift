@@ -13,6 +13,7 @@ import NimbleViews
 struct LibraryCellView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	@Environment(\.editMode) private var editMode
+	@AppStorage("Feather.userTintColor") private var _tintHex: String = "#848ef9"
 	@ObservedObject private var github = GitHubReleases.shared
 	@ObservedObject private var updateManager = UpdateManager.shared
 	@State private var _signedUpdateConfirmation: AppUpdate?
@@ -98,7 +99,7 @@ struct LibraryCellView: View {
 				}
 				.tint(.gray)
 				if let uuid = app.uuid, github.updates[uuid] != nil {
-					Button("Update", systemImage: "arrow.down.circle") { github.update(app) }.tint(.blue).disabled(github.busy.contains(uuid))
+					Button("Update", systemImage: "arrow.down.circle") { github.update(app) }.tint(Color(hex: _tintHex)).disabled(github.busy.contains(uuid))
 				}
 			}
 		}
@@ -108,24 +109,24 @@ struct LibraryCellView: View {
 					Button(.localized("Install"), systemImage: "square.and.arrow.down") {
 						selectedInstallAppPresenting = AnyApp(base: app)
 					}
-					.tint(.accentColor)
+					.tint(Color(hex: _tintHex))
 					Button(.localized("Re-sign"), systemImage: "signature") {
 						ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
 					}
-					.tint(.orange)
+					.tint(Color(hex: _tintHex))
 					Button(.localized("Export"), systemImage: "square.and.arrow.up") {
 						selectedInstallAppPresenting = AnyApp(base: app, archive: true)
 					}
-					.tint(.indigo)
+					.tint(Color(hex: _tintHex))
 				} else {
 					Button(.localized("Sign"), systemImage: "signature") {
 						ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
 					}
-					.tint(.accentColor)
+					.tint(Color(hex: _tintHex))
 					Button(.localized("Install"), systemImage: "square.and.arrow.down") {
 						selectedInstallAppPresenting = AnyApp(base: app)
 					}
-					.tint(.green)
+					.tint(Color(hex: _tintHex))
 				}
 			}
 		}
