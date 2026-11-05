@@ -32,6 +32,9 @@ struct TabbarView: View {
             else if WhatsNew.shouldShow { showWhatsNew = true }
             else { await updater.checkOnLaunch() }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+            SharedWidgetData.write()
+        }
         .fullScreenCover(isPresented: $showOnboarding, onDismiss: {
             Onboarding.markSeen()
             WhatsNew.markSeen()

@@ -50,20 +50,35 @@ enum CertificateExpiry {
     }
 }
 
+/// Shared with the widget through the keychain, since sideload certificates rarely support app groups.
 enum SharedWidgetData {
-    static let suite = "group.dev.madebynuz.dev.feather"
-
     @MainActor
     static func write() {
-        guard let defaults = UserDefaults(suiteName: suite) else { return }
         let certificate = CertificateExpiry.selected
-        defaults.set(certificate?.nickname, forKey: "certificateName")
-        defaults.set(certificate?.expiration, forKey: "certificateExpiration")
         let signed = ((try? Storage.shared.context.fetch(Signed.fetchRequest())) ?? [])
             .sorted { ($0.date ?? .distantPast) > ($1.date ?? .distantPast) }
             .prefix(3)
             .compactMap(\.name)
-        defaults.set(Array(signed), forKey: "recentApps")
+        var payload: [String: Any] = [
+            "recentApps": Array(signed),
+            "tint": UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9"
+        ]
+        payload["certificateName"] = certificate?.nickname
+        payload["certificateExpiration"] = certificate?.expiration?.timeIntervalSince1970
+        guard let data = try? JSONSerialization.data(withJSONObject: payload) else { return }
+
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: "Feather.Widget",
+            kSecAttrAccount as String: "data"
+        ]
+        let attributes: [String: Any] = [
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+        ]
+        if SecItemUpdate(query as CFDictionary, attributes as CFDictionary) == errSecItemNotFound {
+            SecItemAdd(query.merging(attributes) { $1 } as CFDictionary, nil)
+        }
         WidgetCenter.shared.reloadAllTimelines()
     }
 }

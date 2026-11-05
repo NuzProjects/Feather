@@ -1,0 +1,28 @@
+diff --git a/src/bundle.cpp b/src/bundle.cpp
+index e41613b..a37e2d3 100644
+--- a/src/bundle.cpp
++++ b/src/bundle.cpp
+@@ -454,7 +454,22 @@ bool ZBundle::SignNode(jvalue& jvNode)
+ 		}
+ 	}
+ 
+-	if (!macho.Sign(m_pSignAsset, bForceSign, strBundleId, strInfoSHA1, strInfoSHA256, strCodeResData)) {
++	// Wildcard profiles: give each extension its own application-identifier so iOS will launch it.
++	string strOriginalEntitlements = m_pSignAsset->m_strEntitleData;
++	const string& appId = m_pSignAsset->m_strApplicationId;
++	if ("/" != strFolder && !appId.empty() && appId.back() == '*' && !m_pSignAsset->m_strTeamId.empty()) {
++		string& ent = m_pSignAsset->m_strEntitleData;
++		size_t key = ent.find("<key>application-identifier</key>");
++		size_t open = (key == string::npos) ? string::npos : ent.find("<string>", key);
++		size_t close = (open == string::npos) ? string::npos : ent.find("</string>", open);
++		if (close != string::npos) {
++			open += strlen("<string>");
++			ent.replace(open, close - open, m_pSignAsset->m_strTeamId + "." + strBundleId);
++		}
++	}
++	bool bSigned = macho.Sign(m_pSignAsset, bForceSign, strBundleId, strInfoSHA1, strInfoSHA256, strCodeResData);
++	m_pSignAsset->m_strEntitleData = strOriginalEntitlements;
++	if (!bSigned) {
+ 		return false;
+ 	}
+ 

@@ -6,13 +6,12 @@ struct FeatherEntry: TimelineEntry {
     let certificateName: String?
     let expiration: Date?
     let recentApps: [String]
+    let accent: Color
 
-    static let placeholder = FeatherEntry(date: .now, certificateName: "My Certificate", expiration: .now.addingTimeInterval(86400 * 30), recentApps: ["Delta", "UTM", "iSH"])
+    static let placeholder = FeatherEntry(date: .now, certificateName: "My Certificate", expiration: .now.addingTimeInterval(86400 * 30), recentApps: ["Delta", "UTM", "iSH"], accent: Color(hex: "#848ef9"))
 }
 
 struct FeatherProvider: TimelineProvider {
-    private let suite = "group.dev.madebynuz.dev.feather"
-
     func placeholder(in context: Context) -> FeatherEntry { .placeholder }
 
     func getSnapshot(in context: Context, completion: @escaping (FeatherEntry) -> Void) {
@@ -24,14 +23,37 @@ struct FeatherProvider: TimelineProvider {
         completion(Timeline(entries: [entry()], policy: .after(next)))
     }
 
+    /// Reads what Feather saved to the shared keychain item.
     private func entry() -> FeatherEntry {
-        let defaults = UserDefaults(suiteName: suite)
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: "Feather.Widget",
+            kSecAttrAccount as String: "data",
+            kSecReturnData as String: true
+        ]
+        var result: CFTypeRef?
+        let payload: [String: Any]
+        if SecItemCopyMatching(query as CFDictionary, &result) == errSecSuccess,
+           let data = result as? Data,
+           let decoded = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] {
+            payload = decoded
+        } else {
+            payload = [:]
+        }
         return FeatherEntry(
             date: .now,
-            certificateName: defaults?.string(forKey: "certificateName"),
-            expiration: defaults?.object(forKey: "certificateExpiration") as? Date,
-            recentApps: defaults?.stringArray(forKey: "recentApps") ?? []
+            certificateName: payload["certificateName"] as? String,
+            expiration: (payload["certificateExpiration"] as? Double).map(Date.init(timeIntervalSince1970:)),
+            recentApps: payload["recentApps"] as? [String] ?? [],
+            accent: Color(hex: payload["tint"] as? String ?? "#848ef9")
         )
+    }
+}
+
+extension Color {
+    init(hex: String) {
+        let value = UInt64(hex.trimmingCharacters(in: CharacterSet(charactersIn: "#")), radix: 16) ?? 0x848ef9
+        self.init(red: Double((value >> 16) & 0xff) / 255, green: Double((value >> 8) & 0xff) / 255, blue: Double(value & 0xff) / 255)
     }
 }
 
@@ -45,8 +67,8 @@ struct FeatherWidgetView: View {
     }
 
     private var tint: Color {
-        guard let daysLeft else { return .secondary }
-        return daysLeft < 3 ? .red : daysLeft < 7 ? .orange : .green
+        guard let daysLeft else { return entry.accent }
+        return daysLeft < 3 ? .red : daysLeft < 7 ? .orange : entry.accent
     }
 
     var body: some View {
@@ -94,7 +116,7 @@ struct FeatherWidgetView: View {
         VStack(alignment: .leading, spacing: 6) {
             Label("Recently Signed", systemImage: "signature")
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(entry.accent)
             if entry.recentApps.isEmpty {
                 Text("No apps yet")
                     .font(.subheadline)

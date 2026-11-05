@@ -3,7 +3,7 @@ name: Build IPA
 on:
   push:
     branches: [main]
-    paths: ['Feather/**', 'FeatherWidget/**', 'Feather.xcodeproj/**', 'Feather.xcconfig', 'Package.swift', 'Tests/**', '.github/workflows/build-ipa.yml']
+    paths: ['Feather/**', 'FeatherWidget/**', 'Feather.xcodeproj/**', 'Feather.xcconfig', 'Package.swift', 'Tests/**', 'patches/**', '.github/workflows/build-ipa.yml']
   workflow_dispatch:
     inputs:
       runner:
@@ -32,6 +32,8 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+      - name: Apply Zsign patches
+        run: for patch in patches/zsign-*.patch; do git -C Zsign apply "../$patch"; done
       - name: Select Xcode
         run: |
           sudo xcode-select -s /Applications/Xcode_26.3.app/Contents/Developer
