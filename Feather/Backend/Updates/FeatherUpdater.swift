@@ -12,6 +12,8 @@ final class FeatherUpdater: ObservableObject {
     @Published private(set) var phase: Phase = .idle
     @Published var signedUpdate: AnyApp?
     @Published var promptRelease: GitHubRelease?
+    /// Set to push Settings → Updates (from the launch update popup).
+    @Published var openUpdatesPage = false
 
     private let installedKey = "Updates.installedRelease"
     private let skippedKey = "Updates.skippedRelease"

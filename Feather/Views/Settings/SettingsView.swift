@@ -14,7 +14,8 @@ import IDeviceSwift
 // MARK: - View
 struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
-	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName	
+	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
+	@ObservedObject private var _updater = FeatherUpdater.shared
 	// MARK: Fetch
 	@FetchRequest(
 		entity: CertificatePair.entity(),
@@ -100,6 +101,7 @@ struct SettingsView: View {
 			}
 			.onAppear { CertificateExpiry.refresh() }
 			.onChange(of: _storedSelectedCert) { _ in CertificateExpiry.refresh() }
+			.navigationDestination(isPresented: $_updater.openUpdatesPage) { UpdatesView() }
 		}
 	}
 }

@@ -21,7 +21,17 @@ struct TabbarView: View {
         .symbolVariant(.fill)
         .background(TabLabelApplier(tabs: navigator.tabs, showLabels: navigator.showLabels))
         .overlay(alignment: .bottom) {
-            ActivityProgressPanel().padding(.bottom, 58)
+            VStack(spacing: 8) {
+                ActivityProgressPanel()
+                // Feather's own update installs in a card styled like the signing panel.
+                if let update = updater.signedUpdate {
+                    InstallPreviewView(app: update.base, asPanel: true, onClose: { updater.signedUpdate = nil })
+                        .id(update.id)
+                        .transition(.progressPanel)
+                }
+            }
+            .animation(.smooth(duration: 0.4), value: updater.signedUpdate?.id)
+            .padding(.bottom, 58)
         }
         .onChange(of: navigator.tabs) { tabs in
             if !tabs.contains(selected) { selected = tabs.contains(.settings) ? .settings : (tabs.first ?? .settings) }
@@ -55,7 +65,17 @@ struct TabbarView: View {
             isPresented: Binding(get: { updater.promptRelease != nil }, set: { if !$0 { updater.promptRelease = nil } }),
             presenting: updater.promptRelease
         ) { release in
-            Button("Update") { installingFromPrompt = true; updater.install() }
+            Button("Update") {
+                if navigator.tabs.contains(.settings) {
+                    // Show progress on Settings → Updates, which reports failures itself.
+                    if selected != .settings { TabTransition.crossfade() }
+                    selected = .settings
+                    updater.openUpdatesPage = true
+                } else {
+                    installingFromPrompt = true
+                }
+                updater.install()
+            }
             Button("Later", role: .cancel) { updater.skip(release) }
         } message: { release in
             Text("Feather \(FeatherUpdater.displayName(release)) is ready to install.\n\n\(updater.plainReleaseNotes ?? "")")
@@ -71,11 +91,6 @@ struct TabbarView: View {
             default:
                 break
             }
-        }
-        .sheet(item: $updater.signedUpdate) { app in
-            InstallPreviewView(app: app.base)
-                .presentationDetents([.height(200)])
-                .presentationDragIndicator(.visible)
         }
     }
 }

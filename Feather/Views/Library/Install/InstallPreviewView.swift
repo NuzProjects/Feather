@@ -26,10 +26,16 @@ struct InstallPreviewView: View {
 	@StateObject var installer: ServerInstaller
 	
 	@State var isSharing: Bool
-	
-	init(app: AppInfoPresentable, isSharing: Bool = false) {
+	/// Floating card styled like the signing panel (used for Feather's own updates).
+	let asPanel: Bool
+	let onClose: (() -> Void)?
+	@State private var _panelIcon: UIImage?
+
+	init(app: AppInfoPresentable, isSharing: Bool = false, asPanel: Bool = false, onClose: (() -> Void)? = nil) {
 		self.app = app
 		self.isSharing = isSharing
+		self.asPanel = asPanel
+		self.onClose = onClose
 		let viewModel = InstallerStatusViewModel(isIdevice: UserDefaults.standard.integer(forKey: "Feather.installationMethod") == 1)
 		self._viewModel = StateObject(wrappedValue: viewModel)
 		self._installer = StateObject(wrappedValue: try! ServerInstaller(app: app, viewModel: viewModel))
@@ -37,15 +43,7 @@ struct InstallPreviewView: View {
 	
 	// MARK: Body
 	var body: some View {
-		ZStack {
-			InstallProgressView(app: app, viewModel: viewModel)
-			_status()
-			_button()
-		}
-		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-		.background(Color(UIColor.secondarySystemBackground))
-		.clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-		.padding()
+		_content()
 		.sheet(isPresented: $_isWebviewPresenting) {
 			SafariRepresentableView(url: installer.pageEndpoint).ignoresSafeArea()
 		}
@@ -85,6 +83,10 @@ struct InstallPreviewView: View {
 					#if !targetEnvironment(macCatalyst)
 					BackgroundAudioManager.shared.stop()
 					#endif
+					if asPanel {
+						let failed: Bool = { if case .broken = newStatus { return true }; return false }()
+						DispatchQueue.main.asyncAfter(deadline: .now() + (failed ? 4 : 1.5)) { _close() }
+					}
 				default:
 					break
 				}
@@ -108,6 +110,53 @@ struct InstallPreviewView: View {
 		}
 	}
 	
+	private func _close() {
+		if let onClose { onClose() } else { dismiss() }
+	}
+
+	@ViewBuilder
+	private func _content() -> some View {
+		if asPanel {
+			_panel()
+		} else {
+			ZStack {
+				InstallProgressView(app: app, viewModel: viewModel)
+				_status()
+				_button()
+			}
+			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+			.background(Color(UIColor.secondarySystemBackground))
+			.clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+			.padding()
+		}
+	}
+
+	/// Same layout, size and surface as SigningProgressPanel's card.
+	private func _panel() -> some View {
+		ProgressPanelSurface {
+			VStack(alignment: .leading, spacing: 9) {
+				HStack(spacing: 12) {
+					ProgressPanelIcon(image: _panelIcon)
+					VStack(alignment: .leading, spacing: 2) {
+						Text(app.name ?? "Feather").font(.subheadline.weight(.semibold)).lineLimit(1)
+						Text(viewModel.statusLabel).font(.caption).foregroundStyle(.secondary)
+					}
+					Spacer(minLength: 8)
+				}
+				ProgressView(value: min(1, max(0, viewModel.overallProgress)))
+					.accessibilityLabel(viewModel.statusLabel)
+			}.padding(16)
+		}
+		.padding(.horizontal, 12)
+		.contentShape(Rectangle())
+		.animation(.smooth, value: viewModel.statusLabel)
+		.animation(.smooth, value: viewModel.overallProgress)
+		.task {
+			let directory = Storage.shared.getAppDirectory(for: app)
+			_panelIcon = await Task.detached { directory.flatMap { iconTest($0) } }.value
+		}
+	}
+
 	@ViewBuilder
 	private func _status() -> some View {
 		Label(viewModel.statusLabel, systemImage: viewModel.statusImage)
@@ -149,7 +198,7 @@ struct InstallPreviewView: View {
 								UIAlertController.showAlertWithOk(
 									title: "SSL Certificate Expired",
 									message: "Fully Local uses the backloop.dev certificate, which has expired, so iOS won't install the app. Tap Update SSL Certificates in Settings → Installation → Server, or switch the Server Type to Semi Local.",
-									action: { dismiss() }
+									action: { _close() }
 								)
 							}
 							return
@@ -198,7 +247,7 @@ struct InstallPreviewView: View {
 						message: String(describing: error),
 						action: {
 							HeartbeatManager.shared.start(true)
-							dismiss()
+							_close()
 						}
 					)
 				}
