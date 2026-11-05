@@ -27,6 +27,18 @@ public struct NBNavigationView<Content>: View where Content: View {
 			_content
 				.navigationTitle(_title)
 				.navigationBarTitleDisplayMode(_mode)
+				.modifier(_SoftTopEdge())
+		}
+	}
+}
+
+/// Uses the system's smooth (soft) top scroll edge blur instead of a hard cut-off band.
+private struct _SoftTopEdge: ViewModifier {
+	func body(content: Content) -> some View {
+		if #available(iOS 26.0, *) {
+			content.scrollEdgeEffectStyle(.soft, for: .top)
+		} else {
+			content
 		}
 	}
 }

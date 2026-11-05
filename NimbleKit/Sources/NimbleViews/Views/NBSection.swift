@@ -42,55 +42,81 @@ public struct NBSection<Content, Footer>: View
 		self._footer = EmptyView()
 	}
 	
+	@Environment(\.nbInlineSectionHeaders) private var _inlineHeaders
+	
 	public var body: some View {
-		Section(
-			header:
-			HStack(alignment: .center, spacing: 4) {
-				if let _systemName {
-					Image(systemName: _systemName)
-						.font(.system(size: 12))
-						.offset(y: -2)
-				}
-					
-				Text(_headerText)
-					.fontWeight(.bold)
-					.font(.title2)
-					.foregroundStyle(.primary)
-						
-					
-				Spacer()
-                    
-				if let _headerTextSecondary {
-					if #available(iOS 26.0, *) {
-						Text(_headerTextSecondary)
-							.font(.caption)
-							.foregroundStyle(.secondary)
-							.contentTransition(.numericText())
-							.padding(.horizontal, 8)
-							.padding(.vertical, 4.4)
-							.background(Color(uiColor: .quaternarySystemFill))
-							.clipShape(Capsule())
-							.glassEffect()
-					} else {
-						Text(_headerTextSecondary)
-							.font(.caption)
-							.foregroundStyle(.secondary)
-							.contentTransition(.numericText())
-							.padding(.horizontal, 8)
-							.padding(.vertical, 4.4)
-							.background(Color(uiColor: .quaternarySystemFill))
-							.clipShape(Capsule())
-					}
+		if _inlineHeaders {
+			// Plain lists pin section headers, which then float sharply over the top bar blur.
+			// Render the header as an ordinary row so it scrolls (and blurs) with the content.
+			Section {
+				_header
+					.listRowSeparator(.hidden)
+					.listRowBackground(Color.clear)
+				_content
+			} footer: {
+				_footer
+					.font(.caption)
+					.foregroundColor(.secondary)
+			}
+		} else {
+			Section(
+				header: _header,
+				footer: _footer
+					.font(.caption)
+					.foregroundColor(.secondary)
+			) {
+				_content
+			}
+			.headerProminence(.increased)
+		}
+	}
+	
+	private var _header: some View {
+		HStack(alignment: .center, spacing: 4) {
+			if let _systemName {
+				Image(systemName: _systemName)
+					.font(.system(size: 12))
+					.offset(y: -2)
+			}
+			
+			Text(_headerText)
+				.fontWeight(.bold)
+				.font(.title2)
+				.foregroundStyle(.primary)
+			
+			Spacer()
+			
+			if let _headerTextSecondary {
+				if #available(iOS 26.0, *) {
+					_secondary(_headerTextSecondary).glassEffect()
+				} else {
+					_secondary(_headerTextSecondary)
 				}
 			}
-			.offset(y: 2)
-			,
-			footer: _footer
-				.font(.caption)
-				.foregroundColor(.secondary)
-		) {
-			_content
 		}
-		.headerProminence(.increased)
+		.offset(y: 2)
+	}
+	
+	private func _secondary(_ text: String) -> some View {
+		Text(text)
+			.font(.caption)
+			.foregroundStyle(.secondary)
+			.contentTransition(.numericText())
+			.padding(.horizontal, 8)
+			.padding(.vertical, 4.4)
+			.background(Color(uiColor: .quaternarySystemFill))
+			.clipShape(Capsule())
+	}
+}
+
+private struct NBInlineSectionHeadersKey: EnvironmentKey {
+	static let defaultValue = false
+}
+
+public extension EnvironmentValues {
+	/// When true, `NBSection` draws its header as a regular row instead of a pinned section header.
+	var nbInlineSectionHeaders: Bool {
+		get { self[NBInlineSectionHeadersKey.self] }
+		set { self[NBInlineSectionHeadersKey.self] = newValue }
 	}
 }
