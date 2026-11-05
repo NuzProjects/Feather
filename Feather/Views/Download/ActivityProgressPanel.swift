@@ -112,9 +112,9 @@ private extension ImportProgressCard {
                 }
             } else { placeholder }
         }
+        .scaleEffect(1.06)
         .frame(width: iconSize, height: iconSize)
         .clipShape(iconShape)
-        .overlay(iconShape.strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
     }
     var placeholder: some View {
         Image("App_Unknown").resizable().scaledToFill()

@@ -95,9 +95,9 @@ struct SigningProgressPanel: View {
                         if let icon = job.icon { Image(uiImage: icon).resizable().scaledToFill() }
                         else { Image("App_Unknown").resizable().scaledToFill() }
                     }
+                    .scaleEffect(1.06)
                     .frame(width: 42, height: 42)
-                    .clipShape(RoundedRectangle(cornerRadius: 42 * 0.2337, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: 42 * 0.2337, style: .continuous).strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: 42 * (ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 26, minorVersion: 0, patchVersion: 0)) ? 0.2677 : 0.2337), style: .continuous))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(job.name).font(.subheadline.weight(.semibold)).lineLimit(1)
                         Text(job.stage.title).font(.caption).foregroundStyle(.secondary)
