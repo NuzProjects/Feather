@@ -110,6 +110,8 @@ final class SigningHandler: NSObject {
 			try await _mergeEntitlements(for: movedAppPath, with: _options)
 		}
 		
+		try await _removeExtensionsIfProfileIsExplicit(for: movedAppPath)
+
 		let handler = ZsignHandler(appUrl: movedAppPath, options: _options, cert: appCertificate)
 		try await handler.disinject()
 		
@@ -353,6 +355,22 @@ extension SigningHandler {
 		}
 	}
 	
+	// A profile for one exact app ID can't sign extensions, and iOS refuses to install the app if they stay.
+	private func _removeExtensionsIfProfileIsExplicit(for app: URL) async throws {
+		guard let certificate = appCertificate else { return }
+		let identifier = await MainActor.run {
+			Storage.shared.getProvisionFileDecoded(for: certificate)?.Entitlements?["application-identifier"]?.value as? String
+		}
+		guard let identifier, !identifier.hasSuffix("*") else { return }
+		for folder in ["PlugIns", "Extensions"] {
+			let directory = app.appendingPathComponent(folder)
+			guard let contents = try? _fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil) else { continue }
+			for item in contents where item.pathExtension == "appex" {
+				try? _fileManager.removeItem(at: item)
+			}
+		}
+	}
+
 	// horrible edge-case
 	private func _removeWatchIfNeeded(for app: URL) async throws {
 		let watchDir = app.appendingPathComponent("Watch")

@@ -45,6 +45,10 @@ final class FeatherUpdater: ObservableObject {
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    var plainReleaseNotes: String? {
+        releaseNotes?.replacingOccurrences(of: "**", with: "").replacingOccurrences(of: "__", with: "")
+    }
+
     var isBusy: Bool { phase == .checking || phase == .downloading || phase == .signing }
 
     func check() async {

@@ -10,7 +10,6 @@ struct UpdatesView: View {
         NBList("Updates") {
             Section {
                 LabeledContent("Current Version", value: updater.currentVersion)
-                Button("What's New in This Version", systemImage: "sparkles") { showWhatsNew = true }
                 if let latest = updater.latest {
                     LabeledContent("Latest Release", value: latest.name ?? latest.tag_name)
                     if let date = latest.published_at.flatMap(ISO8601DateFormatter().date(from:)) {
@@ -19,11 +18,12 @@ struct UpdatesView: View {
                 }
             }
 
-            if let notes = updater.releaseNotes {
-                NBSection("What's New") {
+            NBSection("What's New") {
+                if let notes = updater.releaseNotes {
                     Text(LocalizedStringKey(notes))
                         .font(.subheadline)
                 }
+                Button("What's New in This Version", systemImage: "sparkles") { showWhatsNew = true }
             }
 
             Section {

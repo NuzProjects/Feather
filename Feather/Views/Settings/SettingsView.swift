@@ -14,9 +14,7 @@ import IDeviceSwift
 // MARK: - View
 struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
-	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
-	@ObservedObject private var _updater = FeatherUpdater.shared
-	
+	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName	
 	// MARK: Fetch
 	@FetchRequest(
 		entity: CertificatePair.entity(),
@@ -43,9 +41,7 @@ struct SettingsView: View {
 				Section {
 					NavigationLink(destination: UpdatesView()) {
 						Label("Updates", systemImage: "arrow.down.app")
-					}
-					.badge(_updater.updateAvailable ? 1 : 0)
-				}
+					}				}
 
 				Section {
 					NavigationLink(destination: AppearanceView()) {
