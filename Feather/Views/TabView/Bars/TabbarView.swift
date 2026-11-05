@@ -27,6 +27,10 @@ struct TabbarView: View {
             if !tabs.contains(selected) { selected = tabs.contains(.settings) ? .settings : (tabs.first ?? .settings) }
         }
         .task {
+            if !UserDefaults.standard.bool(forKey: "Feather.serverMethodSemiLocal") {
+                UserDefaults.standard.set(1, forKey: "Feather.serverMethod")
+                UserDefaults.standard.set(true, forKey: "Feather.serverMethodSemiLocal")
+            }
             CertificateExpiry.refresh()
             if Onboarding.shouldShow { showOnboarding = true }
             else if WhatsNew.shouldShow { showWhatsNew = true }
