@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Feather — Sign and install apps on iPhone and iPad</title>
-<meta name="description" content="Feather signs and installs apps on your iPhone or iPad with your own developer certificate. No computer, no jailbreak, and it updates itself. Free and open source.">
+<meta name="description" content="Feather signs and installs apps on your iPhone or iPad with your own developer certificate. No computer, no jailbreak, and it updates itself.">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://feather.madebynuz.dev/">
 <meta property="og:title" content="Feather">
 <meta property="og:description" content="Sign and install apps on your iPhone or iPad. No computer needed, and it updates itself.">
-<meta property="og:image" content="https://feather.madebynuz.dev/assets/screenshot.jpg">
+<meta property="og:image" content="https://feather.madebynuz.dev/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <style>
 :root {
@@ -41,12 +41,21 @@ a:hover { text-decoration: underline; }
 img { display: block; max-width: 100%; }
 
 .nav {
-  position: sticky; top: 0; z-index: 10;
-  background: rgba(255, 255, 255, 0.72);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  padding-bottom: 18px;
+  opacity: 0; transform: translateY(-12px); pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.nav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent);
 }
+.nav.visible { opacity: 1; transform: none; pointer-events: auto; }
+[id] { scroll-margin-top: 76px; }
 .nav-inner {
   max-width: 1000px; margin: 0 auto; height: 52px; padding: 0 22px;
   display: flex; align-items: center; justify-content: space-between;
@@ -97,7 +106,8 @@ section.wrap { margin-top: 110px; }
   display: grid; place-items: center; margin-bottom: 18px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
-.card .icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.card .icon svg { width: 24px; height: 24px; color: var(--accent); }
+.btn svg { width: 20px; height: 20px; }
 .card h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
 .card p { color: var(--text-2); font-size: 17px; margin-top: 8px; line-height: 1.42; }
 
@@ -141,7 +151,7 @@ footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn { transition: none; }
+  .btn, .nav { transition: none; }
 }
 </style>
 </head>
@@ -154,7 +164,7 @@ footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
       <a class="optional" href="#features">Features</a>
       <a class="optional" href="#how">How It Works</a>
       <a href="#faq">FAQ</a>
-      <a href="https://github.com/NuzProjects/Feather">GitHub</a>
+      <a href="#get">Download</a>
     </div>
   </div>
 </nav>
@@ -165,12 +175,15 @@ footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
     <h1>Feather</h1>
     <p class="lead">Sign and install apps on your iPhone and iPad. No computer needed, and it updates itself.</p>
     <div class="actions">
-      <a class="btn btn-primary" id="download" href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa">Download</a>
+      <a class="btn btn-primary" id="download" href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 3.25a.75.75 0 0 1 .75.75v14.19l4.72-4.72a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 1 1 1.06-1.06l4.72 4.72V4a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>Download</a>
       <a class="btn btn-secondary" href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json">Add to AltStore</a>
     </div>
-    <p class="meta"><span id="version">Latest version</span> · Free and open source · iOS 16 or later</p>
+    <p class="meta"><span id="version">Latest version</span> · iOS 16 or later</p>
     <div class="shot">
-      <img src="assets/screenshot.jpg" alt="Feather on iPad and iPhone, showing sources and the app library" width="1800" height="942" loading="eager">
+      <picture>
+        <source srcset="assets/screenshot.webp" type="image/webp">
+        <img src="assets/screenshot.png" alt="Feather on iPad and iPhone, showing sources and the app library" width="1800" height="1175" loading="eager">
+      </picture>
     </div>
   </header>
 
@@ -179,32 +192,32 @@ footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
     <p class="section-sub">Your certificate, your apps, right on your device. No jailbreak and no cable.</p>
     <div class="grid">
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div>
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 1.25a.75.75 0 0 1 .75.75v10.973l1.68-1.961a.75.75 0 1 1 1.14.976l-3 3.5a.75.75 0 0 1-1.14 0l-3-3.5a.75.75 0 1 1 1.14-.976l1.68 1.96V2a.75.75 0 0 1 .75-.75M6.996 8.252a.75.75 0 0 1 .008 1.5c-1.093.006-1.868.034-2.457.142c-.566.105-.895.272-1.138.515c-.277.277-.457.666-.556 1.4c-.101.755-.103 1.756-.103 3.191v1c0 1.436.002 2.437.103 3.192c.099.734.28 1.122.556 1.4c.277.276.665.456 1.4.555c.754.102 1.756.103 3.191.103h8c1.435 0 2.436-.001 3.192-.103c.734-.099 1.122-.279 1.399-.556s.457-.665.556-1.399c.101-.755.103-1.756.103-3.192v-1c0-1.435-.002-2.436-.103-3.192c-.099-.733-.28-1.122-.556-1.399c-.244-.243-.572-.41-1.138-.515c-.589-.108-1.364-.136-2.457-.142a.75.75 0 1 1 .008-1.5c1.082.006 1.983.032 2.72.167c.758.14 1.403.405 1.928.93c.602.601.86 1.36.982 2.26c.116.866.116 1.969.116 3.336v1.11c0 1.368 0 2.47-.116 3.337c-.122.9-.38 1.658-.982 2.26s-1.36.86-2.26.982c-.867.116-1.97.116-3.337.116h-8.11c-1.367 0-2.47 0-3.337-.116c-.9-.121-1.658-.38-2.26-.982s-.86-1.36-.981-2.26c-.117-.867-.117-1.97-.117-3.337v-1.11c0-1.367 0-2.47.117-3.337c.12-.9.38-1.658.981-2.26c.525-.524 1.17-.79 1.928-.929c.737-.135 1.638-.161 2.72-.167" clip-rule="evenodd"/></svg></div>
         <h3>Updates Itself</h3>
         <p>New versions download, sign and install from Settings. Turn on betas to get features first.</p>
       </div>
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M15.06 10.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"/><path fill-rule="evenodd" d="M12 1.25c-.937 0-1.833.307-3.277.801l-.727.25c-1.481.506-2.625.898-3.443 1.23c-.412.167-.767.33-1.052.495c-.275.16-.55.359-.737.626c-.185.263-.281.587-.341.9c-.063.324-.1.713-.125 1.16c-.048.886-.048 2.102-.048 3.678v1.601c0 6.101 4.608 9.026 7.348 10.224l.027.011c.34.149.66.288 1.027.382c.387.1.799.142 1.348.142c.55 0 .96-.042 1.348-.142c.367-.094.687-.233 1.026-.382l.028-.011c2.74-1.198 7.348-4.123 7.348-10.224V10.39c0-1.576 0-2.792-.048-3.679a9 9 0 0 0-.125-1.16c-.06-.312-.156-.636-.34-.9c-.188-.266-.463-.465-.738-.625a9 9 0 0 0-1.052-.495c-.818-.332-1.962-.724-3.443-1.23l-.727-.25c-1.444-.494-2.34-.801-3.277-.801M9.08 3.514c1.615-.552 2.262-.764 2.92-.764s1.305.212 2.92.764l.572.196c1.513.518 2.616.896 3.39 1.21c.387.158.667.29.864.404q.144.084.208.139c.038.03.053.048.055.05a.4.4 0 0 1 .032.074q.03.082.063.248a7 7 0 0 1 .1.958c.046.841.046 2.015.046 3.624v1.574c0 5.176-3.87 7.723-6.449 8.849c-.371.162-.586.254-.825.315c-.228.059-.506.095-.976.095s-.748-.036-.976-.095c-.24-.06-.454-.153-.825-.315c-2.58-1.126-6.449-3.674-6.449-8.849v-1.574c0-1.609 0-2.783.046-3.624a7 7 0 0 1 .1-.958q.032-.166.063-.248c.018-.05.03-.07.032-.074a.4.4 0 0 1 .055-.05q.064-.055.208-.14c.197-.114.477-.245.864-.402c.774-.315 1.877-.693 3.39-1.21z" clip-rule="evenodd"/></g></svg></div>
         <h3>Certificate Overview</h3>
         <p>See days left, capabilities, devices and the apps signed with each certificate. Get alerts before it expires or if it's revoked.</p>
       </div>
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 2.333v3.334"/><path d="m18.836 5.164l-2.357 2.357" opacity=".88"/><path d="M21.667 12h-3.334" opacity=".75"/><path d="m18.836 18.836l-2.357-2.357" opacity=".63"/><path d="M12 21.667v-3.334" opacity=".5"/><path d="m5.164 18.836l2.357-2.357" opacity=".38"/><path d="M2.333 12h3.334" opacity=".25"/><path d="m5.164 5.164l2.357 2.357" opacity=".13"/></g></svg></div>
         <h3>Live Progress</h3>
         <p>Signing, downloads and imports show in a floating panel. Tap it to cancel at any time.</p>
       </div>
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18"/><path d="M8 15h4"/></svg></div>
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 4.75c-1.06 0-1.91.328-3.934 1.138L5.257 7.01c-1.01.404-1.71.686-2.164.924L2.973 8l.12.065c.454.238 1.154.52 2.164.924l2.809 1.123c2.025.81 2.874 1.138 3.934 1.138s1.91-.328 3.934-1.138l2.809-1.123c1.01-.404 1.71-.686 2.164-.924l.12-.065l-.12-.065c-.454-.238-1.154-.52-2.164-.924l-2.809-1.123C13.91 5.078 13.06 4.75 12 4.75m-4.376-.301C9.501 3.698 10.621 3.25 12 3.25s2.499.448 4.376 1.199l.115.046l2.854 1.142c.955.382 1.728.69 2.259.969c.268.14.528.3.729.493c.206.198.417.498.417.901s-.21.703-.417.901c-.2.193-.46.352-.73.493c-.351.184-.81.382-1.356.606a17 17 0 0 1 1.357.606c.268.14.528.3.729.493c.206.198.417.498.417.901s-.21.703-.417.901c-.2.193-.46.352-.73.493c-.351.184-.81.382-1.356.606a17 17 0 0 1 1.357.606c.268.14.528.3.729.493c.206.198.417.498.417.901s-.21.703-.417.901c-.2.192-.46.352-.73.493c-.53.278-1.303.588-2.258.97l-2.854 1.14l-.115.047c-1.877.751-2.997 1.199-4.376 1.199s-2.499-.448-4.376-1.199l-.115-.046l-2.854-1.142c-.955-.381-1.728-.69-2.259-.969a3.2 3.2 0 0 1-.729-.493c-.206-.198-.417-.498-.417-.901s.21-.703.417-.901c.2-.193.46-.352.73-.493c.351-.184.81-.382 1.356-.606a17 17 0 0 1-1.357-.606a3.2 3.2 0 0 1-.729-.493c-.206-.198-.417-.498-.417-.901s.21-.703.417-.901c.2-.193.46-.352.73-.493c.351-.184.81-.382 1.356-.606a17 17 0 0 1-1.357-.606a3.2 3.2 0 0 1-.729-.493C1.461 8.703 1.25 8.403 1.25 8s.21-.703.417-.901c.2-.193.46-.352.73-.493c.53-.278 1.303-.587 2.258-.97l2.854-1.14zm-1.858 6.359l-.509.203c-1.01.404-1.71.686-2.164.924l-.12.065l.12.066c.454.237 1.154.518 2.164.923l2.809 1.123c2.025.81 2.874 1.138 3.934 1.138s1.91-.328 3.934-1.138l2.809-1.123c1.01-.405 1.71-.686 2.164-.924l.12-.065l-.12-.066c-.454-.237-1.154-.519-2.164-.923l-.51-.203l-1.742.697l-.115.046c-1.877.751-2.997 1.199-4.376 1.199s-2.499-.448-4.376-1.199l-.115-.046zm0 4l-.509.203c-1.01.404-1.71.686-2.164.924l-.12.065l.12.066c.454.237 1.154.518 2.164.923l2.809 1.123c2.025.81 2.874 1.138 3.934 1.138s1.91-.328 3.934-1.138l2.809-1.123c1.01-.405 1.71-.686 2.164-.924l.12-.065l-.12-.066c-.454-.237-1.154-.519-2.164-.923l-.51-.203l-1.742.697l-.115.046c-1.877.751-2.997 1.199-4.376 1.199s-2.499-.448-4.376-1.199l-.115-.046z" clip-rule="evenodd"/></svg></div>
         <h3>AltStore and GitHub Sources</h3>
         <p>Browse AltStore sources, preview them before adding, or install IPAs straight from a GitHub repository's releases.</p>
       </div>
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg></div>
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M1.25 6.5a3.75 3.75 0 1 1 7.5 0a3.75 3.75 0 0 1-7.5 0M5 4.25a2.25 2.25 0 1 0 0 4.5a2.25 2.25 0 0 0 0-4.5" clip-rule="evenodd"/><path d="M13 7.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 0 1.5zm-2 11a.75.75 0 0 0 0-1.5H2a.75.75 0 0 0 0 1.5z"/><path fill-rule="evenodd" d="M19 13.75a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5m-2.25 3.75a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0" clip-rule="evenodd"/></g></svg></div>
         <h3>Signing Options</h3>
         <p>Change names, icons and bundle IDs, enable Files support, inject tweaks and patch apps for Liquid Glass.</p>
       </div>
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H4z"/><path d="M8 20h8"/><path d="M12 16v4"/></svg></div>
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 17.75a.75.75 0 0 1-.75-.75v-6.19l-1.72 1.72a.75.75 0 0 1-1.06-1.06l3-3a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1-1.06 1.06l-1.72-1.72V17a.75.75 0 0 1-.75.75"/><path fill-rule="evenodd" d="M4.25 11A7.75 7.75 0 0 1 19.6 9.476A5.752 5.752 0 0 1 18 20.75H5a4.75 4.75 0 0 1-.744-9.442A8 8 0 0 1 4.25 11M12 4.75a6.25 6.25 0 0 0-6.187 7.145a.75.75 0 0 1-.755.856H5a3.25 3.25 0 0 0 0 6.5h13a4.25 4.25 0 0 0 .8-8.426a.75.75 0 0 1-.603-.64A6.25 6.25 0 0 0 12 4.75" clip-rule="evenodd"/></g></svg></div>
         <h3>Backup and Transfer</h3>
         <p>Back up your apps, certificates, sources and settings, and restore them on another device.</p>
       </div>
@@ -250,13 +263,13 @@ footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
       </details>
       <details>
         <summary>Is it really free?</summary>
-        <p>Yes. Feather is free and open source under the GPL-3.0 license. It's a fork of <a href="https://github.com/claration/feather">Feather by Samara</a>.</p>
+        <p>Yes, Feather costs nothing. It's a fork of <a href="https://github.com/claration/feather">Feather by Samara</a>, licensed under GPL-3.0.</p>
       </details>
     </div>
   </section>
 
   <div class="wrap">
-    <div class="cta">
+    <div class="cta" id="get">
       <img src="assets/icon.png" alt="" width="88" height="88">
       <h2>Get Feather.</h2>
       <div class="actions">
@@ -267,7 +280,7 @@ footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
 
     <footer>
       <div class="row">
-        <p>Feather is free and open source under GPL-3.0. Not affiliated with Apple Inc.</p>
+        <p>Licensed under GPL-3.0. Not affiliated with Apple Inc.</p>
         <div class="links">
           <a href="https://github.com/NuzProjects/Feather">GitHub</a>
           <a href="https://github.com/NuzProjects/Feather/releases">Releases</a>
@@ -279,6 +292,11 @@ footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
 </main>
 
 <script>
+const nav = document.querySelector(".nav");
+const updateNav = () => nav.classList.toggle("visible", window.scrollY > 120);
+window.addEventListener("scroll", updateNav, { passive: true });
+updateNav();
+
 fetch("https://api.github.com/repos/NuzProjects/Feather/releases/latest")
   .then(r => r.ok ? r.json() : null)
   .then(release => {
