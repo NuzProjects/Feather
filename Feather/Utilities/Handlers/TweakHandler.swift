@@ -142,7 +142,6 @@ class TweakHandler {
 		
 		destinationURL = destinationURL.appendingPathComponent(url.lastPathComponent)
 		
-		// Copy rather than move, so the tweak you picked is still there if signing is retried.
 		try _fileManager.createDirectoryIfNeeded(at: destinationURL.deletingLastPathComponent())
 		if !_fileManager.fileExists(atPath: destinationURL.path) {
 			try _fileManager.copyItem(at: url, to: destinationURL)

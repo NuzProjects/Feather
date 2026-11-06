@@ -134,7 +134,6 @@ extension UIAlertController {
 			popover.permittedArrowDirections = .any
 		}
 		
-		// No window yet (or the app is in the background): skip rather than crash.
 		guard let presenter else { return }
 		presenter.present(alert, animated: true)
 	}

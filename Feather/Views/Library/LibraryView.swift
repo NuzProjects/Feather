@@ -150,7 +150,6 @@ struct LibraryView: View {
 							_editMode = _editMode.isEditing ? .inactive : .active
 						}
 					} label: {
-						// Both titles stay laid out so the button never changes width; only their opacity changes.
 						ZStack {
 							Text(.localized("Edit")).opacity(_editMode.isEditing ? 0 : 1)
 							Text(.localized("Done")).opacity(_editMode.isEditing ? 1 : 0)
@@ -160,7 +159,6 @@ struct LibraryView: View {
 				}
 				
 				ToolbarItem(placement: .topBarTrailing) {
-					// Import and Delete share one fixed slot and cross-fade, so the toolbar doesn't jump.
 					ZStack {
 						Menu {
 							_importActions()

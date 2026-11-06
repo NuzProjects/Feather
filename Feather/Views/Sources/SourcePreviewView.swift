@@ -4,7 +4,6 @@ import NimbleViews
 import NukeUI
 
 // MARK: - View
-/// Preview of a source that hasn't been added yet: its info and apps, with an Add button.
 struct SourcePreviewView: View {
 	let url: URL
 	let repository: ASRepository

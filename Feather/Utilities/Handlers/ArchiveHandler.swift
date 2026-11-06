@@ -70,7 +70,6 @@ final class ArchiveHandler: NSObject {
 	}
 	
 	func moveToArchive(_ package: URL, shouldOpen: Bool = false) async throws -> URL? {
-		// Names can be missing or contain "/", which would break the file path.
 		func safe(_ text: String?, _ fallback: String) -> String {
 			let cleaned = (text ?? fallback).replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: ":", with: "-")
 			return cleaned.isEmpty ? fallback : cleaned

@@ -33,7 +33,6 @@ struct SourcesAddView: View {
 	}
 	
 	@State var recommendedSourcesData: [(url: URL, data: ASRepository)] = []
-	/// Featured sources: `featuredSources` in remote-config.json replaces the built-in list when present.
 	var recommendedSources: [URL] {
 		if let remote = RemoteConfig.cached?.featuredSources, !remote.isEmpty { return remote }
 		return Self.builtInRecommendedSources
@@ -199,7 +198,6 @@ struct SourcesAddView: View {
 	) async -> [(url: URL, data: ASRepository)] {
 		let dataService = _dataService
 		
-		// Each fetch returns its own result, so nothing is lost or written from two threads at once.
 		return await withTaskGroup(of: (url: URL, data: ASRepository)?.self) { group in
 			for url in urls {
 				group.addTask {

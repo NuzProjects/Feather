@@ -267,7 +267,7 @@ struct InstallPreviewView: View {
 					break
 				}
 
-				try? await Task.sleep(nanoseconds: 250_000_000) // 0.25 s; polling every 1 ms drained the battery and flooded the logs
+				try? await Task.sleep(nanoseconds: 250_000_000)
 			}
 		}
 	}

@@ -213,7 +213,6 @@ enum FR {
 		}
 		
 		NBFetchService().fetch<ASRepository>(from: url) { (result: Result<ASRepository, Error>) in
-			// The fetch finishes on a background thread; the database must only be changed on the main thread.
 			DispatchQueue.main.async {
 			switch result {
 			case .success(let data):

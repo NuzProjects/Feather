@@ -63,7 +63,6 @@ extension Certificate {
 		return count == 1 ? "1 device" : "\(count) devices"
 	}
 
-	/// Fraction of the validity period that is left, from 1 (just issued) to 0 (expired).
 	func remainingFraction(now: Date = .now) -> Double {
 		let total = ExpirationDate.timeIntervalSince(CreationDate)
 		guard total > 0 else { return 0 }
@@ -77,7 +76,6 @@ extension Certificate {
 		let detail: String?
 	}
 
-	/// Entitlements people care about, in plain language.
 	var capabilities: [Capability] {
 		guard let entitlements = Entitlements else { return [] }
 		func has(_ key: String) -> Bool { entitlements[key] != nil }

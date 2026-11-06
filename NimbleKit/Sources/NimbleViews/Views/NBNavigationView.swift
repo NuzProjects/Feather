@@ -33,7 +33,6 @@ public struct NBNavigationView<Content>: View where Content: View {
 }
 
 public extension View {
-	/// Blurs content as it scrolls under the navigation bar, like the Settings app (iOS 26+).
 	func nbSoftTopEdge() -> some View {
 		modifier(_SoftTopEdge())
 	}

@@ -62,7 +62,6 @@ struct SettingsView: View {
 							CertificatesCellView(cert: cert)
 						}
 					} else if _certificates.isEmpty {
-						// Only when there are no certificates at all; looks like the other Settings rows.
 						Button {
 							_isGetCertificatePresenting = true
 						} label: {
@@ -149,8 +148,6 @@ struct SettingsView: View {
 
 // MARK: - View extension
 extension SettingsView {
-	/// If the saved selection points past the list (for example after deleting a certificate),
-	/// select the newest one so Settings and signing both use a real certificate.
 	private func _repairSelectedCertificate() {
 		guard !_certificates.isEmpty, !_certificates.indices.contains(_storedSelectedCert) else { return }
 		_storedSelectedCert = 0

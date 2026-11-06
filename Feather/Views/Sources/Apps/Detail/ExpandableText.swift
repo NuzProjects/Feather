@@ -16,11 +16,8 @@ struct ExpandableText: View {
 	@State private var limitedHeight: CGFloat = 0
 	@State private var fullHeight: CGFloat = 0
 
-	/// True when the full text is taller than the collapsed text, measured in the text's own font.
 	private var truncated: Bool { fullHeight > limitedHeight + 1 }
 
-	/// Release notes are often Markdown: render bold, italics, code and links, turn headings into
-	/// bold lines and list items into bullets, and fall back to plain text if it can't be parsed.
 	private var _rendered: AttributedString {
 		let lines = text.components(separatedBy: .newlines).map { line -> String in
 			let trimmed = line.trimmingCharacters(in: .whitespaces)

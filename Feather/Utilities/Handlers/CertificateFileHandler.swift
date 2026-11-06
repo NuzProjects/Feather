@@ -53,7 +53,6 @@ final class CertificateFileHandler: NSObject {
 	}
 	
 	func addToDatabase() async throws {
-		// Core Data's view context must only be changed on the main thread.
 		await MainActor.run {
 			Storage.shared.addCertificate(
 				uuid: _uuid,

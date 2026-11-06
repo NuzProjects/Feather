@@ -24,7 +24,6 @@ struct UpdatesView: View {
                     }
                 }
             }
-            // Switching between beta and full releases changes these; animate instead of jumping.
             .animation(.smooth(duration: 0.35), value: updater.latest?.id)
 
             NBSection("What's New") {
@@ -43,7 +42,6 @@ struct UpdatesView: View {
                 Toggle(isOn: Binding(
                     get: { updater.receiveBetas },
                     set: { on in
-                        // Turning betas on asks first; turning them off doesn't.
                         if on { confirmingBetas = true } else { updater.receiveBetas = false }
                     }
                 )) {
@@ -103,7 +101,6 @@ struct UpdatesView: View {
 
     private var _installTitle: String {
         if updater.updateAvailable { return "Download and Install Update" }
-        // On a beta with betas turned off, the latest full release is older, so say exactly what gets installed.
         if let latest = updater.latest, FeatherUpdater.displayName(latest) != updater.currentVersion {
             return "Install \(FeatherUpdater.displayName(latest))"
         }

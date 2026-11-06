@@ -48,8 +48,6 @@ final class Storage: ObservableObject {
 		batchDelete(request)
 	}
 	
-	/// Deletes rows in the store and tells the view context, so lists update right away
-	/// instead of showing deleted items until the next launch.
 	func batchDelete(_ request: NSFetchRequest<NSFetchRequestResult>) {
 		let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
 		deleteRequest.resultType = .resultTypeObjectIDs

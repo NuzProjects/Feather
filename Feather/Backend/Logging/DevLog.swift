@@ -3,8 +3,6 @@ import OSLog
 import UIKit
 import MetricKit
 
-/// Developer logs: one file per launch, crash reports and MetricKit diagnostics.
-/// Everything lives in Library/Application Support/Logs and never leaves the device unless the user exports it.
 final class DevLog: NSObject, @unchecked Sendable {
 	static let shared = DevLog()
 
@@ -50,7 +48,6 @@ final class DevLog: NSObject, @unchecked Sendable {
 
 	// MARK: Start
 
-	/// Call once, as early as possible in `didFinishLaunching`.
 	func start() {
 		guard !started else { return }
 		started = true
@@ -82,7 +79,6 @@ final class DevLog: NSObject, @unchecked Sendable {
 		}
 	}
 
-	/// True once per launch when the previous launch crashed, so the prompt never shows twice.
 	func takeCrashPrompt() -> Bool {
 		guard didCrashLastLaunch, !crashPromptShown else { return false }
 		crashPromptShown = true
@@ -109,7 +105,6 @@ final class DevLog: NSObject, @unchecked Sendable {
 		sessionURL.deletingPathExtension().appendingPathExtension("oslog")
 	}
 
-	/// Copies this process's `os_log` entries (the existing `Logger.misc` / `Logger.signing` calls) next to the session file.
 	func snapshotSystemLog() {
 		queue.async { [self] in
 			guard let store = try? OSLogStore(scope: .currentProcessIdentifier) else { return }
@@ -145,7 +140,6 @@ final class DevLog: NSObject, @unchecked Sendable {
 		return FileManager.default.fileExists(atPath: url.path) ? url : nil
 	}
 
-	/// Writes one readable text file with device info, crashes and every session, ready to share.
 	func exportBundle() async -> URL? {
 		snapshotSystemLog()
 		return await withCheckedContinuation { continuation in
@@ -174,7 +168,6 @@ final class DevLog: NSObject, @unchecked Sendable {
 		}
 	}
 
-	/// Removes crashes and previous sessions. The current session is emptied, not deleted.
 	func clear() {
 		queue.sync {
 			let fm = FileManager.default
@@ -251,8 +244,6 @@ extension DevLog: MXMetricManagerSubscriber {
 
 // MARK: - Crash trap
 
-/// Writes a crash report to a pre-opened file from inside the signal handler,
-/// using only `write` and `backtrace_symbols_fd`, so it doesn't allocate after a crash.
 enum CrashTrap {
 	static let marker = "*** CRASH"
 	fileprivate static var fd: Int32 = -1

@@ -16,12 +16,10 @@ final class FeatherUpdater: ObservableObject {
     @Published var installLabel: String?
     @Published var installFraction: Double = 0
     @Published var promptRelease: GitHubRelease?
-    /// Set when an update can't install because no certificate is selected; shows Get a Certificate.
     @Published var needsCertificate = false
     @Published var openUpdatesPage = false
 
     static let receiveBetasKey = "Updates.receiveBetas"
-    /// Offer beta releases. Defaults to on for beta builds and off for full releases until changed.
     @Published var receiveBetas: Bool {
         didSet {
             guard receiveBetas != oldValue else { return }
@@ -96,7 +94,6 @@ final class FeatherUpdater: ObservableObject {
             let onBeta = receiveBetas
             let releases = try await GitHubReleases.shared.releases(Self.repository).filter { onBeta || !$0.prerelease }
             let newest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
-            // Animate here: the change arrives after a network request, so view-level animations never see it.
             if newest?.id != latest?.id {
                 withAnimation(.smooth(duration: 0.4)) { latest = newest }
             } else {
@@ -128,7 +125,6 @@ final class FeatherUpdater: ObservableObject {
             return
         }
         guard let release = latest else {
-            // Not checked yet: check first, then install what was found.
             Task {
                 await check()
                 if latest != nil { install() }
@@ -185,7 +181,6 @@ final class FeatherUpdater: ObservableObject {
         }
     }
 
-    /// Reports a failure even when it's the same message as last time, so the alert always appears.
     private func _fail(_ message: String) {
         if case .failed(let previous) = phase, previous == message { phase = .idle }
         Task { @MainActor in self.phase = .failed(message) }

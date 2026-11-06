@@ -105,7 +105,6 @@ final class AppFileHandler: NSObject, @unchecked Sendable {
 			throw ImportedFileHandlerError.payloadNotFound
 		}
 		
-		// The Unsigned folder may have been removed by Reset; recreate it so imports keep working.
 		try _fileManager.createDirectoryIfNeeded(at: destinationURL.deletingLastPathComponent())
 		try _fileManager.moveItem(at: payloadURL, to: destinationURL)
 		

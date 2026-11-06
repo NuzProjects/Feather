@@ -1,18 +1,13 @@
 import Foundation
 import SwiftUI
 
-/// Settings Feather downloads from `remote-config.json` in the GitHub repo, so content can change without a new build.
-/// Every field is optional: anything missing falls back to the value built into the app.
 struct RemoteConfigData: Codable, Equatable {
 	struct Announcement: Codable, Equatable {
-		/// Change this to show a new announcement; each id is shown once.
 		let id: String
 		let title: String
 		let message: String
-		/// Optional button that opens a link.
 		let buttonTitle: String?
 		let url: URL?
-		/// Only show to versions at or below this one, for example "1.2.4". Leave out to show to everyone.
 		let maxVersion: String?
 	}
 
@@ -20,10 +15,8 @@ struct RemoteConfigData: Codable, Equatable {
 		let name: String
 		let detail: String
 		let url: URL
-		/// SF Symbol name.
 		let icon: String?
 		let official: Bool?
-		/// The provider's own logo (for example their apple-touch-icon.png). Falls back to `icon`.
 		var iconURL: URL? = nil
 		var id: String { url.absoluteString }
 	}
@@ -31,9 +24,7 @@ struct RemoteConfigData: Codable, Equatable {
 	var announcement: Announcement?
 	var certificateProviders: [Provider]?
 	var featuredSources: [URL]?
-	/// Base address of the plist server used by Semi Local installs.
 	var plistServer: URL?
-	/// On/off switches for features that are already in the app.
 	var flags: [String: Bool]?
 }
 
@@ -52,13 +43,11 @@ final class RemoteConfig: ObservableObject {
 		data = Self.cached ?? RemoteConfigData()
 	}
 
-	/// The last downloaded settings, readable from any thread.
 	nonisolated static var cached: RemoteConfigData? {
 		guard let saved = UserDefaults.standard.data(forKey: cacheKey) else { return nil }
 		return try? JSONDecoder().decode(RemoteConfigData.self, from: saved)
 	}
 
-	/// Downloads the settings at most every 15 minutes unless forced. Failures keep the last good copy.
 	func refresh(force: Bool = false) async {
 		guard force || Date().timeIntervalSince(lastFetch) > 900 else { return }
 		lastFetch = Date()
@@ -70,7 +59,6 @@ final class RemoteConfig: ObservableObject {
 			let decoded = try JSONDecoder().decode(RemoteConfigData.self, from: body)
 			UserDefaults.standard.set(body, forKey: Self.cacheKey)
 			if decoded != data { data = decoded }
-			// Give launch sheets (What's New, onboarding) time to finish before showing an alert.
 			try? await Task.sleep(nanoseconds: 2_500_000_000)
 			_showAnnouncementIfNeeded()
 		} catch {

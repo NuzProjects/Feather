@@ -231,7 +231,6 @@ extension View {
 		if #available(iOS 17, *) {
 			self.navigationDestination(item: item, destination: destination)
 		} else {
-			// iOS 16 has no item-based destination, so drive one from a Bool.
 			self.navigationDestination(
 				isPresented: Binding(
 					get: { item.wrappedValue != nil },

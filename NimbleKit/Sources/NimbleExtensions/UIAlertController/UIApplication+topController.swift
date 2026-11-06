@@ -8,8 +8,6 @@
 import UIKit
 
 extension UIApplication {
-	/// The key window's root view controller, falling back to any foreground scene's window
-	/// (`keyWindow` is nil during scene changes and while the app is in the background).
 	public static var _rootViewController: UIViewController? {
 		if let root = UIApplication.shared.keyWindow?.rootViewController { return root }
 		let windows = UIApplication.shared.connectedScenes

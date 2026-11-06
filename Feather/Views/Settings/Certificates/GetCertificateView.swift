@@ -3,7 +3,6 @@ import NimbleViews
 import NukeUI
 
 // MARK: - Providers
-/// Built-in provider list. `certificateProviders` in remote-config.json replaces it when present.
 enum CertificateProviders {
 	typealias Provider = RemoteConfigData.Provider
 
@@ -79,7 +78,6 @@ struct GetCertificateView: View {
 				NBToolbarButton(role: .close)
 			}
 			.sheet(isPresented: $_isImportPresenting, onDismiss: {
-				// A certificate was added: there's nothing left to get, so close this sheet too.
 				if Storage.shared.getAllCertificates().count > _certificateCountBeforeImport {
 					dismiss()
 				}
@@ -93,7 +91,6 @@ struct GetCertificateView: View {
 
 // MARK: - Extension: View
 extension GetCertificateView {
-	/// The provider's own logo when it has one, otherwise an SF Symbol tile.
 	@ViewBuilder
 	private func _icon(for provider: CertificateProviders.Provider) -> some View {
 		let shape = RoundedRectangle(cornerRadius: 9, style: .continuous)

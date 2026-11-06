@@ -38,17 +38,14 @@ extension ServerInstaller {
 		return comps.url!
 	}
 	
-	// Values for the manifest. Some apps have no version or name, so fall back instead of crashing.
 	private var _bundleID: String { app.identifier ?? "unknown" }
 	private var _bundleVersion: String { app.version ?? "1.0" }
 	private var _title: String { app.name ?? "App" }
 
 	var externalServerLink: String {
-		// Encode each value on its own so names like "Tom & Jerry" don't break the query.
 		var allowed = CharacterSet.urlQueryAllowed
 		allowed.remove(charactersIn: "&=+#?")
 		func encode(_ value: String) -> String { value.addingPercentEncoding(withAllowedCharacters: allowed) ?? "" }
-		// `plistServer` in remote-config.json can point installs at a different server if this one goes down.
 		let server = RemoteConfig.cached?.plistServer?.absoluteString ?? "https://api.palera.in/genPlist"
 		let baseUrl = "\(server)?bundleid=\(encode(_bundleID))&name=\(encode(_title))&version=\(encode(_bundleVersion))&fetchurl=\(encode(payloadEndpoint.absoluteString))"
 		return baseUrl.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? baseUrl

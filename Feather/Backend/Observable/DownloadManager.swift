@@ -74,7 +74,6 @@ class DownloadManager: NSObject, ObservableObject {
 	override init() {
 		super.init()
 		let configuration = URLSessionConfiguration.default
-		// Delegate callbacks run on the main queue, so `downloads` is only ever touched from one thread.
 		_session = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
 	}
 	
@@ -202,7 +201,6 @@ extension DownloadManager: URLSessionDownloadDelegate {
 		}
 	}
 	
-	/// Removes a failed download, stops its background work and tells the user why.
 	private func _fail(_ download: Download, message: String) {
 		guard let index = getDownloadIndex(by: download.id) else { return }
 		downloads.remove(at: index)
@@ -276,7 +274,6 @@ extension DownloadManager: URLSessionDownloadDelegate {
 		}
 		
 		if (error as NSError).code == NSURLErrorCancelled {
-			// Cancelled by the user; cancelDownload already cleaned up.
 			if let index = getDownloadIndex(by: download.id) { downloads.remove(at: index) }
 			return
 		}

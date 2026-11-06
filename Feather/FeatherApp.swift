@@ -179,7 +179,6 @@ struct FeatherApp: App {
 	}
 }
 
-/// Shows Get a Certificate when an update can't install for lack of a certificate, from any screen.
 private struct _UpdateCertificateSheet: ViewModifier {
 	@ObservedObject private var updater = FeatherUpdater.shared
 

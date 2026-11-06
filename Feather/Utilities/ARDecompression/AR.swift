@@ -15,8 +15,6 @@ class AR: NSObject {
 		super.init()
 	}
 
-	/// Reads every member of an `ar` archive (the container format of `.deb` files).
-	/// Malformed archives throw `ARError` instead of crashing.
 	func extract() async throws -> [ARFileModel] {
 		let data: Data
 		do {
@@ -25,7 +23,7 @@ class AR: NSObject {
 			throw ARError.badArchive("Couldn't read \(_url.lastPathComponent)")
 		}
 
-		let magic: [UInt8] = [0x21, 0x3c, 0x61, 0x72, 0x63, 0x68, 0x3e, 0x0a] // "!<arch>\n"
+		let magic: [UInt8] = [0x21, 0x3c, 0x61, 0x72, 0x63, 0x68, 0x3e, 0x0a]
 		guard data.count >= magic.count, [UInt8](data.prefix(magic.count)) == magic else {
 			throw ARError.badArchive("Invalid magic")
 		}
@@ -33,7 +31,6 @@ class AR: NSObject {
 		var offset = data.startIndex + magic.count
 		var files: [ARFileModel] = []
 		while offset < data.endIndex {
-			// Some archives pad the end with a newline; stop when there isn't room for another header.
 			guard data.endIndex - offset >= 60 else { break }
 			let (file, size) = try _getFileInfo(data, offset)
 			if let file { files.append(file) }
@@ -43,7 +40,6 @@ class AR: NSObject {
 		return files
 	}
 
-	/// Returns the member at `offset` and its size. Special members (GNU symbol and long-name tables) come back as nil.
 	private func _getFileInfo(_ data: Data, _ offset: Int) throws -> (ARFileModel?, Int) {
 		func field(_ start: Int, _ length: Int) -> String {
 			let bytes = data.subdata(in: (offset + start)..<(offset + start + length))
@@ -57,11 +53,9 @@ class AR: NSObject {
 			throw ARError.badArchive("Truncated archive")
 		}
 
-		// GNU ar ends names with "/" and uses "/" and "//" for its own tables, which aren't files.
 		var name = field(0, 16)
 		if name == "/" || name == "//" || name.hasPrefix("/SYM64/") { return (nil, size) }
 		if name.hasSuffix("/") { name.removeLast() }
-		// Keep only a plain file name so nothing is written outside the work folder.
 		name = (name as NSString).lastPathComponent
 		guard !name.isEmpty, name != ".", name != "..", name != "/" else {
 			throw ARError.badArchive("Invalid name")

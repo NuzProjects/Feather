@@ -1,6 +1,5 @@
 name: Build IPA
 
-# Runs only when started by hand (Actions tab or API), so each release costs one Mac run.
 on:
   workflow_dispatch:
     inputs:

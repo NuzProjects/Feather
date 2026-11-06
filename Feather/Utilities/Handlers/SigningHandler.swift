@@ -453,7 +453,6 @@ extension SigningHandler {
 			return
 		}
 		
-		// Core Data objects must be read on the main thread.
 		let provisionURL: URL? = await MainActor.run {
 			self.appCertificate.flatMap { Storage.shared.getFile(.provision, from: $0) }
 		}

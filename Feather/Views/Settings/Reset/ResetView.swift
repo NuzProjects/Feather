@@ -29,8 +29,6 @@ struct ResetView: View {
 		return "\(ByteCountFormatter.string(fromByteCount: Int64(totalCacheSize), countStyle: .file))"
 	}
 	
-	/// - Parameter restart: Only resets that clear settings need a restart. Feather closes so the next launch is
-	///   a fresh copy; reopening itself would just resume the copy that's about to quit, which then looks like a crash.
 	static func resetAlert(
 		title: String,
 		message: String = "",
@@ -191,7 +189,6 @@ extension ResetView {
 		if !resetAll { UserDefaults.standard.set(0, forKey: "feather.selectedCert") }
 		Storage.shared.clearContext(request: CertificatePair.fetchRequest())
 		try? FileManager.default.removeFileIfNeeded(at: FileManager.default.certificates)
-		// Without a restart, cancel expiry reminders for the certificates that were just removed.
 		Task { @MainActor in CertificateExpiry.refresh() }
 	}
 	

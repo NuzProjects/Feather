@@ -9,11 +9,17 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    // Only this update's changes. Replace (don't add to) these lists for every new version.
-    static let features: [Item] = []
+    static let features: [Item] = [
+        Item(icon: "plus.circle", title: "Get a Certificate", detail: "No certificate yet? See where to get one, official or unofficial, or import the one you have."),
+        Item(icon: "square.stack.3d.down.forward", title: "Softer Scrolling", detail: "Every page blurs content as it scrolls under the top bar, like the Settings app."),
+        Item(icon: "text.badge.star", title: "Formatted Release Notes", detail: "Version history and What's New show bold text, links and bullet points."),
+        Item(icon: "flask", title: "Beta Updates", detail: "Receive Beta Updates asks before turning on, and the version and notes change smoothly when you switch.")
+    ]
 
     static let fixes: [Item] = [
-        Item(icon: "flask", title: "Beta Switch", detail: "Turning Receive Beta Updates on or off smoothly changes the latest version and What's New.")
+        Item(icon: "arrow.down.circle", title: "Download and Install", detail: "Updating without a certificate opens Get a Certificate instead of doing nothing."),
+        Item(icon: "arrow.counterclockwise", title: "Reset", detail: "Resets happen right away without restarting, and Reset Settings no longer crashes the first time Feather reopens."),
+        Item(icon: "checkmark.seal", title: "Certificates", detail: "Importing a certificate from Get a Certificate closes the sheet when you're done.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"
