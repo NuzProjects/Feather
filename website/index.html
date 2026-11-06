@@ -18,13 +18,15 @@
 <style>
 :root {
   --bg: #ffffff;
-  --bg-soft: #f5f5f7;
+  --soft: #f5f5f7;
+  --tint: #f1f2fe;
   --text: #1d1d1f;
   --text-2: #6e6e73;
-  --line: #d2d2d7;
+  --text-3: #86868b;
+  --line: rgba(0, 0, 0, 0.08);
   --accent: #848ef9;
-  --accent-hover: #7880f2;
-  --radius: 22px;
+  --accent-deep: #6b74ec;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,267 +37,287 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.47;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: var(--accent-deep); text-decoration: none; }
 img { display: block; max-width: 100%; }
+svg { flex-shrink: 0; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+[id] { scroll-margin-top: 72px; }
 
+/* Header: hidden at the top, fades in with a soft blur once you scroll */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 10;
-  padding-bottom: 18px;
-  opacity: 0; transform: translateY(-12px); pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  position: fixed; inset: 0 0 auto; z-index: 20; padding-bottom: 20px;
+  opacity: 0; transform: translateY(-10px); pointer-events: none;
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
 }
 .nav::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
-  mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  -webkit-mask-image: linear-gradient(#000 58%, transparent);
+  mask-image: linear-gradient(#000 58%, transparent);
 }
 .nav.visible { opacity: 1; transform: none; pointer-events: auto; }
-[id] { scroll-margin-top: 76px; }
-.nav-inner {
-  max-width: 1000px; margin: 0 auto; height: 52px; padding: 0 22px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 17px; }
-.brand:hover { text-decoration: none; }
+.nav-inner { max-width: 1040px; margin: 0 auto; height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
 .brand img { width: 28px; height: 28px; border-radius: 7px; }
-.nav-links { display: flex; gap: 26px; font-size: 13px; }
-.nav-links a { color: var(--text); opacity: 0.8; }
-.nav-links a:hover { opacity: 1; text-decoration: none; }
+.nav-links { display: flex; gap: 28px; font-size: 13px; }
+.nav-links a { color: var(--text); opacity: 0.72; transition: opacity 0.2s; }
+.nav-links a:hover { opacity: 1; }
 
-.wrap { max-width: 1000px; margin: 0 auto; padding: 0 22px; }
-
-.hero { text-align: center; padding: 88px 0 40px; }
+/* Hero */
+.hero { position: relative; text-align: center; padding: 104px 0 0; }
+.glow {
+  position: absolute; z-index: -1; left: 50%; top: -120px; width: 900px; height: 640px; transform: translateX(-50%);
+  background:
+    radial-gradient(closest-side at 38% 42%, rgba(132, 142, 249, 0.26), transparent 70%),
+    radial-gradient(closest-side at 64% 36%, rgba(189, 160, 255, 0.22), transparent 72%);
+  filter: blur(10px);
+  animation: drift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes drift { from { transform: translateX(-52%) translateY(0) scale(1); } to { transform: translateX(-48%) translateY(18px) scale(1.06); } }
 .hero-icon {
-  width: 132px; height: 132px; margin: 0 auto 28px; border-radius: 30px;
-  box-shadow: 0 18px 50px rgba(132, 142, 249, 0.3), 0 2px 6px rgba(0, 0, 0, 0.08);
+  width: 128px; height: 128px; margin: 0 auto 30px; border-radius: 29px;
+  box-shadow: 0 24px 60px rgba(107, 116, 236, 0.32), 0 2px 8px rgba(0, 0, 0, 0.06);
+  animation: rise 1s var(--ease) both, float 6s ease-in-out 1s infinite;
 }
-.hero h1 { font-size: clamp(48px, 9vw, 88px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.04; }
-.hero p.lead {
-  font-size: clamp(21px, 3.2vw, 28px); color: var(--text-2); font-weight: 500;
-  letter-spacing: -0.01em; max-width: 680px; margin: 18px auto 0; line-height: 1.25;
-}
-.actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.hero h1 { font-size: clamp(52px, 9.5vw, 96px); font-weight: 700; letter-spacing: -0.045em; line-height: 1; animation: rise 1s var(--ease) 0.08s both; }
+.lead { font-size: clamp(20px, 3vw, 27px); color: var(--text-2); font-weight: 500; letter-spacing: -0.015em; line-height: 1.28; max-width: 620px; margin: 20px auto 0; animation: rise 1s var(--ease) 0.16s both; }
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px; animation: rise 1s var(--ease) 0.24s both; }
+.meta { margin-top: 16px; font-size: 14px; color: var(--text-3); animation: rise 1s var(--ease) 0.32s both; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-width: 190px; padding: 14px 26px; border-radius: 980px;
-  font-size: 17px; font-weight: 500; transition: background 0.2s, transform 0.2s;
+  min-width: 180px; padding: 15px 28px; border-radius: 980px; font-size: 17px; font-weight: 500; letter-spacing: -0.01em;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.25s;
 }
-.btn:hover { text-decoration: none; transform: translateY(-1px); }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { background: var(--accent-hover); }
-.btn-secondary { background: var(--bg-soft); color: var(--accent); }
-.btn-secondary:hover { background: #ebebf0; }
-.meta { margin-top: 18px; font-size: 14px; color: var(--text-2); }
+.btn svg { width: 19px; height: 19px; }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 24px rgba(132, 142, 249, 0.35); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(132, 142, 249, 0.45); }
+.btn-secondary { background: var(--soft); color: var(--accent-deep); }
+.btn-secondary:hover { transform: translateY(-2px); background: #ececf1; }
 
-.shot { margin: 56px auto 0; max-width: 960px; }
-.shot img { width: 100%; }
+.devices { margin: 64px auto 0; max-width: 980px; }
+.devices img { width: 100%; height: auto; }
 
-section.wrap { margin-top: 110px; }
-.section-title { text-align: center; font-size: clamp(34px, 5.5vw, 52px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
-.section-sub { text-align: center; color: var(--text-2); font-size: 21px; max-width: 640px; margin: 14px auto 0; line-height: 1.38; }
+/* Scroll reveals */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); transition-delay: var(--d, 0s); }
+.reveal.in { opacity: 1; transform: none; }
+.devices.reveal { transform: translateY(40px) scale(0.96); }
+.devices.reveal.in { transform: none; }
 
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; }
-.card { background: var(--bg-soft); border-radius: var(--radius); padding: 30px 28px 32px; }
-.card .icon {
-  width: 44px; height: 44px; border-radius: 12px; background: #fff;
-  display: grid; place-items: center; margin-bottom: 18px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+/* Highlights */
+.highlights { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 88px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.highlight { padding: 30px 12px; text-align: center; }
+.highlight + .highlight { border-left: 1px solid var(--line); }
+.highlight strong { display: block; font-size: 30px; font-weight: 700; letter-spacing: -0.03em; }
+.highlight span { color: var(--text-2); font-size: 15px; }
+
+/* Sections */
+section.block { margin-top: 128px; }
+.eyebrow { text-align: center; color: var(--accent-deep); font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
+.title { text-align: center; font-size: clamp(36px, 5.6vw, 56px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; margin-top: 10px; }
+.sub { text-align: center; color: var(--text-2); font-size: 20px; max-width: 580px; margin: 16px auto 0; line-height: 1.4; }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+.card {
+  background: var(--soft); border-radius: 24px; padding: 30px 28px 32px;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), background 0.3s;
 }
-.card .icon svg { width: 24px; height: 24px; color: var(--accent); }
-.btn svg { width: 20px; height: 20px; }
-.card h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
-.card p { color: var(--text-2); font-size: 17px; margin-top: 8px; line-height: 1.42; }
+.card:hover { transform: translateY(-4px); background: #f2f2f6; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06); }
+.card .icon { width: 48px; height: 48px; border-radius: 14px; background: #fff; color: var(--accent-deep); display: grid; place-items: center; margin-bottom: 22px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+.card .icon svg { width: 26px; height: 26px; }
+.card h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+.card p { color: var(--text-2); font-size: 16px; margin-top: 6px; line-height: 1.45; }
 
-.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; counter-reset: step; }
-.step { text-align: center; padding: 8px 18px; }
-.step::before {
-  counter-increment: step; content: counter(step);
-  display: grid; place-items: center; width: 44px; height: 44px; margin: 0 auto 16px;
-  border-radius: 50%; background: var(--accent); color: #fff; font-weight: 600; font-size: 19px;
+.steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+.steps::before { content: ""; position: absolute; top: 22px; left: 16.7%; right: 16.7%; height: 2px; background: linear-gradient(90deg, var(--tint), var(--accent), var(--tint)); border-radius: 2px; }
+.step { position: relative; text-align: center; padding: 0 12px; }
+.step .num { width: 46px; height: 46px; margin: 0 auto 18px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 18px; box-shadow: 0 0 0 7px #fff, 0 8px 20px rgba(132, 142, 249, 0.35); }
+.step h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+.step p { color: var(--text-2); font-size: 16px; margin-top: 6px; }
+
+.faq { max-width: 720px; margin: 48px auto 0; }
+.qa { border-bottom: 1px solid var(--line); }
+.qa button {
+  width: 100%; background: none; border: 0; cursor: pointer; font: inherit; color: var(--text); text-align: left;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 2px;
+  font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
 }
-.step h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
-.step p { color: var(--text-2); font-size: 17px; margin-top: 6px; }
+.qa .plus { width: 26px; height: 26px; border-radius: 50%; background: var(--soft); display: grid; place-items: center; transition: transform 0.4s var(--ease), background 0.3s; }
+.qa .plus::before, .qa .plus::after { content: ""; position: absolute; width: 11px; height: 1.6px; background: var(--text-2); border-radius: 2px; }
+.qa .plus::after { transform: rotate(90deg); }
+.qa .plus { position: relative; }
+.qa.open .plus { transform: rotate(45deg); background: var(--tint); }
+.qa .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+.qa.open .answer { grid-template-rows: 1fr; }
+.qa .answer > div { overflow: hidden; }
+.qa .answer p { color: var(--text-2); font-size: 16px; line-height: 1.55; padding: 0 2px 22px; }
 
-.faq { max-width: 760px; margin: 44px auto 0; }
-.faq details { border-bottom: 1px solid var(--line); padding: 20px 2px; }
-.faq summary {
-  cursor: pointer; list-style: none; font-size: 19px; font-weight: 600; letter-spacing: -0.01em;
-  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+.cta {
+  position: relative; overflow: hidden; margin-top: 136px; border-radius: 32px; padding: 80px 28px; text-align: center;
+  background: linear-gradient(160deg, #f4f4ff 0%, #ecebff 55%, #f6efff 100%);
 }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; font-weight: 400; font-size: 26px; color: var(--text-2); transition: transform 0.2s; }
-.faq details[open] summary::after { transform: rotate(45deg); }
-.faq details p { color: var(--text-2); font-size: 17px; margin-top: 10px; line-height: 1.5; }
-
-.cta { margin: 110px 0 0; background: var(--bg-soft); border-radius: 30px; padding: 72px 28px; text-align: center; }
-.cta img { width: 88px; height: 88px; border-radius: 20px; margin: 0 auto 22px; }
+.cta::after { content: ""; position: absolute; inset: -40% -10% auto; height: 120%; background: radial-gradient(closest-side, rgba(132, 142, 249, 0.18), transparent); pointer-events: none; }
+.cta > * { position: relative; z-index: 1; }
+.cta img { width: 84px; height: 84px; border-radius: 19px; margin: 0 auto 24px; box-shadow: 0 16px 40px rgba(107, 116, 236, 0.3); }
+.cta h2 { font-size: clamp(34px, 5vw, 52px); font-weight: 700; letter-spacing: -0.04em; }
+.cta p { color: var(--text-2); font-size: 19px; margin-top: 10px; }
+.cta .actions { animation: none; }
 .cta .btn-secondary { background: #fff; }
-.cta .btn-secondary:hover { background: #fafafa; }
-.cta h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 700; letter-spacing: -0.03em; }
 
-footer { padding: 56px 0 64px; margin-top: 64px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-2); }
-footer .row { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 40px 0 56px; margin-top: 56px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-3); }
+footer nav { display: flex; gap: 20px; }
 footer a { color: var(--text-2); }
-footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
+footer a:hover { color: var(--text); }
 
 @media (max-width: 820px) {
-  .grid, .steps { grid-template-columns: 1fr; }
   .nav-links .optional { display: none; }
-  .hero { padding-top: 64px; }
-  section.wrap { margin-top: 84px; }
+  .hero { padding-top: 80px; }
+  .features { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 36px; }
+  .steps::before { display: none; }
+  .highlights { grid-template-columns: 1fr; }
+  .highlight + .highlight { border-left: 0; border-top: 1px solid var(--line); }
+  section.block { margin-top: 96px; }
+  .cta { margin-top: 104px; padding: 64px 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn, .nav { transition: none; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal, .devices.reveal { opacity: 1; transform: none; }
 }
 </style>
 </head>
 <body>
 
-<nav class="nav">
+<header class="nav" aria-label="Site">
   <div class="nav-inner">
     <a class="brand" href="#top"><img src="assets/icon.png" alt="">Feather</a>
-    <div class="nav-links">
+    <nav class="nav-links">
       <a class="optional" href="#features">Features</a>
       <a class="optional" href="#how">How It Works</a>
       <a href="#faq">FAQ</a>
       <a href="#get">Download</a>
-    </div>
+    </nav>
   </div>
-</nav>
+</header>
 
 <main id="top">
-  <header class="hero wrap">
-    <img class="hero-icon" src="assets/icon.png" alt="Feather app icon" width="132" height="132">
+  <div class="hero wrap">
+    <div class="glow" aria-hidden="true"></div>
+    <img class="hero-icon" src="assets/icon.png" alt="Feather app icon" width="128" height="128">
     <h1>Feather</h1>
     <p class="lead">Sign and install apps on your iPhone and iPad. No computer needed, and it updates itself.</p>
     <div class="actions">
-      <a class="btn btn-primary" id="download" href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 3.25a.75.75 0 0 1 .75.75v14.19l4.72-4.72a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 1 1 1.06-1.06l4.72 4.72V4a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>Download</a>
+      <a class="btn btn-primary" data-download href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 3.25a.75.75 0 0 1 .75.75v14.19l4.72-4.72a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 1 1 1.06-1.06l4.72 4.72V4a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>Download</a>
       <a class="btn btn-secondary" href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json">Add to AltStore</a>
     </div>
     <p class="meta"><span id="version">Latest version</span> · iOS 16 or later</p>
-    <div class="shot">
+    <div class="devices reveal">
       <picture>
         <source srcset="assets/screenshot.webp" type="image/webp">
-        <img src="assets/screenshot.png" alt="Feather on iPad and iPhone, showing sources and the app library" width="1800" height="1175" loading="eager">
+        <img src="assets/screenshot.png" alt="Feather on iPad and iPhone, showing sources and the app library" width="1800" height="1175">
       </picture>
     </div>
-  </header>
+  </div>
 
-  <section id="features" class="wrap">
-    <h2 class="section-title">Everything you need to sideload.</h2>
-    <p class="section-sub">Your certificate, your apps, right on your device. No jailbreak and no cable.</p>
-    <div class="grid">
-      <div class="card">
-        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 1.25a.75.75 0 0 1 .75.75v10.973l1.68-1.961a.75.75 0 1 1 1.14.976l-3 3.5a.75.75 0 0 1-1.14 0l-3-3.5a.75.75 0 1 1 1.14-.976l1.68 1.96V2a.75.75 0 0 1 .75-.75M6.996 8.252a.75.75 0 0 1 .008 1.5c-1.093.006-1.868.034-2.457.142c-.566.105-.895.272-1.138.515c-.277.277-.457.666-.556 1.4c-.101.755-.103 1.756-.103 3.191v1c0 1.436.002 2.437.103 3.192c.099.734.28 1.122.556 1.4c.277.276.665.456 1.4.555c.754.102 1.756.103 3.191.103h8c1.435 0 2.436-.001 3.192-.103c.734-.099 1.122-.279 1.399-.556s.457-.665.556-1.399c.101-.755.103-1.756.103-3.192v-1c0-1.435-.002-2.436-.103-3.192c-.099-.733-.28-1.122-.556-1.399c-.244-.243-.572-.41-1.138-.515c-.589-.108-1.364-.136-2.457-.142a.75.75 0 1 1 .008-1.5c1.082.006 1.983.032 2.72.167c.758.14 1.403.405 1.928.93c.602.601.86 1.36.982 2.26c.116.866.116 1.969.116 3.336v1.11c0 1.368 0 2.47-.116 3.337c-.122.9-.38 1.658-.982 2.26s-1.36.86-2.26.982c-.867.116-1.97.116-3.337.116h-8.11c-1.367 0-2.47 0-3.337-.116c-.9-.121-1.658-.38-2.26-.982s-.86-1.36-.981-2.26c-.117-.867-.117-1.97-.117-3.337v-1.11c0-1.367 0-2.47.117-3.337c.12-.9.38-1.658.981-2.26c.525-.524 1.17-.79 1.928-.929c.737-.135 1.638-.161 2.72-.167" clip-rule="evenodd"/></svg></div>
-        <h3>Updates Itself</h3>
-        <p>New versions download, sign and install from Settings. Turn on betas to get features first.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M15.06 10.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"/><path fill-rule="evenodd" d="M12 1.25c-.937 0-1.833.307-3.277.801l-.727.25c-1.481.506-2.625.898-3.443 1.23c-.412.167-.767.33-1.052.495c-.275.16-.55.359-.737.626c-.185.263-.281.587-.341.9c-.063.324-.1.713-.125 1.16c-.048.886-.048 2.102-.048 3.678v1.601c0 6.101 4.608 9.026 7.348 10.224l.027.011c.34.149.66.288 1.027.382c.387.1.799.142 1.348.142c.55 0 .96-.042 1.348-.142c.367-.094.687-.233 1.026-.382l.028-.011c2.74-1.198 7.348-4.123 7.348-10.224V10.39c0-1.576 0-2.792-.048-3.679a9 9 0 0 0-.125-1.16c-.06-.312-.156-.636-.34-.9c-.188-.266-.463-.465-.738-.625a9 9 0 0 0-1.052-.495c-.818-.332-1.962-.724-3.443-1.23l-.727-.25c-1.444-.494-2.34-.801-3.277-.801M9.08 3.514c1.615-.552 2.262-.764 2.92-.764s1.305.212 2.92.764l.572.196c1.513.518 2.616.896 3.39 1.21c.387.158.667.29.864.404q.144.084.208.139c.038.03.053.048.055.05a.4.4 0 0 1 .032.074q.03.082.063.248a7 7 0 0 1 .1.958c.046.841.046 2.015.046 3.624v1.574c0 5.176-3.87 7.723-6.449 8.849c-.371.162-.586.254-.825.315c-.228.059-.506.095-.976.095s-.748-.036-.976-.095c-.24-.06-.454-.153-.825-.315c-2.58-1.126-6.449-3.674-6.449-8.849v-1.574c0-1.609 0-2.783.046-3.624a7 7 0 0 1 .1-.958q.032-.166.063-.248c.018-.05.03-.07.032-.074a.4.4 0 0 1 .055-.05q.064-.055.208-.14c.197-.114.477-.245.864-.402c.774-.315 1.877-.693 3.39-1.21z" clip-rule="evenodd"/></g></svg></div>
-        <h3>Certificate Overview</h3>
-        <p>See days left, capabilities, devices and the apps signed with each certificate. Get alerts before it expires or if it's revoked.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 2.333v3.334"/><path d="m18.836 5.164l-2.357 2.357" opacity=".88"/><path d="M21.667 12h-3.334" opacity=".75"/><path d="m18.836 18.836l-2.357-2.357" opacity=".63"/><path d="M12 21.667v-3.334" opacity=".5"/><path d="m5.164 18.836l2.357-2.357" opacity=".38"/><path d="M2.333 12h3.334" opacity=".25"/><path d="m5.164 5.164l2.357 2.357" opacity=".13"/></g></svg></div>
-        <h3>Live Progress</h3>
-        <p>Signing, downloads and imports show in a floating panel. Tap it to cancel at any time.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 4.75c-1.06 0-1.91.328-3.934 1.138L5.257 7.01c-1.01.404-1.71.686-2.164.924L2.973 8l.12.065c.454.238 1.154.52 2.164.924l2.809 1.123c2.025.81 2.874 1.138 3.934 1.138s1.91-.328 3.934-1.138l2.809-1.123c1.01-.404 1.71-.686 2.164-.924l.12-.065l-.12-.065c-.454-.238-1.154-.52-2.164-.924l-2.809-1.123C13.91 5.078 13.06 4.75 12 4.75m-4.376-.301C9.501 3.698 10.621 3.25 12 3.25s2.499.448 4.376 1.199l.115.046l2.854 1.142c.955.382 1.728.69 2.259.969c.268.14.528.3.729.493c.206.198.417.498.417.901s-.21.703-.417.901c-.2.193-.46.352-.73.493c-.351.184-.81.382-1.356.606a17 17 0 0 1 1.357.606c.268.14.528.3.729.493c.206.198.417.498.417.901s-.21.703-.417.901c-.2.193-.46.352-.73.493c-.351.184-.81.382-1.356.606a17 17 0 0 1 1.357.606c.268.14.528.3.729.493c.206.198.417.498.417.901s-.21.703-.417.901c-.2.192-.46.352-.73.493c-.53.278-1.303.588-2.258.97l-2.854 1.14l-.115.047c-1.877.751-2.997 1.199-4.376 1.199s-2.499-.448-4.376-1.199l-.115-.046l-2.854-1.142c-.955-.381-1.728-.69-2.259-.969a3.2 3.2 0 0 1-.729-.493c-.206-.198-.417-.498-.417-.901s.21-.703.417-.901c.2-.193.46-.352.73-.493c.351-.184.81-.382 1.356-.606a17 17 0 0 1-1.357-.606a3.2 3.2 0 0 1-.729-.493c-.206-.198-.417-.498-.417-.901s.21-.703.417-.901c.2-.193.46-.352.73-.493c.351-.184.81-.382 1.356-.606a17 17 0 0 1-1.357-.606a3.2 3.2 0 0 1-.729-.493C1.461 8.703 1.25 8.403 1.25 8s.21-.703.417-.901c.2-.193.46-.352.73-.493c.53-.278 1.303-.587 2.258-.97l2.854-1.14zm-1.858 6.359l-.509.203c-1.01.404-1.71.686-2.164.924l-.12.065l.12.066c.454.237 1.154.518 2.164.923l2.809 1.123c2.025.81 2.874 1.138 3.934 1.138s1.91-.328 3.934-1.138l2.809-1.123c1.01-.405 1.71-.686 2.164-.924l.12-.065l-.12-.066c-.454-.237-1.154-.519-2.164-.923l-.51-.203l-1.742.697l-.115.046c-1.877.751-2.997 1.199-4.376 1.199s-2.499-.448-4.376-1.199l-.115-.046zm0 4l-.509.203c-1.01.404-1.71.686-2.164.924l-.12.065l.12.066c.454.237 1.154.518 2.164.923l2.809 1.123c2.025.81 2.874 1.138 3.934 1.138s1.91-.328 3.934-1.138l2.809-1.123c1.01-.405 1.71-.686 2.164-.924l.12-.065l-.12-.066c-.454-.237-1.154-.519-2.164-.923l-.51-.203l-1.742.697l-.115.046c-1.877.751-2.997 1.199-4.376 1.199s-2.499-.448-4.376-1.199l-.115-.046z" clip-rule="evenodd"/></svg></div>
-        <h3>AltStore and GitHub Sources</h3>
-        <p>Browse AltStore sources, preview them before adding, or install IPAs straight from a GitHub repository's releases.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M1.25 6.5a3.75 3.75 0 1 1 7.5 0a3.75 3.75 0 0 1-7.5 0M5 4.25a2.25 2.25 0 1 0 0 4.5a2.25 2.25 0 0 0 0-4.5" clip-rule="evenodd"/><path d="M13 7.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 0 1.5zm-2 11a.75.75 0 0 0 0-1.5H2a.75.75 0 0 0 0 1.5z"/><path fill-rule="evenodd" d="M19 13.75a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5m-2.25 3.75a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0" clip-rule="evenodd"/></g></svg></div>
-        <h3>Signing Options</h3>
-        <p>Change names, icons and bundle IDs, enable Files support, inject tweaks and patch apps for Liquid Glass.</p>
-      </div>
-      <div class="card">
-        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 17.75a.75.75 0 0 1-.75-.75v-6.19l-1.72 1.72a.75.75 0 0 1-1.06-1.06l3-3a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1-1.06 1.06l-1.72-1.72V17a.75.75 0 0 1-.75.75"/><path fill-rule="evenodd" d="M4.25 11A7.75 7.75 0 0 1 19.6 9.476A5.752 5.752 0 0 1 18 20.75H5a4.75 4.75 0 0 1-.744-9.442A8 8 0 0 1 4.25 11M12 4.75a6.25 6.25 0 0 0-6.187 7.145a.75.75 0 0 1-.755.856H5a3.25 3.25 0 0 0 0 6.5h13a4.25 4.25 0 0 0 .8-8.426a.75.75 0 0 1-.603-.64A6.25 6.25 0 0 0 12 4.75" clip-rule="evenodd"/></g></svg></div>
-        <h3>Backup and Transfer</h3>
-        <p>Back up your apps, certificates, sources and settings, and restore them on another device.</p>
-      </div>
+  <div class="wrap">
+    <div class="highlights">
+      <div class="highlight reveal"><strong>No computer</strong><span>Everything happens on your device</span></div>
+      <div class="highlight reveal" style="--d:.08s"><strong>13 languages</strong><span>Translated for people everywhere</span></div>
+      <div class="highlight reveal" style="--d:.16s"><strong>Self-updating</strong><span>New versions install from Settings</span></div>
+    </div>
+  </div>
+
+  <section id="features" class="block wrap">
+    <p class="eyebrow reveal">Features</p>
+    <h2 class="title reveal">Everything you need to sideload.</h2>
+    <p class="sub reveal">Your certificate, your apps, right on your device. No jailbreak and no cable.</p>
+    <div class="features">
+      <article class="card reveal"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M22 16v-1c0-2.828 0-4.242-.879-5.12C20.242 9 18.828 9 16 9H8c-2.829 0-4.243 0-5.122.88C2 10.757 2 12.17 2 14.997V16c0 2.829 0 4.243.879 5.122C3.757 22 5.172 22 8 22h8c2.828 0 4.243 0 5.121-.878C22 20.242 22 18.829 22 16" opacity=".5"/><path fill-rule="evenodd" d="M12 1.25a.75.75 0 0 0-.75.75v10.973l-1.68-1.961a.75.75 0 1 0-1.14.976l3 3.5a.75.75 0 0 0 1.14 0l3-3.5a.75.75 0 1 0-1.14-.976l-1.68 1.96V2a.75.75 0 0 0-.75-.75" clip-rule="evenodd"/></g></svg></div><h3>Updates Itself</h3><p>New versions download, sign and install from Settings. Turn on betas to try features first.</p></article>
+      <article class="card reveal" style="--d:.06s"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M3.378 5.082C3 5.62 3 7.22 3 10.417v1.574c0 5.638 4.239 8.375 6.899 9.536c.721.315 1.082.473 2.101.473c1.02 0 1.38-.158 2.101-.473C16.761 20.365 21 17.63 21 11.991v-1.574c0-3.198 0-4.797-.378-5.335c-.377-.537-1.88-1.052-4.887-2.081l-.573-.196C13.595 2.268 12.812 2 12 2s-1.595.268-3.162.805L8.265 3c-3.007 1.03-4.51 1.545-4.887 2.082" opacity=".5"/><path d="M15.06 10.5a.75.75 0 0 0-1.12-1l-3.011 3.374l-.87-.974a.75.75 0 0 0-1.118 1l1.428 1.6a.75.75 0 0 0 1.119 0z"/></g></svg></div><h3>Certificate Overview</h3><p>Days left, capabilities, devices and signed apps, with alerts before it expires or gets revoked.</p></article>
+      <article class="card reveal" style="--d:.12s"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="12" r="10" opacity=".5"/><path d="M7.378 11.63h-.75zm0 .926l-.562.497a.75.75 0 0 0 1.08.044zm2.141-1.015a.75.75 0 0 0-1.038-1.082zm-2.958-1.038a.75.75 0 1 0-1.122.994zm8.37-1.494a.75.75 0 1 0 1.102-1.018zM12.045 6.25c-2.986 0-5.416 2.403-5.416 5.38h1.5c0-2.137 1.747-3.88 3.916-3.88zm-5.416 5.38v.926h1.5v-.926zm1.269 1.467l1.622-1.556l-1.038-1.082l-1.622 1.555zm.042-1.039l-1.378-1.555l-1.122.994l1.377 1.556zm8.094-4.067a5.42 5.42 0 0 0-3.99-1.741v1.5a3.92 3.92 0 0 1 2.889 1.26zm.585 3.453l.56-.498a.75.75 0 0 0-1.08-.043zm-2.139 1.014a.75.75 0 1 0 1.04 1.082zm2.96 1.04a.75.75 0 0 0 1.12-.997zm-8.393 1.507a.75.75 0 0 0-1.094 1.026zm2.888 2.745c2.993 0 5.434-2.4 5.434-5.38h-1.5c0 2.135-1.753 3.88-3.934 3.88zm5.434-5.38v-.926h-1.5v.926zm-1.27-1.467l-1.619 1.555l1.04 1.082l1.618-1.555zm-.04 1.04l1.38 1.554l1.122-.996l-1.381-1.555zM7.952 16.03a5.45 5.45 0 0 0 3.982 1.719v-1.5c-1.143 0-2.17-.48-2.888-1.245z"/></g></svg></div><h3>Live Progress</h3><p>Signing, downloads and imports show in a floating panel you can tap to cancel.</p></article>
+      <article class="card reveal"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M4.979 9.685C2.993 8.891 2 8.494 2 8s.993-.89 2.979-1.685l2.808-1.123C9.773 4.397 10.767 4 12 4s2.227.397 4.213 1.192l2.808 1.123C21.007 7.109 22 7.506 22 8s-.993.89-2.979 1.685l-2.808 1.124C14.227 11.603 13.233 12 12 12s-2.227-.397-4.213-1.191z"/><path fill-rule="evenodd" d="M2 8c0 .494.993.89 2.979 1.685l2.808 1.124C9.773 11.603 10.767 12 12 12s2.227-.397 4.213-1.191l2.808-1.124C21.007 8.891 22 8.494 22 8s-.993-.89-2.979-1.685l-2.808-1.123C14.227 4.397 13.233 4 12 4s-2.227.397-4.213 1.192L4.98 6.315C2.993 7.109 2 7.506 2 8" clip-rule="evenodd"/><path d="m5.766 10l-.787.315C2.993 11.109 2 11.507 2 12s.993.89 2.979 1.685l2.808 1.124C9.773 15.603 10.767 16 12 16s2.227-.397 4.213-1.191l2.808-1.124C21.007 12.891 22 12.493 22 12s-.993-.89-2.979-1.685L18.234 10l-2.021.809C14.227 11.603 13.233 12 12 12s-2.227-.397-4.213-1.191z" opacity=".7"/><path d="m5.766 14l-.787.315C2.993 15.109 2 15.507 2 16s.993.89 2.979 1.685l2.808 1.124C9.773 19.603 10.767 20 12 20s2.227-.397 4.213-1.192l2.808-1.123C21.007 16.891 22 16.494 22 16c0-.493-.993-.89-2.979-1.685L18.234 14l-2.021.809C14.227 15.603 13.233 16 12 16s-2.227-.397-4.213-1.191z" opacity=".4"/></g></svg></div><h3>Sources</h3><p>Browse AltStore sources, preview them before adding, or install straight from GitHub releases.</p></article>
+      <article class="card reveal" style="--d:.06s"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M20.849 8.713a3.932 3.932 0 0 0-5.562-5.561l-.887.887l.038.111a8.75 8.75 0 0 0 2.093 3.32a8.75 8.75 0 0 0 3.43 2.13z" opacity=".5"/><path d="m14.439 4l-.039.038l.038.112a8.75 8.75 0 0 0 2.093 3.32a8.75 8.75 0 0 0 3.43 2.13l-8.56 8.56c-.578.577-.867.866-1.185 1.114a6.6 6.6 0 0 1-1.211.748c-.364.174-.751.303-1.526.561l-4.083 1.361a1.06 1.06 0 0 1-1.342-1.341l1.362-4.084c.258-.774.387-1.161.56-1.525q.309-.646.749-1.212c.248-.318.537-.606 1.114-1.183z"/></g></svg></div><h3>Signing Options</h3><p>Change names, icons and bundle IDs, add Files support, inject tweaks and patch for Liquid Glass.</p></article>
+      <article class="card reveal" style="--d:.12s"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M6.5 18v-.09c0-.865 0-1.659.087-2.304c.095-.711.32-1.463.938-2.08c.618-.619 1.37-.844 2.08-.94c.646-.086 1.44-.086 2.306-.086h.178c.866 0 1.66 0 2.305.087c.711.095 1.463.32 2.08.938c.619.618.844 1.37.94 2.08c.085.637.086 1.416.086 2.267c2.573-.55 4.5-2.812 4.5-5.52c0-2.47-1.607-4.572-3.845-5.337C17.837 4.194 15.415 2 12.476 2C9.32 2 6.762 4.528 6.762 7.647c0 .69.125 1.35.354 1.962a4.4 4.4 0 0 0-.83-.08C3.919 9.53 2 11.426 2 13.765S3.919 18 6.286 18z" opacity=".5"/><path fill-rule="evenodd" d="M12 22c-1.886 0-2.828 0-3.414-.586S8 19.886 8 18s0-2.828.586-3.414S10.114 14 12 14s2.828 0 3.414.586S16 16.114 16 18s0 2.828-.586 3.414S13.886 22 12 22m2.25-4.862a.667.667 0 0 0-.944-.943l-2.195 2.195l-.417-.417a.667.667 0 0 0-.943.943l.889.889c.26.26.682.26.942 0z" clip-rule="evenodd"/></g></svg></div><h3>Backup &amp; Transfer</h3><p>Back up apps, certificates, sources and settings, and restore them on another device.</p></article>
     </div>
   </section>
 
-  <section id="how" class="wrap">
-    <h2 class="section-title">Up and running in minutes.</h2>
+  <section id="how" class="block wrap">
+    <p class="eyebrow reveal">How It Works</p>
+    <h2 class="title reveal">Up and running in minutes.</h2>
     <div class="steps">
-      <div class="step">
-        <h3>Get a certificate</h3>
-        <p>Use your Apple Developer account, or a provider listed in Feather.</p>
-      </div>
-      <div class="step">
-        <h3>Import it</h3>
-        <p>Add the .p12 and .mobileprovision files in Settings → Certificates.</p>
-      </div>
-      <div class="step">
-        <h3>Sign and install</h3>
-        <p>Pick an app from a source or import an IPA, then tap Sign and Install.</p>
-      </div>
+      <div class="step reveal"><div class="num">1</div><h3>Get a certificate</h3><p>Use your Apple Developer account, or a provider listed in Feather.</p></div>
+      <div class="step reveal" style="--d:.1s"><div class="num">2</div><h3>Import it</h3><p>Add the .p12 and .mobileprovision in Settings → Certificates.</p></div>
+      <div class="step reveal" style="--d:.2s"><div class="num">3</div><h3>Sign and install</h3><p>Pick an app from a source or import an IPA, then tap Sign.</p></div>
     </div>
   </section>
 
-  <section id="faq" class="wrap">
-    <h2 class="section-title">Questions.</h2>
+  <section id="faq" class="block wrap">
+    <p class="eyebrow reveal">FAQ</p>
+    <h2 class="title reveal">Questions, answered.</h2>
     <div class="faq">
-      <details>
-        <summary>Do I need a computer or a jailbreak?</summary>
-        <p>No. Feather runs on stock iOS and iPadOS 16 or later. You only need a signing certificate.</p>
-      </details>
-      <details>
-        <summary>How is it different from AltStore or SideStore?</summary>
-        <p>AltStore and SideStore sign with a free Apple ID and refresh apps every 7 days. Feather signs with a developer certificate, so apps last as long as the certificate does. It still reads AltStore sources.</p>
-      </details>
-      <details>
-        <summary>How do I install Feather?</summary>
-        <p>Download the IPA and sign it once with your certificate using any signing tool, or add the AltStore source. After that, Feather updates itself from Settings → Updates.</p>
-      </details>
-      <details>
-        <summary>Does Feather collect any data?</summary>
-        <p>No. There's no tracking or analytics. Crash logs stay on your device unless you choose to share them.</p>
-      </details>
-      <details>
-        <summary>Is it really free?</summary>
-        <p>Yes, Feather costs nothing. It's a fork of <a href="https://github.com/claration/feather">Feather by Samara</a>, licensed under GPL-3.0.</p>
-      </details>
+      <div class="qa reveal"><button aria-expanded="false">Do I need a computer or a jailbreak?<span class="plus" aria-hidden="true"></span></button><div class="answer"><div><p>No. Feather runs on stock iOS and iPadOS 16 or later. All you need is a signing certificate.</p></div></div></div>
+      <div class="qa reveal"><button aria-expanded="false">How is it different from AltStore or SideStore?<span class="plus" aria-hidden="true"></span></button><div class="answer"><div><p>AltStore and SideStore use a free Apple ID and refresh apps every 7 days. Feather uses a developer certificate, so apps last as long as the certificate does. It still reads AltStore sources.</p></div></div></div>
+      <div class="qa reveal"><button aria-expanded="false">How do I install Feather?<span class="plus" aria-hidden="true"></span></button><div class="answer"><div><p>Download the IPA and sign it once with your certificate, or add the AltStore source. After that, Feather updates itself from Settings → Updates.</p></div></div></div>
+      <div class="qa reveal"><button aria-expanded="false">Does Feather collect any data?<span class="plus" aria-hidden="true"></span></button><div class="answer"><div><p>No. There's no tracking or analytics. Crash logs stay on your device unless you choose to share them.</p></div></div></div>
+      <div class="qa reveal"><button aria-expanded="false">Who makes Feather?<span class="plus" aria-hidden="true"></span></button><div class="answer"><div><p>This version is made by NuzFlameV2, building on <a href="https://github.com/claration/feather">Feather by Samara</a>. It's licensed under GPL-3.0.</p></div></div></div>
     </div>
   </section>
 
   <div class="wrap">
-    <div class="cta" id="get">
-      <img src="assets/icon.png" alt="" width="88" height="88">
+    <div class="cta reveal" id="get">
+      <img src="assets/icon.png" alt="" width="84" height="84">
       <h2>Get Feather.</h2>
+      <p>Sign it once, and it keeps itself up to date.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa">Download</a>
+        <a class="btn btn-primary" data-download href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 3.25a.75.75 0 0 1 .75.75v14.19l4.72-4.72a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 1 1 1.06-1.06l4.72 4.72V4a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>Download</a>
         <a class="btn btn-secondary" href="https://github.com/NuzProjects/Feather">View on GitHub</a>
       </div>
     </div>
 
     <footer>
-      <div class="row">
-        <p>Licensed under GPL-3.0. Not affiliated with Apple Inc.</p>
-        <div class="links">
-          <a href="https://github.com/NuzProjects/Feather">GitHub</a>
-          <a href="https://github.com/NuzProjects/Feather/releases">Releases</a>
-          <a href="https://github.com/NuzProjects/Feather/issues/new/choose">Report an Issue</a>
-        </div>
-      </div>
+      <p>Licensed under GPL-3.0. Not affiliated with Apple Inc.</p>
+      <nav>
+        <a href="https://github.com/NuzProjects/Feather">GitHub</a>
+        <a href="https://github.com/NuzProjects/Feather/releases">Releases</a>
+        <a href="https://github.com/NuzProjects/Feather/issues/new/choose">Report an Issue</a>
+      </nav>
     </footer>
   </div>
 </main>
 
 <script>
 const nav = document.querySelector(".nav");
-const updateNav = () => nav.classList.toggle("visible", window.scrollY > 120);
-window.addEventListener("scroll", updateNav, { passive: true });
-updateNav();
+const onScroll = () => nav.classList.toggle("visible", window.scrollY > 120);
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+const reveals = document.querySelectorAll(".reveal");
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) { entry.target.classList.add("in"); io.unobserve(entry.target); }
+    }
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+} else {
+  reveals.forEach(el => el.classList.add("in"));
+}
+
+document.querySelectorAll(".qa button").forEach(button => {
+  button.addEventListener("click", () => {
+    const item = button.parentElement;
+    const open = item.classList.toggle("open");
+    button.setAttribute("aria-expanded", open);
+  });
+});
 
 fetch("https://api.github.com/repos/NuzProjects/Feather/releases/latest")
   .then(r => r.ok ? r.json() : null)
@@ -304,7 +326,7 @@ fetch("https://api.github.com/repos/NuzProjects/Feather/releases/latest")
     const name = (release.name || release.tag_name || "").replace(/^Update\s+/, "");
     if (name) document.getElementById("version").textContent = "Version " + name;
     const ipa = (release.assets || []).find(a => a.name === "Feather.ipa");
-    if (ipa) document.getElementById("download").href = ipa.browser_download_url;
+    if (ipa) document.querySelectorAll("[data-download]").forEach(a => a.href = ipa.browser_download_url);
   })
   .catch(() => {});
 </script>
