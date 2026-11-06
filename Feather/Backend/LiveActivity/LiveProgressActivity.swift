@@ -126,8 +126,15 @@ final class LiveProgressActivity {
 			Task { await current.update(content) }
 			return
 		}
-		guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
-		activity = try? Activity.request(attributes: FeatherProgressAttributes(), content: content, pushType: nil)
+		guard ActivityAuthorizationInfo().areActivitiesEnabled else {
+			DevLog.shared.log(.info, "Live Activities are turned off for Feather in iOS Settings", category: "Widgets")
+			return
+		}
+		do {
+			activity = try Activity.request(attributes: FeatherProgressAttributes(), content: content, pushType: nil)
+		} catch {
+			DevLog.shared.error(error, while: "Starting the Live Activity", category: "Widgets")
+		}
 		#endif
 	}
 

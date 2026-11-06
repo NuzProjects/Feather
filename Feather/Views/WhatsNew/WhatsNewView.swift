@@ -9,11 +9,12 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = [
-        Item(icon: "square.grid.2x2", title: "Home Screen Widgets", detail: "A Certificate widget with days left and status, and a Library widget with your recently signed apps. Both come in small and medium and use your accent color.")
-    ]
+    static let features: [Item] = []
 
-    static let fixes: [Item] = []
+    static let fixes: [Item] = [
+        Item(icon: "square.grid.2x2", title: "Widgets and Live Activities", detail: "They now get the signing profile they need to run. If Feather asks to reinstall itself once, tap Reinstall to finish setting them up."),
+        Item(icon: "puzzlepiece.extension", title: "App Extensions", detail: "Widgets, share sheets and other extensions inside apps you sign get a signing profile too, so they can open.")
+    ]
 
     private static let seenKey = "WhatsNew.seenVersion"
 

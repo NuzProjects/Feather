@@ -60,6 +60,7 @@ struct FeatherApp: App {
 				_offerCrashLogsIfNeeded()
 				LiveProgressActivity.shared.start()
 				WidgetDataWriter.shared.start()
+				ExtensionHealth.check()
 			}
 		}
 	}
