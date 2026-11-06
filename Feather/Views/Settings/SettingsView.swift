@@ -43,7 +43,15 @@ struct SettingsView: View {
 				Section {
 					NavigationLink(destination: UpdatesView()) {
 						Label(.localized("Updates"), systemImage: "arrow.down.app")
-					}				}
+					}
+					if ExtensionHealth.state == .needsReinstall {
+						Button {
+							FeatherUpdater.shared.install()
+						} label: {
+							Label(.localized("Finish Setting Up Widgets"), systemImage: "square.grid.2x2")
+						}
+					}
+				}
 
 				Section {
 					NavigationLink(destination: AppearanceView()) {

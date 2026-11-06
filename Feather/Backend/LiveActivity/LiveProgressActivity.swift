@@ -102,7 +102,7 @@ final class LiveProgressActivity {
 
 	private func _show(_ snapshot: Snapshot) {
 		#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
-		guard #available(iOS 16.2, *) else { return }
+		guard #available(iOS 16.2, *), ExtensionHealth.extensionsCanRun else { return }
 		var rounded = snapshot
 		rounded.fraction = (min(1, max(0, snapshot.fraction)) * 100).rounded() / 100
 		guard rounded != lastSent else { return }

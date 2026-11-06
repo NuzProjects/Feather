@@ -1,41 +1,98 @@
 import Foundation
 import UIKit
 
-// Widgets and Live Activities only run when their extension carries its own
-// provisioning profile. Copies signed before 1.3.1 Beta 6 left it out, so offer
-// a one-time reinstall, which re-signs the extension with the fixed signer.
+// Widgets and Live Activities live in an app extension, which only runs when it
+// is inside Feather and carries its own provisioning profile. Certificates whose
+// profile covers a single app ID can't sign extensions, so Feather removes them.
 @MainActor
 enum ExtensionHealth {
-	private static let promptedKey = "Widgets.repairPromptedVersion"
+	enum State: Equatable {
+		case ready
+		case needsReinstall
+		case unsupported
+	}
+
+	private static let promptedKey = "Widgets.promptedState"
 
 	private static var appProfileURL: URL { Bundle.main.bundleURL.appendingPathComponent("embedded.mobileprovision") }
 	private static var widgetsURL: URL? { Bundle.main.builtInPlugInsURL?.appendingPathComponent("FeatherWidgets.appex") }
 
-	static var needsRepair: Bool {
+	private static var hasWidgetsExtension: Bool {
+		guard let widgetsURL else { return false }
+		return FileManager.default.fileExists(atPath: widgetsURL.path)
+	}
+
+	private static var widgetsHaveProfile: Bool {
+		guard let widgetsURL else { return false }
+		return FileManager.default.fileExists(atPath: widgetsURL.appendingPathComponent("embedded.mobileprovision").path)
+	}
+
+	private static var isProvisioned: Bool { FileManager.default.fileExists(atPath: appProfileURL.path) }
+
+	/// True when the widget extension can launch, so Live Activities have something to draw them.
+	static var extensionsCanRun: Bool {
+		hasWidgetsExtension && (widgetsHaveProfile || !isProvisioned)
+	}
+
+	static var selectedCertificateCoversOneApp: Bool {
 		guard
-			let widgetsURL,
-			FileManager.default.fileExists(atPath: widgetsURL.path),
-			FileManager.default.fileExists(atPath: appProfileURL.path)
+			let certificate = Storage.shared.getCertificate(for: UserDefaults.standard.integer(forKey: "feather.selectedCert")),
+			let identifier = Storage.shared.getProvisionFileDecoded(for: certificate)?.Entitlements?["application-identifier"]?.value as? String
 		else { return false }
-		return !FileManager.default.fileExists(atPath: widgetsURL.appendingPathComponent("embedded.mobileprovision").path)
+		return !identifier.hasSuffix("*")
+	}
+
+	static var state: State {
+		if extensionsCanRun { return .ready }
+		if selectedCertificateCoversOneApp { return .unsupported }
+		return isProvisioned ? .needsReinstall : .ready
 	}
 
 	static func check() {
 		_logStatus()
-		guard needsRepair else { return }
-		let version = FeatherUpdater.shared.currentVersion
-		guard UserDefaults.standard.string(forKey: promptedKey) != version else { return }
-		UserDefaults.standard.set(version, forKey: promptedKey)
-		let reinstall = UIAlertAction(title: String.localized("Reinstall"), style: .default) { _ in
-			FeatherUpdater.shared.install()
+		let current = state
+		guard current != .ready else {
+			UserDefaults.standard.removeObject(forKey: promptedKey)
+			return
 		}
-		let later = UIAlertAction(title: String.localized("Not Now"), style: .cancel)
+		let key = "\(current)-\(FeatherUpdater.shared.currentVersion)"
+		guard UserDefaults.standard.string(forKey: promptedKey) != key else { return }
+		_present(current) { UserDefaults.standard.set(key, forKey: promptedKey) }
+	}
+
+	static func showExplanation() {
+		_present(state) {}
+	}
+
+	private static func _present(_ state: State, attempt: Int = 0, onShown: @escaping () -> Void) {
+		guard state != .ready else { return }
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-			UIAlertController.showAlert(
-				title: String.localized("Finish Setting Up Widgets"),
-				message: String.localized("Feather needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept."),
-				actions: [reinstall, later]
-			)
+			guard let top = UIApplication.topViewController(), !top.isBeingPresented, !top.isBeingDismissed, !(top is UIAlertController) else {
+				if attempt < 20 { _present(state, attempt: attempt + 1, onShown: onShown) }
+				return
+			}
+			switch state {
+			case .needsReinstall:
+				UIAlertController.showAlert(
+					top,
+					title: String.localized("Finish Setting Up Widgets"),
+					message: String.localized("Feather needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept."),
+					actions: [
+						UIAlertAction(title: String.localized("Reinstall"), style: .default) { _ in FeatherUpdater.shared.install() },
+						UIAlertAction(title: String.localized("Not Now"), style: .cancel)
+					]
+				)
+			case .unsupported:
+				UIAlertController.showAlert(
+					top,
+					title: String.localized("Widgets Unavailable"),
+					message: String.localized("Your certificate only covers one app ID, so iOS won't install the extension that Home Screen widgets and Live Activities need. They work with a certificate that covers all app IDs."),
+					actions: [UIAlertAction(title: String.localized("OK"), style: .cancel)]
+				)
+			case .ready:
+				return
+			}
+			onShown()
 		}
 	}
 
@@ -44,11 +101,12 @@ enum ExtensionHealth {
 		switch _applicationIdentifier(at: appProfileURL) {
 		case nil: profile = "none"
 		case let id? where id.hasSuffix("*"): profile = "all app IDs"
-		case let id?: profile = "one app ID (\(id.split(separator: ".", maxSplits: 1).last.map(String.init) ?? id))"
+		case .some: profile = "one app ID"
 		}
-		let widgetProfile = widgetsURL.map { FileManager.default.fileExists(atPath: $0.appendingPathComponent("embedded.mobileprovision").path) } ?? false
+		let selected = selectedCertificateCoversOneApp ? "one app ID" : "all app IDs"
+		let widgets = !hasWidgetsExtension ? "missing" : (widgetsHaveProfile ? "installed with profile" : "installed without profile")
 		let keychain = WidgetSnapshotStore.accessGroup == nil ? "unavailable" : "available"
-		DevLog.shared.log(.info, "Certificate profile covers \(profile). Widget extension profile \(widgetProfile ? "present" : "missing"). Shared keychain \(keychain).", category: "Widgets")
+		DevLog.shared.log(.info, "Installed profile covers \(profile). Selected certificate covers \(selected). Widget extension \(widgets). Shared keychain \(keychain).", category: "Widgets")
 	}
 
 	private static func _applicationIdentifier(at url: URL) -> String? {

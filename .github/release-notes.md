@@ -1,5 +1,5 @@
-## Update 1.3.1 Beta 6
+## Update 1.3.1 Beta 7
 
 **Bug Fixes:**
-* Home Screen widgets and Live Activities now get the signing profile they need to run. If Feather asks to reinstall itself once after updating, tap Reinstall to finish setting them up
-* Widgets, share sheets and other extensions inside apps you sign get a signing profile too, so they can open
+* Feather tells you when widgets and Live Activities need a one-time reinstall, or when your certificate can't run them, and Settings shows a Finish Setting Up Widgets button until they're ready
+* No more empty black Live Activity bar when widgets can't run on your certificate

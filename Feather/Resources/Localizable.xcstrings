@@ -1,6 +1,184 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Widgets Unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgets Unavailable"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأدوات غير متاحة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgety nejsou dostupné"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgets nicht verfügbar"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgets no disponibles"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgets indisponibles"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget Tidak Tersedia"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget non disponibili"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "위젯을 사용할 수 없음"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widżety niedostępne"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Виджеты недоступны"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget’lar Kullanılamıyor"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiện ích không khả dụng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小组件不可用"
+          }
+        }
+      }
+    },
+    "Your certificate only covers one app ID, so iOS won't install the extension that Home Screen widgets and Live Activities need. They work with a certificate that covers all app IDs." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your certificate only covers one app ID, so iOS won't install the extension that Home Screen widgets and Live Activities need. They work with a certificate that covers all app IDs."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شهادتك تغطي معرّف تطبيق واحدًا فقط، لذلك لن يثبّت iOS الامتداد الذي تحتاجه أدوات الشاشة الرئيسية والأنشطة المباشرة. تعمل هذه الميزات مع شهادة تغطي جميع معرّفات التطبيقات."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Váš certifikát pokrývá jen jedno ID aplikace, takže iOS nenainstaluje rozšíření, které widgety na ploše a živé aktivity potřebují. Fungují s certifikátem, který pokrývá všechna ID aplikací."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Zertifikat deckt nur eine App-ID ab, daher installiert iOS die Erweiterung nicht, die Home-Bildschirm-Widgets und Live-Aktivitäten brauchen. Mit einem Zertifikat für alle App-IDs funktionieren sie."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu certificado solo cubre un ID de app, así que iOS no instala la extensión que necesitan los widgets de la pantalla de inicio y las Actividades en vivo. Funcionan con un certificado que cubra todos los ID de app."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre certificat ne couvre qu’un seul identifiant d’app, donc iOS n’installe pas l’extension dont ont besoin les widgets de l’écran d’accueil et les activités en direct. Ils fonctionnent avec un certificat qui couvre tous les identifiants d’app."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikat Anda hanya mencakup satu ID aplikasi, jadi iOS tidak akan menginstal ekstensi yang dibutuhkan widget Layar Utama dan Aktivitas Langsung. Fitur ini berfungsi dengan sertifikat yang mencakup semua ID aplikasi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il tuo certificato copre un solo ID app, quindi iOS non installa l’estensione necessaria ai widget della schermata Home e alle Attività in tempo reale. Funzionano con un certificato che copre tutti gli ID app."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증서가 하나의 앱 ID만 지원하므로 iOS가 홈 화면 위젯과 실시간 현황에 필요한 확장 프로그램을 설치하지 않습니다. 모든 앱 ID를 지원하는 인증서에서는 작동합니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twój certyfikat obejmuje tylko jeden identyfikator aplikacji, więc iOS nie zainstaluje rozszerzenia potrzebnego widżetom na ekranie początkowym i aktywnościom na żywo. Działają one z certyfikatem obejmującym wszystkie identyfikatory aplikacji."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваш сертификат подходит только для одного идентификатора приложения, поэтому iOS не установит расширение, нужное виджетам на экране «Домой» и Live Activities. Они работают с сертификатом для всех идентификаторов приложений."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikan yalnızca tek bir uygulama kimliğini kapsıyor, bu yüzden iOS Ana Ekran widget’ları ve Canlı Etkinlikler için gereken uzantıyı yüklemiyor. Tüm uygulama kimliklerini kapsayan bir sertifikayla çalışırlar."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chứng chỉ của bạn chỉ áp dụng cho một ID ứng dụng, nên iOS sẽ không cài tiện ích mở rộng mà tiện ích Màn hình chính và Hoạt động trực tiếp cần. Chúng hoạt động với chứng chỉ áp dụng cho mọi ID ứng dụng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的证书只适用于一个 App ID，因此 iOS 不会安装主屏幕小组件和实时活动所需的扩展。使用适用于所有 App ID 的证书即可正常工作。"
+          }
+        }
+      }
+    },
     "Feather needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept." : {
       "extractionState" : "manual",
       "localizations" : {

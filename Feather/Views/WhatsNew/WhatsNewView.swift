@@ -12,8 +12,8 @@ enum WhatsNew {
     static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "square.grid.2x2", title: "Widgets and Live Activities", detail: "They now get the signing profile they need to run. If Feather asks to reinstall itself once, tap Reinstall to finish setting them up."),
-        Item(icon: "puzzlepiece.extension", title: "App Extensions", detail: "Widgets, share sheets and other extensions inside apps you sign get a signing profile too, so they can open.")
+        Item(icon: "square.grid.2x2", title: "Widgets and Live Activities", detail: "Feather tells you when they need a one-time reinstall, or when your certificate can't run them. Settings shows a Finish Setting Up Widgets button until they're ready."),
+        Item(icon: "livephoto", title: "Live Activities", detail: "No more empty black bar when widgets can't run on your certificate.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"
