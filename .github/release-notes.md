@@ -1,5 +1,4 @@
-## Update 1.3.1 Beta 3
+## Update 1.3.1 Beta 4
 
-**Bug Fixes:**
-* Get a Certificate uses your accent color, like the rest of Settings
-* No divider line at the top of pages; content blurs under the bar when you scroll
+**New Features:**
+* Live Activities: signing, downloads and updates show their progress on the Lock Screen and in the Dynamic Island

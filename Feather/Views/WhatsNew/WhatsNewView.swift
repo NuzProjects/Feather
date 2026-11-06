@@ -9,12 +9,11 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = []
-
-    static let fixes: [Item] = [
-        Item(icon: "plus.circle", title: "Get a Certificate", detail: "Uses your accent color, like the rest of Settings."),
-        Item(icon: "rectangle.topthird.inset.filled", title: "Top Bar", detail: "No divider line at the top of pages. Content blurs under the bar when you scroll.")
+    static let features: [Item] = [
+        Item(icon: "livephoto", title: "Live Activities", detail: "Signing, downloads and updates show their progress on the Lock Screen and in the Dynamic Island.")
     ]
+
+    static let fixes: [Item] = []
 
     private static let seenKey = "WhatsNew.seenVersion"
 
