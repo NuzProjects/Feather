@@ -9,18 +9,11 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = [
-        Item(icon: "checkmark.seal", title: "Get a Certificate", detail: "No certificate yet? Tap Get a Certificate in Settings to see where to get one, or import the one you have."),
-        Item(icon: "square.grid.2x2", title: "Source Apps on iOS 16", detail: "Tapping an app in a source opens its page on iOS 16 too.")
-    ]
+    static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "exclamationmark.shield", title: "Fewer Crashes", detail: "Fixed crashes when installing or exporting apps without a version, signing apps with a broken Info.plist, reading some .deb tweaks, and showing alerts in the background."),
-        Item(icon: "battery.75percent", title: "Installs Use Less Battery", detail: "Install progress is checked a few times a second instead of a thousand."),
-        Item(icon: "arrow.down.circle", title: "Downloads", detail: "Failed downloads now tell you why, broken links are caught, and downloads keep going in the background on iOS 26."),
-        Item(icon: "checkmark.seal", title: "Certificates", detail: "Importing a certificate shows an error instead of closing silently when something is wrong."),
-        Item(icon: "globe.desk", title: "Sources", detail: "Featured sources all show up, Import tells you when the clipboard is empty, and a source that can't load says so instead of spinning."),
-        Item(icon: "puzzlepiece.extension", title: "Tweaks", detail: "Retrying a sign keeps your .dylib tweaks, and .deb files from more tools are read correctly.")
+        Item(icon: "seal", title: "Get a Certificate", detail: "The row in Settings matches the others and only appears when you have no certificates."),
+        Item(icon: "checkmark.seal", title: "Selected Certificate", detail: "If your selected certificate was deleted, Feather picks your newest one instead of showing none.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

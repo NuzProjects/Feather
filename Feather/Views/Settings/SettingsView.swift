@@ -61,29 +61,24 @@ struct SettingsView: View {
 						NavigationLink(destination: CertificateOverviewDetailView(cert: cert)) {
 							CertificatesCellView(cert: cert)
 						}
-					} else {
+					} else if _certificates.isEmpty {
+						// Only when there are no certificates at all; looks like the other Settings rows.
 						Button {
 							_isGetCertificatePresenting = true
 						} label: {
-							HStack(spacing: 14) {
-								Image("Cert")
-									.resizable()
-									.scaledToFit()
-									.frame(width: 44, height: 44)
-								VStack(alignment: .leading, spacing: 2) {
+							HStack {
+								Label {
 									Text("Get a Certificate")
-										.font(.headline)
+										.foregroundStyle(.primary)
+								} icon: {
+									Image(systemName: "seal")
 										.foregroundStyle(Color.accentColor)
-									Text("You need one to sign and install apps.")
-										.font(.footnote)
-										.foregroundStyle(.secondary)
 								}
 								Spacer()
-								Image(systemName: "chevron.up")
+								Image(systemName: "chevron.right")
 									.font(.footnote.weight(.semibold))
-									.foregroundStyle(.secondary)
+									.foregroundStyle(.tertiary)
 							}
-							.padding(.vertical, 4)
 						}
 					}
 					NavigationLink(destination: CertificatesView()) {
@@ -136,7 +131,11 @@ struct SettingsView: View {
 				}
 				.symbolVariant(.fill)
 			}
-			.onAppear { CertificateExpiry.refresh() }
+			.onAppear {
+				_repairSelectedCertificate()
+				CertificateExpiry.refresh()
+			}
+			.onChange(of: _certificates.count) { _ in _repairSelectedCertificate() }
 			.onChange(of: _storedSelectedCert) { _ in CertificateExpiry.refresh() }
 			.navigationDestination(isPresented: $_updater.openUpdatesPage) { UpdatesView() }
 			.sheet(isPresented: $_isGetCertificatePresenting) {
@@ -150,6 +149,13 @@ struct SettingsView: View {
 
 // MARK: - View extension
 extension SettingsView {
+	/// If the saved selection points past the list (for example after deleting a certificate),
+	/// select the newest one so Settings and signing both use a real certificate.
+	private func _repairSelectedCertificate() {
+		guard !_certificates.isEmpty, !_certificates.indices.contains(_storedSelectedCert) else { return }
+		_storedSelectedCert = 0
+	}
+	
 	@ViewBuilder
 	private func _directories() -> some View {
 		NBSection(.localized("Misc")) {
