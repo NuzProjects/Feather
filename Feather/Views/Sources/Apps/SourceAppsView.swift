@@ -66,6 +66,19 @@ struct SourceAppsView: View {
 					onSelect: {self._selectedRoute = $0}
 				)
 				.ignoresSafeArea()
+			} else if _sourceContexts != nil, !isLoading {
+				VStack(spacing: 10) {
+					Image(systemName: "exclamationmark.icloud")
+						.font(.largeTitle)
+						.foregroundStyle(.secondary)
+					Text("Couldn't Load Source")
+						.font(.headline)
+					Text("Check your connection, then pull to refresh in Sources.")
+						.font(.subheadline)
+						.foregroundStyle(.secondary)
+						.multilineTextAlignment(.center)
+				}
+				.padding()
 			} else {
 				ProgressView()
 			}
@@ -100,8 +113,8 @@ struct SourceAppsView: View {
 					)
 					return
 				}
-				UIPasteboard.general.string = object.map {
-					$0.sourceURL!.absoluteString
+				UIPasteboard.general.string = object.compactMap {
+					$0.sourceURL?.absoluteString
 				}.joined(separator: "\n")
 				UIAlertController.showAlertWithOk(
 					title: .localized("Success"),
@@ -218,7 +231,17 @@ extension View {
 		if #available(iOS 17, *) {
 			self.navigationDestination(item: item, destination: destination)
 		} else {
-			self
+			// iOS 16 has no item-based destination, so drive one from a Bool.
+			self.navigationDestination(
+				isPresented: Binding(
+					get: { item.wrappedValue != nil },
+					set: { if !$0 { item.wrappedValue = nil } }
+				)
+			) {
+				if let value = item.wrappedValue {
+					destination(value)
+				}
+			}
 		}
 	}
 }

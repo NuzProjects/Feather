@@ -38,7 +38,7 @@ struct InstallPreviewView: View {
 		self.onProgress = onProgress
 		let viewModel = InstallerStatusViewModel(isIdevice: UserDefaults.standard.integer(forKey: "Feather.installationMethod") == 1)
 		self._viewModel = StateObject(wrappedValue: viewModel)
-		self._installer = StateObject(wrappedValue: try! ServerInstaller(app: app, viewModel: viewModel))
+		self._installer = StateObject(wrappedValue: ServerInstaller(app: app, viewModel: viewModel))
 	}
 	
 	// MARK: Body
@@ -69,7 +69,7 @@ struct InstallPreviewView: View {
 					}
 					if progressTask == nil {
 						progressTask = startInstallProgressPolling(
-							bundleID: app.identifier!,
+							bundleID: app.identifier ?? "",
 							viewModel: viewModel
 						)
 					}
@@ -187,7 +187,7 @@ struct InstallPreviewView: View {
 						
 						if case .installing = await viewModel.status {
 							let task = await startInstallProgressPolling(
-								bundleID: app.identifier!,
+								bundleID: app.identifier ?? "",
 								viewModel: viewModel
 							)
 

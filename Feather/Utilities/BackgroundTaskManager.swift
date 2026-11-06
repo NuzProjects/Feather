@@ -24,7 +24,7 @@ class BackgroundTaskManager: ObservableObject {
 		let taskIdentifier = "\(baseId).\(downloadId.md5)"
 		
 		if !registeredTasks.contains(taskIdentifier) {
-			BGTaskScheduler.shared.register(forTaskWithIdentifier: taskIdentifier, using: nil) { task in
+			BGTaskScheduler.shared.register(forTaskWithIdentifier: taskIdentifier, using: .main) { task in
 				guard let task = task as? BGContinuedProcessingTask else { return }
 				self.activeTasks[task.identifier] = task
 				
@@ -43,7 +43,7 @@ class BackgroundTaskManager: ObservableObject {
 		do {
 			try BGTaskScheduler.shared.submit(request)
 		} catch {
-			print(error)
+			DevLog.shared.error(error, while: "Starting background download for \(filename)", category: "Downloads")
 		}
 	}
 	

@@ -17,7 +17,7 @@ import IDeviceSwift
 // MARK: - Class
 class ServerInstaller: Identifiable, ObservableObject {
 	let id = UUID()
-	let port = Int.random(in: 4000...8000)
+	private(set) var port = Int.random(in: 4000...8000)
 	private var _needsShutdown = false
 	
 	var packageUrl: URL?
@@ -25,23 +25,39 @@ class ServerInstaller: Identifiable, ObservableObject {
 	@ObservedObject var viewModel: InstallerStatusViewModel
 	private var _server: Application?
 
-	init(app: AppInfoPresentable, viewModel: InstallerStatusViewModel) throws {
+	/// Starts the local install server. If a port is taken (for example by a server that is still shutting down),
+	/// it tries a few other ports, and reports a failed install instead of crashing if none work.
+	init(app: AppInfoPresentable, viewModel: InstallerStatusViewModel) {
 		self.app = app
 		self.viewModel = viewModel
-		try _setup()
-		try _configureRoutes()
-		try _server?.server.start()
-		_needsShutdown = true
+		var lastError: Error = ServerStartError.unavailable
+		for attempt in 0..<5 {
+			if attempt > 0 { port = Int.random(in: 4000...8000) }
+			do {
+				_server = try setupApp(port: port)
+				try _configureRoutes()
+				try _server?.server.start()
+				_needsShutdown = true
+				return
+			} catch {
+				lastError = error
+				_server?.shutdown()
+				_server = nil
+			}
+		}
+		DevLog.shared.error(lastError, while: "Starting the install server", category: "Install")
+		_updateStatus(.broken(lastError))
+	}
+	
+	enum ServerStartError: LocalizedError {
+		case unavailable
+		var errorDescription: String? { "Feather couldn't start its install server. Close and reopen Feather, then try again." }
 	}
 	
 	deinit {
 		_shutdownServer()
 	}
 	
-	private func _setup() throws {
-		self._server = try? setupApp(port: port)
-	}
-		
 	private func _configureRoutes() throws {
 		_server?.get("*") { [weak self] req in
 			guard let self else { return Response(status: .badGateway) }

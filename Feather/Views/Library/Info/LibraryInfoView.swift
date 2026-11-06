@@ -29,7 +29,7 @@ struct LibraryInfoView: View {
 				
 				Section {
 					Button(.localized("Open in Files"), systemImage: "folder") {
-						UIApplication.open(Storage.shared.getUuidDirectory(for: app)!.toSharedDocumentsURL()!)
+						if let url = Storage.shared.getUuidDirectory(for: app)?.toSharedDocumentsURL() { UIApplication.open(url) }
 					}
 				}
 			}

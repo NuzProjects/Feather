@@ -8,65 +8,80 @@
 import Foundation
 
 class AR: NSObject {
-	private var _data: Data
-	
+	private let _url: URL
+
 	init(with url: URL) {
-		self._data = try! Data(contentsOf: url)
+		self._url = url
 		super.init()
 	}
-	
+
+	/// Reads every member of an `ar` archive (the container format of `.deb` files).
+	/// Malformed archives throw `ARError` instead of crashing.
 	func extract() async throws -> [ARFileModel] {
-		if [UInt8](_data.subdata(in: Range(0...7))) != [0x21, 0x3c, 0x61, 0x72, 0x63, 0x68, 0x3e, 0x0a] {
+		let data: Data
+		do {
+			data = try Data(contentsOf: _url, options: .mappedIfSafe)
+		} catch {
+			throw ARError.badArchive("Couldn't read \(_url.lastPathComponent)")
+		}
+
+		let magic: [UInt8] = [0x21, 0x3c, 0x61, 0x72, 0x63, 0x68, 0x3e, 0x0a] // "!<arch>\n"
+		guard data.count >= magic.count, [UInt8](data.prefix(magic.count)) == magic else {
 			throw ARError.badArchive("Invalid magic")
 		}
-		
-		let data = _data.subdata(in: 8..<_data.endIndex)
-		
-		var offset = 0
+
+		var offset = data.startIndex + magic.count
 		var files: [ARFileModel] = []
-		while offset < data.count {
-			let fileInfo = try _getFileInfo(data, offset)
-			files.append(fileInfo)
-			offset += fileInfo.size + 60
-			offset += offset % 2
+		while offset < data.endIndex {
+			// Some archives pad the end with a newline; stop when there isn't room for another header.
+			guard data.endIndex - offset >= 60 else { break }
+			let file = try _getFileInfo(data, offset)
+			files.append(file)
+			offset += 60 + file.size
+			if file.size % 2 == 1 { offset += 1 }
 		}
 		return files
 	}
-	
+
 	private func _getFileInfo(_ data: Data, _ offset: Int) throws -> ARFileModel {
-		let size = Int(_removePadding(String(data: data.subdata(in: offset+48..<offset+48+10), encoding: .ascii) ?? "0"))!
-		if size < 1 {
+		func field(_ start: Int, _ length: Int) -> String {
+			let bytes = data.subdata(in: (offset + start)..<(offset + start + length))
+			return String(decoding: bytes, as: UTF8.self).trimmingCharacters(in: .whitespaces)
+		}
+
+		guard let size = Int(field(48, 10)), size >= 0 else {
 			throw ARError.badArchive("Invalid size")
 		}
-		
-		let name = _removePadding(String(data: data.subdata(in: offset..<offset+16), encoding: .ascii) ?? "")
-		guard name != "" else {
+		guard offset + 60 + size <= data.endIndex else {
+			throw ARError.badArchive("Truncated archive")
+		}
+
+		// GNU ar ends names with "/". Keep only a plain file name so nothing is written outside the work folder.
+		var name = field(0, 16)
+		if name.hasSuffix("/") { name.removeLast() }
+		name = (name as NSString).lastPathComponent
+		guard !name.isEmpty, name != ".", name != ".." else {
 			throw ARError.badArchive("Invalid name")
 		}
-		
+
 		return ARFileModel(
 			name: name,
-			modificationDate: NSDate(timeIntervalSince1970: Double(_removePadding(String(data: data.subdata(in: offset+16..<offset+16+12), encoding: .ascii) ?? "0"))!) as Date,
-			ownerId: Int(_removePadding(String(data: data.subdata(in: offset+28..<offset+28+6), encoding: .ascii) ?? "0"))!,
-			groupId: Int(_removePadding(String(data: data.subdata(in: offset+34..<offset+34+6), encoding: .ascii) ?? "0"))!,
-			mode: Int(_removePadding(String(data: data.subdata(in: offset+40..<offset+40+8), encoding: .ascii) ?? "0"))!,
+			modificationDate: Date(timeIntervalSince1970: Double(field(16, 12)) ?? 0),
+			ownerId: Int(field(28, 6)) ?? 0,
+			groupId: Int(field(34, 6)) ?? 0,
+			mode: Int(field(40, 8), radix: 8) ?? 0o644,
 			size: size,
-			content: data.subdata(in: offset+60..<offset+60+size)
+			content: data.subdata(in: (offset + 60)..<(offset + 60 + size))
 		)
-	}
-	
-	private func _removePadding(_ paddedString: String) -> String {
-		let data = paddedString.data(using: .utf8)!
-		
-		guard let firstNonSpaceIndex = data.firstIndex(of: UInt8(ascii: " ")) else {
-			return paddedString
-		}
-		
-		let actualData = data[..<firstNonSpaceIndex]
-		return String(data: actualData, encoding: .utf8)!
 	}
 }
 
-enum ARError: Error {
+enum ARError: LocalizedError {
 	case badArchive(String)
+
+	var errorDescription: String? {
+		switch self {
+		case .badArchive(let reason): return "This .deb file couldn't be read (\(reason))."
+		}
+	}
 }

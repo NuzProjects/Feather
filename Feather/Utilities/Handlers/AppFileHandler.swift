@@ -105,6 +105,8 @@ final class AppFileHandler: NSObject, @unchecked Sendable {
 			throw ImportedFileHandlerError.payloadNotFound
 		}
 		
+		// The Unsigned folder may have been removed by Reset; recreate it so imports keep working.
+		try _fileManager.createDirectoryIfNeeded(at: destinationURL.deletingLastPathComponent())
 		try _fileManager.moveItem(at: payloadURL, to: destinationURL)
 		
 		try? _fileManager.removeItem(at: _uniqueWorkDir)
@@ -132,6 +134,12 @@ final class AppFileHandler: NSObject, @unchecked Sendable {
 	}
 }
 
-private enum ImportedFileHandlerError: Error {
+private enum ImportedFileHandlerError: LocalizedError {
 	case payloadNotFound
+
+	var errorDescription: String? {
+		switch self {
+		case .payloadNotFound: "This file doesn't contain an app. Make sure it's an .ipa or .tipa file, or try downloading it again."
+		}
+	}
 }

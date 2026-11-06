@@ -142,8 +142,11 @@ class TweakHandler {
 		
 		destinationURL = destinationURL.appendingPathComponent(url.lastPathComponent)
 		
-		
-		try _fileManager.moveFileIfNeeded(from: url, to: destinationURL)
+		// Copy rather than move, so the tweak you picked is still there if signing is retried.
+		try _fileManager.createDirectoryIfNeeded(at: destinationURL.deletingLastPathComponent())
+		if !_fileManager.fileExists(atPath: destinationURL.path) {
+			try _fileManager.copyItem(at: url, to: destinationURL)
+		}
 		
 		guard let appexe = Bundle(url: _app)?.executableURL else {
 			return

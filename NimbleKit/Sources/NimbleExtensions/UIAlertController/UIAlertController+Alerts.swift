@@ -15,7 +15,7 @@ extension UIAlertController {
 	///   - message: Alert message
 	///   - actions: Alert actions
 	static public func showAlertWithCancel(
-		_ presenter: UIViewController = UIApplication.topViewController()!,
+		_ presenter: UIViewController? = UIApplication.topViewController(),
 		_ popoverFromView: UIView? = nil,
 		title: String?,
 		message: String?,
@@ -45,7 +45,7 @@ extension UIAlertController {
 	///   - isCancel: If true, sets action style to cancel and no handler
 	///   - action: Closure to run when OK is tapped (ignored if isCancel is true)
 	static public func showAlertWithOk(
-		_ presenter: UIViewController = UIApplication.topViewController()!,
+		_ presenter: UIViewController? = UIApplication.topViewController(),
 		_ popoverFromView: UIView? = nil,
 		title: String?,
 		message: String?,
@@ -82,7 +82,7 @@ extension UIAlertController {
 	///   - title: Alert title
 	///   - message: Alert message
 	static public func showAlertWithRestart(
-		_ presenter: UIViewController = UIApplication.topViewController()!,
+		_ presenter: UIViewController? = UIApplication.topViewController(),
 		_ popoverFromView: UIView? = nil,
 		title: String?,
 		message: String?,
@@ -114,7 +114,7 @@ extension UIAlertController {
 	///   - message: Alert message
 	///   - actions: Alert actions
 	static public func showAlert(
-		_ presenter: UIViewController = UIApplication.topViewController()!,
+		_ presenter: UIViewController? = UIApplication.topViewController(),
 		_ popoverFromView: UIView? = nil,
 		title: String?,
 		message: String?,
@@ -134,6 +134,8 @@ extension UIAlertController {
 			popover.permittedArrowDirections = .any
 		}
 		
+		// No window yet (or the app is in the background): skip rather than crash.
+		guard let presenter else { return }
 		presenter.present(alert, animated: true)
 	}
 }

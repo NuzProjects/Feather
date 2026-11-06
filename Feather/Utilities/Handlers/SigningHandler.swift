@@ -62,7 +62,7 @@ final class SigningHandler: NSObject {
 		guard
 			let infoDictionary = NSDictionary(
 				contentsOf: movedAppPath.appendingPathComponent("Info.plist")
-			)!.mutableCopy() as? NSMutableDictionary
+			)?.mutableCopy() as? NSMutableDictionary
 		else {
 			throw SigningFileHandlerError.infoPlistNotFound
 		}
@@ -308,12 +308,13 @@ extension SigningHandler {
 			if let extensionDict = (infoDict["NSExtension"] as? NSDictionary)?.mutableCopy() as? NSMutableDictionary {
 				// NSExtension → NSExtensionAttributes → WKAppBundleIdentifier
 				if
-					let attributes = extensionDict["NSExtensionAttributes"] as? NSMutableDictionary,
+					let attributes = (extensionDict["NSExtensionAttributes"] as? NSDictionary)?.mutableCopy() as? NSMutableDictionary,
 					let oldValue = attributes["WKAppBundleIdentifier"] as? String
 				{
 					let newValue = oldValue.replacingOccurrences(of: oldIdentifier, with: newIdentifier)
 					if oldValue != newValue {
 						attributes["WKAppBundleIdentifier"] = newValue
+						extensionDict["NSExtensionAttributes"] = attributes
 						didChange = true
 					}
 				}
@@ -402,7 +403,7 @@ extension SigningHandler {
 	
 	private func _locateMachosAndChangeToSDK26(for app: URL) async throws {
 		if let url = Bundle(url: app)?.executableURL {
-			LCPatchMachOForSDK26(app.appendingPathComponent(url.relativePath).relativePath)
+			LCPatchMachOForSDK26(url.path)
 		}
 	}
 	
@@ -452,14 +453,17 @@ extension SigningHandler {
 			return
 		}
 		
-		guard 
-			let cert = self.appCertificate, 
-			let ourEntitlements = CertificateReader(Storage.shared.getFile(.provision, from: cert)).decoded
-		else {
-			return 
+		// Core Data objects must be read on the main thread.
+		let provisionURL: URL? = await MainActor.run {
+			self.appCertificate.flatMap { Storage.shared.getFile(.provision, from: $0) }
 		}
-		
-		let ourTeamIdentifier = ourEntitlements.TeamIdentifier[0]
+		guard
+			let provisionURL,
+			let ourEntitlements = CertificateReader(provisionURL).decoded,
+			let ourTeamIdentifier = ourEntitlements.TeamIdentifier.first
+		else {
+			return
+		}
 		let originalIdentifier = await MainActor.run { _app.identifier }
 		let ourBundleIdentifer = options.appIdentifier ?? originalIdentifier
 		

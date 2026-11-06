@@ -183,10 +183,8 @@ extension Storage {
 		let request: NSFetchRequest<AppSourceMetadata> = AppSourceMetadata.fetchRequest()
 		request.predicate = NSPredicate(format: "appKind == %@", kind.rawValue)
 		
-		do {
-			let deleteRequest = NSBatchDeleteRequest(fetchRequest: request as! NSFetchRequest<NSFetchRequestResult>)
-			try context.execute(deleteRequest)
-		} catch {
+		if let request = request as? NSFetchRequest<NSFetchRequestResult> {
+			batchDelete(request)
 		}
 	}
 }

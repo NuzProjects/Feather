@@ -165,11 +165,15 @@ struct SourcesAddView: View {
 		_ code: String?,
 		competion: @escaping () -> Void
 	) {
-		guard let code else { return }
-		
-		let handler = ASDeobfuscator(with: code)
-		let repoUrls = handler.decode().compactMap { URL(string: $0) }
-		guard !repoUrls.isEmpty else { return }
+		let repoUrls = code.map { ASDeobfuscator(with: $0).decode().compactMap { URL(string: $0) } } ?? []
+		guard !repoUrls.isEmpty else {
+			_isImporting = false
+			UIAlertController.showAlertWithOk(
+				title: .localized("Import"),
+				message: "No sources were found on the clipboard. Copy the sources exported from KravaSign, MapleSign or ESign, then tap Import again."
+			)
+			return
+		}
 		
 		Task {
 			let fetched = await _concurrentFetchRepositories(from: repoUrls)
@@ -187,32 +191,31 @@ struct SourcesAddView: View {
 	private func _concurrentFetchRepositories(
 		from urls: [URL]
 	) async -> [(url: URL, data: ASRepository)] {
-		var results: [(url: URL, data: ASRepository)] = []
-		
 		let dataService = _dataService
 		
-		await withTaskGroup(of: Void.self) { group in
+		// Each fetch returns its own result, so nothing is lost or written from two threads at once.
+		return await withTaskGroup(of: (url: URL, data: ASRepository)?.self) { group in
 			for url in urls {
 				group.addTask {
 					await withCheckedContinuation { continuation in
 						dataService.fetch<ASRepository>(from: url) { (result: RepositoryDataHandler) in
 							switch result {
 							case .success(let repo):
-								Task { @MainActor in
-									results.append((url: url, data: repo))
-								}
+								continuation.resume(returning: (url: url, data: repo))
 							case .failure(let error):
 								Logger.misc.error("Failed to fetch \(url): \(error.localizedDescription)")
+								continuation.resume(returning: nil)
 							}
-							continuation.resume()
 						}
 					}
 				}
 			}
-			await group.waitForAll()
+			var results: [(url: URL, data: ASRepository)] = []
+			for await result in group {
+				if let result { results.append(result) }
+			}
+			return results
 		}
-		
-		return results
 	}
 
 }

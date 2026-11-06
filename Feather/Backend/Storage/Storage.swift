@@ -44,8 +44,21 @@ final class Storage: ObservableObject {
 	}
 	
 	func clearContext<T: NSManagedObject>(request: NSFetchRequest<T>) {
-		let deleteRequest = NSBatchDeleteRequest(fetchRequest: (request as? NSFetchRequest<NSFetchRequestResult>)!)
-		_ = try? context.execute(deleteRequest)
+		guard let request = request as? NSFetchRequest<NSFetchRequestResult> else { return }
+		batchDelete(request)
+	}
+	
+	/// Deletes rows in the store and tells the view context, so lists update right away
+	/// instead of showing deleted items until the next launch.
+	func batchDelete(_ request: NSFetchRequest<NSFetchRequestResult>) {
+		let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+		deleteRequest.resultType = .resultTypeObjectIDs
+		guard
+			let result = try? context.execute(deleteRequest) as? NSBatchDeleteResult,
+			let ids = result.result as? [NSManagedObjectID],
+			!ids.isEmpty
+		else { return }
+		NSManagedObjectContext.mergeChanges(fromRemoteContextSave: [NSDeletedObjectsKey: ids], into: [context])
 	}
 	
 	func countContent<T: NSManagedObject>(for type: T.Type) -> String {

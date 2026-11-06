@@ -9,10 +9,16 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = []
+    static let features: [Item] = [
+        Item(icon: "square.grid.2x2", title: "Source Apps on iOS 16", detail: "Tapping an app in a source opens its page on iOS 16 too.")
+    ]
 
     static let fixes: [Item] = [
-        Item(icon: "pencil", title: "Smoother Edit Button", detail: "Edit and Done in Library fade smoothly, and the buttons no longer jump when you start or stop editing.")
+        Item(icon: "exclamationmark.shield", title: "Fewer Crashes", detail: "Fixed crashes when installing or exporting apps without a version, signing apps with a broken Info.plist, reading some .deb tweaks, and showing alerts in the background."),
+        Item(icon: "arrow.down.circle", title: "Downloads", detail: "Failed downloads now tell you why, broken links are caught, and downloads keep going in the background on iOS 26."),
+        Item(icon: "checkmark.seal", title: "Certificates", detail: "Importing a certificate shows an error instead of closing silently when something is wrong."),
+        Item(icon: "globe.desk", title: "Sources", detail: "Featured sources all show up, Import tells you when the clipboard is empty, and a source that can't load says so instead of spinning."),
+        Item(icon: "puzzlepiece.extension", title: "Tweaks", detail: "Retrying a sign keeps your .dylib tweaks, and .deb files from more tools are read correctly.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

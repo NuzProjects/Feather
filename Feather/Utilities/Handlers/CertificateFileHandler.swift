@@ -53,7 +53,8 @@ final class CertificateFileHandler: NSObject {
 	}
 	
 	func addToDatabase() async throws {
-		
+		// Core Data's view context must only be changed on the main thread.
+		await MainActor.run {
 		Storage.shared.addCertificate(
 			uuid: _uuid,
 			password: _keyPassword,
@@ -64,6 +65,7 @@ final class CertificateFileHandler: NSObject {
 		) { _ in
 			Logger.misc.info("[\(self._uuid)] Added to database")
 		}
+		}
 	}
 	
 	private func _directory() async throws -> URL {
@@ -72,6 +74,12 @@ final class CertificateFileHandler: NSObject {
 	}
 }
 
-private enum CertificateFileHandlerError: Error {
+private enum CertificateFileHandlerError: LocalizedError {
 	case certNotValid
+
+	var errorDescription: String? {
+		switch self {
+		case .certNotValid: "This provisioning profile couldn't be read. Make sure you picked the .mobileprovision that goes with this certificate."
+		}
+	}
 }

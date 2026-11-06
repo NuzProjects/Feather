@@ -204,9 +204,17 @@ enum FR {
 		_ urlString: String,
 		competion: @escaping () -> Void
 	) {
-		guard let url = URL(string: urlString) else { return }
+		let trimmed = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
+		guard let url = URL(string: trimmed), url.scheme != nil else {
+			DispatchQueue.main.async {
+				UIAlertController.showAlertWithOk(title: .localized("Error"), message: "That isn't a valid source URL. Check it starts with https:// and try again.")
+			}
+			return
+		}
 		
 		NBFetchService().fetch<ASRepository>(from: url) { (result: Result<ASRepository, Error>) in
+			// The fetch finishes on a background thread; the database must only be changed on the main thread.
+			DispatchQueue.main.async {
 			switch result {
 			case .success(let data):
 				let id = data.id ?? url.absoluteString
@@ -216,14 +224,11 @@ enum FR {
 						competion()
 					}
 				} else {
-					DispatchQueue.main.async {
-						UIAlertController.showAlertWithOk(title: .localized("Error"), message: .localized("Repository already added."))
-					}
+					UIAlertController.showAlertWithOk(title: .localized("Error"), message: .localized("Repository already added."))
 				}
 			case .failure(let error):
-				DispatchQueue.main.async {
-					UIAlertController.showAlertWithOk(title: .localized("Error"), message: error.localizedDescription)
-				}
+				UIAlertController.showAlertWithOk(title: .localized("Error"), message: error.localizedDescription)
+			}
 			}
 		}
 	}
@@ -249,7 +254,7 @@ enum FR {
 			
 			let urlStr = template
 				.replacingOccurrences(of: "$(BASE64_CERT)", with: encodedCert)
-				.replacingOccurrences(of: "$(PASSWORD)", with: certificate.password ?? "")
+				.replacingOccurrences(of: "$(PASSWORD)", with: (certificate.password ?? "").addingPercentEncoding(withAllowedCharacters: allowedQueryParamAndKey) ?? "")
 			
 			guard let callbackUrl = URL(string: urlStr) else {
 				return

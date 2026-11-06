@@ -9,10 +9,11 @@ import UIKit.UIActivityViewController
 
 extension UIActivityViewController {
 	static public func show(
-		_ presenter: UIViewController = UIApplication.topViewController()!,
+		_ presenter: UIViewController? = UIApplication.topViewController(),
 		activityItems: [Any],
 		applicationActivities: [UIActivity]? = nil
 	) {
+		guard let presenter else { return }
 		let controller = Self(
 			activityItems: activityItems,
 			applicationActivities: applicationActivities

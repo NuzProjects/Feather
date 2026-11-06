@@ -74,7 +74,8 @@ class DownloadManager: NSObject, ObservableObject {
 	override init() {
 		super.init()
 		let configuration = URLSessionConfiguration.default
-		_session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+		// Delegate callbacks run on the main queue, so `downloads` is only ever touched from one thread.
+		_session = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
 	}
 	
 	func startDownload(
@@ -201,8 +202,28 @@ extension DownloadManager: URLSessionDownloadDelegate {
 		}
 	}
 	
+	/// Removes a failed download, stops its background work and tells the user why.
+	private func _fail(_ download: Download, message: String) {
+		guard let index = getDownloadIndex(by: download.id) else { return }
+		downloads.remove(at: index)
+		#if !targetEnvironment(macCatalyst)
+		if #available(iOS 26.0, *) {
+			BackgroundTaskManager.shared.stopTask(for: download.id, success: false)
+		}
+		_updateBackgroundAudioState()
+		#endif
+		UINotificationFeedbackGenerator().notificationOccurred(.error)
+		UIAlertController.showAlertWithOk(title: "Download Failed", message: message)
+	}
+	
 	func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 		guard let download = getDownloadTask(by: downloadTask) else { return }
+		
+		if let http = downloadTask.response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
+			DevLog.shared.log(.error, "Downloading \(download.fileName) failed: HTTP \(http.statusCode)", category: "Downloads")
+			_fail(download, message: "The server returned an error (HTTP \(http.statusCode)) for \(download.fileName). The link may be broken or expired.")
+			return
+		}
 		
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let customTempDir = tempDirectory.appendingPathComponent("FeatherDownloads", isDirectory: true)
@@ -220,6 +241,7 @@ extension DownloadManager: URLSessionDownloadDelegate {
 			try handlePachageFile(url: destinationURL, dl: download)
 		} catch {
 			DevLog.shared.error(error, while: "Handling downloaded file", category: "Downloads")
+			_fail(download, message: error.localizedDescription)
 		}
 	}
 	
@@ -246,17 +268,18 @@ extension DownloadManager: URLSessionDownloadDelegate {
 			DevLog.shared.error(error, while: "Downloading \(task.originalRequest?.url?.lastPathComponent ?? "file")", category: "Downloads")
 		}
 		guard
-			let _ = error,
+			let error,
 			let downloadTask = task as? URLSessionDownloadTask,
 			let download = getDownloadTask(by: downloadTask)
 		else {
 			return
 		}
 		
-		DispatchQueue.main.async {
-			if let index = self.getDownloadIndex(by: download.id) {
-				self.downloads.remove(at: index)
-			}
+		if (error as NSError).code == NSURLErrorCancelled {
+			// Cancelled by the user; cancelDownload already cleaned up.
+			if let index = getDownloadIndex(by: download.id) { downloads.remove(at: index) }
+			return
 		}
+		_fail(download, message: error.localizedDescription)
 	}
 }

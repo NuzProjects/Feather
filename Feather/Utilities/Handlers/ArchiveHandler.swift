@@ -70,17 +70,20 @@ final class ArchiveHandler: NSObject {
 	}
 	
 	func moveToArchive(_ package: URL, shouldOpen: Bool = false) async throws -> URL? {
-		let appendingString = "\(_app.name!)_\(_app.version!)_\(Int(Date().timeIntervalSince1970)).ipa"
+		// Names can be missing or contain "/", which would break the file path.
+		func safe(_ text: String?, _ fallback: String) -> String {
+			let cleaned = (text ?? fallback).replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: ":", with: "-")
+			return cleaned.isEmpty ? fallback : cleaned
+		}
+		let appendingString = "\(safe(_app.name, "App"))_\(safe(_app.version, "1.0"))_\(Int(Date().timeIntervalSince1970)).ipa"
 		let dest = _fileManager.archives.appendingPathComponent(appendingString)
 		
-		try? _fileManager.moveItem(
-			at: package,
-			to: dest
-		)
+		try _fileManager.createDirectoryIfNeeded(at: _fileManager.archives)
+		try _fileManager.moveItem(at: package, to: dest)
 		
-		if shouldOpen {
+		if shouldOpen, let url = FileManager.default.archives.toSharedDocumentsURL() {
 			await MainActor.run {
-				UIApplication.open(FileManager.default.archives.toSharedDocumentsURL()!)
+				UIApplication.open(url)
 			}
 		}
 		

@@ -38,12 +38,18 @@ extension ServerInstaller {
 		return comps.url!
 	}
 	
+	// Values for the manifest. Some apps have no version or name, so fall back instead of crashing.
+	private var _bundleID: String { app.identifier ?? "unknown" }
+	private var _bundleVersion: String { app.version ?? "1.0" }
+	private var _title: String { app.name ?? "App" }
+
 	var externalServerLink: String {
-		let baseUrl = "https://api.palera.in/genPlist?bundleid=\(app.identifier!)&name=\(app.name!)&version=\(app.version!)&fetchurl=\(self.payloadEndpoint.absoluteString)"
-		let encodedBaseUrl = baseUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-		let finalEncodedUrl = encodedBaseUrl.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-		
-		return finalEncodedUrl
+		// Encode each value on its own so names like "Tom & Jerry" don't break the query.
+		var allowed = CharacterSet.urlQueryAllowed
+		allowed.remove(charactersIn: "&=+#?/")
+		func encode(_ value: String) -> String { value.addingPercentEncoding(withAllowedCharacters: allowed) ?? "" }
+		let baseUrl = "https://api.palera.in/genPlist?bundleid=\(encode(_bundleID))&name=\(encode(_title))&version=\(encode(_bundleVersion))&fetchurl=\(encode(payloadEndpoint.absoluteString))"
+		return baseUrl.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? baseUrl
 	}
 
 	var iTunesLink: String {
@@ -90,7 +96,7 @@ extension ServerInstaller {
 			UIColor.tintColor.setFill()
 			ctx.fill(.init(x: 0, y: 0, width: r, height: r))
 		}
-		return image.pngData()!
+		return image.pngData() ?? Data()
 	}
 
 	var html: String {
@@ -118,10 +124,10 @@ extension ServerInstaller {
 				],
 			],
 			"metadata": [
-				"bundle-identifier": app.identifier,
-				"bundle-version": app.version,
+				"bundle-identifier": _bundleID,
+				"bundle-version": _bundleVersion,
 				"kind": "software",
-				"title": app.name,
+				"title": _title,
 			],
 		],],
 	]}
