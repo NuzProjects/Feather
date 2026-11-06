@@ -19,6 +19,12 @@
       ],
       "versions": [
         {
+          "version": "1.2.2",
+          "date": "2026-11-06T00:10:11Z",
+          "size": 14491585,
+          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.2.2-build85/Feather.ipa"
+        },
+        {
           "version": "1.2.1",
           "date": "2026-11-05T23:45:49Z",
           "size": 14491428,
