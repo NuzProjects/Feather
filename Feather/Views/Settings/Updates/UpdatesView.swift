@@ -31,7 +31,7 @@ struct UpdatesView: View {
                 if let notes = updater.releaseNotes {
                     Text(LocalizedStringKey(notes))
                         .font(.subheadline)
-                        .contentTransition(.opacity)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .id(updater.latest?.id)
                         .transition(.opacity)
                 }

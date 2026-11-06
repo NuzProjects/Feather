@@ -95,7 +95,13 @@ final class FeatherUpdater: ObservableObject {
         do {
             let onBeta = receiveBetas
             let releases = try await GitHubReleases.shared.releases(Self.repository).filter { onBeta || !$0.prerelease }
-            latest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
+            let newest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
+            // Animate here: the change arrives after a network request, so view-level animations never see it.
+            if newest?.id != latest?.id {
+                withAnimation(.smooth(duration: 0.4)) { latest = newest }
+            } else {
+                latest = newest
+            }
             phase = .idle
         } catch {
             DevLog.shared.error(error, while: "Checking for Feather updates", category: "Updates")

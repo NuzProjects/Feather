@@ -13,8 +13,7 @@ enum WhatsNew {
     static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "checkmark.seal", title: "Get a Certificate", detail: "Importing a certificate from Get a Certificate closes the sheet when you're done."),
-        Item(icon: "sparkles", title: "What's New", detail: "Each update now lists only its own changes.")
+        Item(icon: "flask", title: "Beta Switch", detail: "Turning Receive Beta Updates on or off smoothly changes the latest version and What's New.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

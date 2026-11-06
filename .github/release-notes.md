@@ -1,5 +1,4 @@
-## Update 1.2.6 Beta 4
+## Update 1.2.6 Beta 5
 
 **Bug Fixes:**
-* Importing a certificate from Get a Certificate closes the sheet when you're done
-* What's New lists only this update's changes
+* Turning Receive Beta Updates on or off now smoothly animates the latest version, date and What's New instead of changing instantly
