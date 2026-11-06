@@ -18,9 +18,23 @@ final class FeatherUpdater: ObservableObject {
     @Published var promptRelease: GitHubRelease?
     @Published var openUpdatesPage = false
 
+    static let receiveBetasKey = "Updates.receiveBetas"
+    /// Offer beta releases. Defaults to on for beta builds and off for full releases until changed.
+    @Published var receiveBetas: Bool {
+        didSet {
+            guard receiveBetas != oldValue else { return }
+            UserDefaults.standard.set(receiveBetas, forKey: Self.receiveBetasKey)
+            Task { await check() }
+        }
+    }
     private let installedKey = "Updates.installedRelease"
     private let skippedKey = "Updates.skippedRelease"
-    private init() {}
+    private init() {
+        let info = Bundle.main.infoDictionary
+        let version = (info?["FeatherVersionLabel"] as? String) ?? (info?["CFBundleShortVersionString"] as? String) ?? ""
+        receiveBetas = UserDefaults.standard.object(forKey: Self.receiveBetasKey) as? Bool
+            ?? version.localizedCaseInsensitiveContains("beta")
+    }
 
     var currentVersion: String {
         let info = Bundle.main.infoDictionary
@@ -77,7 +91,7 @@ final class FeatherUpdater: ObservableObject {
         guard !isBusy else { return }
         phase = .checking
         do {
-            let onBeta = currentVersion.localizedCaseInsensitiveContains("beta")
+            let onBeta = receiveBetas
             let releases = try await GitHubReleases.shared.releases(Self.repository).filter { onBeta || !$0.prerelease }
             latest = releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }.first
             phase = .idle

@@ -39,8 +39,12 @@ struct FeatherApp: App {
 			}
 			// dear god help me
 			.task { await GitHubReleases.shared.check(); GitHubReleases.schedule() }
+			.task { await RemoteConfig.shared.refresh(force: true) }
 			.onChange(of: scenePhase) { phase in
-				if phase == .active { Task { await GitHubReleases.shared.check(); GitHubReleases.schedule() } }
+				if phase == .active {
+					Task { await GitHubReleases.shared.check(); GitHubReleases.schedule() }
+					Task { await RemoteConfig.shared.refresh() }
+				}
 			}
 			.onAppear {
 				if let style = UIUserInterfaceStyle(rawValue: UserDefaults.standard.integer(forKey: "Feather.userInterfaceStyle")) {

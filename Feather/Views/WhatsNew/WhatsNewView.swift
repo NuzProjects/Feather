@@ -9,7 +9,10 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = []
+    static let features: [Item] = [
+        Item(icon: "flask", title: "Beta Updates", detail: "Turn on Receive Beta Updates in Settings → Updates to get new features before everyone else."),
+        Item(icon: "megaphone", title: "Announcements", detail: "Feather can show important news, like certificate revokes, without needing an update.")
+    ]
 
     static let fixes: [Item] = [
         Item(icon: "seal", title: "Get a Certificate", detail: "The row in Settings matches the others and only appears when you have no certificates."),

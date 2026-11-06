@@ -48,7 +48,9 @@ extension ServerInstaller {
 		var allowed = CharacterSet.urlQueryAllowed
 		allowed.remove(charactersIn: "&=+#?")
 		func encode(_ value: String) -> String { value.addingPercentEncoding(withAllowedCharacters: allowed) ?? "" }
-		let baseUrl = "https://api.palera.in/genPlist?bundleid=\(encode(_bundleID))&name=\(encode(_title))&version=\(encode(_bundleVersion))&fetchurl=\(encode(payloadEndpoint.absoluteString))"
+		// `plistServer` in remote-config.json can point installs at a different server if this one goes down.
+		let server = RemoteConfig.cached?.plistServer?.absoluteString ?? "https://api.palera.in/genPlist"
+		let baseUrl = "\(server)?bundleid=\(encode(_bundleID))&name=\(encode(_title))&version=\(encode(_bundleVersion))&fetchurl=\(encode(payloadEndpoint.absoluteString))"
 		return baseUrl.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? baseUrl
 	}
 

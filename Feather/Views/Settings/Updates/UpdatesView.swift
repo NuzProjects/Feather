@@ -27,11 +27,14 @@ struct UpdatesView: View {
             }
 
             Section {
+                Toggle(isOn: $updater.receiveBetas) {
+                    Label("Receive Beta Updates", systemImage: "flask")
+                }
                 Button {
                     updater.install()
                 } label: {
                     HStack {
-                        Label(updater.updateAvailable ? "Download and Install Update" : "Reinstall Latest Release", systemImage: "arrow.down.circle")
+                        Label(_installTitle, systemImage: "arrow.down.circle")
                         Spacer()
                         if updater.phase == .downloading || updater.phase == .signing { ProgressView() }
                     }
@@ -51,7 +54,7 @@ struct UpdatesView: View {
                     }
                 }
             } footer: {
-                Text("Feather downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept.")
+                Text("Feather downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept. Beta updates get new features first but may have bugs.")
             }
         }
         .symbolVariant(.fill)
@@ -69,5 +72,14 @@ struct UpdatesView: View {
         } message: {
             Text(alert ?? "")
         }
+    }
+
+    private var _installTitle: String {
+        if updater.updateAvailable { return "Download and Install Update" }
+        // On a beta with betas turned off, the latest full release is older, so say exactly what gets installed.
+        if let latest = updater.latest, FeatherUpdater.displayName(latest) != updater.currentVersion {
+            return "Install \(FeatherUpdater.displayName(latest))"
+        }
+        return "Reinstall Latest Release"
     }
 }

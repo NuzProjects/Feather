@@ -33,7 +33,13 @@ struct SourcesAddView: View {
 	}
 	
 	@State var recommendedSourcesData: [(url: URL, data: ASRepository)] = []
-	let recommendedSources: [URL] = [
+	/// Featured sources: `featuredSources` in remote-config.json replaces the built-in list when present.
+	var recommendedSources: [URL] {
+		if let remote = RemoteConfig.cached?.featuredSources, !remote.isEmpty { return remote }
+		return Self.builtInRecommendedSources
+	}
+	
+	static let builtInRecommendedSources: [URL] = [
 		"https://cdn.altstore.io/file/altstore/apps.json",
 		"https://github.com/LiveContainer/LiveContainer/releases/download/nightly/apps_nightly.json",
 		"https://alt.getutm.app",

@@ -2,58 +2,31 @@ import SwiftUI
 import NimbleViews
 
 // MARK: - Providers
-/// Where people can get a signing certificate. Edit this list to change what the sheet shows.
-enum CertificateProvider: CaseIterable, Identifiable {
-	case appleDeveloper
-	case signulous
-	case udidRegistrations
-	case kravaSign
+/// Built-in provider list. `certificateProviders` in remote-config.json replaces it when present.
+enum CertificateProviders {
+	typealias Provider = RemoteConfigData.Provider
 
-	var id: Self { self }
+	static let builtIn: [Provider] = [
+		Provider(name: "Apple Developer Program", detail: "Your own certificate straight from Apple. $99 a year.", url: URL(string: "https://developer.apple.com/programs/enroll/")!, icon: "apple.logo", official: true),
+		Provider(name: "Signulous", detail: "Certificates registered to your device, with their own signing app.", url: URL(string: "https://www.signulous.com")!, icon: "signature", official: false),
+		Provider(name: "UDID Registrations", detail: "Registers your device on a developer account and sends you the certificate files.", url: URL(string: "https://www.udidregistrations.com")!, icon: "iphone.badge.checkmark", official: false),
+		Provider(name: "KravaSign", detail: "Device certificates you can import straight into Feather.", url: URL(string: "https://kravasign.com")!, icon: "checkmark.seal.fill", official: false)
+	]
 
-	var name: String {
-		switch self {
-		case .appleDeveloper: "Apple Developer Program"
-		case .signulous: "Signulous"
-		case .udidRegistrations: "UDID Registrations"
-		case .kravaSign: "KravaSign"
-		}
+	@MainActor
+	static var current: [Provider] {
+		if let remote = RemoteConfig.shared.data.certificateProviders, !remote.isEmpty { return remote }
+		return builtIn
 	}
-
-	var detail: String {
-		switch self {
-		case .appleDeveloper: "Your own certificate straight from Apple. $99 a year."
-		case .signulous: "Certificates registered to your device, with their own signing app."
-		case .udidRegistrations: "Registers your device on a developer account and sends you the certificate files."
-		case .kravaSign: "Device certificates you can import straight into Feather."
-		}
-	}
-
-	var icon: String {
-		switch self {
-		case .appleDeveloper: "apple.logo"
-		case .signulous: "signature"
-		case .udidRegistrations: "iphone.badge.checkmark"
-		case .kravaSign: "checkmark.seal.fill"
-		}
-	}
-
-	var url: URL {
-		switch self {
-		case .appleDeveloper: URL(string: "https://developer.apple.com/programs/enroll/")!
-		case .signulous: URL(string: "https://www.signulous.com")!
-		case .udidRegistrations: URL(string: "https://www.udidregistrations.com")!
-		case .kravaSign: URL(string: "https://kravasign.com")!
-		}
-	}
-
-	var isOfficial: Bool { self == .appleDeveloper }
 }
 
 // MARK: - View
 struct GetCertificateView: View {
 	@Environment(\.dismiss) private var dismiss
+	@ObservedObject private var _remote = RemoteConfig.shared
 	@State private var _isImportPresenting = false
+
+	private var _providers: [CertificateProviders.Provider] { CertificateProviders.current }
 
 	// MARK: Body
 	var body: some View {
@@ -75,12 +48,14 @@ struct GetCertificateView: View {
 				}
 				.listRowBackground(Color.clear)
 
-				NBSection("Official") {
-					ForEach(CertificateProvider.allCases.filter(\.isOfficial)) { _row($0) }
+				if _providers.contains(where: { $0.official == true }) {
+					NBSection("Official") {
+						ForEach(_providers.filter { $0.official == true }) { _row($0) }
+					}
 				}
 
 				NBSection("Providers") {
-					ForEach(CertificateProvider.allCases.filter { !$0.isOfficial }) { _row($0) }
+					ForEach(_providers.filter { $0.official != true }) { _row($0) }
 				} footer: {
 					Text("These are independent sellers, not part of Feather. Check their prices and refund policy before you buy.")
 				}
@@ -111,18 +86,18 @@ struct GetCertificateView: View {
 // MARK: - Extension: View
 extension GetCertificateView {
 	@ViewBuilder
-	private func _row(_ provider: CertificateProvider) -> some View {
+	private func _row(_ provider: CertificateProviders.Provider) -> some View {
 		Button {
 			UIApplication.open(provider.url)
 		} label: {
 			HStack(spacing: 14) {
-				Image(systemName: provider.icon)
+				Image(systemName: provider.icon ?? "link")
 					.font(.system(size: 17, weight: .semibold))
 					.foregroundStyle(.white)
 					.frame(width: 36, height: 36)
 					.background(
 						RoundedRectangle(cornerRadius: 9, style: .continuous)
-							.fill(provider.isOfficial ? Color.black : Color.accentColor)
+							.fill(provider.official == true ? Color.black : Color.accentColor)
 					)
 				VStack(alignment: .leading, spacing: 2) {
 					Text(provider.name)

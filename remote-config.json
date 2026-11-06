@@ -1,0 +1,51 @@
+{
+  "announcement": null,
+  "certificateProviders": [
+    {
+      "name": "Apple Developer Program",
+      "detail": "Your own certificate straight from Apple. $99 a year.",
+      "url": "https://developer.apple.com/programs/enroll/",
+      "icon": "apple.logo",
+      "official": true
+    },
+    {
+      "name": "Signulous",
+      "detail": "Certificates registered to your device, with their own signing app.",
+      "url": "https://www.signulous.com",
+      "icon": "signature",
+      "official": false
+    },
+    {
+      "name": "UDID Registrations",
+      "detail": "Registers your device on a developer account and sends you the certificate files.",
+      "url": "https://www.udidregistrations.com",
+      "icon": "iphone.badge.checkmark",
+      "official": false
+    },
+    {
+      "name": "KravaSign",
+      "detail": "Device certificates you can import straight into Feather.",
+      "url": "https://kravasign.com",
+      "icon": "checkmark.seal.fill",
+      "official": false
+    }
+  ],
+  "featuredSources": [
+    "https://cdn.altstore.io/file/altstore/apps.json",
+    "https://github.com/LiveContainer/LiveContainer/releases/download/nightly/apps_nightly.json",
+    "https://alt.getutm.app",
+    "https://provenance-emu.com/apps.json",
+    "https://ish.app/altstore.json",
+    "https://stikdebug.xyz/index.json",
+    "https://apps.manicemu.site/altstore",
+    "https://altstore.oatmealdome.me/",
+    "https://pokemmo.com/altstore",
+    "https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json",
+    "https://xitrix.github.io/iTorrent/AltStore.json",
+    "https://alt.crystall1ne.dev",
+    "https://mikevillarroel.github.io/mikebuilds-source/originals.json",
+    "https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
+  ],
+  "plistServer": "https://api.palera.in/genPlist",
+  "flags": {}
+}
