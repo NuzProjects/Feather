@@ -201,6 +201,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
 		DevLog.shared.start()
+		_configureNavigationBar()
 		GitHubReleases.register()
 		UNUserNotificationCenter.current().delegate = self
 		_createPipeline()
@@ -208,6 +209,21 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 		ResetView.clearWorkCache()
 		_addDefaultCertificates()
 		return true
+	}
+	
+	private func _configureNavigationBar() {
+		guard #unavailable(iOS 26.0) else { return }
+		let scrolled = UINavigationBarAppearance()
+		scrolled.configureWithDefaultBackground()
+		scrolled.shadowColor = .clear
+		let top = UINavigationBarAppearance()
+		top.configureWithTransparentBackground()
+		top.shadowColor = .clear
+		let bar = UINavigationBar.appearance()
+		bar.standardAppearance = scrolled
+		bar.compactAppearance = scrolled
+		bar.scrollEdgeAppearance = top
+		bar.compactScrollEdgeAppearance = top
 	}
 	
 	private func _createPipeline() {

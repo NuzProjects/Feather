@@ -41,7 +41,9 @@ public extension View {
 private struct _SoftTopEdge: ViewModifier {
 	func body(content: Content) -> some View {
 		if #available(iOS 26.0, *) {
-			content.scrollEdgeEffectStyle(.soft, for: .top)
+			content
+				.scrollEdgeEffectStyle(.soft, for: .top)
+				.toolbarBackgroundVisibility(.hidden, for: .navigationBar)
 		} else {
 			content
 		}

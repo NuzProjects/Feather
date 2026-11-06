@@ -71,7 +71,7 @@ struct SettingsView: View {
 										.foregroundStyle(.primary)
 								} icon: {
 									Image(systemName: "plus.circle")
-										.foregroundStyle(Color.accentColor)
+										.foregroundStyle(.tint)
 								}
 								Spacer()
 								Image(systemName: "chevron.right")

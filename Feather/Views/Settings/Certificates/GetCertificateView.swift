@@ -98,7 +98,7 @@ extension GetCertificateView {
 			.font(.system(size: 17, weight: .semibold))
 			.foregroundStyle(.white)
 			.frame(width: 36, height: 36)
-			.background(shape.fill(provider.official == true ? Color.black : Color.accentColor))
+			.background(shape.fill(provider.official == true ? AnyShapeStyle(Color.black) : AnyShapeStyle(TintShapeStyle())))
 
 		if let iconURL = provider.iconURL {
 			LazyImage(url: iconURL) { state in

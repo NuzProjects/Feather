@@ -1,4 +1,5 @@
-## Update 1.3.1 Beta 2
+## Update 1.3.1 Beta 3
 
-**New Features:**
-* Report on GitHub after a crash, or from Settings → Developer Logs, opens a bug report already filled in with the crash, app version and device. Nothing is sent until you submit it.
+**Bug Fixes:**
+* Get a Certificate uses your accent color, like the rest of Settings
+* No divider line at the top of pages; content blurs under the bar when you scroll
