@@ -1,5 +1,6 @@
 import SwiftUI
 import NimbleViews
+import NukeUI
 
 // MARK: - Providers
 /// Built-in provider list. `certificateProviders` in remote-config.json replaces it when present.
@@ -8,9 +9,9 @@ enum CertificateProviders {
 
 	static let builtIn: [Provider] = [
 		Provider(name: "Apple Developer Program", detail: "Your own certificate straight from Apple. $99 a year.", url: URL(string: "https://developer.apple.com/programs/enroll/")!, icon: "apple.logo", official: true),
-		Provider(name: "Signulous", detail: "Certificates registered to your device, with their own signing app.", url: URL(string: "https://www.signulous.com")!, icon: "signature", official: false),
-		Provider(name: "UDID Registrations", detail: "Registers your device on a developer account and sends you the certificate files.", url: URL(string: "https://www.udidregistrations.com")!, icon: "iphone.badge.checkmark", official: false),
-		Provider(name: "KravaSign", detail: "Device certificates you can import straight into Feather.", url: URL(string: "https://kravasign.com")!, icon: "checkmark.seal.fill", official: false)
+		Provider(name: "Signulous", detail: "Certificates registered to your device, with their own signing app.", url: URL(string: "https://www.signulous.com")!, icon: "signature", official: false, iconURL: URL(string: "https://www.signulous.com/apple-touch-icon.png")),
+		Provider(name: "UDID Registrations", detail: "Registers your device on a developer account and sends you the certificate files.", url: URL(string: "https://www.udidregistrations.com")!, icon: "iphone.badge.checkmark", official: false, iconURL: URL(string: "https://www.udidregistrations.com/apple-touch-icon.png")),
+		Provider(name: "KravaSign", detail: "Device certificates you can import straight into Feather.", url: URL(string: "https://kravasign.com")!, icon: "checkmark.seal.fill", official: false, iconURL: URL(string: "https://kravasign.com/apple-touch-icon.png"))
 	]
 
 	@MainActor
@@ -85,20 +86,42 @@ struct GetCertificateView: View {
 
 // MARK: - Extension: View
 extension GetCertificateView {
+	/// The provider's own logo when it has one, otherwise an SF Symbol tile.
+	@ViewBuilder
+	private func _icon(for provider: CertificateProviders.Provider) -> some View {
+		let shape = RoundedRectangle(cornerRadius: 9, style: .continuous)
+		let symbol = Image(systemName: provider.icon ?? "link")
+			.font(.system(size: 17, weight: .semibold))
+			.foregroundStyle(.white)
+			.frame(width: 36, height: 36)
+			.background(shape.fill(provider.official == true ? Color.black : Color.accentColor))
+
+		if let iconURL = provider.iconURL {
+			LazyImage(url: iconURL) { state in
+				if let image = state.image {
+					image
+						.resizable()
+						.scaledToFill()
+						.frame(width: 36, height: 36)
+						.clipShape(shape)
+						.overlay(shape.strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
+				} else {
+					symbol
+				}
+			}
+			.frame(width: 36, height: 36)
+		} else {
+			symbol
+		}
+	}
+
 	@ViewBuilder
 	private func _row(_ provider: CertificateProviders.Provider) -> some View {
 		Button {
 			UIApplication.open(provider.url)
 		} label: {
 			HStack(spacing: 14) {
-				Image(systemName: provider.icon ?? "link")
-					.font(.system(size: 17, weight: .semibold))
-					.foregroundStyle(.white)
-					.frame(width: 36, height: 36)
-					.background(
-						RoundedRectangle(cornerRadius: 9, style: .continuous)
-							.fill(provider.official == true ? Color.black : Color.accentColor)
-					)
+				_icon(for: provider)
 				VStack(alignment: .leading, spacing: 2) {
 					Text(provider.name)
 						.foregroundStyle(.primary)

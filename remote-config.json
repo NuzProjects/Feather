@@ -13,21 +13,24 @@
       "detail": "Certificates registered to your device, with their own signing app.",
       "url": "https://www.signulous.com",
       "icon": "signature",
-      "official": false
+      "official": false,
+      "iconURL": "https://www.signulous.com/apple-touch-icon.png"
     },
     {
       "name": "UDID Registrations",
       "detail": "Registers your device on a developer account and sends you the certificate files.",
       "url": "https://www.udidregistrations.com",
       "icon": "iphone.badge.checkmark",
-      "official": false
+      "official": false,
+      "iconURL": "https://www.udidregistrations.com/apple-touch-icon.png"
     },
     {
       "name": "KravaSign",
       "detail": "Device certificates you can import straight into Feather.",
       "url": "https://kravasign.com",
       "icon": "checkmark.seal.fill",
-      "official": false
+      "official": false,
+      "iconURL": "https://kravasign.com/apple-touch-icon.png"
     }
   ],
   "featuredSources": [

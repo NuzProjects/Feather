@@ -23,6 +23,8 @@ struct RemoteConfigData: Codable, Equatable {
 		/// SF Symbol name.
 		let icon: String?
 		let official: Bool?
+		/// The provider's own logo (for example their apple-touch-icon.png). Falls back to `icon`.
+		var iconURL: URL? = nil
 		var id: String { url.absoluteString }
 	}
 

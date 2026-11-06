@@ -17,7 +17,8 @@ enum WhatsNew {
     static let fixes: [Item] = [
         Item(icon: "arrow.down.circle", title: "Download and Install", detail: "Updating without a certificate opens Get a Certificate instead of doing nothing."),
         Item(icon: "xmark.circle", title: "Reset", detail: "Reset confirmations no longer show stray numbers. Network Cache still shows its size."),
-        Item(icon: "plus.circle", title: "Get a Certificate", detail: "A new icon, and third-party sellers are listed as Unofficial Providers.")
+        Item(icon: "plus.circle", title: "Get a Certificate", detail: "A new icon, and third-party sellers are listed as Unofficial Providers with their own logos."),
+        Item(icon: "flask", title: "Beta Updates", detail: "Turning on Receive Beta Updates asks you to confirm first.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

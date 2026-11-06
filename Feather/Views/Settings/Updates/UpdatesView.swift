@@ -5,6 +5,7 @@ struct UpdatesView: View {
     @ObservedObject private var updater = FeatherUpdater.shared
     @State private var alert: String?
     @State private var showWhatsNew = false
+    @State private var confirmingBetas = false
 
     var body: some View {
         NBList("Updates") {
@@ -27,8 +28,20 @@ struct UpdatesView: View {
             }
 
             Section {
-                Toggle(isOn: $updater.receiveBetas) {
+                Toggle(isOn: Binding(
+                    get: { updater.receiveBetas },
+                    set: { on in
+                        // Turning betas on asks first; turning them off doesn't.
+                        if on { confirmingBetas = true } else { updater.receiveBetas = false }
+                    }
+                )) {
                     Label("Receive Beta Updates", systemImage: "flask")
+                }
+                .alert("Receive Beta Updates?", isPresented: $confirmingBetas) {
+                    Button("Turn On") { updater.receiveBetas = true }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("Betas get new features first but may have bugs or crash. You can turn this off at any time, and Feather will wait for the next full release.")
                 }
                 Button {
                     updater.install()
