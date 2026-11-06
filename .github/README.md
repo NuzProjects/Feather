@@ -57,7 +57,7 @@ Visit [releases](https://github.com/NuzProjects/Feather/releases) and get the la
 
 ## Translating
 
-Feather now supports translation; all localizations are in `Feather/Resources/Localizable.xcstrings`.
+Feather now supports translation; all localizations are in `Feather/Resources/Localizable.xcstrings`
 
 To add a new language, open Xcode and use the interface to add/contribute to languages.
 
