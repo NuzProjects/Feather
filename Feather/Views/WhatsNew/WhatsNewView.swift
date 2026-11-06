@@ -10,7 +10,7 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
-        Item(icon: "livephoto", title: "Live Activities", detail: "Signing, downloads and updates show their progress on the Lock Screen and in the Dynamic Island.")
+        Item(icon: "square.grid.2x2", title: "Home Screen Widgets", detail: "A Certificate widget with days left and status, and a Library widget with your recently signed apps. Both come in small and medium and use your accent color.")
     ]
 
     static let fixes: [Item] = []

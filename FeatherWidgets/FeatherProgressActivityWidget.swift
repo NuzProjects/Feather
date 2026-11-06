@@ -8,7 +8,7 @@ struct FeatherProgressActivityWidget: Widget {
 			LockScreenProgressView(state: context.state)
 		} dynamicIsland: { context in
 			let state = context.state
-			let tint = Color(activityHex: state.tint)
+			let tint = Color(widgetHex: state.tint)
 			return DynamicIsland {
 				DynamicIslandExpandedRegion(.leading) {
 					ProgressSymbol(state: state, tint: tint)
@@ -66,7 +66,7 @@ private struct LockScreenProgressView: View {
 	let state: FeatherProgressAttributes.ContentState
 
 	var body: some View {
-		let tint = Color(activityHex: state.tint)
+		let tint = Color(widgetHex: state.tint)
 		VStack(alignment: .leading, spacing: 12) {
 			HStack(spacing: 12) {
 				ZStack {
@@ -142,21 +142,4 @@ private struct ProgressRing: View {
 
 private extension FeatherProgressAttributes.ContentState {
 	var percentText: String { "\(Int((min(1, max(0, fraction)) * 100).rounded()))%" }
-}
-
-private extension Color {
-	init(activityHex hex: String) {
-		let cleaned = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-		var value: UInt64 = 0
-		Scanner(string: cleaned).scanHexInt64(&value)
-		let r, g, b: Double
-		if cleaned.count == 6 {
-			r = Double((value >> 16) & 0xFF) / 255
-			g = Double((value >> 8) & 0xFF) / 255
-			b = Double(value & 0xFF) / 255
-		} else {
-			r = 0.518; g = 0.557; b = 0.976
-		}
-		self.init(red: r, green: g, blue: b)
-	}
 }

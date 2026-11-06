@@ -1,4 +1,4 @@
-## Update 1.3.1 Beta 4
+## Update 1.3.1 Beta 5
 
 **New Features:**
-* Live Activities: signing, downloads and updates show their progress on the Lock Screen and in the Dynamic Island
+* Home Screen widgets: a Certificate widget with days left and status, and a Library widget with your recently signed apps, each in small and medium, using your accent color

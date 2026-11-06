@@ -2,8 +2,10 @@ import SwiftUI
 import WidgetKit
 
 @main
-struct FeatherLiveActivityBundle: WidgetBundle {
+struct FeatherWidgetsBundle: WidgetBundle {
 	var body: some Widget {
+		CertificateWidget()
+		LibraryWidget()
 		FeatherProgressActivityWidget()
 	}
 }

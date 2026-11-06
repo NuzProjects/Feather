@@ -42,6 +42,9 @@ struct FeatherApp: App {
 			.task { await GitHubReleases.shared.check(); GitHubReleases.schedule() }
 			.task { await RemoteConfig.shared.refresh(force: true) }
 			.onChange(of: scenePhase) { phase in
+				if phase == .background {
+					WidgetDataWriter.shared.refresh()
+				}
 				if phase == .active {
 					Task { await GitHubReleases.shared.check(); GitHubReleases.schedule() }
 					Task { await RemoteConfig.shared.refresh() }
@@ -56,6 +59,7 @@ struct FeatherApp: App {
 				UIApplication.topViewController()?.view.window?.tintAdjustmentMode = .normal
 				_offerCrashLogsIfNeeded()
 				LiveProgressActivity.shared.start()
+				WidgetDataWriter.shared.start()
 			}
 		}
 	}
