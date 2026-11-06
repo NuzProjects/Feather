@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIApplication {
-	/// This belongs to https://stackoverflow.com/a/30858591
 	/// The key window's root view controller, falling back to any foreground scene's window
 	/// (`keyWindow` is nil during scene changes and while the app is in the background).
 	public static var _rootViewController: UIViewController? {
@@ -16,10 +15,11 @@ extension UIApplication {
 		let windows = UIApplication.shared.connectedScenes
 			.compactMap { $0 as? UIWindowScene }
 			.sorted { ($0.activationState == .foregroundActive ? 0 : 1) < ($1.activationState == .foregroundActive ? 0 : 1) }
-			.flatMap(\.windows)
-		return (windows.first(where: \.isKeyWindow) ?? windows.first)?.rootViewController
+			.flatMap { $0.windows }
+		return (windows.first(where: { $0.isKeyWindow }) ?? windows.first)?.rootViewController
 	}
 
+	/// This belongs to https://stackoverflow.com/a/30858591
 	public class func topViewController(controller: UIViewController? = UIApplication._rootViewController) -> UIViewController? {
 		if let navigationController = controller as? UINavigationController {
 			return topViewController(controller: navigationController.visibleViewController)

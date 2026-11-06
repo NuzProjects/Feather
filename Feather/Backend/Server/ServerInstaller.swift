@@ -24,6 +24,8 @@ class ServerInstaller: Identifiable, ObservableObject {
 	var app: AppInfoPresentable
 	@ObservedObject var viewModel: InstallerStatusViewModel
 	private var _server: Application?
+	/// Set when no port could be used, so the install can stop with this error instead of opening a dead server.
+	private(set) var startError: Error?
 
 	/// Starts the local install server. If a port is taken (for example by a server that is still shutting down),
 	/// it tries a few other ports, and reports a failed install instead of crashing if none work.
@@ -46,7 +48,7 @@ class ServerInstaller: Identifiable, ObservableObject {
 			}
 		}
 		DevLog.shared.error(lastError, while: "Starting the install server", category: "Install")
-		_updateStatus(.broken(lastError))
+		startError = lastError
 	}
 	
 	enum ServerStartError: LocalizedError {

@@ -35,15 +35,16 @@ class AR: NSObject {
 		while offset < data.endIndex {
 			// Some archives pad the end with a newline; stop when there isn't room for another header.
 			guard data.endIndex - offset >= 60 else { break }
-			let file = try _getFileInfo(data, offset)
-			files.append(file)
-			offset += 60 + file.size
-			if file.size % 2 == 1 { offset += 1 }
+			let (file, size) = try _getFileInfo(data, offset)
+			if let file { files.append(file) }
+			offset += 60 + size
+			if size % 2 == 1 { offset += 1 }
 		}
 		return files
 	}
 
-	private func _getFileInfo(_ data: Data, _ offset: Int) throws -> ARFileModel {
+	/// Returns the member at `offset` and its size. Special members (GNU symbol and long-name tables) come back as nil.
+	private func _getFileInfo(_ data: Data, _ offset: Int) throws -> (ARFileModel?, Int) {
 		func field(_ start: Int, _ length: Int) -> String {
 			let bytes = data.subdata(in: (offset + start)..<(offset + start + length))
 			return String(decoding: bytes, as: UTF8.self).trimmingCharacters(in: .whitespaces)
@@ -56,15 +57,17 @@ class AR: NSObject {
 			throw ARError.badArchive("Truncated archive")
 		}
 
-		// GNU ar ends names with "/". Keep only a plain file name so nothing is written outside the work folder.
+		// GNU ar ends names with "/" and uses "/" and "//" for its own tables, which aren't files.
 		var name = field(0, 16)
+		if name == "/" || name == "//" || name.hasPrefix("/SYM64/") { return (nil, size) }
 		if name.hasSuffix("/") { name.removeLast() }
+		// Keep only a plain file name so nothing is written outside the work folder.
 		name = (name as NSString).lastPathComponent
-		guard !name.isEmpty, name != ".", name != ".." else {
+		guard !name.isEmpty, name != ".", name != "..", name != "/" else {
 			throw ARError.badArchive("Invalid name")
 		}
 
-		return ARFileModel(
+		return (ARFileModel(
 			name: name,
 			modificationDate: Date(timeIntervalSince1970: Double(field(16, 12)) ?? 0),
 			ownerId: Int(field(28, 6)) ?? 0,
@@ -72,7 +75,7 @@ class AR: NSObject {
 			mode: Int(field(40, 8), radix: 8) ?? 0o644,
 			size: size,
 			content: data.subdata(in: (offset + 60)..<(offset + 60 + size))
-		)
+		), size)
 	}
 }
 

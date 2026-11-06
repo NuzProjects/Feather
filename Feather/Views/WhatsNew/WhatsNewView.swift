@@ -15,6 +15,7 @@ enum WhatsNew {
 
     static let fixes: [Item] = [
         Item(icon: "exclamationmark.shield", title: "Fewer Crashes", detail: "Fixed crashes when installing or exporting apps without a version, signing apps with a broken Info.plist, reading some .deb tweaks, and showing alerts in the background."),
+        Item(icon: "battery.75percent", title: "Installs Use Less Battery", detail: "Install progress is checked a few times a second instead of a thousand."),
         Item(icon: "arrow.down.circle", title: "Downloads", detail: "Failed downloads now tell you why, broken links are caught, and downloads keep going in the background on iOS 26."),
         Item(icon: "checkmark.seal", title: "Certificates", detail: "Importing a certificate shows an error instead of closing silently when something is wrong."),
         Item(icon: "globe.desk", title: "Sources", detail: "Featured sources all show up, Import tells you when the clipboard is empty, and a source that can't load says so instead of spinning."),

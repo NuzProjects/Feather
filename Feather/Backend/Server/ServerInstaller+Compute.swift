@@ -46,7 +46,7 @@ extension ServerInstaller {
 	var externalServerLink: String {
 		// Encode each value on its own so names like "Tom & Jerry" don't break the query.
 		var allowed = CharacterSet.urlQueryAllowed
-		allowed.remove(charactersIn: "&=+#?/")
+		allowed.remove(charactersIn: "&=+#?")
 		func encode(_ value: String) -> String { value.addingPercentEncoding(withAllowedCharacters: allowed) ?? "" }
 		let baseUrl = "https://api.palera.in/genPlist?bundleid=\(encode(_bundleID))&name=\(encode(_title))&version=\(encode(_bundleVersion))&fetchurl=\(encode(payloadEndpoint.absoluteString))"
 		return baseUrl.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? baseUrl

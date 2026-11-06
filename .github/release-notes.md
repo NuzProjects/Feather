@@ -7,7 +7,8 @@
 * Fixed a crash when installing or exporting apps that have no version or name
 * Fixed a crash when signing an app with a missing or broken Info.plist
 * Fixed crashes when reading some .deb tweaks, and .deb files from more tools are read correctly
-* Fixed a possible crash when the install server's port was busy
+* Fixed a possible crash when the install server's port was busy, and installs now stop with a clear error if the server can't start
+* Install progress no longer checks 1,000 times a second, saving battery during installs
 * Fixed crashes from alerts or the share sheet appearing while Feather is in the background
 * Failed downloads now show why, and server error pages are no longer imported as apps
 * Downloads keep going in the background on iOS 26 again

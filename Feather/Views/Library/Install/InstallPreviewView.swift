@@ -180,7 +180,8 @@ struct InstallPreviewView: View {
 							}
 							return
 						}
-						await MainActor.run {
+						try await MainActor.run {
+							if let startError = installer.startError { throw startError }
 							installer.packageUrl = packageUrl
 							viewModel.status = .ready
 						}
@@ -222,7 +223,7 @@ struct InstallPreviewView: View {
 				await MainActor.run {
 					UIAlertController.showAlertWithOk(
 						title: .localized("Install"),
-						message: String(describing: error),
+						message: (error as? LocalizedError)?.errorDescription ?? String(describing: error),
 						action: {
 							HeartbeatManager.shared.start(true)
 							_close()
@@ -266,7 +267,7 @@ struct InstallPreviewView: View {
 					break
 				}
 
-				try? await Task.sleep(nanoseconds: 1_000_000) // 1 ms
+				try? await Task.sleep(nanoseconds: 250_000_000) // 0.25 s; polling every 1 ms drained the battery and flooded the logs
 			}
 		}
 	}
