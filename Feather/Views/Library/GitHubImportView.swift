@@ -1,4 +1,5 @@
 import SwiftUI
+import NimbleViews
 import UserNotifications
 struct GitHubImportView: View {
     @Environment(\.dismiss) private var dismiss
@@ -34,6 +35,7 @@ struct GitHubImportView: View {
                 }
             }
             .navigationTitle("Import from GitHub")
+            .nbSoftTopEdge()
             .task { if !input.isEmpty { await load() } }
             .alert("Add to Sources?", isPresented: $offerSource) {
                 Button("Add to Sources") { if let repository { GitHubSources.shared.add(repository) } }

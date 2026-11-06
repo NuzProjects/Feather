@@ -54,7 +54,7 @@ struct GetCertificateView: View {
 					}
 				}
 
-				NBSection("Providers") {
+				NBSection("Unofficial Providers") {
 					ForEach(_providers.filter { $0.official != true }) { _row($0) }
 				} footer: {
 					Text("These are independent sellers, not part of Feather. Check their prices and refund policy before you buy.")

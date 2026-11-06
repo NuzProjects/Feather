@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AltSourceKit
+import NimbleViews
 
 // MARK: - VersionHistoryView
 struct VersionHistoryView: View {
@@ -59,5 +60,6 @@ struct VersionHistoryView: View {
 			}
 			.padding(.top, 8)
 		}
+		.nbSoftTopEdge()
 	}
 }

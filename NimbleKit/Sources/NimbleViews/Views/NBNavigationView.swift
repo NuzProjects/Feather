@@ -27,8 +27,15 @@ public struct NBNavigationView<Content>: View where Content: View {
 			_content
 				.navigationTitle(_title)
 				.navigationBarTitleDisplayMode(_mode)
-				.modifier(_SoftTopEdge())
+				.nbSoftTopEdge()
 		}
+	}
+}
+
+public extension View {
+	/// Blurs content as it scrolls under the navigation bar, like the Settings app (iOS 26+).
+	func nbSoftTopEdge() -> some View {
+		modifier(_SoftTopEdge())
 	}
 }
 

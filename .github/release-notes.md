@@ -1,9 +1,11 @@
-## Update 1.2.5
+## Update 1.2.6 Beta 1
 
 **New Features:**
-* Receive Beta Updates switch in Settings → Updates
-* Feather can show announcements, and its certificate providers, featured sources and install server can be updated without a new version
+* Pages blur content as it scrolls under the top bar, like the Settings app
+* Version history and What's New show Markdown: bold, links and bullet points
 
 **Bug Fixes:**
-* Get a Certificate in Settings now looks like the other rows and only shows when you have no certificates
-* If the selected certificate was deleted, Feather selects your newest one instead of showing no certificate
+* Download and Install opens Get a Certificate when no certificate is selected, instead of doing nothing
+* Download and Install works before Feather has finished checking for updates
+* Reset confirmations no longer show counts (Network Cache still shows its size)
+* Get a Certificate has its own icon, and third-party sellers are listed as Unofficial Providers

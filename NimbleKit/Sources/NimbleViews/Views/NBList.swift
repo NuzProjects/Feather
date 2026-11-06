@@ -45,5 +45,6 @@ public struct NBList<Content>: View where Content: View {
 		}
 		.navigationTitle(_title)
 		.navigationBarTitleDisplayMode(_mode)
+		.nbSoftTopEdge()
 	}
 }

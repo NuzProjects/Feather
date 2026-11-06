@@ -86,8 +86,7 @@ extension ResetView {
 		Section {
 			Button(.localized("Reset Sources"), systemImage: "xmark.circle") {
 				Self.resetAlert(
-					title: .localized("Reset Sources"),
-					message: Storage.shared.countContent(for: AltSource.self)
+					title: .localized("Reset Sources")
 				) {
 					Self.resetSources()
 				}
@@ -95,8 +94,7 @@ extension ResetView {
 			
 			Button(.localized("Reset Signed Apps"), systemImage: "xmark.circle") {
 				Self.resetAlert(
-					title: .localized("Reset Signed Apps"),
-					message: Storage.shared.countContent(for: Signed.self)
+					title: .localized("Reset Signed Apps")
 				) {
 					Self.deleteSignedApps()
 				}
@@ -104,8 +102,7 @@ extension ResetView {
 			
 			Button(.localized("Reset Imported Apps"), systemImage: "xmark.circle") {
 				Self.resetAlert(
-					title: .localized("Reset Imported Apps"),
-					message: Storage.shared.countContent(for: Imported.self)
+					title: .localized("Reset Imported Apps")
 				) {
 					Self.deleteImportedApps()
 				}
@@ -113,8 +110,7 @@ extension ResetView {
 			
 			Button(.localized("Reset Certificates"), systemImage: "xmark.circle") {
 				Self.resetAlert(
-					title: .localized("Reset Certificates"),
-					message: Storage.shared.countContent(for: CertificatePair.self)
+					title: .localized("Reset Certificates")
 				) {
 					Self.resetCertificates()
 				}

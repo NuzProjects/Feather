@@ -10,13 +10,14 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
-        Item(icon: "flask", title: "Beta Updates", detail: "Turn on Receive Beta Updates in Settings → Updates to get new features before everyone else."),
-        Item(icon: "megaphone", title: "Announcements", detail: "Feather can show important news, like certificate revokes, without needing an update.")
+        Item(icon: "square.stack.3d.down.forward", title: "Softer Scrolling", detail: "Every page blurs content as it scrolls under the top bar, like the Settings app."),
+        Item(icon: "text.badge.star", title: "Formatted Release Notes", detail: "Version history and What's New show bold text, links and bullet points.")
     ]
 
     static let fixes: [Item] = [
-        Item(icon: "seal", title: "Get a Certificate", detail: "The row in Settings matches the others and only appears when you have no certificates."),
-        Item(icon: "checkmark.seal", title: "Selected Certificate", detail: "If your selected certificate was deleted, Feather picks your newest one instead of showing none.")
+        Item(icon: "arrow.down.circle", title: "Download and Install", detail: "Updating without a certificate opens Get a Certificate instead of doing nothing."),
+        Item(icon: "xmark.circle", title: "Reset", detail: "Reset confirmations no longer show stray numbers. Network Cache still shows its size."),
+        Item(icon: "plus.circle", title: "Get a Certificate", detail: "A new icon, and third-party sellers are listed as Unofficial Providers.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

@@ -25,6 +25,7 @@ struct FeatherApp: App {
 		WindowGroup {
 			VStack {
 				VariedTabbarView()
+					.modifier(_UpdateCertificateSheet())
 					.environment(\.managedObjectContext, storage.context)
 					.onOpenURL(perform: _handleURL)
 					.transition(.move(edge: .top).combined(with: .opacity))
@@ -174,6 +175,19 @@ struct FeatherApp: App {
 				
 				return
 			}
+		}
+	}
+}
+
+/// Shows Get a Certificate when an update can't install for lack of a certificate, from any screen.
+private struct _UpdateCertificateSheet: ViewModifier {
+	@ObservedObject private var updater = FeatherUpdater.shared
+
+	func body(content: Content) -> some View {
+		content.sheet(isPresented: $updater.needsCertificate) {
+			GetCertificateView()
+				.presentationDetents([.medium, .large])
+				.presentationDragIndicator(.visible)
 		}
 	}
 }

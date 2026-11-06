@@ -57,6 +57,7 @@ struct LogFileView: View {
 			.padding()
 		}
 		.navigationTitle(title)
+		.nbSoftTopEdge()
 		.navigationBarTitleDisplayMode(.inline)
 		.searchable(text: $_search, prompt: "Search log")
 		.toolbar {

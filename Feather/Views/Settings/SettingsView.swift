@@ -71,7 +71,7 @@ struct SettingsView: View {
 									Text("Get a Certificate")
 										.foregroundStyle(.primary)
 								} icon: {
-									Image(systemName: "seal")
+									Image(systemName: "plus.circle")
 										.foregroundStyle(Color.accentColor)
 								}
 								Spacer()

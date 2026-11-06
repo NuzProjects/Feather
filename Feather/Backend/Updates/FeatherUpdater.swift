@@ -16,6 +16,8 @@ final class FeatherUpdater: ObservableObject {
     @Published var installLabel: String?
     @Published var installFraction: Double = 0
     @Published var promptRelease: GitHubRelease?
+    /// Set when an update can't install because no certificate is selected; shows Get a Certificate.
+    @Published var needsCertificate = false
     @Published var openUpdatesPage = false
 
     static let receiveBetasKey = "Updates.receiveBetas"
@@ -113,10 +115,22 @@ final class FeatherUpdater: ObservableObject {
     }
 
     func install() {
-        guard !isBusy, let release = latest, let asset = release.matchingAsset(named: "Feather.ipa") else { return }
+        guard !isBusy else { return }
         let index = UserDefaults.standard.integer(forKey: "feather.selectedCert")
         guard let certificate = Storage.shared.getCertificate(for: index) else {
-            phase = .failed("Add a certificate in Settings before updating.")
+            needsCertificate = true
+            return
+        }
+        guard let release = latest else {
+            // Not checked yet: check first, then install what was found.
+            Task {
+                await check()
+                if latest != nil { install() }
+            }
+            return
+        }
+        guard let asset = release.matchingAsset(named: "Feather.ipa") else {
+            _fail("This release doesn't include Feather.ipa, so it can't be installed from here.")
             return
         }
         phase = .downloading
@@ -160,8 +174,14 @@ final class FeatherUpdater: ObservableObject {
                 phase = .idle
             } catch {
                 DevLog.shared.error(error, while: "Installing Feather update", category: "Updates")
-                phase = .failed(error.localizedDescription)
+                _fail(error.localizedDescription)
             }
         }
+    }
+
+    /// Reports a failure even when it's the same message as last time, so the alert always appears.
+    private func _fail(_ message: String) {
+        if case .failed(let previous) = phase, previous == message { phase = .idle }
+        Task { @MainActor in self.phase = .failed(message) }
     }
 }

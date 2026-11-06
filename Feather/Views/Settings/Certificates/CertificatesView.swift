@@ -43,6 +43,7 @@ struct CertificatesView: View {
 			}
 		}
 		.navigationTitle(.localized("Certificates"))
+		.nbSoftTopEdge()
 		.overlay {
 			if _certificates.isEmpty {
 				if #available(iOS 17, *) {

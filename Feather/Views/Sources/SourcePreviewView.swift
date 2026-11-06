@@ -69,6 +69,7 @@ struct SourcePreviewView: View {
 			}
 		}
 		.navigationTitle(repository.name ?? .localized("Source"))
+		.nbSoftTopEdge()
 		.navigationBarTitleDisplayMode(.inline)
 		.searchable(text: $_search, prompt: "Search apps")
 		.onAppear {
