@@ -210,6 +210,49 @@ final class DevLog: NSObject, @unchecked Sendable {
 		didCrashLastLaunch = true
 	}
 
+	// MARK: GitHub issue
+
+	func githubIssueURL() -> URL? {
+		var title = "[Bug] Feather crashed"
+		var crashText = "No crash report was recorded."
+		if let latest = crashes.first, let text = try? String(contentsOf: latest, encoding: .utf8) {
+			if latest.pathExtension == "json" {
+				title = "[Bug] Crash (iOS diagnostic report)"
+				crashText = String(text.prefix(1400))
+			} else {
+				let lines = text.components(separatedBy: "\n")
+				if let start = lines.firstIndex(where: { $0.contains(CrashTrap.marker) }) {
+					let reason = lines[start]
+						.replacingOccurrences(of: CrashTrap.marker + ": ", with: "")
+						.replacingOccurrences(of: " ***", with: "")
+					title = "[Bug] Crash: \(reason)"
+					crashText = lines[start...].prefix(45).joined(separator: "\n")
+				}
+				if crashText.count > 1400 { crashText = String(crashText.prefix(1400)) + "\n…" }
+			}
+		}
+		let body = """
+		**What were you doing when Feather crashed?**
+
+
+		**Crash**
+		```
+		\(crashText)
+		```
+
+		**Device**
+		```
+		\(Self.deviceSummary.trimmingCharacters(in: .whitespacesAndNewlines))
+		```
+
+		If you can, also attach the file from Settings → Developer Logs → Export Logs.
+		"""
+		var allowed = CharacterSet.urlQueryAllowed
+		allowed.remove(charactersIn: "&=+#?")
+		func encode(_ value: String) -> String { value.addingPercentEncoding(withAllowedCharacters: allowed) ?? "" }
+		return URL(string: "https://github.com/NuzProjects/Feather/issues/new?template=bug.yml&title=\(encode(title))&text=\(encode(body))")
+	}
+
 	// MARK: Device
 
 	static let deviceSummary: String = {

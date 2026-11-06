@@ -64,8 +64,11 @@ struct FeatherApp: App {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 			UIAlertController.showAlertWithCancel(
 				title: .localized("Feather Closed Unexpectedly"),
-				message: .localized("A crash report was saved. You can share the logs now, or find them later in Settings → Developer Logs."),
+				message: .localized("A crash report was saved. You can report it on GitHub, share the logs, or find them later in Settings → Developer Logs."),
 				actions: [
+					UIAlertAction(title: .localized("Report on GitHub"), style: .default) { _ in
+						if let url = DevLog.shared.githubIssueURL() { UIApplication.shared.open(url) }
+					},
 					UIAlertAction(title: .localized("Share Logs"), style: .default) { _ in
 						Task {
 							guard let url = await DevLog.shared.exportBundle() else { return }

@@ -21,6 +21,9 @@ struct DeveloperLogsView: View {
 				Button("Save to Files", systemImage: "arrow.down.doc") {
 					_export { _saveFile = _ExportFile(url: $0) }
 				}
+				Button("Report on GitHub", systemImage: "exclamationmark.bubble") {
+					if let url = _log.githubIssueURL() { UIApplication.open(url) }
+				}
 			} footer: {
 				Text("Exports one text file with your device and app version, crash reports, and logs from the last 10 launches. Attach it when you report a bug. Logs stay on this device until you export them.")
 			}

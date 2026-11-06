@@ -1,4 +1,4 @@
-## Update 1.3.1 Beta 1
+## Update 1.3.1 Beta 2
 
 **New Features:**
-* Get a Certificate, Developer Logs, Certificate Overview, Updates, beta updates, Source Preview and the new alerts and error messages are translated into Arabic, Chinese (Simplified), Czech, French, German, Indonesian, Italian, Korean, Polish, Russian, Spanish, Turkish and Vietnamese
+* Report on GitHub after a crash, or from Settings → Developer Logs, opens a bug report already filled in with the crash, app version and device. Nothing is sent until you submit it.

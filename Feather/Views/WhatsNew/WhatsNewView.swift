@@ -10,7 +10,7 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
-        Item(icon: "globe", title: "Translations", detail: "Get a Certificate, Developer Logs, Certificate Overview, Updates, beta updates and the new alerts are translated into 13 languages.")
+        Item(icon: "exclamationmark.bubble", title: "Report Crashes on GitHub", detail: "After a crash, or from Settings → Developer Logs, open a GitHub issue that's already filled in with the crash details. You see everything before you submit.")
     ]
 
     static let fixes: [Item] = []

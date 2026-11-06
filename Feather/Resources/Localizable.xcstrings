@@ -1490,6 +1490,95 @@
         }
       }
     },
+    "A crash report was saved. You can report it on GitHub, share the logs, or find them later in Settings → Developer Logs." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A crash report was saved. You can report it on GitHub, share the logs, or find them later in Settings → Developer Logs."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم حفظ تقرير العطل. يمكنك الإبلاغ عنه على GitHub أو مشاركة السجلات أو العثور عليها لاحقًا في الإعدادات ← سجلات المطور."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zpráva o pádu byla uložena. Můžete ji nahlásit na GitHubu, sdílet protokoly, nebo je najít později v Nastavení → Vývojářské protokoly."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Absturzbericht wurde gespeichert. Du kannst ihn auf GitHub melden, die Protokolle teilen oder sie später unter Einstellungen → Entwicklerprotokolle finden."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se guardó un informe de fallo. Puedes informar en GitHub, compartir los registros o encontrarlos más tarde en Ajustes → Registros de desarrollador."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un rapport de plantage a été enregistré. Vous pouvez le signaler sur GitHub, partager les journaux ou les retrouver plus tard dans Réglages → Journaux développeur."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laporan crash telah disimpan. Kamu bisa melaporkannya di GitHub, membagikan log, atau menemukannya nanti di Pengaturan → Log Pengembang."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "È stato salvato un report di arresto anomalo. Puoi segnalarlo su GitHub, condividere i log o trovarli più tardi in Impostazioni → Log sviluppatore."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "충돌 보고서가 저장되었습니다. GitHub에 신고하거나 로그를 공유하거나 나중에 설정 → 개발자 로그에서 찾을 수 있습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapisano raport awarii. Możesz zgłosić go na GitHubie, udostępnić dzienniki albo znaleźć je później w Ustawienia → Dzienniki dewelopera."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отчёт о сбое сохранён. Можно сообщить о нём на GitHub, поделиться журналами или найти их позже в «Настройки → Журналы разработчика»."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir çökme raporu kaydedildi. GitHub'da bildirebilir, kayıtları paylaşabilir veya daha sonra Ayarlar → Geliştirici Kayıtları'nda bulabilirsin."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã lưu báo cáo sự cố. Bạn có thể báo cáo trên GitHub, chia sẻ nhật ký hoặc tìm lại sau trong Cài đặt → Nhật ký nhà phát triển."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已保存崩溃报告。你可以在 GitHub 上报告、共享日志，或稍后在“设置 → 开发者日志”中找到。"
+          }
+        }
+      }
+    },
     "A crash report was saved. You can share the logs now, or find them later in Settings → Developer Logs." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -10030,6 +10119,95 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "报告问题"
+          }
+        }
+      }
+    },
+    "Report on GitHub" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report on GitHub"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإبلاغ على GitHub"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nahlásit na GitHubu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf GitHub melden"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informar en GitHub"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signaler sur GitHub"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laporkan di GitHub"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segnala su GitHub"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub에 신고"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zgłoś na GitHubie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сообщить на GitHub"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub'da Bildir"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Báo cáo trên GitHub"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 GitHub 上报告"
           }
         }
       }
