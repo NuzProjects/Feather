@@ -74,6 +74,8 @@ jobs:
             ~/Library/Caches/org.swift.swiftpm
           key: feather-xcode26.3-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
           restore-keys: feather-xcode26.3-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+      - name: Drop cached modules built against an older SDK
+        run: rm -rf "$RUNNER_TEMP/Feather/ModuleCache.noindex" "$RUNNER_TEMP/Feather/SDKStatCaches.noindex" "$RUNNER_TEMP/Feather/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules"
       - name: Test update and navigation rules
         run: |
           if [ -f Package.swift ]; then swift test; fi
