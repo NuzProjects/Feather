@@ -27,10 +27,10 @@
     {
       "name": "KravaSign",
       "detail": "Device certificates you can import straight into Feather.",
-      "url": "https://kravasign.com",
+      "url": "https://www.kravasign.com",
       "icon": "checkmark.seal.fill",
       "official": false,
-      "iconURL": "https://kravasign.com/apple-touch-icon.png"
+      "iconURL": "https://www.kravasign.com/images/logo.png"
     }
   ],
   "featuredSources": [

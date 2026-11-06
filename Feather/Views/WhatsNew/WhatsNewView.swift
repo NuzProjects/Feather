@@ -18,7 +18,8 @@ enum WhatsNew {
         Item(icon: "arrow.down.circle", title: "Download and Install", detail: "Updating without a certificate opens Get a Certificate instead of doing nothing."),
         Item(icon: "xmark.circle", title: "Reset", detail: "Reset confirmations no longer show stray numbers. Network Cache still shows its size."),
         Item(icon: "plus.circle", title: "Get a Certificate", detail: "A new icon, and third-party sellers are listed as Unofficial Providers with their own logos."),
-        Item(icon: "flask", title: "Beta Updates", detail: "Turning on Receive Beta Updates asks you to confirm first.")
+        Item(icon: "flask", title: "Beta Updates", detail: "Turning on Receive Beta Updates asks you to confirm first, and the version and notes change smoothly when you switch."),
+        Item(icon: "arrow.counterclockwise", title: "Reset", detail: "Resetting sources, apps, certificates or caches happens right away without restarting. Resetting settings closes Feather cleanly so it opens normally next time.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

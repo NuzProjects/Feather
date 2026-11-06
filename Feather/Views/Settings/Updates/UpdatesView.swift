@@ -12,20 +12,32 @@ struct UpdatesView: View {
             Section {
                 LabeledContent("Current Version", value: updater.currentVersion)
                 if let latest = updater.latest {
-                    LabeledContent("Latest Release", value: FeatherUpdater.displayName(latest))
+                    LabeledContent("Latest Release") {
+                        Text(FeatherUpdater.displayName(latest))
+                            .contentTransition(.numericText())
+                    }
                     if let date = latest.published_at.flatMap(ISO8601DateFormatter().date(from:)) {
-                        LabeledContent("Published", value: date.formatted(date: .abbreviated, time: .shortened))
+                        LabeledContent("Published") {
+                            Text(date.formatted(date: .abbreviated, time: .shortened))
+                                .contentTransition(.numericText())
+                        }
                     }
                 }
             }
+            // Switching between beta and full releases changes these; animate instead of jumping.
+            .animation(.smooth(duration: 0.35), value: updater.latest?.id)
 
             NBSection("What's New") {
                 if let notes = updater.releaseNotes {
                     Text(LocalizedStringKey(notes))
                         .font(.subheadline)
+                        .contentTransition(.opacity)
+                        .id(updater.latest?.id)
+                        .transition(.opacity)
                 }
                 Button("What's New in This Version", systemImage: "sparkles") { showWhatsNew = true }
             }
+            .animation(.smooth(duration: 0.35), value: updater.latest?.id)
 
             Section {
                 Toggle(isOn: Binding(
@@ -48,6 +60,8 @@ struct UpdatesView: View {
                 } label: {
                     HStack {
                         Label(_installTitle, systemImage: "arrow.down.circle")
+                            .contentTransition(.numericText())
+                            .animation(.smooth(duration: 0.35), value: _installTitle)
                         Spacer()
                         if updater.phase == .downloading || updater.phase == .signing { ProgressView() }
                     }

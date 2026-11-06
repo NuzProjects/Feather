@@ -11,7 +11,7 @@ enum CertificateProviders {
 		Provider(name: "Apple Developer Program", detail: "Your own certificate straight from Apple. $99 a year.", url: URL(string: "https://developer.apple.com/programs/enroll/")!, icon: "apple.logo", official: true),
 		Provider(name: "Signulous", detail: "Certificates registered to your device, with their own signing app.", url: URL(string: "https://www.signulous.com")!, icon: "signature", official: false, iconURL: URL(string: "https://www.signulous.com/apple-touch-icon.png")),
 		Provider(name: "UDID Registrations", detail: "Registers your device on a developer account and sends you the certificate files.", url: URL(string: "https://www.udidregistrations.com")!, icon: "iphone.badge.checkmark", official: false, iconURL: URL(string: "https://www.udidregistrations.com/apple-touch-icon.png")),
-		Provider(name: "KravaSign", detail: "Device certificates you can import straight into Feather.", url: URL(string: "https://kravasign.com")!, icon: "checkmark.seal.fill", official: false, iconURL: URL(string: "https://kravasign.com/apple-touch-icon.png"))
+		Provider(name: "KravaSign", detail: "Device certificates you can import straight into Feather.", url: URL(string: "https://www.kravasign.com")!, icon: "checkmark.seal.fill", official: false, iconURL: URL(string: "https://www.kravasign.com/images/logo.png"))
 	]
 
 	@MainActor

@@ -29,9 +29,12 @@ struct ResetView: View {
 		return "\(ByteCountFormatter.string(fromByteCount: Int64(totalCacheSize), countStyle: .file))"
 	}
 	
+	/// - Parameter restart: Only resets that clear settings need a restart. Feather closes so the next launch is
+	///   a fresh copy; reopening itself would just resume the copy that's about to quit, which then looks like a crash.
 	static func resetAlert(
 		title: String,
 		message: String = "",
+		restart: Bool = false,
 		action: @escaping () -> Void
 	) {
 		let action = UIAlertAction(
@@ -39,7 +42,11 @@ struct ResetView: View {
 			style: .destructive
 		) { _ in
 			action()
-			UIApplication.shared.suspendAndReopen()
+			if restart {
+				UIApplication.shared.suspend()
+			} else {
+				UINotificationFeedbackGenerator().notificationOccurred(.success)
+			}
 		}
 		
 		let style: UIAlertController.Style = UIDevice.current.userInterfaceIdiom == .pad
@@ -49,6 +56,7 @@ struct ResetView: View {
 		var msg = ""
 		if !message.isEmpty { msg = message + "\n" }
 		msg.append(.localized("This action cannot be undone. Would you like to proceed?"))
+		if restart { msg.append("\n\nFeather will close to finish. Open it again from the Home Screen.") }
 	
 		UIAlertController.showAlertWithCancel(
 			title: title,
@@ -122,13 +130,13 @@ extension ResetView {
 	private func _all() -> some View {
 		Section {
 			Button(.localized("Reset Settings"), systemImage: "xmark.octagon") {
-				Self.resetAlert(title: .localized("Reset Settings")) {
+				Self.resetAlert(title: .localized("Reset Settings"), restart: true) {
 					Self.resetUserDefaults()
 				}
 			}
 			
 			Button(.localized("Reset All"), systemImage: "xmark.octagon") {
-				Self.resetAlert(title: .localized("Reset All")) {
+				Self.resetAlert(title: .localized("Reset All"), restart: true) {
 					Self.resetAll()
 				}
 			}
@@ -183,6 +191,8 @@ extension ResetView {
 		if !resetAll { UserDefaults.standard.set(0, forKey: "feather.selectedCert") }
 		Storage.shared.clearContext(request: CertificatePair.fetchRequest())
 		try? FileManager.default.removeFileIfNeeded(at: FileManager.default.certificates)
+		// Without a restart, cancel expiry reminders for the certificates that were just removed.
+		Task { @MainActor in CertificateExpiry.refresh() }
 	}
 	
 	static func resetUserDefaults() {
