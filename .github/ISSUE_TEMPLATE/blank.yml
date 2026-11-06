@@ -1,5 +1,5 @@
 name: Create Blank Issue
-description: Blank issue report for Feather. Use this for anything other than a bug or feature request.
+description: Blank issue report for Feather. Use this for anything other than a bug.
 
 body:
   - type: markdown
