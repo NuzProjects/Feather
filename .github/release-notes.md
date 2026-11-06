@@ -1,6 +1,7 @@
-## Update 1.2.3
+## Update 1.2.4
 
 **New Features:**
+* Get a Certificate in Settings when you don't have one, with official and third-party providers and a shortcut to import
 * Tapping an app in a source opens its page on iOS 16
 
 **Bug Fixes:**

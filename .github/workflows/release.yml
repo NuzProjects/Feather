@@ -1,9 +1,7 @@
 name: Release
 
+# Manual only: releases are published by Build IPA, so tags no longer start a second Mac build.
 on:
-  push:
-    tags:
-      - v*
   workflow_dispatch:
 
 jobs:

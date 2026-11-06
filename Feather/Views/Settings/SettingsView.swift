@@ -15,6 +15,7 @@ import IDeviceSwift
 struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
 	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
+	@State private var _isGetCertificatePresenting = false
 	@ObservedObject private var _updater = FeatherUpdater.shared
 	// MARK: Fetch
 	@FetchRequest(
@@ -61,9 +62,29 @@ struct SettingsView: View {
 							CertificatesCellView(cert: cert)
 						}
 					} else {
-						Text(.localized("No Certificate"))
-							.font(.footnote)
-							.foregroundColor(.disabled())
+						Button {
+							_isGetCertificatePresenting = true
+						} label: {
+							HStack(spacing: 14) {
+								Image("Cert")
+									.resizable()
+									.scaledToFit()
+									.frame(width: 44, height: 44)
+								VStack(alignment: .leading, spacing: 2) {
+									Text("Get a Certificate")
+										.font(.headline)
+										.foregroundStyle(Color.accentColor)
+									Text("You need one to sign and install apps.")
+										.font(.footnote)
+										.foregroundStyle(.secondary)
+								}
+								Spacer()
+								Image(systemName: "chevron.up")
+									.font(.footnote.weight(.semibold))
+									.foregroundStyle(.secondary)
+							}
+							.padding(.vertical, 4)
+						}
 					}
 					NavigationLink(destination: CertificatesView()) {
 						Label(.localized("Certificates"), systemImage: "checkmark.seal")
@@ -118,6 +139,11 @@ struct SettingsView: View {
 			.onAppear { CertificateExpiry.refresh() }
 			.onChange(of: _storedSelectedCert) { _ in CertificateExpiry.refresh() }
 			.navigationDestination(isPresented: $_updater.openUpdatesPage) { UpdatesView() }
+			.sheet(isPresented: $_isGetCertificatePresenting) {
+				GetCertificateView()
+					.presentationDetents([.medium, .large])
+					.presentationDragIndicator(.visible)
+			}
 		}
 	}
 }

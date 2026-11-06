@@ -1,9 +1,7 @@
 name: Build IPA
 
+# Runs only when started by hand (Actions tab or API), so each release costs one Mac run.
 on:
-  push:
-    branches: [main]
-    paths: ['Feather/**', 'Feather.xcodeproj/**', 'Feather.xcconfig', 'Package.swift', 'Tests/**', 'patches/**', 'NimbleKit/**', '.github/workflows/build-ipa.yml']
   workflow_dispatch:
     inputs:
       runner:
@@ -168,6 +166,37 @@ jobs:
           case "$LABEL" in *[Bb]eta*) PRERELEASE="--prerelease" ;; esac
           gh release create "$TAG" packages/Feather.ipa --target "$GITHUB_SHA" \
             --title "Update $LABEL" --notes-file .github/release-notes.md $PRERELEASE
+          echo "TAG=$TAG" >> "$GITHUB_ENV"
+          echo "LABEL=$LABEL" >> "$GITHUB_ENV"
+      - name: Add the release to the AltStore source
+        if: inputs.publish_release == true && !contains(env.LABEL, 'Beta')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          VERSION="$(sed -n 's/^FEATHER_PROJECT_VERSION=//p' Feather.xcconfig)"
+          DATE="$(gh release view "$TAG" --json publishedAt --jq .publishedAt)"
+          SIZE="$(stat -f%z packages/Feather.ipa)"
+          URL="https://github.com/${{ github.repository }}/releases/download/$TAG/Feather.ipa"
+          git fetch origin main
+          git checkout -B source-update origin/main
+          python3 - "$VERSION" "$DATE" "$SIZE" "$URL" <<'PY'
+          import json, sys
+          version, date, size, url = sys.argv[1], sys.argv[2], int(sys.argv[3]), sys.argv[4]
+          with open("source.json") as f:
+              data = json.load(f)
+          versions = [v for v in data["apps"][0]["versions"] if v["version"] != version]
+          versions.insert(0, {"version": version, "date": date, "size": size, "downloadURL": url})
+          data["apps"][0]["versions"] = versions
+          with open("source.json", "w") as f:
+              f.write(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add source.json
+          git diff --cached --quiet && exit 0
+          git commit -m "AltStore source lists Feather $VERSION"
+          git push origin HEAD:main
       - uses: actions/cache/save@v4
         if: always() && steps.dependencies.outputs.cache-hit != 'true'
         with:

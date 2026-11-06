@@ -10,6 +10,7 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
+        Item(icon: "checkmark.seal", title: "Get a Certificate", detail: "No certificate yet? Tap Get a Certificate in Settings to see where to get one, or import the one you have."),
         Item(icon: "square.grid.2x2", title: "Source Apps on iOS 16", detail: "Tapping an app in a source opens its page on iOS 16 too.")
     ]
 
