@@ -9,17 +9,12 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = [
-        Item(icon: "square.stack.3d.down.forward", title: "Softer Scrolling", detail: "Every page blurs content as it scrolls under the top bar, like the Settings app."),
-        Item(icon: "text.badge.star", title: "Formatted Release Notes", detail: "Version history and What's New show bold text, links and bullet points.")
-    ]
+    // Only this update's changes. Replace (don't add to) these lists for every new version.
+    static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "arrow.down.circle", title: "Download and Install", detail: "Updating without a certificate opens Get a Certificate instead of doing nothing."),
-        Item(icon: "xmark.circle", title: "Reset", detail: "Reset confirmations no longer show stray numbers. Network Cache still shows its size."),
-        Item(icon: "plus.circle", title: "Get a Certificate", detail: "A new icon, and third-party sellers are listed as Unofficial Providers with their own logos."),
-        Item(icon: "flask", title: "Beta Updates", detail: "Turning on Receive Beta Updates asks you to confirm first, and the version and notes change smoothly when you switch."),
-        Item(icon: "arrow.counterclockwise", title: "Reset", detail: "Resetting sources, apps, certificates or caches happens right away without restarting. Resetting settings closes Feather cleanly so it opens normally next time.")
+        Item(icon: "checkmark.seal", title: "Get a Certificate", detail: "Importing a certificate from Get a Certificate closes the sheet when you're done."),
+        Item(icon: "sparkles", title: "What's New", detail: "Each update now lists only its own changes.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

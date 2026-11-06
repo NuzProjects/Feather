@@ -26,6 +26,7 @@ struct GetCertificateView: View {
 	@Environment(\.dismiss) private var dismiss
 	@ObservedObject private var _remote = RemoteConfig.shared
 	@State private var _isImportPresenting = false
+	@State private var _certificateCountBeforeImport = 0
 
 	private var _providers: [CertificateProviders.Provider] { CertificateProviders.current }
 
@@ -63,6 +64,7 @@ struct GetCertificateView: View {
 
 				Section {
 					Button {
+						_certificateCountBeforeImport = Storage.shared.getAllCertificates().count
 						_isImportPresenting = true
 					} label: {
 						Label("Import Certificate", systemImage: "square.and.arrow.down")
@@ -76,7 +78,12 @@ struct GetCertificateView: View {
 			.toolbar {
 				NBToolbarButton(role: .close)
 			}
-			.sheet(isPresented: $_isImportPresenting) {
+			.sheet(isPresented: $_isImportPresenting, onDismiss: {
+				// A certificate was added: there's nothing left to get, so close this sheet too.
+				if Storage.shared.getAllCertificates().count > _certificateCountBeforeImport {
+					dismiss()
+				}
+			}) {
 				CertificatesAddView()
 					.presentationDetents([.medium])
 			}
