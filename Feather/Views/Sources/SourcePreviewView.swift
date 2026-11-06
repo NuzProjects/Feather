@@ -55,7 +55,7 @@ struct SourcePreviewView: View {
 
 			NBSection(.localized("Apps"), secondary: "\(repository.apps.count)") {
 				if _apps.isEmpty {
-					Text(repository.apps.isEmpty ? "This source has no apps." : "No matching apps.")
+					Text(LocalizedStringKey(repository.apps.isEmpty ? "This source has no apps." : "No matching apps."))
 						.foregroundStyle(.secondary)
 				}
 				ForEach(_apps, id: \.currentUniqueId) { app in
@@ -113,10 +113,10 @@ extension SourcePreviewView {
 
 	private func _pills() -> some View {
 		var pills: [NBPillItem] = [
-			NBPillItem(title: repository.apps.count == 1 ? "1 app" : "\(repository.apps.count) apps", icon: "app.badge", color: .accentColor)
+			NBPillItem(title: repository.apps.count == 1 ? .localized("1 app") : .localized("%lld apps", arguments: repository.apps.count), icon: "app.badge", color: .accentColor)
 		]
 		if let news = repository.news, !news.isEmpty {
-			pills.append(NBPillItem(title: news.count == 1 ? "1 news post" : "\(news.count) news posts", icon: "newspaper", color: .secondary))
+			pills.append(NBPillItem(title: news.count == 1 ? .localized("1 news post") : .localized("%lld news posts", arguments: news.count), icon: "newspaper", color: .secondary))
 		}
 		if let website = repository.website?.host {
 			pills.append(NBPillItem(title: website, icon: "safari", color: .secondary))

@@ -132,7 +132,7 @@ final class FeatherUpdater: ObservableObject {
             return
         }
         guard let asset = release.matchingAsset(named: "Feather.ipa") else {
-            _fail("This release doesn't include Feather.ipa, so it can't be installed from here.")
+            _fail(.localized("This release doesn't include Feather.ipa, so it can't be installed from here."))
             return
         }
         phase = .downloading

@@ -138,7 +138,7 @@ private enum ImportedFileHandlerError: LocalizedError {
 
 	var errorDescription: String? {
 		switch self {
-		case .payloadNotFound: "This file doesn't contain an app. Make sure it's an .ipa or .tipa file, or try downloading it again."
+		case .payloadNotFound: .localized("This file doesn't contain an app. Make sure it's an .ipa or .tipa file, or try downloading it again.")
 		}
 	}
 }

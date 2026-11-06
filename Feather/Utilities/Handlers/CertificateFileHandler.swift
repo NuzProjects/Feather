@@ -78,7 +78,7 @@ private enum CertificateFileHandlerError: LocalizedError {
 
 	var errorDescription: String? {
 		switch self {
-		case .certNotValid: "This provisioning profile couldn't be read. Make sure you picked the .mobileprovision that goes with this certificate."
+		case .certNotValid: .localized("This provisioning profile couldn't be read. Make sure you picked the .mobileprovision that goes with this certificate.")
 		}
 	}
 }

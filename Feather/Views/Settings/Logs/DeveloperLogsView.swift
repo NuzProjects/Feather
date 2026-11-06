@@ -13,7 +13,7 @@ struct DeveloperLogsView: View {
 
 	// MARK: Body
 	var body: some View {
-		NBList("Developer Logs") {
+		NBList(.localized("Developer Logs")) {
 			Section {
 				Button("Export Logs", systemImage: "square.and.arrow.up") {
 					_export { UIActivityViewController.show(activityItems: [$0]) }
@@ -25,7 +25,7 @@ struct DeveloperLogsView: View {
 				Text("Exports one text file with your device and app version, crash reports, and logs from the last 10 launches. Attach it when you report a bug. Logs stay on this device until you export them.")
 			}
 
-			NBSection("Crashes", secondary: _crashes.isEmpty ? nil : "\(_crashes.count)") {
+			NBSection(.localized("Crashes"), secondary: _crashes.isEmpty ? nil : "\(_crashes.count)") {
 				if _crashes.isEmpty {
 					Label("No crashes recorded", systemImage: "checkmark.seal")
 						.foregroundStyle(.secondary)
@@ -40,14 +40,14 @@ struct DeveloperLogsView: View {
 				Text("Includes crashes caught by Feather and diagnostic reports from iOS, which can arrive up to a day later.")
 			}
 
-			NBSection("Sessions") {
+			NBSection(.localized("Sessions")) {
 				ForEach(Array(_sessions.enumerated()), id: \.element) { index, url in
 					NavigationLink(destination: LogFileView(url: url, title: _title(for: url), systemLog: _log.systemLog(for: url))) {
 						_row(
 							for: url,
 							icon: index == 0 ? "record.circle" : "doc.text",
 							tint: index == 0 ? .accentColor : .secondary,
-							subtitle: index == 0 ? "Current session · \(_size(url))" : _size(url)
+							subtitle: index == 0 ? String.localized("Current session · %@", arguments: _size(url)) : _size(url)
 						)
 					}
 				}
@@ -110,7 +110,7 @@ extension DeveloperLogsView {
 			await MainActor.run {
 				_isExporting = false
 				if let url { handler(url) } else {
-					UIAlertController.showAlertWithOk(title: .localized("Error"), message: "Couldn't create the log file.")
+					UIAlertController.showAlertWithOk(title: .localized("Error"), message: .localized("Couldn't create the log file."))
 				}
 			}
 		}
@@ -131,9 +131,9 @@ extension DeveloperLogsView {
 	}
 
 	private func _crashReason(_ url: URL) -> String {
-		if url.pathExtension == "json" { return "iOS diagnostic report" }
-		guard let text = try? String(contentsOf: url, encoding: .utf8) else { return "Crash" }
-		let line = text.components(separatedBy: "\n").first { $0.contains(CrashTrap.marker) } ?? "Crash"
+		if url.pathExtension == "json" { return .localized("iOS diagnostic report") }
+		guard let text = try? String(contentsOf: url, encoding: .utf8) else { return .localized("Crash") }
+		let line = text.components(separatedBy: "\n").first { $0.contains(CrashTrap.marker) } ?? .localized("Crash")
 		return line
 			.replacingOccurrences(of: CrashTrap.marker + ": ", with: "")
 			.replacingOccurrences(of: " ***", with: "")

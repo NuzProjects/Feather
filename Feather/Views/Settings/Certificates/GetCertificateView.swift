@@ -31,7 +31,7 @@ struct GetCertificateView: View {
 
 	// MARK: Body
 	var body: some View {
-		NBNavigationView("Get a Certificate", displayMode: .inline) {
+		NBNavigationView(.localized("Get a Certificate"), displayMode: .inline) {
 			Form {
 				Section {
 					VStack(spacing: 10) {
@@ -50,12 +50,12 @@ struct GetCertificateView: View {
 				.listRowBackground(Color.clear)
 
 				if _providers.contains(where: { $0.official == true }) {
-					NBSection("Official") {
+					NBSection(.localized("Official")) {
 						ForEach(_providers.filter { $0.official == true }) { _row($0) }
 					}
 				}
 
-				NBSection("Unofficial Providers") {
+				NBSection(.localized("Unofficial Providers")) {
 					ForEach(_providers.filter { $0.official != true }) { _row($0) }
 				} footer: {
 					Text("These are independent sellers, not part of Feather. Check their prices and refund policy before you buy.")

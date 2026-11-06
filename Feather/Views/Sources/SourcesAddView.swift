@@ -175,7 +175,7 @@ struct SourcesAddView: View {
 			_isImporting = false
 			UIAlertController.showAlertWithOk(
 				title: .localized("Import"),
-				message: "No sources were found on the clipboard. Copy the sources exported from KravaSign, MapleSign or ESign, then tap Import again."
+				message: .localized("No sources were found on the clipboard. Copy the sources exported from KravaSign, MapleSign or ESign, then tap Import again.")
 			)
 			return
 		}

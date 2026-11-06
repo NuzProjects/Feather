@@ -8,7 +8,7 @@ struct UpdatesView: View {
     @State private var confirmingBetas = false
 
     var body: some View {
-        NBList("Updates") {
+        NBList(.localized("Updates")) {
             Section {
                 LabeledContent("Current Version", value: updater.currentVersion)
                 if let latest = updater.latest {
@@ -26,7 +26,7 @@ struct UpdatesView: View {
             }
             .animation(.smooth(duration: 0.35), value: updater.latest?.id)
 
-            NBSection("What's New") {
+            NBSection(.localized("What's New")) {
                 if let notes = updater.releaseNotes {
                     Text(LocalizedStringKey(notes))
                         .font(.subheadline)
@@ -69,7 +69,7 @@ struct UpdatesView: View {
                     guard !updater.isBusy else { return }
                     Task {
                         await updater.check()
-                        if updater.phase == .idle { alert = updater.updateAvailable ? "A new version of Feather is available." : "Feather is up to date." }
+                        if updater.phase == .idle { alert = updater.updateAvailable ? .localized("A new version of Feather is available.") : .localized("Feather is up to date.") }
                     }
                 } label: {
                     HStack {
@@ -100,10 +100,10 @@ struct UpdatesView: View {
     }
 
     private var _installTitle: String {
-        if updater.updateAvailable { return "Download and Install Update" }
+        if updater.updateAvailable { return .localized("Download and Install Update") }
         if let latest = updater.latest, FeatherUpdater.displayName(latest) != updater.currentVersion {
-            return "Install \(FeatherUpdater.displayName(latest))"
+            return .localized("Install %@", arguments: FeatherUpdater.displayName(latest))
         }
-        return "Reinstall Latest Release"
+        return .localized("Reinstall Latest Release")
     }
 }

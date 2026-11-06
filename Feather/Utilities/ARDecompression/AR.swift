@@ -78,7 +78,7 @@ enum ARError: LocalizedError {
 
 	var errorDescription: String? {
 		switch self {
-		case .badArchive(let reason): return "This .deb file couldn't be read (\(reason))."
+		case .badArchive(let reason): return .localized("This .deb file couldn't be read (%@).", arguments: reason)
 		}
 	}
 }

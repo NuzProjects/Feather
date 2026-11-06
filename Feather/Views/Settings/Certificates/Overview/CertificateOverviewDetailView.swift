@@ -78,19 +78,19 @@ extension CertificateOverviewDetailView {
 
 	@ViewBuilder
 	private func _validitySection(_ data: Certificate) -> some View {
-		NBSection("Validity") {
-			_info("Created", data.CreationDate.formatted(date: .abbreviated, time: .shortened))
-			_info("Expires", data.ExpirationDate.formatted(date: .abbreviated, time: .shortened))
-			_info("Valid For", "\(max(Int(data.ExpirationDate.timeIntervalSince(data.CreationDate) / 86400), 0)) days")
+		NBSection(.localized("Validity")) {
+			_info(.localized("Created"), data.CreationDate.formatted(date: .abbreviated, time: .shortened))
+			_info(.localized("Expires"), data.ExpirationDate.formatted(date: .abbreviated, time: .shortened))
+			_info(.localized("Valid For"), .localized("%lld days", arguments: max(Int(data.ExpirationDate.timeIntervalSince(data.CreationDate) / 86400), 0)))
 			LabeledContent("Time Left") {
 				Text(data.ExpirationDate.expirationInfo().formatted)
 					.foregroundStyle(data.ExpirationDate.expirationInfo().color)
 					.bold()
 			}
-			_info("Profile Type", data.profileType)
-			_info("Revoked", cert.revoked ? "Yes" : "No")
+			_info(.localized("Profile Type"), data.profileType)
+			_info(.localized("Revoked"), cert.revoked ? .localized("Yes") : .localized("No"))
 			if let ppq = data.PPQCheck {
-				_info("PPQCheck", ppq ? "Yes" : "No")
+				_info(.localized("PPQCheck"), ppq ? .localized("Yes") : .localized("No"))
 			}
 		} footer: {
 			Text("Feather notifies you 3 days and 1 day before the certificate in use expires, and checks for revocation in the background.")
@@ -100,7 +100,7 @@ extension CertificateOverviewDetailView {
 	@ViewBuilder
 	private func _capabilitiesSection(_ data: Certificate) -> some View {
 		let capabilities = data.capabilities
-		NBSection("Capabilities", secondary: capabilities.isEmpty ? nil : "\(capabilities.count)") {
+		NBSection(.localized("Capabilities"), secondary: capabilities.isEmpty ? nil : "\(capabilities.count)") {
 			if capabilities.isEmpty {
 				Text("No special capabilities.")
 					.foregroundStyle(.secondary)
@@ -134,7 +134,7 @@ extension CertificateOverviewDetailView {
 
 	@ViewBuilder
 	private func _devicesSection(_ data: Certificate) -> some View {
-		NBSection("Devices") {
+		NBSection(.localized("Devices")) {
 			if data.ProvisionsAllDevices == true {
 				Label("Installs on any device", systemImage: "infinity")
 			} else if let devices = data.ProvisionedDevices, !devices.isEmpty {
@@ -160,7 +160,7 @@ extension CertificateOverviewDetailView {
 	@ViewBuilder
 	private func _appsSection() -> some View {
 		let apps = cert.signedAppsList
-		NBSection("Signed Apps", secondary: apps.isEmpty ? nil : "\(apps.count)") {
+		NBSection(.localized("Signed Apps"), secondary: apps.isEmpty ? nil : "\(apps.count)") {
 			if apps.isEmpty {
 				Text("No apps signed with this certificate yet.")
 					.foregroundStyle(.secondary)
@@ -221,7 +221,7 @@ extension CertificateOverviewDetailView {
 	private func _checkRevocation() {
 		guard !_isCheckingRevocation else { return }
 		_isCheckingRevocation = true
-		let name = cert.nickname ?? _data?.Name ?? "This certificate"
+		let name = cert.nickname ?? _data?.Name ?? .localized("This certificate")
 		let provision = Storage.shared.getFile(.provision, from: cert)?.path ?? ""
 		let p12 = Storage.shared.getFile(.certificate, from: cert)?.path ?? ""
 		let password = cert.password ?? ""
@@ -233,16 +233,16 @@ extension CertificateOverviewDetailView {
 					case 0:
 						if cert.revoked { cert.revoked = false; Storage.shared.saveContext() }
 						UINotificationFeedbackGenerator().notificationOccurred(.success)
-						_revocationAlert = ("Not Revoked", "\(name) is valid and hasn't been revoked.")
+						_revocationAlert = (.localized("Not Revoked"), .localized("%@ is valid and hasn't been revoked.", arguments: name))
 					case 1:
 						cert.revoked = true
 						Storage.shared.saveContext()
 						UINotificationFeedbackGenerator().notificationOccurred(.error)
-						_revocationAlert = ("Revoked", "Apple revoked \(name). Apps signed with it won't open anymore, so add a new certificate.")
+						_revocationAlert = (.localized("Revoked"), .localized("Apple revoked %@. Apps signed with it won't open anymore, so add a new certificate.", arguments: name))
 					default:
 						UINotificationFeedbackGenerator().notificationOccurred(.warning)
 						DevLog.shared.log(.error, "Revocation check failed: \(error ?? "unknown error")", category: "Certificates")
-						_revocationAlert = ("Couldn't Check", error ?? "Try again in a moment.")
+						_revocationAlert = (.localized("Couldn't Check"), error ?? .localized("Try again in a moment."))
 					}
 				}
 			}

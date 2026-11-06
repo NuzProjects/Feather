@@ -207,7 +207,7 @@ enum FR {
 		let trimmed = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
 		guard let url = URL(string: trimmed), url.scheme != nil else {
 			DispatchQueue.main.async {
-				UIAlertController.showAlertWithOk(title: .localized("Error"), message: "That isn't a valid source URL. Check it starts with https:// and try again.")
+				UIAlertController.showAlertWithOk(title: .localized("Error"), message: .localized("That isn't a valid source URL. Check it starts with https:// and try again."))
 			}
 			return
 		}

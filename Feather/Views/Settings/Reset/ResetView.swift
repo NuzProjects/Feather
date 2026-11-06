@@ -54,7 +54,7 @@ struct ResetView: View {
 		var msg = ""
 		if !message.isEmpty { msg = message + "\n" }
 		msg.append(.localized("This action cannot be undone. Would you like to proceed?"))
-		if restart { msg.append("\n\nFeather will close to finish. Open it again from the Home Screen.") }
+		if restart { msg.append("\n\n" + String.localized("Feather will close to finish. Open it again from the Home Screen.")) }
 	
 		UIAlertController.showAlertWithCancel(
 			title: title,

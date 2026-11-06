@@ -42,7 +42,7 @@ struct SettingsView: View {
 			Form {
 				Section {
 					NavigationLink(destination: UpdatesView()) {
-						Label("Updates", systemImage: "arrow.down.app")
+						Label(.localized("Updates"), systemImage: "arrow.down.app")
 					}				}
 
 				Section {
@@ -52,7 +52,7 @@ struct SettingsView: View {
 					NavigationLink(destination: AppIconView(currentIcon: $_currentIcon)) {
 						Label(.localized("App Icon"), systemImage: "app.badge")
 					}
-					NavigationLink(destination: NavigatorView()) { Label("Navigator", systemImage: "dock.rectangle") }
+					NavigationLink(destination: NavigatorView()) { Label(.localized("Navigator"), systemImage: "dock.rectangle") }
 				}
                 
 				NBSection(.localized("Certificates")) {
@@ -99,7 +99,7 @@ struct SettingsView: View {
 						Label(.localized("Installation"), systemImage: "arrow.down.circle")
 					}
 					NavigationLink(destination: DataTransferView()) {
-						Label("Backup & Transfer", systemImage: "externaldrive")
+						Label(.localized("Backup & Transfer"), systemImage: "externaldrive")
 					}
 				} footer: {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
@@ -107,7 +107,7 @@ struct SettingsView: View {
                 
 				_directories()
 
-				NBSection("GitHub") {
+				NBSection(.localized("GitHub")) {
 					Button { UIApplication.open("https://github.com/NuzProjects/Feather") } label: {
 						Label { Text("Star on GitHub") } icon: { Image("GitHubMark").renderingMode(.template) }
 					}
@@ -169,7 +169,7 @@ extension SettingsView {
 				Label("Developer Logs", systemImage: "ladybug")
 			}
 		} footer: {
-			Text(String.localized("All of the apps files are contained in the documents directory, here are some quick links to these.") + " Developer Logs has crash reports and errors you can export for bug reports.")
+			Text(String.localized("All of the apps files are contained in the documents directory, here are some quick links to these.") + " " + String.localized("Developer Logs has crash reports and errors you can export for bug reports."))
 		}
 	}
 }

@@ -29,7 +29,7 @@ struct LogFileView: View {
 			LazyVStack(alignment: .leading, spacing: 2) {
 				if systemLog != nil {
 					Picker("Source", selection: $_source) {
-						ForEach(Source.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+						ForEach(Source.allCases, id: \.self) { Text(LocalizedStringKey($0.rawValue)).tag($0) }
 					}
 					.pickerStyle(.segmented)
 					.padding(.bottom, 8)
@@ -41,7 +41,7 @@ struct LogFileView: View {
 						.padding(.bottom, 6)
 				}
 				if _visible.isEmpty {
-					Text(_lines.isEmpty ? "This log is empty." : "No matching lines.")
+					Text(LocalizedStringKey(_lines.isEmpty ? "This log is empty." : "No matching lines."))
 						.foregroundStyle(.secondary)
 						.frame(maxWidth: .infinity)
 						.padding(.top, 40)

@@ -211,7 +211,7 @@ extension DownloadManager: URLSessionDownloadDelegate {
 		_updateBackgroundAudioState()
 		#endif
 		UINotificationFeedbackGenerator().notificationOccurred(.error)
-		UIAlertController.showAlertWithOk(title: "Download Failed", message: message)
+		UIAlertController.showAlertWithOk(title: .localized("Download Failed"), message: message)
 	}
 	
 	func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
@@ -219,7 +219,7 @@ extension DownloadManager: URLSessionDownloadDelegate {
 		
 		if let http = downloadTask.response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
 			DevLog.shared.log(.error, "Downloading \(download.fileName) failed: HTTP \(http.statusCode)", category: "Downloads")
-			_fail(download, message: "The server returned an error (HTTP \(http.statusCode)) for \(download.fileName). The link may be broken or expired.")
+			_fail(download, message: .localized("The server returned an error (HTTP %lld) for %@. The link may be broken or expired.", arguments: http.statusCode, download.fileName))
 			return
 		}
 		
