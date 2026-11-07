@@ -64,7 +64,7 @@ struct InstallPreviewView: View {
 						}
 					} else if _serverMethod == 1 {
 						if inBackground {
-							_presentSafari()
+							_openExternalInstallLink()
 						} else {
 							_isWebviewPresenting = true
 						}
@@ -134,9 +134,31 @@ struct InstallPreviewView: View {
 		if let onClose { onClose() } else { dismiss() }
 	}
 
+	// The Semi Local page only forwards to this link, so updates open it directly and
+	// fall back to the page if iOS refuses or doesn't start the install.
+	private func _openExternalInstallLink() {
+		let link = installer.iTunesLinkExternal
+		guard let url = URL(string: link) else { return _presentSafari() }
+		UIApplication.shared.open(url) { opened in
+			DevLog.shared.log(opened ? .info : .error, "Semi Local install link \(opened ? "opened" : "failed to open")", category: "Install")
+			if !opened { _presentSafari() }
+		}
+		DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+			guard case .ready = viewModel.status else { return }
+			DevLog.shared.log(.warning, "iOS didn't start the Semi Local install, showing the install page", category: "Install")
+			_presentSafari()
+		}
+	}
+
 	private func _presentSafari(attempt: Int = 0) {
 		guard _safari == nil, case .ready = viewModel.status else { return }
-		guard let top = UIApplication.topViewController(), !(top is UIAlertController), !top.isBeingPresented, !top.isBeingDismissed else {
+		var candidate = UIApplication.shared.connectedScenes
+			.compactMap { $0 as? UIWindowScene }
+			.flatMap(\.windows)
+			.first(where: \.isKeyWindow)?
+			.rootViewController
+		while let presented = candidate?.presentedViewController, !presented.isBeingDismissed { candidate = presented }
+		guard let top = candidate, !(top is UIAlertController), !top.isBeingPresented, !top.isBeingDismissed else {
 			if attempt < 40 {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { _presentSafari(attempt: attempt + 1) }
 			}
