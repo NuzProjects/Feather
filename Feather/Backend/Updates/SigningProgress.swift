@@ -193,7 +193,7 @@ struct ProgressPanelSurface<Content: View>: View {
 	var body: some View {
 		let shape = RoundedRectangle(cornerRadius: cornerRadius)
 		if #available(iOS 26, *) {
-			content().glassEffect(.clear.tint(Color(uiColor: .systemBackground).opacity(0.25)), in: shape)
+			content().glassEffect(.regular, in: shape)
 		} else {
 			content()
 				.background(.ultraThinMaterial, in: shape)

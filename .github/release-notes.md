@@ -1,4 +1,4 @@
-## Update 1.3.4 Beta 5
+## Update 1.3.4 Beta 6
 
 **Bug Fixes:**
-* Internal clean-up for stability, with no visible changes
+* The signing, download and update panels above the tab bar use the same glass as the tab bar

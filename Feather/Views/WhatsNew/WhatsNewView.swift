@@ -12,10 +12,9 @@ enum WhatsNew {
 	static let features: [Item] = []
 
 	static let fixes: [Item] = [
+		Item(icon: "square.stack", title: "Progress Panels", detail: "Use the same glass as the tab bar."),
 		Item(icon: "checkmark.seal", title: "Certificate Names", detail: "Certificates show their team name and team ID instead of a long device ID."),
-		Item(icon: "arrow.down.app", title: "Updates Page", detail: "Release notes only show when there's a newer version, so What's New isn't repeated."),
-		Item(icon: "square.stack", title: "Progress Panels", detail: "Use the same lighter glass as the tab bar."),
-		Item(icon: "arrow.clockwise", title: "Updates and Widgets", detail: "The Semi Local install page waits for any alert to close during updates, and widgets keep updating after a restart before the first unlock.")
+		Item(icon: "arrow.down.app", title: "Updates Page", detail: "Release notes only show when there's a newer version, so What's New isn't repeated.")
 	]
 
 	private static let seenKey = "WhatsNew.seenVersion"
