@@ -46,7 +46,7 @@ final class GitHubReleases: ObservableObject {
         request.timeoutInterval = 30
         request.setValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
         request.setValue("MadeByNuz-Feather", forHTTPHeaderField: "User-Agent")
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await GitHubRetry.perform { try await URLSession.shared.data(for: request) }
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
         return try JSONDecoder().decode([GitHubRelease].self, from: data).filter { !$0.draft && !$0.ipaAssets.isEmpty }
     }
@@ -117,7 +117,7 @@ final class GitHubReleases: ObservableObject {
         let lease = UpdateBackgroundLease()
         defer { lease.end() }
         let delegate = GitHubDownloadProgress(id: progressID)
-        let (temporary, response) = try await URLSession.shared.download(for: URLRequest(url: selection.asset.browser_download_url), delegate: delegate)
+        let (temporary, response) = try await GitHubRetry.perform { try await URLSession.shared.download(for: URLRequest(url: selection.asset.browser_download_url), delegate: delegate) }
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)

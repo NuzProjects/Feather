@@ -23,6 +23,7 @@ enum ReleaseError: LocalizedError {
         case .invalidRepository: return "Enter a public GitHub repository URL or owner/repository."
         case .noIPA: return "No IPA release assets were found."
         case .ambiguousAsset: return "Several IPA files are available. Import from GitHub again to select the correct asset."
+        case .requestFailed(let code) where (500...599).contains(code): return "GitHub is having trouble right now (HTTP \(code)). Try again in a minute."
         case .requestFailed(let code): return "GitHub returned HTTP \(code). Try again later."
         case .invalidApp: return "The IPA does not contain a valid application."
         }
@@ -73,5 +74,27 @@ struct ReplacementIdentity {
     let bundleIdentifier: String
     func apply(to info: NSMutableDictionary) {
         info["CFBundleIdentifier"] = bundleIdentifier
+    }
+}
+
+/// Retries GitHub requests that fail with a temporary server error or a dropped connection.
+enum GitHubRetry {
+    static func isTemporary(_ status: Int) -> Bool { status == 429 || (500...599).contains(status) }
+
+    static func perform<T>(attempts: Int = 3, _ request: () async throws -> (T, URLResponse)) async throws -> (T, URLResponse) {
+        var delay: UInt64 = 1_000_000_000
+        var attempt = 1
+        while true {
+            do {
+                let result = try await request()
+                let status = (result.1 as? HTTPURLResponse)?.statusCode ?? 200
+                guard attempt < attempts, isTemporary(status) else { return result }
+            } catch let error as URLError where attempt < attempts && [.timedOut, .networkConnectionLost, .cannotConnectToHost, .dnsLookupFailed, .cannotFindHost].contains(error.code) {
+                // retry below
+            }
+            try await Task.sleep(nanoseconds: delay)
+            delay *= 2
+            attempt += 1
+        }
     }
 }

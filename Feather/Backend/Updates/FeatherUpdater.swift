@@ -140,7 +140,7 @@ final class FeatherUpdater: ObservableObject {
             var importedCopy: Imported?
             defer { if let importedCopy, importedCopy.managedObjectContext != nil { Storage.shared.deleteApp(for: importedCopy) } }
             do {
-                let (temporary, response) = try await URLSession.shared.download(from: asset.browser_download_url)
+                let (temporary, response) = try await GitHubRetry.perform { try await URLSession.shared.download(from: asset.browser_download_url) }
                 guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
                 let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
                 try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
