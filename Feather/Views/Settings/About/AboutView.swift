@@ -107,9 +107,10 @@ extension AboutView {
 				FRIconCellView(
 					title: name ?? github,
 					subtitle: desc ?? "",
-					iconUrl: URL(string: "https://github.com/\(github).png")!,
+					iconUrl: URL(string: "https://avatars.githubusercontent.com/\(github)?s=135"),
 					size: 45,
-					isCircle: true
+					isCircle: true,
+					usesGitHubPlaceholder: true
 				)
 				
 				Image(systemName: "arrow.up.right")

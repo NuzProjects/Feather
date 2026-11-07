@@ -50,9 +50,6 @@ struct SettingsView: View {
 							Label(.localized("Finish Setting Up Widgets"), systemImage: "square.grid.2x2")
 						}
 					}
-					NavigationLink(destination: AppearanceView()) {
-						Label(.localized("Appearance"), systemImage: "paintbrush")
-					}
 				}
                 
 				NBSection(.localized("Certificates")) {
@@ -89,6 +86,9 @@ struct SettingsView: View {
 				}
                 
 				NBSection(.localized("Features")) {
+					NavigationLink(destination: AppearanceView()) {
+						Label(.localized("Appearance"), systemImage: "paintbrush")
+					}
 					NavigationLink(destination: ConfigurationView()) {
 						Label(.localized("Signing Options"), systemImage: "signature")
 					}

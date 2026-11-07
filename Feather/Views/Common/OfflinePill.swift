@@ -6,8 +6,6 @@ final class NetworkStatus: ObservableObject {
 	static let shared = NetworkStatus()
 
 	@Published private(set) var isOffline = false
-	@Published private(set) var hasWiFi = true
-	@Published private(set) var hasCellular = true
 
 	private let _monitor = NWPathMonitor()
 	private var _pending: Task<Void, Never>?
@@ -15,16 +13,12 @@ final class NetworkStatus: ObservableObject {
 	private init() {
 		_monitor.pathUpdateHandler = { [weak self] path in
 			let offline = path.status != .satisfied
-			let wifi = path.availableInterfaces.contains { $0.type == .wifi }
-			let cellular = path.availableInterfaces.contains { $0.type == .cellular }
-			Task { @MainActor in self?._apply(offline: offline, wifi: wifi, cellular: cellular) }
+			Task { @MainActor in self?._apply(offline: offline) }
 		}
 		_monitor.start(queue: DispatchQueue(label: "Feather.NetworkStatus"))
 	}
 
-	private func _apply(offline: Bool, wifi: Bool, cellular: Bool) {
-		hasWiFi = wifi
-		hasCellular = cellular
+	private func _apply(offline: Bool) {
 		_pending?.cancel()
 		guard offline != isOffline else { return }
 		// Wait a moment so brief drops (switching networks) don't flash the pill.
@@ -60,33 +54,17 @@ struct OfflinePill: View {
 	}
 
 	private var _pill: some View {
-		HStack(spacing: 6) {
-			Image(systemName: _status.hasWiFi ? "wifi" : "wifi.slash")
-				.foregroundStyle(_status.hasWiFi ? Color.primary : Color.secondary.opacity(0.6))
-			Image(systemName: _status.hasCellular ? "antenna.radiowaves.left.and.right" : "antenna.radiowaves.left.and.right.slash")
-				.foregroundStyle(_status.hasCellular ? Color.primary : Color.secondary.opacity(0.6))
+		HStack(spacing: 8) {
+			Image(systemName: "wifi.slash")
 			Text(.localized("Offline"))
-				.foregroundStyle(.secondary)
 		}
-		.font(.caption2.weight(.semibold))
-		.padding(.horizontal, 10)
-		.padding(.vertical, 5)
-		.modifier(_PillSurface())
-		.animation(.smooth(duration: 0.25), value: _status.hasWiFi)
-		.animation(.smooth(duration: 0.25), value: _status.hasCellular)
+		.font(.callout.weight(.semibold))
+		.foregroundStyle(.white)
+		.padding(.horizontal, 15)
+		.padding(.vertical, 8)
+		.background(Color.red, in: Capsule())
+		.shadow(color: Color.red.opacity(0.25), radius: 8, y: 3)
 		.accessibilityElement(children: .ignore)
 		.accessibilityLabel(Text(.localized("No internet connection")))
-	}
-}
-
-private struct _PillSurface: ViewModifier {
-	func body(content: Content) -> some View {
-		if #available(iOS 26, *) {
-			content.glassEffect(.regular, in: Capsule())
-		} else {
-			content
-				.background(.ultraThinMaterial, in: Capsule())
-				.overlay(Capsule().stroke(Color.primary.opacity(0.08)))
-		}
 	}
 }

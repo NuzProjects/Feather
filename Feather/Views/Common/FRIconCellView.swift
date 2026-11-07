@@ -16,6 +16,7 @@ struct FRIconCellView: View {
 	var iconUrl: URL?
 	var size: CGFloat = 56
 	var isCircle: Bool = false
+	var usesGitHubPlaceholder: Bool = false
 	
 	// MARK: Body
 	var body: some View {
@@ -40,8 +41,22 @@ struct FRIconCellView: View {
 		}
 	}
 	
+	@ViewBuilder
 	var standardIcon: some View {
-		Image("App_Unknown")
-			.appIconStyle(size: size, isCircle: isCircle)
+		if usesGitHubPlaceholder {
+			ZStack {
+				Circle().fill(Color(uiColor: .secondarySystemFill))
+				Image("GitHubMark")
+					.renderingMode(.template)
+					.resizable()
+					.scaledToFit()
+					.padding(size * 0.22)
+					.foregroundStyle(.primary)
+			}
+			.frame(width: size, height: size)
+		} else {
+			Image("App_Unknown")
+				.appIconStyle(size: size, isCircle: isCircle)
+		}
 	}
 }
