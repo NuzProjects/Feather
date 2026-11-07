@@ -34,7 +34,9 @@ extension ServerInstaller {
 		
 		app.http.server.configuration.hostname = sni()
 		app.http.server.configuration.tcpNoDelay = true
-		app.http.server.configuration.address = .hostname("0.0.0.0", port: port)
+		// Only listen on the network when Semi Local hands iOS this device's network address.
+		let loopbackOnly = getServerMethod() == 0 || getIPFix()
+		app.http.server.configuration.address = .hostname(loopbackOnly ? "127.0.0.1" : "0.0.0.0", port: port)
 		app.http.server.configuration.port = port
 		app.routes.defaultMaxBodySize = "128mb"
 		app.routes.caseInsensitive = false

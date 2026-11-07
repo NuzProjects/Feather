@@ -38,6 +38,7 @@
 - **Beta updates.** Turn on Receive Beta Updates to try new features first.
 - **Developer Logs.** Export logs and crash reports, or open a pre-filled bug report on GitHub after a crash.
 - **Offline indicator.** A small glass pill above the tab bar when you lose connection.
+- **Private installs.** Fully Local uses Feather's own auto-renewing certificate, and Semi Local uses Feather's own install helper instead of a third-party one.
 - **13 languages.** Including all of the screens above.
 
 Widgets and Live Activities need a certificate that covers all app IDs.

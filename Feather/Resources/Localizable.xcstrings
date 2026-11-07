@@ -1,6 +1,451 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Export Blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export Blocked"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم حظر التصدير"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export zablokován"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export blockiert"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportación bloqueada"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportation bloquée"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekspor Diblokir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esportazione bloccata"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내보내기 차단됨"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eksport zablokowany"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Экспорт заблокирован"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dışa Aktarma Engellendi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã chặn xuất"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已阻止导出"
+          }
+        }
+      }
+    },
+    "A link tried to send your certificate somewhere other than an app. Feather only exports certificates to other apps." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A link tried to send your certificate somewhere other than an app. Feather only exports certificates to other apps."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حاول رابط إرسال شهادتك إلى مكان غير تطبيق. يصدّر Feather الشهادات إلى التطبيقات الأخرى فقط."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odkaz se pokusil odeslat váš certifikát jinam než do aplikace. Feather exportuje certifikáty pouze do jiných aplikací."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Link wollte dein Zertifikat an etwas anderes als eine App senden. Feather exportiert Zertifikate nur an andere Apps."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un enlace intentó enviar tu certificado a algo que no es una app. Feather solo exporta certificados a otras apps."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un lien a tenté d’envoyer votre certificat ailleurs que dans une app. Feather n’exporte les certificats que vers d’autres apps."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sebuah tautan mencoba mengirim sertifikat Anda ke tempat selain aplikasi. Feather hanya mengekspor sertifikat ke aplikasi lain."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un link ha provato a inviare il tuo certificato a qualcosa che non è un’app. Feather esporta i certificati solo verso altre app."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "링크가 인증서를 앱이 아닌 곳으로 보내려고 했습니다. Feather는 다른 앱으로만 인증서를 내보냅니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link próbował wysłać Twój certyfikat gdzieś indziej niż do aplikacji. Feather eksportuje certyfikaty tylko do innych aplikacji."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ссылка попыталась отправить ваш сертификат не в приложение. Feather экспортирует сертификаты только в другие приложения."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir bağlantı sertifikanı uygulama dışında bir yere göndermeye çalıştı. Feather sertifikaları yalnızca diğer uygulamalara aktarır."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một liên kết đã cố gửi chứng chỉ của bạn tới nơi không phải ứng dụng. Feather chỉ xuất chứng chỉ sang ứng dụng khác."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有链接试图将你的证书发送到 App 以外的地方。Feather 只会将证书导出到其他 App。"
+          }
+        }
+      }
+    },
+    "An app using \"%@://\" is asking for your certificate and its password. It will be able to sign apps with your certificate. Only continue if you started this from an app you trust." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An app using \"%@://\" is asking for your certificate and its password. It will be able to sign apps with your certificate. Only continue if you started this from an app you trust."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يطلب تطبيق يستخدم \"%@://\" شهادتك وكلمة مرورها. سيتمكن من توقيع التطبيقات بشهادتك. تابع فقط إذا بدأت ذلك من تطبيق تثق به."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace používající „%@://“ žádá o váš certifikát a jeho heslo. Bude moci vaším certifikátem podepisovat aplikace. Pokračujte, jen pokud jste to spustili z aplikace, které důvěřujete."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine App mit „%@://“ fragt nach deinem Zertifikat und dessen Passwort. Sie kann damit Apps signieren. Fahre nur fort, wenn du das in einer App gestartet hast, der du vertraust."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una app que usa \"%@://\" pide tu certificado y su contraseña. Podrá firmar apps con tu certificado. Continúa solo si lo iniciaste desde una app de confianza."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une app utilisant « %@:// » demande votre certificat et son mot de passe. Elle pourra signer des apps avec votre certificat. Ne continuez que si vous l’avez lancé depuis une app de confiance."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi yang menggunakan \"%@://\" meminta sertifikat dan kata sandinya. Aplikasi itu dapat menandatangani aplikasi dengan sertifikat Anda. Lanjutkan hanya jika Anda memulainya dari aplikasi yang Anda percayai."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’app che usa \"%@://\" chiede il tuo certificato e la relativa password. Potrà firmare app con il tuo certificato. Continua solo se l’hai avviato da un’app di cui ti fidi."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@://\"를 사용하는 앱이 인증서와 암호를 요청하고 있습니다. 이 앱은 인증서로 앱에 서명할 수 있게 됩니다. 신뢰하는 앱에서 시작한 경우에만 계속하세요."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja używająca „%@://” prosi o Twój certyfikat i jego hasło. Będzie mogła podpisywać nim aplikacje. Kontynuuj tylko, jeśli zacząłeś to z zaufanej aplikacji."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приложение со схемой «%@://» запрашивает ваш сертификат и пароль к нему. Оно сможет подписывать приложения вашим сертификатом. Продолжайте, только если вы начали это из приложения, которому доверяете."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@://\" kullanan bir uygulama sertifikanı ve parolasını istiyor. Sertifikanla uygulama imzalayabilecek. Yalnızca bunu güvendiğin bir uygulamadan başlattıysan devam et."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng dùng \"%@://\" đang yêu cầu chứng chỉ và mật khẩu của bạn. Ứng dụng đó sẽ có thể ký ứng dụng bằng chứng chỉ của bạn. Chỉ tiếp tục nếu bạn bắt đầu việc này từ ứng dụng bạn tin tưởng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用“%@://”的 App 正在请求你的证书及其密码。它将能用你的证书签名 App。只有在你从信任的 App 发起此操作时才继续。"
+          }
+        }
+      }
+    },
+    "Add Certificate?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Certificate?"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إضافة شهادة؟"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přidat certifikát?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikat hinzufügen?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Añadir certificado?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter le certificat ?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambahkan Sertifikat?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungere il certificato?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증서를 추가할까요?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodać certyfikat?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить сертификат?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifika Eklensin mi?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm chứng chỉ?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加证书？"
+          }
+        }
+      }
+    },
+    "A link wants to add the certificate \"%@\" to Feather. Only add certificates you trust." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A link wants to add the certificate \"%@\" to Feather. Only add certificates you trust."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يريد رابط إضافة الشهادة \"%@\" إلى Feather. أضف فقط الشهادات التي تثق بها."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odkaz chce do Featheru přidat certifikát „%@“. Přidávejte jen certifikáty, kterým důvěřujete."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Link möchte das Zertifikat „%@“ zu Feather hinzufügen. Füge nur Zertifikate hinzu, denen du vertraust."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un enlace quiere añadir el certificado \"%@\" a Feather. Añade solo certificados de confianza."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un lien veut ajouter le certificat « %@ » à Feather. N’ajoutez que des certificats de confiance."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sebuah tautan ingin menambahkan sertifikat \"%@\" ke Feather. Tambahkan hanya sertifikat yang Anda percayai."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un link vuole aggiungere il certificato \"%@\" a Feather. Aggiungi solo certificati di cui ti fidi."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "링크가 Feather에 \"%@\" 인증서를 추가하려고 합니다. 신뢰하는 인증서만 추가하세요."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link chce dodać certyfikat „%@” do Feather. Dodawaj tylko zaufane certyfikaty."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ссылка хочет добавить сертификат «%@» в Feather. Добавляйте только сертификаты, которым доверяете."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir bağlantı Feather’a \"%@\" sertifikasını eklemek istiyor. Yalnızca güvendiğin sertifikaları ekle."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một liên kết muốn thêm chứng chỉ \"%@\" vào Feather. Chỉ thêm chứng chỉ bạn tin tưởng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有链接想将证书“%@”添加到 Feather。只添加你信任的证书。"
+          }
+        }
+      }
+    },
     "Fully Local Couldn't Install" : {
       "extractionState" : "manual",
       "localizations" : {

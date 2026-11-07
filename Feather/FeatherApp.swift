@@ -123,17 +123,27 @@ struct FeatherApp: App {
 					return
 				}
 				
-				FR.handleCertificateFiles(
-					p12URL: p12URL,
-					provisionURL: provisionURL,
-					p12Password: password
-				) { error in
-					if let error = error {
-						UIAlertController.showAlertWithOk(title: .localized("Error"), message: error.localizedDescription)
-					} else {
-						generator.notificationOccurred(.success)
-					}
-				}
+				let decoded = CertificateReader(provisionURL).decoded
+				let name = [decoded?.Name, decoded?.TeamName].compactMap { $0 }.first ?? .localized("Unknown")
+				UIAlertController.showAlertWithCancel(
+					title: .localized("Add Certificate?"),
+					message: String(format: .localized("A link wants to add the certificate \"%@\" to Feather. Only add certificates you trust."), name),
+					actions: [
+						UIAlertAction(title: .localized("Add"), style: .default) { _ in
+							FR.handleCertificateFiles(
+								p12URL: p12URL,
+								provisionURL: provisionURL,
+								p12Password: password
+							) { error in
+								if let error = error {
+									UIAlertController.showAlertWithOk(title: .localized("Error"), message: error.localizedDescription)
+								} else {
+									generator.notificationOccurred(.success)
+								}
+							}
+						}
+					]
+				)
 				
 				return
 			}

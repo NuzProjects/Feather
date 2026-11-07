@@ -262,6 +262,24 @@ enum FR {
 			UIApplication.shared.open(callbackUrl)
 		}
 		
+		// Only hand certificates to other apps, never to websites or other web-style schemes.
+		let scheme = template.split(separator: ":", maxSplits: 1).first.map { $0.lowercased() } ?? ""
+		let blockedSchemes: Set<String> = ["http", "https", "javascript", "data", "file", "ftp", "ws", "wss", "about", "blob", "itms-services", "feather", "mailto", "sms", "tel"]
+		guard
+			!scheme.isEmpty,
+			scheme.allSatisfy({ $0.isLetter || $0.isNumber || $0 == "+" || $0 == "-" || $0 == "." }),
+			!blockedSchemes.contains(scheme)
+		else {
+			DevLog.shared.log(.warning, "Blocked a certificate export to \(scheme.isEmpty ? "an invalid address" : scheme)", category: "Certificates")
+			DispatchQueue.main.async {
+				UIAlertController.showAlertWithOk(
+					title: .localized("Export Blocked"),
+					message: .localized("A link tried to send your certificate somewhere other than an app. Feather only exports certificates to other apps.")
+				)
+			}
+			return
+		}
+
 		let certificates = Storage.shared.getAllCertificates()
 		guard !certificates.isEmpty else { return }
 		
@@ -286,7 +304,7 @@ enum FR {
 			
 			UIAlertController.showAlertWithCancel(
 				title: .localized("Export Certificate"),
-				message: .localized("Do you want to export your certificate to an external app? That app will be able to sign apps using your certificate."),
+				message: String(format: .localized("An app using \"%@://\" is asking for your certificate and its password. It will be able to sign apps with your certificate. Only continue if you started this from an app you trust."), scheme),
 				style: .alert,
 				actions: selectionActions
 			)

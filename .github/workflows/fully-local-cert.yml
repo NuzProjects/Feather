@@ -97,7 +97,7 @@ jobs:
           CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           set -euo pipefail
-          pip install --quiet certbot certbot-dns-cloudflare
+          pip install --quiet certbot==5.9.0 certbot-dns-cloudflare==5.9.0
           umask 077
           printf 'dns_cloudflare_api_token = %s\n' "$CF_TOKEN" > "$RUNNER_TEMP/cloudflare.ini"
           certbot certonly --non-interactive --agree-tos --register-unsafely-without-email \

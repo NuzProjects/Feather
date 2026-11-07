@@ -49,6 +49,6 @@
     "https://mikevillarroel.github.io/mikebuilds-source/originals.json",
     "https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
   ],
-  "plistServer": "https://api.palera.in/genPlist",
+  "plistServer": "https://feather.madebynuz.dev/genPlist",
   "flags": {}
 }
