@@ -8,7 +8,6 @@
 import SwiftUI
 
 extension CGFloat {
-	/// Corner radius of an app icon as a fraction of its size, matching the system on each iOS version.
 	static var appIconCornerRatio: CGFloat {
 		if #available(iOS 26.0, *) { return 0.2677 }
 		return 0.2337

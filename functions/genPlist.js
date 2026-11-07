@@ -1,15 +1,9 @@
-// Builds the install manifest for Feather's Semi Local installs, so app details
-// stay on Feather's own site instead of a third-party plist server.
-// GET /genPlist?bundleid=&name=&version=&fetchurl=
+// Install manifest for Semi Local installs: /genPlist?bundleid=&name=&version=&fetchurl=
 
 const escapeXML = (value) =>
   String(value).replace(/[<>&'"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", "'": "&apos;", '"': "&quot;" })[c]);
 
-// Only manifests for IPAs served straight from a device by IP address (Feather's
-// local server), never from a domain name, so this can't front installs for
-// apps hosted on other websites. Carriers hand out all kinds of IPv4 addresses
-// (private, CGNAT, 192.0.0.x on IPv6-only networks, sometimes public), so any
-// IPv4 literal is accepted.
+// IP addresses only (Feather serves IPAs from the device), never domain names.
 function isLocalPayload(raw) {
   let url;
   try {

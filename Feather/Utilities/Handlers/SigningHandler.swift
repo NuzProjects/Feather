@@ -153,17 +153,17 @@ final class SigningHandler: NSObject {
 	}
 	
 	func addToDatabase() async throws {
-        let directory = try await _directory()
-        guard let appURL = _fileManager.getPath(in: directory, for: "app"), let bundle = Bundle(url: appURL) else { throw ReleaseError.invalidApp }
-        try await MainActor.run {
-            Storage.shared.addSigned(uuid: _uuid, source: _app.source, certificate: _options.signingOption != .default ? nil : appCertificate, appName: bundle.name, appIdentifier: bundle.bundleIdentifier, appVersion: bundle.version, appIcon: bundle.iconFileName) { _ in }
-            Storage.shared.copySourceMetadata(from: _app.uuid, to: _uuid, kind: .signed)
-            do { try Storage.shared.context.save() }
-            catch { Storage.shared.context.rollback(); throw error }
-            GitHubReleases.shared.copy(from: _app.uuid, to: _uuid)
-            SigningHistory.shared.record(_options, for: _uuid)
-        }
-    }
+		let directory = try await _directory()
+		guard let appURL = _fileManager.getPath(in: directory, for: "app"), let bundle = Bundle(url: appURL) else { throw ReleaseError.invalidApp }
+		try await MainActor.run {
+			Storage.shared.addSigned(uuid: _uuid, source: _app.source, certificate: _options.signingOption != .default ? nil : appCertificate, appName: bundle.name, appIdentifier: bundle.bundleIdentifier, appVersion: bundle.version, appIcon: bundle.iconFileName) { _ in }
+			Storage.shared.copySourceMetadata(from: _app.uuid, to: _uuid, kind: .signed)
+			do { try Storage.shared.context.save() }
+			catch { Storage.shared.context.rollback(); throw error }
+			GitHubReleases.shared.copy(from: _app.uuid, to: _uuid)
+			SigningHistory.shared.record(_options, for: _uuid)
+		}
+	}
 
 	private func _directory() async throws -> URL {
 		// Documents/Feather/Signed/\(UUID)
@@ -318,7 +318,7 @@ extension SigningHandler {
 						didChange = true
 					}
 				}
-                
+				
 				// NSExtension → NSExtensionFileProviderDocumentGroup
 				if
 					let oldValue = extensionDict["NSExtensionFileProviderDocumentGroup"] as? String
@@ -329,7 +329,7 @@ extension SigningHandler {
 						didChange = true
 					}
 				}
-                
+				
 				infoDict["NSExtension"] = extensionDict
 			}
 			

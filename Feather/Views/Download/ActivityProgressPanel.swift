@@ -2,96 +2,96 @@ import SwiftUI
 
 @MainActor
 final class ImportProgress: ObservableObject {
-    static let shared = ImportProgress()
-    struct Job: Identifiable {
-        let id: UUID
-        var name: String
-        var icon: UIImage?
-        var fraction: Double
-        var isUpdate = false
-    }
-    @Published private(set) var jobs: [Job] = []
-    func begin(_ name: String) -> UUID {
-        let id = UUID(); jobs.append(Job(id: id, name: name, fraction: 0, isUpdate: FeatherUpdater.shared.phase == .downloading)); return id
-    }
-    func update(_ id: UUID?, fraction: Double, name: String? = nil, icon: UIImage? = nil) {
-        guard let id, let index = jobs.firstIndex(where: { $0.id == id }) else { return }
-        jobs[index].fraction = max(jobs[index].fraction, min(1, max(0, fraction)))
-        if let name { jobs[index].name = name }
-        if let icon { jobs[index].icon = icon }
-    }
-    func finish(_ id: UUID?, success: Bool) {
-        guard let id else { return }
-        if success { update(id, fraction: 1) }
-        Task {
-            try? await Task.sleep(nanoseconds: success ? 700_000_000 : 0)
-            jobs.removeAll { $0.id == id }
-        }
-    }
+	static let shared = ImportProgress()
+	struct Job: Identifiable {
+		let id: UUID
+		var name: String
+		var icon: UIImage?
+		var fraction: Double
+		var isUpdate = false
+	}
+	@Published private(set) var jobs: [Job] = []
+	func begin(_ name: String) -> UUID {
+		let id = UUID(); jobs.append(Job(id: id, name: name, fraction: 0, isUpdate: FeatherUpdater.shared.phase == .downloading)); return id
+	}
+	func update(_ id: UUID?, fraction: Double, name: String? = nil, icon: UIImage? = nil) {
+		guard let id, let index = jobs.firstIndex(where: { $0.id == id }) else { return }
+		jobs[index].fraction = max(jobs[index].fraction, min(1, max(0, fraction)))
+		if let name { jobs[index].name = name }
+		if let icon { jobs[index].icon = icon }
+	}
+	func finish(_ id: UUID?, success: Bool) {
+		guard let id else { return }
+		if success { update(id, fraction: 1) }
+		Task {
+			try? await Task.sleep(nanoseconds: success ? 700_000_000 : 0)
+			jobs.removeAll { $0.id == id }
+		}
+	}
 }
 
 struct ActivityProgressPanel: View {
-    @ObservedObject private var downloads = DownloadManager.shared
-    @ObservedObject private var imports = ImportProgress.shared
-    private var importJob: ImportProgress.Job? { imports.jobs.first { !$0.isUpdate } }
-    var body: some View {
-        VStack(spacing: 8) {
-            UpdateProgressPanel()
-            SigningProgressPanel()
-            if let download = downloads.downloads.first { DownloadProgressCard(download: download).transition(.progressPanel) }
-            else if let job = importJob { ImportProgressCard(name: job.name, icon: job.icon, fraction: job.fraction).transition(.progressPanel) }
-        }
-        .animation(.smooth(duration: 0.4), value: downloads.downloads.first?.id)
-        .animation(.smooth(duration: 0.4), value: importJob?.id)
-    }
+	@ObservedObject private var downloads = DownloadManager.shared
+	@ObservedObject private var imports = ImportProgress.shared
+	private var importJob: ImportProgress.Job? { imports.jobs.first { !$0.isUpdate } }
+	var body: some View {
+		VStack(spacing: 8) {
+			UpdateProgressPanel()
+			SigningProgressPanel()
+			if let download = downloads.downloads.first { DownloadProgressCard(download: download).transition(.progressPanel) }
+			else if let job = importJob { ImportProgressCard(name: job.name, icon: job.icon, fraction: job.fraction).transition(.progressPanel) }
+		}
+		.animation(.smooth(duration: 0.4), value: downloads.downloads.first?.id)
+		.animation(.smooth(duration: 0.4), value: importJob?.id)
+	}
 }
 
 extension AnyTransition {
-    static var progressPanel: AnyTransition {
-        .asymmetric(
-            insertion: .opacity.combined(with: .scale(scale: 0.94, anchor: .bottom)).combined(with: .offset(y: 16)),
-            removal: .opacity.combined(with: .scale(scale: 0.96, anchor: .bottom)).combined(with: .offset(y: 10))
-        )
-    }
+	static var progressPanel: AnyTransition {
+		.asymmetric(
+			insertion: .opacity.combined(with: .scale(scale: 0.94, anchor: .bottom)).combined(with: .offset(y: 16)),
+			removal: .opacity.combined(with: .scale(scale: 0.96, anchor: .bottom)).combined(with: .offset(y: 10))
+		)
+	}
 }
 
 private struct DownloadProgressCard: View {
-    @ObservedObject var download: Download
-    @State private var confirming = false
-    var body: some View {
-        ImportProgressCard(name: download.displayName ?? download.fileName, icon: download.appIcon, iconURL: download.iconURL, fraction: download.overallProgress)
-            .contentShape(Rectangle())
-            .onTapGesture { confirming = true }
-            .confirmationDialog("Cancel downloading \(download.displayName ?? download.fileName)?", isPresented: $confirming, titleVisibility: .visible) {
-                Button("Cancel Download", role: .destructive) { DownloadManager.shared.cancelDownload(download) }
-                Button("Keep Downloading", role: .cancel) {}
-            }
-    }
+	@ObservedObject var download: Download
+	@State private var confirming = false
+	var body: some View {
+		ImportProgressCard(name: download.displayName ?? download.fileName, icon: download.appIcon, iconURL: download.iconURL, fraction: download.overallProgress)
+			.contentShape(Rectangle())
+			.onTapGesture { confirming = true }
+			.confirmationDialog("Cancel downloading \(download.displayName ?? download.fileName)?", isPresented: $confirming, titleVisibility: .visible) {
+				Button("Cancel Download", role: .destructive) { DownloadManager.shared.cancelDownload(download) }
+				Button("Keep Downloading", role: .cancel) {}
+			}
+	}
 }
 
 private struct ImportProgressCard: View {
-    let name: String
-    let icon: UIImage?
-    var iconURL: URL? = nil
-    let fraction: Double
-    var body: some View {
-        ProgressPanelSurface(cornerRadius: 22) {
-            HStack(spacing: 12) {
-                ProgressPanelIcon(image: icon, url: iconURL)
-                VStack(alignment: .leading, spacing: 7) {
-                    HStack {
-                        Text(name).font(.subheadline.weight(.semibold)).lineLimit(1)
-                        Spacer(minLength: 8)
-                        Text("\(Int(min(1, max(0, fraction)) * 100))%")
-                            .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
-                            .contentTransition(.numericText())
-                    }
-                    ProgressView(value: min(1, max(0, fraction))).progressViewStyle(.linear)
-                }
-            }.padding(14)
-        }
-        .padding(.horizontal, 12)
-        .animation(.smooth(duration: 0.2), value: Int(fraction * 100))
-        .accessibilityElement(children: .combine)
-    }
+	let name: String
+	let icon: UIImage?
+	var iconURL: URL? = nil
+	let fraction: Double
+	var body: some View {
+		ProgressPanelSurface(cornerRadius: 22) {
+			HStack(spacing: 12) {
+				ProgressPanelIcon(image: icon, url: iconURL)
+				VStack(alignment: .leading, spacing: 7) {
+					HStack {
+						Text(name).font(.subheadline.weight(.semibold)).lineLimit(1)
+						Spacer(minLength: 8)
+						Text("\(Int(min(1, max(0, fraction)) * 100))%")
+							.font(.caption.monospacedDigit()).foregroundStyle(.secondary)
+							.contentTransition(.numericText())
+					}
+					ProgressView(value: min(1, max(0, fraction))).progressViewStyle(.linear)
+				}
+			}.padding(14)
+		}
+		.padding(.horizontal, 12)
+		.animation(.smooth(duration: 0.2), value: Int(fraction * 100))
+		.accessibilityElement(children: .combine)
+	}
 }

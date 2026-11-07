@@ -24,14 +24,12 @@ struct WidgetSnapshot: Codable, Equatable {
 	var updated: Date
 }
 
-// Sideload certificates rarely include app groups, so the app and the widgets
-// share data through a keychain access group under the same team prefix.
+// Sideload certificates rarely include app groups, so share through the keychain instead.
 enum WidgetSnapshotStore {
 	private static let service = "Feather.Widgets"
 	private static let account = "snapshot"
 
-	// Resolved lazily and only cached once it works, since the keychain can't be
-	// read before the device is first unlocked (for example on a background launch).
+	// Only cached once it works: the keychain is unavailable before the first unlock.
 	private static var _accessGroup: String?
 
 	static var accessGroup: String? {

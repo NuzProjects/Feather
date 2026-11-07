@@ -21,7 +21,6 @@ final class NetworkStatus: ObservableObject {
 	private func _apply(offline: Bool) {
 		_pending?.cancel()
 		guard offline != isOffline else { return }
-		// Wait a moment so brief drops (switching networks) don't flash the pill.
 		_pending = Task { @MainActor in
 			try? await Task.sleep(nanoseconds: offline ? 1_200_000_000 : 300_000_000)
 			guard !Task.isCancelled else { return }

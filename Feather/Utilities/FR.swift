@@ -23,33 +23,33 @@ enum FR {
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
-            let importID = await MainActor.run { progressID ?? (download == nil ? ImportProgress.shared.begin(ipa.lastPathComponent) : nil) }
+			let importID = await MainActor.run { progressID ?? (download == nil ? ImportProgress.shared.begin(ipa.lastPathComponent) : nil) }
 			let handler = AppFileHandler(
 				file: ipa,
 				download: download,
 				sourceProvenance: sourceProvenance,
-                progressID: importID
+				progressID: importID
 			)
 			
 			do {
 				try await handler.copy()
 				await ImportProgress.shared.update(importID, fraction: 0.1)
-                try await handler.extract()
-                if let payload = handler.uniqueWorkDirPayload, let directory = FileManager.default.getPath(in: payload, for: "app") {
-                    let name = Bundle(url: directory)?.name
-                    let icon = iconTest(directory)
-                    await MainActor.run {
-                        ImportProgress.shared.update(importID, fraction: 0.85, name: name, icon: icon)
-                        download?.displayName = name; download?.appIcon = icon
-                    }
-                }
+				try await handler.extract()
+				if let payload = handler.uniqueWorkDirPayload, let directory = FileManager.default.getPath(in: payload, for: "app") {
+					let name = Bundle(url: directory)?.name
+					let icon = iconTest(directory)
+					await MainActor.run {
+						ImportProgress.shared.update(importID, fraction: 0.85, name: name, icon: icon)
+						download?.displayName = name; download?.appIcon = icon
+					}
+				}
 				try await handler.move()
 				try await handler.addToDatabase(replacing: replacingImport)
 				try? await handler.clean()
 				await MainActor.run {
 					guard let imported = try? Storage.shared.context.fetch(Imported.fetchRequest()).first(where: { $0.uuid == handler.resultUUID }) else { ImportProgress.shared.finish(importID, success: false); completion(ReleaseError.invalidApp); return }
-                    ImportProgress.shared.finish(importID, success: true)
-                    onImported?(imported)
+					ImportProgress.shared.finish(importID, success: true)
+					onImported?(imported)
 					completion(nil)
 				}
 			} catch {
@@ -73,9 +73,9 @@ enum FR {
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
-            let appIcon = await MainActor.run { Storage.shared.getAppDirectory(for: app) }.flatMap { iconTest($0) }
-            let job = await MainActor.run { SigningProgress.shared.begin(name: app.name ?? "App", icon: appIcon) }
-            let handler = SigningHandler(app: app, options: options, progressID: job)
+			let appIcon = await MainActor.run { Storage.shared.getAppDirectory(for: app) }.flatMap { iconTest($0) }
+			let job = await MainActor.run { SigningProgress.shared.begin(name: app.name ?? "App", icon: appIcon) }
+			let handler = SigningHandler(app: app, options: options, progressID: job)
 			handler.appCertificate = certificate
 			handler.appIcon = icon
 			
@@ -95,14 +95,14 @@ enum FR {
 						completion(CancellationError())
 						return
 					}
-                    SigningProgress.shared.finish(job, success: true)
-                    DevLog.shared.log(.info, "Signed \(app.name ?? "app") \(app.version ?? "")", category: "Signing")
-                    onSigned?(signed)
+					SigningProgress.shared.finish(job, success: true)
+					DevLog.shared.log(.info, "Signed \(app.name ?? "app") \(app.version ?? "")", category: "Signing")
+					onSigned?(signed)
 					completion(nil)
 				}
 			} catch {
 				try? await handler.clean()
-                try? FileManager.default.removeItem(at: FileManager.default.signed(handler.resultUUID))
+				try? FileManager.default.removeItem(at: FileManager.default.signed(handler.resultUUID))
 				if !(error is CancellationError) {
 					DevLog.shared.error(error, while: "Signing \(app.name ?? "app") (\(app.identifier ?? "?"))", category: "Signing")
 				}
@@ -260,7 +260,6 @@ enum FR {
 			UIApplication.shared.open(callbackUrl)
 		}
 		
-		// Only hand certificates to other apps, never to websites or other web-style schemes.
 		let scheme = template.split(separator: ":", maxSplits: 1).first.map { $0.lowercased() } ?? ""
 		let blockedSchemes: Set<String> = ["http", "https", "javascript", "data", "file", "ftp", "ws", "wss", "about", "blob", "itms-services", "feather", "mailto", "sms", "tel"]
 		guard

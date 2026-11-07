@@ -18,7 +18,6 @@ struct CertificatesCellView: View {
 	var body: some View {
 		VStack(spacing: 6) {
 			let title = {
-				// Profile names are often a device ID, so prefer the team name when there's no nickname.
 				let teamName = data?.TeamName.trimmingCharacters(in: .whitespaces) ?? ""
 				let fallbackName: String? = teamName.isEmpty ? data?.Name : teamName
 				var title: String = cert.nickname ?? fallbackName ?? String.localized("Unknown")

@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 
-// Checks an app before signing for problems that stop it from opening afterwards.
 enum AppCompatibility {
 	enum Issue: Equatable {
 		case encrypted
@@ -44,7 +43,6 @@ enum AppCompatibility {
 		return false
 	}
 
-	/// True when any slice of the Mach-O has a non-zero cryptid (FairPlay encrypted).
 	static func isEncrypted(_ url: URL) -> Bool {
 		guard let handle = try? FileHandle(forReadingFrom: url) else { return false }
 		defer { try? handle.close() }

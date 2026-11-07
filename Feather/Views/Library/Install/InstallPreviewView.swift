@@ -134,10 +134,8 @@ struct InstallPreviewView: View {
 		if let onClose { onClose() } else { dismiss() }
 	}
 
-	/// Updates run from a hidden view, so the Semi Local page is shown on top of the current screen.
 	private func _presentSafari(attempt: Int = 0) {
 		guard _safari == nil, case .ready = viewModel.status else { return }
-		// Wait for any alert or transition on screen to finish, or the page won't appear.
 		guard let top = UIApplication.topViewController(), !(top is UIAlertController), !top.isBeingPresented, !top.isBeingDismissed else {
 			if attempt < 40 {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { _presentSafari(attempt: attempt + 1) }

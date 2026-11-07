@@ -1,9 +1,6 @@
 import Foundation
 import UIKit
 
-// Widgets and Live Activities live in an app extension, which only runs when it
-// is inside Feather and carries its own provisioning profile. Certificates whose
-// profile covers a single app ID can't sign extensions, so Feather removes them.
 @MainActor
 enum ExtensionHealth {
 	enum State: Equatable {
@@ -29,7 +26,6 @@ enum ExtensionHealth {
 
 	private static var isProvisioned: Bool { FileManager.default.fileExists(atPath: appProfileURL.path) }
 
-	/// True when the widget extension can launch, so Live Activities have something to draw them.
 	static var extensionsCanRun: Bool {
 		hasWidgetsExtension && (widgetsHaveProfile || !isProvisioned)
 	}

@@ -34,7 +34,6 @@ extension ServerInstaller {
 		
 		app.http.server.configuration.hostname = sni()
 		app.http.server.configuration.tcpNoDelay = true
-		// Only listen on the network when Semi Local hands iOS this device's network address.
 		let loopbackOnly = getServerMethod() == 0 || getIPFix()
 		app.http.server.configuration.address = .hostname(loopbackOnly ? "127.0.0.1" : "0.0.0.0", port: port)
 		app.http.server.configuration.port = port
@@ -92,8 +91,7 @@ extension ServerInstaller {
 		return SecTrustEvaluateWithError(trust, nil)
 	}
 
-	/// True when the host's DNS answer is 127.0.0.1. Some routers and DNS filters drop
-	/// public names that point at loopback, which breaks Fully Local.
+	/// Some routers and DNS filters block public names that resolve to 127.0.0.1.
 	static func resolvesToThisDevice(_ host: String) -> Bool {
 		if host == "127.0.0.1" || host == "localhost" { return true }
 		var hints = addrinfo()
