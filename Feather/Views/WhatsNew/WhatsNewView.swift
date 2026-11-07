@@ -12,9 +12,8 @@ enum WhatsNew {
     static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "wifi.slash", title: "Offline Indicator", detail: "Now red and easier to see, with a single icon."),
-        Item(icon: "paintbrush", title: "Appearance", detail: "Moved into the Features section of Settings."),
-        Item(icon: "person.2", title: "Credits", detail: "Contributors show their GitHub picture, with a loading placeholder while it loads.")
+        Item(icon: "wifi.slash", title: "Offline Indicator", detail: "Now Liquid Glass with a red icon and label."),
+        Item(icon: "person.2", title: "Credits", detail: "Contributors show a loading placeholder while their GitHub picture loads.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

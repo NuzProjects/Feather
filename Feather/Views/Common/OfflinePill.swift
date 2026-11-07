@@ -59,12 +59,24 @@ struct OfflinePill: View {
 			Text(.localized("Offline"))
 		}
 		.font(.callout.weight(.semibold))
-		.foregroundStyle(.white)
+		.foregroundStyle(Color.red)
 		.padding(.horizontal, 15)
 		.padding(.vertical, 8)
-		.background(Color.red, in: Capsule())
-		.shadow(color: Color.red.opacity(0.25), radius: 8, y: 3)
+		.modifier(_GlassCapsule())
 		.accessibilityElement(children: .ignore)
 		.accessibilityLabel(Text(.localized("No internet connection")))
+	}
+}
+
+private struct _GlassCapsule: ViewModifier {
+	func body(content: Content) -> some View {
+		if #available(iOS 26, *) {
+			content.glassEffect(.regular, in: Capsule())
+		} else {
+			content
+				.background(.regularMaterial, in: Capsule())
+				.overlay(Capsule().stroke(Color.primary.opacity(0.08)))
+				.shadow(color: .black.opacity(0.08), radius: 8, y: 3)
+		}
 	}
 }

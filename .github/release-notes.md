@@ -1,6 +1,5 @@
-## Update 1.3.1 Beta 10
+## Update 1.3.1 Beta 11
 
 **Bug Fixes:**
-* The offline indicator is now red and easier to see, with a single icon
-* Appearance moved into the Features section of Settings
-* Contributors in About show their GitHub picture, or the GitHub logo while it loads, instead of a blank app icon
+* The offline indicator is now Liquid Glass with a red icon and label
+* Contributors in About show a loading placeholder while their GitHub picture loads
