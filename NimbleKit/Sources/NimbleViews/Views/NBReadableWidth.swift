@@ -1,14 +1,6 @@
-//
-//  NBReadableWidth.swift
-//  NimbleKit
-//
-
 import SwiftUI
 
 public extension View {
-	/// On a wide iPad screen, keeps a list or form's rows to a comfortable
-	/// reading width while its background still fills the screen. Does nothing
-	/// on iPhone or in narrow windows and sheets.
 	func nbReadableWidth(_ maxWidth: CGFloat = 720) -> some View {
 		modifier(_ReadableWidth(maxWidth: maxWidth))
 	}

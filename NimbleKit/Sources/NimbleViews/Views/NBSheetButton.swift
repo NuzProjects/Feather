@@ -1,10 +1,3 @@
-//
-//  NBSheetButton.swift
-//  NimbleKit
-//
-//  Created by samara on 8.05.2025.
-//
-
 import SwiftUI
 
 public struct NBSheetButton: View {
@@ -12,13 +5,13 @@ public struct NBSheetButton: View {
 		case prominent
 		case standard
 	}
-	
+
 	@Environment(\.isEnabled) private var isEnabled
-	
+
 	private var _title: String
 	private var _systemImage: String?
 	private var _style: NSSheetButtonStyle
-	
+
 	public init(
 		title: String,
 		systemImage: String? = nil,
@@ -28,7 +21,7 @@ public struct NBSheetButton: View {
 		self._systemImage = systemImage
 		self._style = style
 	}
-	
+
 	public var body: some View {
 		ZStack {
 			if isEnabled {
@@ -59,7 +52,7 @@ public struct NBSheetButton: View {
 		.fontWeight(.semibold)
 		.frame(height: 50)
 	}
-	
+
 	@ViewBuilder
 	private var content: some View {
 		Label {
@@ -72,21 +65,20 @@ public struct NBSheetButton: View {
 		.labelStyle(.titleAndIcon)
 	}
 
-	
 	private var backgroundColor: Color {
 		switch _style {
 		case .prominent: 	.accentColor
 		case .standard: 	Color(uiColor: .quaternarySystemFill)
 		}
 	}
-	
+
 	private var foregroundColor: Color {
 		switch _style {
 		case .prominent: 	.white
 		case .standard: 	.accentColor
 		}
 	}
-	
+
 	private var _cornerRadius: CGFloat {
 		if #available(iOS 26.0, *) {
 			return 28.0

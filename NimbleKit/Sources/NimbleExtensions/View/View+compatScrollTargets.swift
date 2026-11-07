@@ -1,10 +1,3 @@
-//
-//  View+compatScrollTargets.swift
-//  NimbleKit
-//
-//  Created by samsam on 7/30/25.
-//
-
 import SwiftUI
 
 extension View {
@@ -16,7 +9,7 @@ extension View {
 			self
 		}
 	}
-	
+
 	@ViewBuilder
 	public func compatScrollTargetBehavior() -> some View {
 		if #available(iOS 17.0, *) {

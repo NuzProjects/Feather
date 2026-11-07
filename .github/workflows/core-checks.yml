@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['Feather/Backend/Updates/Core/**', 'Tests/**', 'Package.swift', '.github/workflows/core-checks.yml']
+    paths: ['Feather/Core/**', 'Tests/**', 'Package.swift', '.github/workflows/core-checks.yml']
 permissions:
   contents: read
 jobs:

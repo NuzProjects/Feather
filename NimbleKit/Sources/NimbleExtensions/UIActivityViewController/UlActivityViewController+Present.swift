@@ -1,10 +1,3 @@
-//
-//  UlActivityViewController+Present.swift
-//  NimbleKit
-//
-//  Created by samara on 30.04.2025.
-//
-
 import UIKit.UIActivityViewController
 
 extension UIActivityViewController {
@@ -18,7 +11,7 @@ extension UIActivityViewController {
 			activityItems: activityItems,
 			applicationActivities: applicationActivities
 		)
-		
+
 		if let popover = controller.popoverPresentationController {
 			popover.sourceView = presenter.view
 			popover.sourceRect = CGRect(
@@ -29,7 +22,7 @@ extension UIActivityViewController {
 			)
 			popover.permittedArrowDirections = []
 		}
-		
+
 		presenter.present(controller, animated: true)
 	}
 }

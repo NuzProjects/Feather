@@ -1,10 +1,3 @@
-//
-//  View+NavTransition.swift
-//  Luce
-//
-//  Created by samara on 30.01.2025.
-//
-
 import SwiftUI
 
 extension View {
@@ -16,7 +9,7 @@ extension View {
 			self
 		}
 	}
-	
+
 	@ViewBuilder
 	public func compatMatchedTransitionSource(id: String, ns: Namespace.ID) -> some View {
 		if #available(iOS 18.0, *) {

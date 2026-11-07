@@ -1,10 +1,3 @@
-//
-//  ToolbarMenuWrapper.swift
-//  Stars
-//
-//  Created by samara on 7.04.2025.
-//
-
 import SwiftUI
 
 public struct NBToolbarMenu<Content>: ToolbarContent where Content: View {
@@ -13,7 +6,7 @@ public struct NBToolbarMenu<Content>: ToolbarContent where Content: View {
 	private var _style: NBToolbarMenuStyle
 	private var _placement: ToolbarItemPlacement
 	private var _content: Content
-	
+
 	public init(
 		_ title: String = "",
 		systemImage: String = "",
@@ -27,7 +20,7 @@ public struct NBToolbarMenu<Content>: ToolbarContent where Content: View {
 		self._placement = placement
 		self._content = content()
 	}
-	
+
 	public var body: some ToolbarContent {
 		ToolbarItem(placement: _placement) {
 			Menu {

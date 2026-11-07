@@ -1,10 +1,3 @@
-//
-//  SectionProminentHeaderWrapper.swift
-//  Feather
-//
-//  Created by samara on 11.04.2025.
-//
-
 import SwiftUI
 
 public struct NBSection<Content, Footer>: View
@@ -16,12 +9,12 @@ public struct NBSection<Content, Footer>: View
 	private var _systemName: String?
 	private var _content: Content
 	private var _footer: Footer
-	
+
 	public init(_ headerText: String,
-	            secondary headerTextSecondary: String? = nil,
-	            systemName: String? = nil,
-	            @ViewBuilder content: () -> Content,
-	            @ViewBuilder footer: () -> Footer
+				secondary headerTextSecondary: String? = nil,
+				systemName: String? = nil,
+				@ViewBuilder content: () -> Content,
+				@ViewBuilder footer: () -> Footer
 	) {
 		self._headerText = headerText
 		self._headerTextSecondary = headerTextSecondary
@@ -29,11 +22,11 @@ public struct NBSection<Content, Footer>: View
 		self._content = content()
 		self._footer = footer()
 	}
-	
+
 	public init(_ headerText: String,
-	            secondary headerTextSecondary: String? = nil,
-	            systemName: String? = nil,
-	            @ViewBuilder content: () -> Content
+				secondary headerTextSecondary: String? = nil,
+				systemName: String? = nil,
+				@ViewBuilder content: () -> Content
 	) where Footer == EmptyView {
 		self._headerText = headerText
 		self._headerTextSecondary = headerTextSecondary
@@ -41,9 +34,9 @@ public struct NBSection<Content, Footer>: View
 		self._content = content()
 		self._footer = EmptyView()
 	}
-	
+
 	@Environment(\.nbInlineSectionHeaders) private var _inlineHeaders
-	
+
 	public var body: some View {
 		if _inlineHeaders {
 			Section {
@@ -68,7 +61,7 @@ public struct NBSection<Content, Footer>: View
 			.headerProminence(.increased)
 		}
 	}
-	
+
 	private var _header: some View {
 		HStack(alignment: .center, spacing: 4) {
 			if let _systemName {
@@ -76,14 +69,14 @@ public struct NBSection<Content, Footer>: View
 					.font(.system(size: 12))
 					.offset(y: -2)
 			}
-			
+
 			Text(_headerText)
 				.fontWeight(.bold)
 				.font(.title2)
 				.foregroundStyle(.primary)
-			
+
 			Spacer()
-			
+
 			if let _headerTextSecondary {
 				if #available(iOS 26.0, *) {
 					_secondary(_headerTextSecondary).glassEffect()
@@ -94,7 +87,7 @@ public struct NBSection<Content, Footer>: View
 		}
 		.offset(y: 2)
 	}
-	
+
 	private func _secondary(_ text: String) -> some View {
 		Text(text)
 			.font(.caption)

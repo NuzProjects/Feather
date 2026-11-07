@@ -1,25 +1,10 @@
-//
-//  Repository.swift
-//  Feather
-//
-//  Created by Lakhan Lothiyi on 19/04/2025.
-//
-
 import Foundation
 import SwiftUI
 
-// Evidently, every repo is silly, they all have slightly different formats :c
-// only altstore repo (ofc) has the correct format.
-// we're going to use a defensive approach and try to parse many repos.
-
-// MARK: - Repository
-
 public struct ASRepository: Sendable, Decodable, Hashable, Identifiable {
-	// Core data
 	public var id: String?
 	public var name: String?
 
-	// descriptive fields
 	public var subtitle: String?
 	public var description: String?
 	public var website: URL?
@@ -27,11 +12,9 @@ public struct ASRepository: Sendable, Decodable, Hashable, Identifiable {
 	public var headerURL: URL?
 	public var tintColor: Color?
 
-	// special fields
 	public var patreonURL: URL?
 	public var userInfo: UserInfo?
 
-	// apps, news etc.
 	public var apps: [App]
 	public var featuredApps: [App.ID]?
 	public var news: [News]?
@@ -62,8 +45,7 @@ public struct ASRepository: Sendable, Decodable, Hashable, Identifiable {
 			try container.decodeIfPresent(Color.self, forKey: .tintColor)
 
 		let patreonString = try container.decodeIfPresent(String.self, forKey: .patreonURL)
-		
-		// another case of inconsistent altstore stuff
+
 		if
 			let string = patreonString,
 			!string.isEmpty,
@@ -92,7 +74,7 @@ public struct ASRepository: Sendable, Decodable, Hashable, Identifiable {
 				]
 			)
 		}
-		
+
 		self.apps = apps
 		self.featuredApps =
 			try container.decodeIfPresent([App.ID].self, forKey: .featuredApps) ?? []
@@ -102,47 +84,28 @@ public struct ASRepository: Sendable, Decodable, Hashable, Identifiable {
 	public enum CodingKeys: String, CodingKey {
 		case id = "identifier"
 		case name,
-		     subtitle,
-		     description,
-		     website,
-		     patreonURL,
-		     userInfo,
-		     iconURL,
-		     headerURL,
-		     tintColor,
-		     apps,
-		     featuredApps,
-		     news
+			 subtitle,
+			 description,
+			 website,
+			 patreonURL,
+			 userInfo,
+			 iconURL,
+			 headerURL,
+			 tintColor,
+			 apps,
+			 featuredApps,
+			 news
 	}
-	
+
 	public var currentIconURL: URL? {
 		iconURL ?? apps.first?.iconURL
 	}
-
-	//	func encode(to encoder: any Encoder) throws {
-	//		var container = encoder.container(keyedBy: CodingKeys.self)
-	//		try container.encode(id, forKey: .id)
-	//		try container.encode(name, forKey: .name)
-	//
-	//		try container.encodeIfPresent(subtitle, forKey: .subtitle)
-	//		try container.encodeIfPresent(description, forKey: .description)
-	//		try container.encodeIfPresent(website, forKey: .website)
-	//
-	//		try container.encodeIfPresent(patreonURL, forKey: .patreonURL)
-	//		try container.encodeIfPresent(userInfo, forKey: .userInfo)
-	//
-	//		try container.encodeIfPresent(apps, forKey: .apps)
-	//		try container.encodeIfPresent(featuredApps, forKey: .featuredApps)
-	//		try container.encodeIfPresent(news, forKey: .news)
-	//	}
 }
-
-// MARK: - App
 
 extension ASRepository {
 	public struct App: Sendable, Decodable, Hashable, Identifiable {
 		public var uuid = UUID()
-		
+
 		public var id: String?
 		public var name: String?
 
@@ -156,7 +119,7 @@ extension ASRepository {
 		public var version: String?
 
 		public var versionDate: DateParsed?
-		
+
 		public var date: DateParsed?
 
 		public var versionDescription: String?
@@ -182,7 +145,7 @@ extension ASRepository {
 		public var screenshots: Screenshots?
 
 		public var screenshotURLs: [URL]?
-		
+
 		public var marketplaceID: String?
 
 		public struct Screenshots: Decodable, Hashable, Sendable {
@@ -190,12 +153,6 @@ extension ASRepository {
 			public var iPad: [URL]?
 
 			public init(from decoder: any Decoder) throws {
-				// theres a bunch of ways this shit can be formatted
-				// 1. an array of urls (strings)
-				// 2. an array of dictionaries that contain url, width, height.
-				// 3. a mix of 1 and 2, having urls or dictionaries
-				// 4. a dictionary with properties for iphone and ipad, which are arrays of above types
-
 				#warning("implement screenshots decoding")
 
 				self.iPad = []
@@ -239,7 +196,7 @@ extension ASRepository {
 				DateParsed.self,
 				forKey: .versionDate
 			)
-			
+
 			self.date = try container.decodeIfPresent(
 				DateParsed.self,
 				forKey: .date
@@ -292,7 +249,7 @@ extension ASRepository {
 
 			self.screenshotURLs =
 				try container.decodeIfPresent([URL].self, forKey: .screenshotURLs)
-			
+
 			if
 				let marketplaceID = try container.decodeIfPresent(String.self, forKey: .marketplaceID),
 				!marketplaceID.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -304,89 +261,48 @@ extension ASRepository {
 			}
 		}
 
-		//		func encode(to encoder: any Encoder) throws {
-		//			var container = encoder.container(keyedBy: CodingKeys.self)
-		//			try container.encode(id, forKey: .id)
-		//			try container.encode(name, forKey: .name)
-		//
-		//			try container.encodeIfPresent(subtitle, forKey: .subtitle)
-		//			try container.encodeIfPresent(description, forKey: .description)
-		//
-		//			try container.encode(developer, forKey: .developer)
-		//
-		//			try container.encode(versions, forKey: .versions)
-		//
-		//			try container.encode(version, forKey: .version)
-		//
-		//			try container.encode(versionDate, forKey: .versionDate)
-		//
-		//			try container.encodeIfPresent(versionDescription, forKey: .versionDescription)
-		//
-		//			try container.encode(downloadURL, forKey: .downloadURL)
-		//
-		//			try container.encode(localizedDescription, forKey: .localizedDescription)
-		//
-		//			try container.encode(iconURL, forKey: .iconURL)
-		//
-		//			try container.encodeIfPresent(tintColor, forKey: .tintColor)
-		//
-		//			if let size = size {
-		//				try container.encode(size, forKey: .size)
-		//			}
-		//
-		//			try container.encode(category, forKey: .category)
-		//			try container.encode(beta, forKey: .beta)
-		//
-		//			// try container.encode(permissions, forKey: .permissions)
-		//			// try container.encode(appPermissions, forKey: .appPermissions)
-		//
-		//			try container.encode(screenshots, forKey: .screenshots)
-		//		}
-
 		public enum CodingKeys: String, CodingKey {
 			case id = "bundleIdentifier"
 			case name, subtitle, description
 			case developer = "developerName"
 			case versions, version, versionDate, date, versionDescription, downloadURL,
-			     localizedDescription, iconURL, tintColor, size, category, beta
+				 localizedDescription, iconURL, tintColor, size, category, beta
 			case permissions, appPermissions
 			case screenshots, screenshotURLs
 			case marketplaceID
 		}
-		
+
 		public var currentAppVersion: Version? {
 			versions?.first
 		}
-		
+
 		public var currentName: String {
 			var name = name ?? "Unknown"
-			// additional check for blank names
 			if name.isEmpty { name = "Unknown" }
-			
+
 			if let id, id.hasSuffix("Beta") {
 				name += " (BETA)"
 			}
-			
+
 			return name
 		}
-		
+
 		public var currentVersion: String? {
 			currentAppVersion?.version ?? version
 		}
-		
+
 		public var currentDownloadUrl: URL? {
 			currentAppVersion?.downloadURL ?? downloadURL
 		}
-		
+
 		public var currentDate: DateParsed? {
 			currentAppVersion?.date ?? versionDate ?? date
 		}
-		
+
 		public var currentDescription: String? {
 			subtitle ?? localizedDescription
 		}
-		
-		// "UNIQUE" hahaha
+
 		public var currentUniqueId: String {
 			"\(id ?? uuid.uuidString).\(downloadURL?.absoluteString ?? uuid.uuidString)"
 		}
@@ -432,7 +348,6 @@ extension ASRepository {
 			}
 
 			static public func < (lhs: Self, rhs: Self) -> Bool {
-				// compare id
 				lhs.id < rhs.id
 			}
 
@@ -444,8 +359,6 @@ extension ASRepository {
 		}
 	}
 }
-
-// MARK: - News
 
 extension ASRepository {
 	public struct News: Sendable, Decodable, Hashable, Identifiable {
@@ -511,11 +424,11 @@ extension ASRepository {
 
 		public struct PrivacyDictionary: Decodable, Hashable, Sendable {
 			private var _permissions: [String: String]
-			
+
 			public var privacyArray: [Privacy] {
 				_permissions.map { Privacy(name: $0.key, usageDescription: $0.value) }
 			}
-			
+
 			public init(from decoder: any Decoder) throws {
 				let container = try decoder.singleValueContainer()
 				self._permissions = try container.decode([String: String].self)
@@ -528,12 +441,10 @@ extension ASRepository {
 				[Entitlement].self,
 				forKey: .entitlements
 			)
-			// some people are silly and are using empty dictionaries instead of empty arrays so lets ignore decoding errors
 			self.privacy = try? container.decodeIfPresent(
 				[Privacy].self,
 				forKey: .privacy
 			)
-			// lets not ignore the silly people
 			if self.privacy == nil {
 				if let privacyDict = try? container.decodeIfPresent(
 					PrivacyDictionary.self,
@@ -557,21 +468,15 @@ extension ASRepository {
 	}
 }
 
-// MARK: - DateParsed
-
-// everyone keeps using different formats for dates, even altstore
-
-// taken from meret
 public struct DateParsed: Codable, Equatable, Hashable, Comparable, Sendable {
 	public let date: Date
 	public let rawDate: RawDate
-	
+
 	public enum RawDate: Decodable, Hashable, Sendable {
 		case number(Double)
 		case string(String)
 	}
-	
-	// ISO8601 formatters (more accurate for machine-generated dates)
+
 	private static let isoFormatters: [ISO8601DateFormatter] = [
 		{
 			let formatter = ISO8601DateFormatter()
@@ -584,20 +489,19 @@ public struct DateParsed: Codable, Equatable, Hashable, Comparable, Sendable {
 			return formatter
 		}()
 	]
-	
-	// legacy formatters
+
 	private static let formatters: [DateFormatter] = {
 		let locale = Locale(identifier: "en_US_POSIX")
 		let tz = TimeZone(secondsFromGMT: 0)
-		
+
 		return [
 			"yyyy-MM-dd'T'HH:mm:ss.SSSZ",
 			"yyyy-MM-dd'T'HH:mm:ssZ",
 			"yyyy-MM-dd'T'HH:mm:ss",
-			"yyyy-MM-dd'T'HH:mm",            // AltStudio
+			"yyyy-MM-dd'T'HH:mm",
 			"yyyy-MM-dd",
-			"EEE, dd MMM yyyy HH:mm:ss zzz", // RFC1123
-			"EEE MMM dd HH:mm:ss Z yyyy",    // Twitter
+			"EEE, dd MMM yyyy HH:mm:ss zzz",
+			"EEE MMM dd HH:mm:ss Z yyyy",
 			"yyyy-MM-dd HH:mm:ss",
 		].map {
 			let formatter = DateFormatter()
@@ -607,11 +511,10 @@ public struct DateParsed: Codable, Equatable, Hashable, Comparable, Sendable {
 			return formatter
 		}
 	}()
-	
+
 	public init(from decoder: Decoder) throws {
 		let container = try decoder.singleValueContainer()
-		
-		// prevent nil
+
 		if container.decodeNil() {
 			throw DecodingError.valueNotFound(
 				Date.self,
@@ -621,60 +524,54 @@ public struct DateParsed: Codable, Equatable, Hashable, Comparable, Sendable {
 				)
 			)
 		}
-		
-		// timestamp (e.g., 1699999999.0)
+
 		if let timestamp = try? container.decode(Double.self) {
 			self.date = Date(timeIntervalSince1970: timestamp)
 			self.rawDate = .number(timestamp)
 			return
 		}
-		
-		// string formats
+
 		let dateString = try container.decode(String.self).trimmingCharacters(in: .whitespacesAndNewlines)
 		self.rawDate = .string(dateString)
-		
-		// ISO8601 formatters
+
 		for formatter in Self.isoFormatters {
 			if let date = formatter.date(from: dateString) {
 				self.date = date
 				return
 			}
 		}
-		
-		// legacy formatters
+
 		for formatter in Self.formatters {
 			if let date = formatter.date(from: dateString) {
 				self.date = date
 				return
 			}
 		}
-		
-		// numeric timestamp string
+
 		if let timestamp = Double(dateString) {
 			self.date = Date(timeIntervalSince1970: timestamp)
 			return
 		}
-		
+
 		throw DecodingError.dataCorruptedError(
 			in: container,
 			debugDescription: "Failed to decode date from: \(dateString)"
 		)
 	}
-	
+
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		try container.encode(date)
 	}
-	
+
 	public static func == (lhs: Self, rhs: Self) -> Bool {
 		lhs.date == rhs.date
 	}
-	
+
 	public static func < (lhs: Self, rhs: Self) -> Bool {
 		lhs.date < rhs.date
 	}
 }
-
 
 public struct OSVersion: Decodable, Hashable, CustomStringConvertible, Sendable {
 	public var description: String {

@@ -1,14 +1,5 @@
-//
-//  Color+Codable.swift
-//  Feather
-//
-//  Created by Lakhan Lothiyi on 19/04/2025.
-//
-
 import SwiftUI
 
-// taken from skykit
-// MARK: - Make Color conform to codable
 extension Color: Codable {
 	public init(hex: String) {
 		let rgba = hex.toRGBA()
@@ -38,18 +29,15 @@ extension Color: Codable {
 	}
 
 	public func toHex(alpha: Bool = false) -> String {
-		
-		// had to use this shim
 		let (r, g, b, a) = {
 			if #available(iOS 17.0, *) {
-				
 				let resolved = resolve(in: EnvironmentValues())
-				
+
 				let r = resolved.red
 				let g = resolved.green
 				let b = resolved.blue
 				let a = resolved.opacity
-				
+
 				return (r, g, b, a)
 			} else {
 				let (r, g, b, a) = components
@@ -120,27 +108,23 @@ extension Color: @retroactive RawRepresentable {
 	}
 }
 
-// MARK: - Get color values of Color
-// taken from meret
 public extension Color {
 	var components: (red: CGFloat, green: CGFloat, blue: CGFloat, opacity: CGFloat) {
-		
 		#if canImport(UIKit)
 			typealias NativeColor = UIColor
 		#elseif canImport(AppKit)
 			typealias NativeColor = NSColor
 		#endif
-		
+
 		var r: CGFloat = 0
 		var g: CGFloat = 0
 		var b: CGFloat = 0
 		var o: CGFloat = 0
-		
+
 		guard NativeColor(self).getRed(&r, green: &g, blue: &b, alpha: &o) else {
-			// You can handle the failure here as you want
 			return (0, 0, 0, 0)
 		}
-		
+
 		return (r, g, b, o)
 	}
 }

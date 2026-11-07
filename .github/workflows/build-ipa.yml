@@ -148,9 +148,9 @@ jobs:
           set -euo pipefail
           HELPER="$RUNNER_TEMP/feather-transfer-files"
           mkdir -p "$HELPER"
-          cp Feather/Views/Settings/Transfer/*.swift "$HELPER/"
-          cp Feather/Backend/Updates/Core/TransferFiles.swift "$HELPER/"
-          cp Feather/Backend/Storage/Storage.swift "$HELPER/"
+          cp Feather/Features/Settings/Transfer/*.swift "$HELPER/"
+          cp Feather/Core/TransferFiles.swift "$HELPER/"
+          cp Feather/Services/Storage/Storage.swift "$HELPER/"
           git restore --source=31ab6de --worktree -- Feather
           mkdir -p Feather/Views/Settings/Transfer Feather/Backend/Updates/Core
           cp "$HELPER/DataTransferView.swift" "$HELPER/FeatherTransfer.swift" Feather/Views/Settings/Transfer/

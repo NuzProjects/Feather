@@ -1,8 +1,6 @@
 import SwiftUI
 import WidgetKit
 
-// MARK: - Timeline
-
 struct SnapshotEntry: TimelineEntry {
 	let date: Date
 	let snapshot: WidgetSnapshot?
@@ -45,8 +43,6 @@ struct SnapshotProvider: TimelineProvider {
 	}
 }
 
-// MARK: - Widgets
-
 struct CertificateWidget: Widget {
 	var body: some WidgetConfiguration {
 		StaticConfiguration(kind: "FeatherCertificateWidget", provider: SnapshotProvider()) { entry in
@@ -68,8 +64,6 @@ struct LibraryWidget: Widget {
 		.supportedFamilies([.systemSmall, .systemMedium])
 	}
 }
-
-// MARK: - Certificate (clean theme)
 
 private struct CertificateWidgetView: View {
 	@Environment(\.widgetFamily) private var family
@@ -200,8 +194,6 @@ private struct CertificateWidgetView: View {
 	}
 }
 
-// MARK: - Library (accent theme)
-
 private struct LibraryWidgetView: View {
 	@Environment(\.widgetFamily) private var family
 	let entry: SnapshotEntry
@@ -319,8 +311,6 @@ private struct AppIconView: View {
 		.clipShape(RoundedRectangle(cornerRadius: size * 0.2237, style: .continuous))
 	}
 }
-
-// MARK: - Helpers
 
 extension View {
 	@ViewBuilder

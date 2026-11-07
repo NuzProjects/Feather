@@ -2,7 +2,6 @@
 import ActivityKit
 import Foundation
 
-// Keep in sync with Feather/Backend/LiveActivity/FeatherProgressAttributes.swift
 struct FeatherProgressAttributes: ActivityAttributes {
 	struct ContentState: Codable, Hashable {
 		var title: String

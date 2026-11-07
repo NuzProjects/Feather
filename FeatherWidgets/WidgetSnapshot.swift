@@ -1,7 +1,6 @@
 import Foundation
 import Security
 
-// Keep in sync with Feather/Backend/Widgets/WidgetSnapshot.swift
 struct WidgetSnapshot: Codable, Equatable {
 	struct Certificate: Codable, Equatable {
 		var name: String
@@ -24,12 +23,10 @@ struct WidgetSnapshot: Codable, Equatable {
 	var updated: Date
 }
 
-// Sideload certificates rarely include app groups, so share through the keychain instead.
 enum WidgetSnapshotStore {
 	private static let service = "Feather.Widgets"
 	private static let account = "snapshot"
 
-	// Only cached once it works: the keychain is unavailable before the first unlock.
 	private static var _accessGroup: String?
 
 	static var accessGroup: String? {

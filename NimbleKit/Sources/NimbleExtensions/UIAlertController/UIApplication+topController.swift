@@ -1,10 +1,3 @@
-//
-//  UIApplication+topController.swift
-//  Loader
-//
-//  Created by samara on 18.03.2025.
-//
-
 import UIKit
 
 extension UIApplication {
@@ -17,7 +10,6 @@ extension UIApplication {
 		return (windows.first(where: { $0.isKeyWindow }) ?? windows.first)?.rootViewController
 	}
 
-	/// This belongs to https://stackoverflow.com/a/30858591
 	public class func topViewController(controller: UIViewController? = UIApplication._rootViewController) -> UIViewController? {
 		if let navigationController = controller as? UINavigationController {
 			return topViewController(controller: navigationController.visibleViewController)
