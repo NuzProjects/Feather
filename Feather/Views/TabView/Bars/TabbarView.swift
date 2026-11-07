@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 
 struct TabbarView: View {
+	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	@ObservedObject private var navigator = NavigatorPreferences.shared
 	@State private var selected: TabEnum = NavigatorPreferences.shared.tabs.first ?? .settings
 	@ObservedObject private var updater = FeatherUpdater.shared
@@ -17,6 +18,12 @@ struct TabbarView: View {
 				selected = new
 			}
 		)
+	}
+
+	/// On iPad the tab bar floats at the top, so panels don't need to clear it at the bottom.
+	private var _tabBarAtTop: Bool {
+		guard #available(iOS 18, *) else { return false }
+		return UIDevice.current.userInterfaceIdiom == .pad && horizontalSizeClass == .regular
 	}
 
 	var body: some View {
@@ -35,7 +42,8 @@ struct TabbarView: View {
 				ActivityProgressPanel()
 				OfflinePill()
 			}
-				.padding(.bottom, 58)
+				.frame(maxWidth: _tabBarAtTop ? 480 : .infinity)
+				.padding(.bottom, _tabBarAtTop ? 20 : 58)
 				.background(alignment: .bottom) {
 					if let update = updater.signedUpdate {
 						InstallPreviewView(
@@ -161,9 +169,12 @@ enum TabTransition {
 	@MainActor static func crossfade() {
 		guard let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).flatMap(\.windows).first(where: \.isKeyWindow),
 			  let bar = window.firstTabBar else { return }
-		let height = bar.convert(bar.bounds, to: window).minY
-		let frame = CGRect(x: 0, y: 0, width: window.bounds.width, height: height)
-		guard height > 0, let snapshot = window.resizableSnapshotView(from: frame, afterScreenUpdates: false, withCapInsets: .zero) else { return }
+		let barFrame = bar.convert(bar.bounds, to: window)
+		// With the bar at the bottom, fade everything above it. On iPad the bar
+		// floats at the top (or is hidden), so fade the whole screen.
+		let barAtBottom = !bar.isHidden && barFrame.minY > window.bounds.midY
+		let frame = barAtBottom ? CGRect(x: 0, y: 0, width: window.bounds.width, height: barFrame.minY) : window.bounds
+		guard frame.height > 0, let snapshot = window.resizableSnapshotView(from: frame, afterScreenUpdates: false, withCapInsets: .zero) else { return }
 		snapshot.isUserInteractionEnabled = false
 		window.addSubview(snapshot)
 		UIView.animate(withDuration: 0.28, delay: 0.04, options: [.curveEaseInOut, .allowUserInteraction]) {

@@ -68,6 +68,7 @@ struct OnboardingView: View {
 			}
 			.buttonStyle(.borderedProminent)
 			.controlSize(.large)
+			.frame(maxWidth: 460)
 			.padding(.horizontal, 28)
 			.padding(.bottom, 24)
 		}
@@ -89,6 +90,7 @@ struct OnboardingView: View {
 				.font(.body)
 				.foregroundStyle(.secondary)
 				.multilineTextAlignment(.center)
+				.frame(maxWidth: 520)
 				.padding(.horizontal, 36)
 			if index == 1 {
 				Button("Add Certificate", systemImage: "plus") { addingCertificate = true }

@@ -10,7 +10,8 @@ enum WhatsNew {
 	}
 
 	static let features: [Item] = [
-		Item(icon: "globe.desk", title: "GitHub Sources", detail: "GitHub repositories in Sources show their icon, name and when they last released, just like other sources.")
+		Item(icon: "globe.desk", title: "GitHub Sources", detail: "GitHub repositories in Sources show their icon, name and when they last released, just like other sources."),
+		Item(icon: "ipad.landscape", title: "Better on iPad", detail: "Settings, app pages and lists keep to a comfortable width, and progress panels fit the iPad's layout.")
 	]
 
 	static let fixes: [Item] = []

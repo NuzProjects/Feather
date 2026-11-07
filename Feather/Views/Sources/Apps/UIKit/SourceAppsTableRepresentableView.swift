@@ -18,6 +18,7 @@ struct SourceAppsTableRepresentableView: UIViewRepresentable {
 	
 	func makeUIView(context: Context) -> UITableView {
 		let tableView = UITableView(frame: .zero, style: .plain)
+		tableView.cellLayoutMarginsFollowReadableWidth = true
 		tableView.delegate = context.coordinator
 		tableView.dataSource = context.coordinator
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppCell")

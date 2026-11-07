@@ -128,6 +128,7 @@ struct SettingsView: View {
 				}
 				.symbolVariant(.fill)
 			}
+			.nbReadableWidth()
 			.onAppear {
 				_repairSelectedCertificate()
 				CertificateExpiry.refresh()

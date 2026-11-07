@@ -183,6 +183,9 @@ struct SourceAppsDetailView: View {
 				}
 			}
 			.padding([.horizontal, .bottom])
+			// Keeps text and screenshots to a readable column on a wide iPad.
+			.frame(maxWidth: 820)
+			.frame(maxWidth: .infinity)
 			.padding(.top, {
 				if #available(iOS 18, *) {
 					8
