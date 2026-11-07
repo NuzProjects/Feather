@@ -12,7 +12,8 @@ enum WhatsNew {
     static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "server.rack", title: "Fully Local Works Again", detail: "Fully Local now uses Feather's own certificate, which renews automatically and is replaced if it's ever revoked. Turn it on in Settings → Installation → Server.")
+        Item(icon: "server.rack", title: "Fully Local Works Again", detail: "Fully Local now uses Feather's own certificate, which renews automatically and is replaced if it's ever revoked. Turn it on in Settings → Installation → Server."),
+        Item(icon: "arrow.down.app", title: "Install Sheet", detail: "A bigger app icon, no extra box inside the sheet, and if Fully Local can't start the install Feather offers Semi Local instead of waiting on Ready.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

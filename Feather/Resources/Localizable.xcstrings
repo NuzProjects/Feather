@@ -1,6 +1,451 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Fully Local Couldn't Install" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local Couldn't Install"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر التثبيت عبر Fully Local"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local nemohl instalovat"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local konnte nicht installieren"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local no pudo instalar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local n’a pas pu installer"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local Tidak Dapat Menginstal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local non è riuscito a installare"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local로 설치할 수 없음"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local nie mógł zainstalować"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local не смог установить"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local Yükleyemedi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local không thể cài đặt"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fully Local 无法安装"
+          }
+        }
+      }
+    },
+    "Switch the Server Type to Semi Local and install again?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch the Server Type to Semi Local and install again?"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هل تريد تغيير نوع الخادم إلى Semi Local والتثبيت مرة أخرى؟"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přepnout typ serveru na Semi Local a nainstalovat znovu?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servertyp auf Semi Local umstellen und erneut installieren?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cambiar el tipo de servidor a Semi Local e instalar de nuevo?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passer le type de serveur sur Semi Local et réinstaller ?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ubah Jenis Server ke Semi Local dan instal lagi?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passare il tipo di server a Semi Local e installare di nuovo?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서버 유형을 Semi Local로 바꾸고 다시 설치할까요?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmienić typ serwera na Semi Local i zainstalować ponownie?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переключить тип сервера на Semi Local и установить снова?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunucu Türünü Semi Local olarak değiştirip yeniden yüklemek ister misin?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuyển Loại máy chủ sang Semi Local và cài đặt lại?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将服务器类型切换为 Semi Local 并重新安装？"
+          }
+        }
+      }
+    },
+    "Use Semi Local" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Semi Local"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استخدم Semi Local"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Použít Semi Local"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semi Local verwenden"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar Semi Local"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser Semi Local"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gunakan Semi Local"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa Semi Local"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semi Local 사용"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Użyj Semi Local"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Использовать Semi Local"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semi Local Kullan"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng Semi Local"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用 Semi Local"
+          }
+        }
+      }
+    },
+    "Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Feather's install server." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Feather's install server."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شبكتك أو خادم DNS يحظر العنوان الذي يستخدمه Fully Local، لذلك لا يستطيع iOS الوصول إلى خادم التثبيت في Feather."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaše síť nebo DNS blokuje adresu, kterou Fully Local používá, takže iOS se nedostane k instalačnímu serveru Featheru."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Netzwerk oder DNS blockiert die Adresse, die Fully Local verwendet, daher erreicht iOS den Installationsserver von Feather nicht."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu red o DNS está bloqueando la dirección que usa Fully Local, así que iOS no puede llegar al servidor de instalación de Feather."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre réseau ou DNS bloque l’adresse utilisée par Fully Local, donc iOS ne peut pas joindre le serveur d’installation de Feather."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jaringan atau DNS Anda memblokir alamat yang digunakan Fully Local, jadi iOS tidak dapat menjangkau server instalasi Feather."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tua rete o il DNS blocca l’indirizzo usato da Fully Local, quindi iOS non riesce a raggiungere il server di installazione di Feather."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "네트워크 또는 DNS가 Fully Local이 사용하는 주소를 차단하고 있어 iOS가 Feather의 설치 서버에 연결할 수 없습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twoja sieć lub DNS blokuje adres używany przez Fully Local, więc iOS nie może połączyć się z serwerem instalacji Feather."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваша сеть или DNS блокирует адрес, который использует Fully Local, поэтому iOS не может связаться с сервером установки Feather."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ağın veya DNS’in Fully Local’ın kullandığı adresi engelliyor, bu yüzden iOS Feather’ın yükleme sunucusuna ulaşamıyor."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mạng hoặc DNS của bạn đang chặn địa chỉ mà Fully Local dùng, nên iOS không thể kết nối tới máy chủ cài đặt của Feather."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的网络或 DNS 阻止了 Fully Local 使用的地址，因此 iOS 无法连接 Feather 的安装服务器。"
+          }
+        }
+      }
+    },
+    "iOS didn't start the install from Feather's local server." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS didn't start the install from Feather's local server."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يبدأ iOS التثبيت من الخادم المحلي في Feather."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS nezahájil instalaci z místního serveru Featheru."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS hat die Installation über den lokalen Server von Feather nicht gestartet."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS no inició la instalación desde el servidor local de Feather."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS n’a pas lancé l’installation depuis le serveur local de Feather."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS tidak memulai instalasi dari server lokal Feather."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS non ha avviato l’installazione dal server locale di Feather."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS가 Feather의 로컬 서버에서 설치를 시작하지 않았습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS nie rozpoczął instalacji z lokalnego serwera Feather."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS не начала установку с локального сервера Feather."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS, Feather’ın yerel sunucusundan yüklemeyi başlatmadı."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS không bắt đầu cài đặt từ máy chủ cục bộ của Feather."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 没有从 Feather 的本地服务器开始安装。"
+          }
+        }
+      }
+    },
     "This app is still encrypted by the App Store, so it won't open after signing. Use a decrypted IPA instead." : {
       "extractionState" : "manual",
       "localizations" : {

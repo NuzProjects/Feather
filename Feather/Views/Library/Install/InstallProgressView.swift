@@ -17,7 +17,7 @@ struct InstallProgressView: View {
 	var body: some View {
 		VStack(spacing: 12) {
 			_appIcon()
-				.scaleEffect(_isPulsing ? 0.85 : 0.81)
+				.scaleEffect(_isPulsing ? 1.0 : 0.95)
 				.animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true), value: _isPulsing)
 				.onAppear {
 					_isPulsing = true
@@ -28,16 +28,16 @@ struct InstallProgressView: View {
 	@ViewBuilder
 	private func _appIcon() -> some View {
 		ZStack {
-			FRAppIconView(app: app, size: 54, lineWidth: 0)
+			FRAppIconView(app: app, size: 80, lineWidth: 0)
 				.opacity(0.2)
-				.frame(width: 54, height: 54)
+				.frame(width: 80, height: 80)
 				.foregroundStyle(Color.black)
 			
-			FRAppIconView(app: app, size: 54, lineWidth: 0)
-				.frame(width: 54, height: 54)
+			FRAppIconView(app: app, size: 80, lineWidth: 0)
+				.frame(width: 80, height: 80)
 				.mask(
 					ZStack {
-						Circle().strokeBorder(Color.white, lineWidth: 4.5)
+						Circle().strokeBorder(Color.white, lineWidth: 6)
 						PieShape(progress: viewModel.overallProgress)
 							.scaleEffect(viewModel.isCompleted ? 2.2 : 1)
 							.animation(.smooth, value: viewModel.isCompleted)

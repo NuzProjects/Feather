@@ -51,7 +51,15 @@ struct InstallPreviewView: View {
 			if _installationMethod == 0 {
 				if case .ready = newStatus {
 					if _serverMethod == 0 {
-						UIApplication.shared.open(URL(string: installer.iTunesLink)!)
+						let link = installer.iTunesLink
+						UIApplication.shared.open(URL(string: link)!) { opened in
+							DevLog.shared.log(opened ? .info : .error, "Fully Local install link \(opened ? "opened" : "failed to open"): \(link)", category: "Install")
+						}
+						DispatchQueue.main.asyncAfter(deadline: .now() + 12) {
+							guard case .ready = viewModel.status else { return }
+							DevLog.shared.log(.warning, "iOS didn't request the install manifest from \(installer.plistEndpoint.absoluteString)", category: "Install")
+							_offerSemiLocal(String.localized("iOS didn't start the install from Feather's local server."))
+						}
 					} else if _serverMethod == 1 {
 						_isWebviewPresenting = true
 					}
@@ -117,6 +125,20 @@ struct InstallPreviewView: View {
 		if let onClose { onClose() } else { dismiss() }
 	}
 
+	private func _offerSemiLocal(_ reason: String) {
+		UIAlertController.showAlert(
+			title: String.localized("Fully Local Couldn't Install"),
+			message: reason + "\n\n" + String.localized("Switch the Server Type to Semi Local and install again?"),
+			actions: [
+				UIAlertAction(title: String.localized("Use Semi Local"), style: .default) { _ in
+					_serverMethod = 1
+					_close()
+				},
+				UIAlertAction(title: String.localized("Cancel"), style: .cancel) { _ in _close() }
+			]
+		)
+	}
+
 	@ViewBuilder
 	private func _content() -> some View {
 		if inBackground {
@@ -128,9 +150,8 @@ struct InstallPreviewView: View {
 				_button()
 			}
 			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-			.background(Color(UIColor.secondarySystemBackground))
-			.clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-			.padding()
+			.padding(.horizontal, 8)
+			.padding(.bottom, 4)
 		}
 	}
 
@@ -179,6 +200,15 @@ struct InstallPreviewView: View {
 								)
 							}
 							return
+						}
+						if await _serverMethod == 0 {
+							let host = await installer.sni()
+							let reachable = ServerInstaller.resolvesToThisDevice(host)
+							DevLog.shared.log(reachable ? .info : .warning, "Fully Local address \(host) \(reachable ? "resolves to this device" : "doesn't resolve to this device")", category: "Install")
+							if !reachable {
+								await MainActor.run { _offerSemiLocal(String.localized("Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Feather's install server.")) }
+								return
+							}
 						}
 						try await MainActor.run {
 							if let startError = installer.startError { throw startError }

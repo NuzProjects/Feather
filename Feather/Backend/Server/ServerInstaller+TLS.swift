@@ -90,6 +90,27 @@ extension ServerInstaller {
 		return SecTrustEvaluateWithError(trust, nil)
 	}
 
+	/// True when the host's DNS answer is 127.0.0.1. Some routers and DNS filters drop
+	/// public names that point at loopback, which breaks Fully Local.
+	static func resolvesToThisDevice(_ host: String) -> Bool {
+		if host == "127.0.0.1" || host == "localhost" { return true }
+		var hints = addrinfo()
+		hints.ai_family = AF_INET
+		hints.ai_socktype = SOCK_STREAM
+		var result: UnsafeMutablePointer<addrinfo>?
+		guard getaddrinfo(host, nil, &hints, &result) == 0 else { return false }
+		defer { freeaddrinfo(result) }
+		var pointer = result
+		while let info = pointer {
+			if info.pointee.ai_family == AF_INET, let address = info.pointee.ai_addr {
+				let ipv4 = address.withMemoryRebound(to: sockaddr_in.self, capacity: 1) { $0.pointee.sin_addr.s_addr }
+				if UInt32(bigEndian: ipv4) == 0x7F000001 { return true }
+			}
+			pointer = info.pointee.ai_next
+		}
+		return false
+	}
+
 	func readCommonName() -> String? {
 		guard let url = Self.getUrl("commonName", ext: "txt") else {
 			return nil
