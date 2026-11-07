@@ -21,7 +21,10 @@ struct TabbarView: View {
         .symbolVariant(.fill)
         .background(TabLabelApplier(tabs: navigator.tabs, showLabels: navigator.showLabels))
         .overlay(alignment: .bottom) {
-            ActivityProgressPanel()
+            VStack(spacing: 0) {
+                ActivityProgressPanel()
+                OfflinePill()
+            }
                 .padding(.bottom, 58)
                 .background(alignment: .bottom) {
                     if let update = updater.signedUpdate {

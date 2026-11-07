@@ -290,6 +290,22 @@ extension SigningView {
 			return
 		}
 
+		let issues = AppCompatibility.issues(for: app)
+		guard issues.isEmpty else {
+			UIAlertController.showAlert(
+				title: .localized("This App May Not Work"),
+				message: issues.map(\.message).joined(separator: "\n\n"),
+				actions: [
+					UIAlertAction(title: .localized("Sign Anyway"), style: .destructive) { _ in _beginSigning() },
+					UIAlertAction(title: .localized("Cancel"), style: .cancel)
+				]
+			)
+			return
+		}
+		_beginSigning()
+	}
+
+	private func _beginSigning() {
 		let generator = UIImpactFeedbackGenerator(style: .light)
 		generator.impactOccurred()
 		_isSigning = true

@@ -1,6 +1,540 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "This app is still encrypted by the App Store, so it won't open after signing. Use a decrypted IPA instead." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This app is still encrypted by the App Store, so it won't open after signing. Use a decrypted IPA instead."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يزال هذا التطبيق مشفّرًا من App Store، لذلك لن يفتح بعد التوقيع. استخدم ملف IPA غير مشفّر بدلًا منه."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tato aplikace je stále zašifrovaná App Storem, takže se po podepsání neotevře. Použijte místo ní dešifrovanou IPA."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App ist noch vom App Store verschlüsselt und öffnet sich nach dem Signieren nicht. Verwende stattdessen eine entschlüsselte IPA."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta app sigue cifrada por la App Store, así que no se abrirá después de firmarla. Usa una IPA descifrada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette app est encore chiffrée par l’App Store et ne s’ouvrira pas après la signature. Utilisez plutôt une IPA déchiffrée."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi ini masih dienkripsi oleh App Store, jadi tidak akan terbuka setelah ditandatangani. Gunakan IPA yang sudah didekripsi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questa app è ancora crittografata dall’App Store, quindi non si aprirà dopo la firma. Usa invece un’IPA decrittografata."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 앱은 아직 App Store 암호화가 되어 있어 서명 후에도 열리지 않습니다. 대신 복호화된 IPA를 사용하세요."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta aplikacja jest nadal zaszyfrowana przez App Store, więc nie otworzy się po podpisaniu. Użyj odszyfrowanego pliku IPA."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Это приложение всё ещё зашифровано App Store, поэтому после подписи оно не откроется. Используйте расшифрованный IPA."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu uygulama hâlâ App Store tarafından şifreli, bu yüzden imzalandıktan sonra açılmaz. Bunun yerine şifresi çözülmüş bir IPA kullan."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng này vẫn bị App Store mã hóa nên sẽ không mở được sau khi ký. Hãy dùng IPA đã giải mã."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 App 仍被 App Store 加密，签名后无法打开。请改用已解密的 IPA。"
+          }
+        }
+      }
+    },
+    "This app needs iOS %@ or later, but this device is on iOS %@, so it may not open." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This app needs iOS %@ or later, but this device is on iOS %@, so it may not open."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتطلب هذا التطبيق iOS %@ أو أحدث، لكن هذا الجهاز يعمل بنظام iOS %@، لذلك قد لا يفتح."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tato aplikace vyžaduje iOS %@ nebo novější, ale toto zařízení má iOS %@, takže se nemusí otevřít."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App benötigt iOS %@ oder neuer, dieses Gerät hat aber iOS %@, daher öffnet sie sich möglicherweise nicht."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta app necesita iOS %@ o posterior, pero este dispositivo tiene iOS %@, así que puede que no se abra."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette app nécessite iOS %@ ou version ultérieure, mais cet appareil est sous iOS %@ : elle risque de ne pas s’ouvrir."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi ini memerlukan iOS %@ atau lebih baru, tetapi perangkat ini menggunakan iOS %@, jadi mungkin tidak bisa dibuka."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questa app richiede iOS %@ o versioni successive, ma questo dispositivo ha iOS %@, quindi potrebbe non aprirsi."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 앱은 iOS %@ 이상이 필요하지만 이 기기는 iOS %@이므로 열리지 않을 수 있습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta aplikacja wymaga systemu iOS %@ lub nowszego, ale to urządzenie ma iOS %@, więc może się nie otworzyć."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этому приложению нужна iOS %@ или новее, а на устройстве iOS %@, поэтому оно может не открыться."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu uygulama iOS %@ veya üstünü gerektiriyor, ancak bu cihazda iOS %@ var, bu yüzden açılmayabilir."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng này cần iOS %@ trở lên, nhưng thiết bị đang chạy iOS %@ nên có thể không mở được."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 App 需要 iOS %@ 或更高版本，但此设备运行的是 iOS %@，可能无法打开。"
+          }
+        }
+      }
+    },
+    "This App May Not Work" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This App May Not Work"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد لا يعمل هذا التطبيق"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tato aplikace nemusí fungovat"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App funktioniert möglicherweise nicht"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede que esta app no funcione"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette app risque de ne pas fonctionner"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi Ini Mungkin Tidak Berfungsi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questa app potrebbe non funzionare"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 앱이 작동하지 않을 수 있음"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta aplikacja może nie działać"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приложение может не работать"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu Uygulama Çalışmayabilir"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng này có thể không hoạt động"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 App 可能无法使用"
+          }
+        }
+      }
+    },
+    "Sign Anyway" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Anyway"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وقّع على أي حال"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přesto podepsat"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trotzdem signieren"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmar de todos modos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signer quand même"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tetap Tandatangani"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firma comunque"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "그래도 서명"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podpisz mimo to"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всё равно подписать"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yine de İmzala"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vẫn ký"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仍然签名"
+          }
+        }
+      }
+    },
+    "Offline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offline"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غير متصل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offline"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offline"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin conexión"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hors ligne"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offline"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offline"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오프라인"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offline"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет сети"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çevrimdışı"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngoại tuyến"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "离线"
+          }
+        }
+      }
+    },
+    "No internet connection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No internet connection"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد اتصال بالإنترنت"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žádné připojení k internetu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Internetverbindung"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin conexión a internet"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de connexion Internet"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada koneksi internet"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessuna connessione a Internet"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인터넷에 연결되어 있지 않음"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak połączenia z internetem"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет подключения к интернету"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İnternet bağlantısı yok"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có kết nối internet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无互联网连接"
+          }
+        }
+      }
+    },
     "Widgets Unavailable" : {
       "extractionState" : "manual",
       "localizations" : {

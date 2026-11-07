@@ -1,4 +1,5 @@
-## Update 1.3.1 Beta 8
+## Update 1.3.1 Beta 9
 
 **New Features:**
-* Tidier Settings: App Icon and Navigator are now inside Appearance, and compression and export options are in Signing Options
+* Feather warns you before signing an app that's still App Store encrypted or needs a newer iOS than your device has
+* A small pill above the tab bar shows when you're offline, with Wi-Fi and cellular greyed out when they aren't available

@@ -10,7 +10,8 @@ enum WhatsNew {
     }
 
     static let features: [Item] = [
-        Item(icon: "gearshape", title: "Tidier Settings", detail: "App Icon and Navigator are now inside Appearance, and compression and export options are in Signing Options.")
+        Item(icon: "exclamationmark.shield", title: "Signing Checks", detail: "Feather warns you before signing an app that's still App Store encrypted or needs a newer iOS than your device has."),
+        Item(icon: "wifi.slash", title: "Offline Indicator", detail: "A small pill above the tab bar shows when you're offline, with Wi-Fi and cellular greyed out when they aren't available.")
     ]
 
     static let fixes: [Item] = []
