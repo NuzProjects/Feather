@@ -20,6 +20,10 @@ on:
         description: Only delete every beta pre-release and its tag (skips the build)
         type: boolean
         default: false
+      clear_run_history:
+        description: Only delete past workflow runs and their artifacts (skips the build)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -49,8 +53,27 @@ jobs:
             echo "Deleting $tag"
             gh release delete "$tag" --yes --cleanup-tag
           done < tags.txt
+  clear-run-history:
+    if: inputs.clear_run_history == true
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Delete past workflow runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh api --paginate "repos/$GH_REPO/actions/runs?status=completed&per_page=100" \
+            --jq ".workflow_runs[] | select(.id != ${{ github.run_id }}) | .id" > runs.txt
+          echo "Deleting $(wc -l < runs.txt) runs"
+          while read -r id; do
+            [ -n "$id" ] || continue
+            gh api -X DELETE "repos/$GH_REPO/actions/runs/$id" || echo "Could not delete $id"
+          done < runs.txt
   build:
-    if: inputs.delete_beta_releases != true
+    if: inputs.delete_beta_releases != true && inputs.clear_run_history != true
     runs-on: ${{ inputs.runner || 'macos-26' }}
     timeout-minutes: 45
     permissions:
