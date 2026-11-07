@@ -37,9 +37,9 @@ struct InstallProgressView: View {
 				.frame(width: 80, height: 80)
 				.mask(
 					ZStack {
-						Circle().strokeBorder(Color.white, lineWidth: 6)
-						PieShape(progress: viewModel.overallProgress)
-							.scaleEffect(viewModel.isCompleted ? 2.2 : 1)
+						_iconShape.strokeBorder(Color.white, lineWidth: 6)
+						PieShape(progress: viewModel.isCompleted ? 1 : viewModel.overallProgress)
+							.clipShape(_iconShape)
 							.animation(.smooth, value: viewModel.isCompleted)
 					}
 				)
@@ -47,13 +47,20 @@ struct InstallProgressView: View {
 		}
 	}
 	
+	/// The same rounded-square shape iOS uses for app icons.
+	private var _iconShape: RoundedRectangle {
+		let ratio = ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 26, minorVersion: 0, patchVersion: 0)) ? 0.2677 : 0.2237
+		return RoundedRectangle(cornerRadius: 80 * ratio, style: .continuous)
+	}
+
 	struct PieShape: Shape {
 		var progress: Double
 		
 		func path(in rect: CGRect) -> Path {
 			var path = Path()
 			let center = CGPoint(x: rect.midX, y: rect.midY)
-			let radius = min(rect.width, rect.height) / 2
+			// Reach the corners so the pie fills the whole icon shape.
+			let radius = hypot(rect.width, rect.height) / 2
 			let startAngle = Angle(degrees: -90)
 			let endAngle = Angle(degrees: -90 + progress * 360)
 			

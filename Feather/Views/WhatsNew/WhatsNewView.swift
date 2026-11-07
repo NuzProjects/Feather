@@ -9,15 +9,10 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = [
-        Item(icon: "server.rack", title: "Fully Local Works Again", detail: "Fully Local uses Feather's own certificate, which renews automatically and is replaced if it's ever revoked. Turn it on in Settings → Installation → Server."),
-        Item(icon: "lock.shield", title: "Private Installs", detail: "Semi Local now uses Feather's own install helper, so app names aren't sent to a third-party service.")
-    ]
+    static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "checkmark.seal", title: "Safer Certificate Links", detail: "Feather asks before a link adds a certificate, and only exports certificates to other apps, showing which app is asking."),
-        Item(icon: "wifi.router", title: "Local-Only Install Server", detail: "When it doesn't need your network, Feather's install server only listens on your device."),
-        Item(icon: "arrow.down.app", title: "Install Sheet", detail: "A bigger app icon, no extra box, and if Fully Local can't start an install Feather offers Semi Local instead of waiting on Ready.")
+        Item(icon: "app", title: "Install Progress", detail: "The progress ring now follows the app icon's rounded-square shape instead of a circle.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"
