@@ -16,7 +16,7 @@ struct FRIconCellView: View {
 	var iconUrl: URL?
 	var size: CGFloat = 56
 	var isCircle: Bool = false
-	var usesGitHubPlaceholder: Bool = false
+	var usesSkeletonPlaceholder: Bool = false
 	
 	// MARK: Body
 	var body: some View {
@@ -43,20 +43,29 @@ struct FRIconCellView: View {
 	
 	@ViewBuilder
 	var standardIcon: some View {
-		if usesGitHubPlaceholder {
-			ZStack {
-				Circle().fill(Color(uiColor: .secondarySystemFill))
-				Image("GitHubMark")
-					.renderingMode(.template)
-					.resizable()
-					.scaledToFit()
-					.padding(size * 0.22)
-					.foregroundStyle(.primary)
-			}
-			.frame(width: size, height: size)
+		if usesSkeletonPlaceholder {
+			SkeletonCircle(size: size)
 		} else {
 			Image("App_Unknown")
 				.appIconStyle(size: size, isCircle: isCircle)
 		}
+	}
+}
+
+private struct SkeletonCircle: View {
+	let size: CGFloat
+	@State private var _dim = false
+	@Environment(\.accessibilityReduceMotion) private var _reduceMotion
+
+	var body: some View {
+		Circle()
+			.fill(Color(uiColor: .secondarySystemFill))
+			.frame(width: size, height: size)
+			.opacity(_dim ? 0.45 : 1)
+			.onAppear {
+				guard !_reduceMotion else { return }
+				withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) { _dim = true }
+			}
+			.accessibilityHidden(true)
 	}
 }

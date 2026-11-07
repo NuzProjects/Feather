@@ -110,7 +110,7 @@ extension AboutView {
 					iconUrl: URL(string: "https://avatars.githubusercontent.com/\(github)?s=135"),
 					size: 45,
 					isCircle: true,
-					usesGitHubPlaceholder: true
+					usesSkeletonPlaceholder: true
 				)
 				
 				Image(systemName: "arrow.up.right")
