@@ -21,6 +21,7 @@ struct InstallPreviewView: View {
 	@AppStorage("Feather.serverMethod") private var _serverMethod: Int = 1
 	@State private var progressTask: Task<Void, Never>?
 	@State private var _safari: SFSafariViewController?
+	@State private var _lifetime = _Lifetime()
 	
 	var app: AppInfoPresentable
 	@StateObject var viewModel: InstallerStatusViewModel
@@ -54,7 +55,7 @@ struct InstallPreviewView: View {
 							DevLog.shared.log(opened ? .info : .error, "Fully Local install link \(opened ? "opened" : "failed to open"): \(link)", category: "Install")
 						}
 						DispatchQueue.main.asyncAfter(deadline: .now() + 12) {
-							guard case .ready = viewModel.status else { return }
+							guard _lifetime.isActive, case .ready = viewModel.status else { return }
 							DevLog.shared.log(.warning, "iOS didn't request the install manifest from \(installer.plistEndpoint.absoluteString)", category: "Install")
 							_offerSemiLocal(String.localized("iOS didn't start the install from Feather's local server."))
 						}
@@ -111,6 +112,7 @@ struct InstallPreviewView: View {
 		#endif
 		
 		.onDisappear {
+			_lifetime.isActive = false
 			progressTask?.cancel()
 			progressTask = nil
 			_dismissSafari()
@@ -138,14 +140,14 @@ struct InstallPreviewView: View {
 		}
 		DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
 			defer { prompt.stop() }
-			guard !prompt.appeared, case .ready = viewModel.status else { return }
+			guard _lifetime.isActive, !prompt.appeared, case .ready = viewModel.status else { return }
 			DevLog.shared.log(.warning, "iOS didn't show the Semi Local install prompt, showing the install page", category: "Install")
 			_presentSafari()
 		}
 	}
 
 	private func _presentSafari(attempt: Int = 0) {
-		guard _safari == nil, case .ready = viewModel.status else { return }
+		guard _lifetime.isActive, _safari == nil, case .ready = viewModel.status else { return }
 		var candidate = UIApplication.shared.connectedScenes
 			.compactMap { $0 as? UIWindowScene }
 			.flatMap(\.windows)
@@ -366,4 +368,8 @@ private final class _PromptWatcher {
 		if let token { NotificationCenter.default.removeObserver(token) }
 		token = nil
 	}
+}
+
+private final class _Lifetime {
+	var isActive = true
 }

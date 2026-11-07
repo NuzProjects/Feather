@@ -91,6 +91,14 @@ final class SigningHandler: NSObject {
 		try await _removePresetFiles(for: movedAppPath)
 		try await _removeWatchIfNeeded(for: movedAppPath)
 		
+		if _options.removeWatchApp {
+			try? _fileManager.removeItem(at: movedAppPath.appendingPathComponent("Watch"))
+		}
+		
+		if _options.removeUnusedLanguages {
+			_removeUnusedLanguages(in: movedAppPath)
+		}
+		
 		if _options.experiment_supportLiquidGlass {
 			try await _locateMachosAndChangeToSDK26(for: movedAppPath)
 		}
@@ -369,6 +377,23 @@ extension SigningHandler {
 				try? _fileManager.removeItem(at: item)
 			}
 		}
+	}
+
+	private func _removeUnusedLanguages(in app: URL) {
+		let preferred = Locale.preferredLanguages.flatMap { language -> [String] in
+			let base = language.split(separator: "-").first.map(String.init) ?? language
+			return [language.lowercased(), base.lowercased()]
+		}
+		let keep = Set(["base", "en", "english"] + preferred)
+		guard let enumerator = _fileManager.enumerator(at: app, includingPropertiesForKeys: nil) else { return }
+		var unused: [URL] = []
+		for case let url as URL in enumerator where url.pathExtension == "lproj" {
+			enumerator.skipDescendants()
+			let name = url.deletingPathExtension().lastPathComponent.lowercased().replacingOccurrences(of: "_", with: "-")
+			let base = name.split(separator: "-").first.map(String.init) ?? name
+			if !keep.contains(name) && !keep.contains(base) { unused.append(url) }
+		}
+		for url in unused { try? _fileManager.removeItem(at: url) }
 	}
 
 	// horrible edge-case

@@ -15,6 +15,7 @@ import IDeviceSwift
 struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
 	@State private var _isGetCertificatePresenting = false
+	@State private var _widgetsNeedReinstall = false
 	@ObservedObject private var _updater = FeatherUpdater.shared
 	// MARK: Fetch
 	@FetchRequest(
@@ -43,7 +44,7 @@ struct SettingsView: View {
 					NavigationLink(destination: UpdatesView()) {
 						Label(.localized("Updates"), systemImage: "arrow.down.app")
 					}
-					if ExtensionHealth.state == .needsReinstall {
+					if _widgetsNeedReinstall {
 						Button {
 							FeatherUpdater.shared.install()
 						} label: {
@@ -130,6 +131,7 @@ struct SettingsView: View {
 			.onAppear {
 				_repairSelectedCertificate()
 				CertificateExpiry.refresh()
+				_widgetsNeedReinstall = ExtensionHealth.state == .needsReinstall
 			}
 			.onChange(of: _certificates.count) { _ in _repairSelectedCertificate() }
 			.onChange(of: _storedSelectedCert) { _ in CertificateExpiry.refresh() }

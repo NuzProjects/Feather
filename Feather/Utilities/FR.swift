@@ -73,8 +73,10 @@ enum FR {
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
-			let appIcon = await MainActor.run { Storage.shared.getAppDirectory(for: app) }.flatMap { iconTest($0) }
-			let job = await MainActor.run { SigningProgress.shared.begin(name: app.name ?? "App", icon: appIcon) }
+			let appDirectory = await MainActor.run { Storage.shared.getAppDirectory(for: app) }
+			let appIcon = appDirectory.flatMap { iconTest($0) }
+			let megabytes = appDirectory.map { SigningProgress.megabytes(of: $0) } ?? 0
+			let job = await MainActor.run { SigningProgress.shared.begin(name: app.name ?? "App", icon: appIcon, megabytes: megabytes) }
 			let handler = SigningHandler(app: app, options: options, progressID: job)
 			handler.appCertificate = certificate
 			handler.appIcon = icon

@@ -67,15 +67,15 @@ final class LiveProgressActivity {
 		let total = signingJobs.count + downloads.count + importJobs.count
 
 		if updater.signedUpdate != nil {
-			return Snapshot(title: "Feather", detail: updater.installLabel ?? "Installing", fraction: 0.7 + updater.installFraction * 0.3, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
+			return Snapshot(title: "Feather", detail: updater.installLabel ?? .localized("Installing"), fraction: 0.7 + updater.installFraction * 0.3, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
 		}
 		switch updater.phase {
 		case .downloading:
 			let fraction = imports.jobs.first(where: \.isUpdate).map { 0.1 + $0.fraction * 0.1 } ?? 0.05
-			return Snapshot(title: "Feather", detail: "Downloading update", fraction: fraction, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
+			return Snapshot(title: "Feather", detail: .localized("Downloading update"), fraction: fraction, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
 		case .signing:
 			let stage = signing.jobs.first(where: \.isUpdate)?.stage
-			return Snapshot(title: "Feather", detail: stage?.title ?? "Signing app", fraction: 0.2 + (stage?.fraction ?? 0) * 0.5, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
+			return Snapshot(title: "Feather", detail: stage?.title ?? .localized("Signing app"), fraction: 0.2 + (stage?.fraction ?? 0) * 0.5, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
 		default:
 			break
 		}
@@ -92,10 +92,10 @@ final class LiveProgressActivity {
 			return Snapshot(title: job.name, detail: job.stage.title, fraction: fraction, symbol: symbol, others: total - 1, finished: !job.stage.isActive)
 		}
 		if let download = downloads.first {
-			return Snapshot(title: download.displayName ?? download.fileName, detail: "Downloading", fraction: download.overallProgress, symbol: "arrow.down.circle.fill", others: total - 1, finished: false)
+			return Snapshot(title: download.displayName ?? download.fileName, detail: .localized("Downloading"), fraction: download.overallProgress, symbol: "arrow.down.circle.fill", others: total - 1, finished: false)
 		}
 		if let job = importJobs.first {
-			return Snapshot(title: job.name, detail: "Importing", fraction: job.fraction, symbol: "square.and.arrow.down.fill", others: total - 1, finished: false)
+			return Snapshot(title: job.name, detail: .localized("Importing"), fraction: job.fraction, symbol: "square.and.arrow.down.fill", others: total - 1, finished: false)
 		}
 		return nil
 	}

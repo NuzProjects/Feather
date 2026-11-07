@@ -84,7 +84,7 @@ private struct CertificateWidgetView: View {
 		return calendar.dateComponents([.day], from: calendar.startOfDay(for: entry.date), to: calendar.startOfDay(for: expiration)).day
 	}
 
-	private var status: (text: String, color: Color) {
+	private var status: (text: LocalizedStringKey, color: Color) {
 		guard let certificate else { return ("No certificate", .secondary) }
 		if certificate.revoked { return ("Revoked", .red) }
 		guard let daysLeft else { return ("Valid", accent) }

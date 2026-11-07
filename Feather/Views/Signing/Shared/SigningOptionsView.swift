@@ -129,6 +129,20 @@ struct SigningOptionsView: View {
 				isOn: $options.removeProvisioning,
 				temporaryValue: temporaryOptions?.removeProvisioning
 			)
+			
+			_toggle(
+				.localized("Remove Apple Watch App"),
+				systemImage: "applewatch.slash",
+				isOn: $options.removeWatchApp,
+				temporaryValue: temporaryOptions?.removeWatchApp
+			)
+			
+			_toggle(
+				.localized("Remove Unused Languages"),
+				systemImage: "globe",
+				isOn: $options.removeUnusedLanguages,
+				temporaryValue: temporaryOptions?.removeUnusedLanguages
+			)
 		} footer: {
 			Text(.localized("Removing the provisioning file will exclude the mobileprovision file from being embedded inside of the application when signing, to help prevent any detection."))
 		}

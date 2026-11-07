@@ -37,6 +37,8 @@
 - **Extensions that work.** Widgets and share sheets inside apps you sign get their own signing profile.
 - **Beta updates.** Turn on Receive Beta Updates to try new features first.
 - **Developer Logs.** Export logs and crash reports, or open a pre-filled bug report on GitHub after a crash.
+- **Smaller apps.** Optional removal of the Apple Watch app and unused languages when signing.
+- **Signing time estimates.** The signing card shows about how long is left.
 - **Offline indicator.** A small glass pill above the tab bar when you lose connection.
 - **Private installs.** Fully Local uses Feather's own auto-renewing certificate, and Semi Local uses Feather's own install helper instead of a third-party one.
 - **13 languages.** Including all of the screens above.

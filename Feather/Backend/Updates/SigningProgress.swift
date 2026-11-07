@@ -9,13 +9,13 @@ final class SigningProgress: ObservableObject {
 		case copying, preparing, signing, saving, complete, failed, cancelled
 		var title: String {
 			switch self {
-			case .copying: return "Copying app"
-			case .preparing: return "Preparing app"
-			case .signing: return "Signing app"
-			case .saving: return "Saving signed app"
-			case .complete: return "Signing complete"
-			case .failed: return "Signing failed"
-			case .cancelled: return "Signing cancelled"
+			case .copying: return .localized("Copying app")
+			case .preparing: return .localized("Preparing app")
+			case .signing: return .localized("Signing app")
+			case .saving: return .localized("Saving signed app")
+			case .complete: return .localized("Signing complete")
+			case .failed: return .localized("Signing failed")
+			case .cancelled: return .localized("Signing cancelled")
 			}
 		}
 		var fraction: Double { self == .failed || self == .cancelled ? 0 : Double(rawValue) / 4 }
@@ -27,14 +27,38 @@ final class SigningProgress: ObservableObject {
 		let icon: UIImage?
 		var stage: Stage
 		let isUpdate: Bool
+		var megabytes: Double = 0
+		let started = Date()
+
+		/// Seconds left, from how long signing has taken per megabyte before on this device.
+		func secondsLeft(at date: Date = Date()) -> Int? {
+			guard stage.isActive, megabytes > 0, let rate = SigningProgress.secondsPerMegabyte else { return nil }
+			let left = Int((megabytes * rate - date.timeIntervalSince(started)).rounded())
+			return left >= 3 ? left : nil
+		}
+	}
+
+	nonisolated private static let rateKey = "Signing.secondsPerMegabyte"
+	nonisolated static var secondsPerMegabyte: Double? {
+		let value = UserDefaults.standard.double(forKey: rateKey)
+		return value > 0 ? value : nil
+	}
+
+	nonisolated static func megabytes(of folder: URL) -> Double {
+		guard let enumerator = FileManager.default.enumerator(at: folder, includingPropertiesForKeys: [.fileSizeKey]) else { return 0 }
+		var bytes = 0
+		for case let url as URL in enumerator {
+			bytes += (try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+		}
+		return Double(bytes) / 1_048_576
 	}
 	@Published private(set) var jobs: [Job] = []
 	var visibleJobs: [Job] { jobs.filter { !$0.isUpdate } }
 	private var leases: [UUID: UIBackgroundTaskIdentifier] = [:]
 	private var cancelled: Set<UUID> = []
-	func begin(name: String, icon: UIImage? = nil) -> UUID {
+	func begin(name: String, icon: UIImage? = nil, megabytes: Double = 0) -> UUID {
 		let id = UUID()
-		jobs.append(Job(id: id, name: name, icon: icon, stage: .copying, isUpdate: FeatherUpdater.shared.phase == .signing))
+		jobs.append(Job(id: id, name: name, icon: icon, stage: .copying, isUpdate: FeatherUpdater.shared.phase == .signing, megabytes: megabytes))
 		leases[id] = UIApplication.shared.beginBackgroundTask(withName: "Sign app") { [weak self] in
 			Task { @MainActor in self?.endLease(id) }
 		}
@@ -55,6 +79,11 @@ final class SigningProgress: ObservableObject {
 	func isCancelled(_ id: UUID) -> Bool { cancelled.contains(id) }
 	func finish(_ id: UUID, success: Bool) {
 		guard !cancelled.contains(id) else { return }
+		if success, let job = jobs.first(where: { $0.id == id }), job.megabytes >= 1 {
+			let rate = Date().timeIntervalSince(job.started) / job.megabytes
+			let blended = Self.secondsPerMegabyte.map { $0 * 0.6 + rate * 0.4 } ?? rate
+			UserDefaults.standard.set(blended, forKey: Self.rateKey)
+		}
 		stage(id, success ? .complete : .failed)
 		UINotificationFeedbackGenerator().notificationOccurred(success ? .success : .error)
 		endLease(id)
@@ -94,6 +123,12 @@ struct SigningProgressPanel: View {
 		Binding(get: { confirming != nil }, set: { if !$0 { confirming = nil } })
 	}
 
+	private func _subtitle(_ job: SigningProgress.Job, at date: Date) -> String {
+		guard let seconds = job.secondsLeft(at: date) else { return job.stage.title }
+		let remaining = Duration.seconds(seconds).formatted(.units(allowed: [.minutes, .seconds], width: .narrow))
+		return String(format: .localized("%@ · about %@ left"), job.stage.title, remaining)
+	}
+
 	private func card(_ job: SigningProgress.Job) -> some View {
 		ProgressPanelSurface {
 			VStack(alignment: .leading, spacing: 9) {
@@ -101,7 +136,9 @@ struct SigningProgressPanel: View {
 					ProgressPanelIcon(image: job.icon)
 					VStack(alignment: .leading, spacing: 2) {
 						Text(job.name).font(.subheadline.weight(.semibold)).lineLimit(1)
-						Text(job.stage.title).font(.caption).foregroundStyle(.secondary)
+						TimelineView(.periodic(from: .now, by: 1)) { context in
+							Text(_subtitle(job, at: context.date)).font(.caption).foregroundStyle(.secondary)
+						}
 					}
 					Spacer(minLength: 8)
 					if progress.visibleJobs.count > 1 { Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit()) }
@@ -124,15 +161,15 @@ struct UpdateProgressPanel: View {
 
 	private var state: (title: String, fraction: Double)? {
 		if updater.signedUpdate != nil {
-			return (updater.installLabel ?? "Installing", 0.7 + updater.installFraction * 0.3)
+			return (updater.installLabel ?? String.localized("Installing"), 0.7 + updater.installFraction * 0.3)
 		}
 		switch updater.phase {
 		case .downloading:
-			if let job = imports.jobs.first(where: \.isUpdate) { return ("Preparing update", 0.1 + job.fraction * 0.1) }
-			return ("Downloading update", 0.05)
+			if let job = imports.jobs.first(where: \.isUpdate) { return (String.localized("Preparing update"), 0.1 + job.fraction * 0.1) }
+			return (String.localized("Downloading update"), 0.05)
 		case .signing:
 			let stage = signing.jobs.first(where: \.isUpdate)?.stage
-			return (stage?.title ?? "Signing app", 0.2 + (stage?.fraction ?? 0) * 0.5)
+			return (stage?.title ?? String.localized("Signing app"), 0.2 + (stage?.fraction ?? 0) * 0.5)
 		default:
 			return nil
 		}
