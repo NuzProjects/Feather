@@ -12,8 +12,8 @@ enum WhatsNew {
     static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "arrow.clockwise", title: "More Reliable Updates", detail: "If GitHub has a brief hiccup, Feather retries automatically instead of failing the update."),
-        Item(icon: "app", title: "Install Progress", detail: "The install animation is back to Feather's original style.")
+        Item(icon: "arrow.clockwise", title: "More Reliable Updates", detail: "If GitHub has a brief hiccup, Feather retries automatically, and the Semi Local install page now appears when Feather updates itself."),
+        Item(icon: "app", title: "Install Sheet", detail: "Back to Feather's original look, with the grey card and round progress animation.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"

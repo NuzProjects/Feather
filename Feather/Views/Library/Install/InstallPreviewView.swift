@@ -10,6 +10,7 @@ import NimbleViews
 import NimbleExtensions
 import IDeviceSwift
 import OSLog
+import SafariServices
 
 // MARK: - View
 struct InstallPreviewView: View {
@@ -20,6 +21,7 @@ struct InstallPreviewView: View {
 	@AppStorage("Feather.serverMethod") private var _serverMethod: Int = 1
 	@State private var _isWebviewPresenting = false
 	@State private var progressTask: Task<Void, Never>?
+	@State private var _safari: SFSafariViewController?
 	
 	var app: AppInfoPresentable
 	@StateObject var viewModel: InstallerStatusViewModel
@@ -61,12 +63,17 @@ struct InstallPreviewView: View {
 							_offerSemiLocal(String.localized("iOS didn't start the install from Feather's local server."))
 						}
 					} else if _serverMethod == 1 {
-						_isWebviewPresenting = true
+						if inBackground {
+							_presentSafari()
+						} else {
+							_isWebviewPresenting = true
+						}
 					}
 				}
 				
 				if case .sendingPayload = newStatus, _serverMethod == 1 {
 					_isWebviewPresenting = false
+					_dismissSafari()
 				}
 				
 				if case .installing = newStatus {
@@ -87,6 +94,7 @@ struct InstallPreviewView: View {
 				case .completed, .broken(_):
 					progressTask?.cancel()
 					progressTask = nil
+					_dismissSafari()
 					#if !targetEnvironment(macCatalyst)
 					BackgroundAudioManager.shared.stop()
 					#endif
@@ -114,6 +122,7 @@ struct InstallPreviewView: View {
 		.onDisappear {
 			progressTask?.cancel()
 			progressTask = nil
+			_dismissSafari()
 			
 			#if !targetEnvironment(macCatalyst)
 			BackgroundAudioManager.shared.stop()
@@ -123,6 +132,20 @@ struct InstallPreviewView: View {
 	
 	private func _close() {
 		if let onClose { onClose() } else { dismiss() }
+	}
+
+	/// Updates run from a hidden view, so the Semi Local page is shown on top of the current screen.
+	private func _presentSafari() {
+		guard _safari == nil, let top = UIApplication.topViewController() else { return }
+		let safari = SFSafariViewController(url: installer.pageEndpoint)
+		safari.modalPresentationStyle = .pageSheet
+		top.present(safari, animated: true)
+		_safari = safari
+	}
+
+	private func _dismissSafari() {
+		_safari?.dismiss(animated: true)
+		_safari = nil
 	}
 
 	private func _offerSemiLocal(_ reason: String) {
@@ -150,8 +173,9 @@ struct InstallPreviewView: View {
 				_button()
 			}
 			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-			.padding(.horizontal, 8)
-			.padding(.bottom, 4)
+			.background(Color(UIColor.secondarySystemBackground))
+			.clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+			.padding()
 		}
 	}
 
