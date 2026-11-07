@@ -3,3 +3,6 @@ https://feather-el2.pages.dev/*
 
 https://:version.feather-el2.pages.dev/*
   X-Robots-Tag: noindex
+
+/deck/*
+  X-Robots-Tag: noindex
