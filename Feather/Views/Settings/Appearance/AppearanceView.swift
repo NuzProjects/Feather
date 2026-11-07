@@ -30,6 +30,8 @@ struct AppearanceView: View {
 	
 	@AppStorage("Feather.userTintColor")
 	private var _selectedColorHex: String = "#848ef9"
+
+	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
 	
 	private var _tintColorBinding: Binding<Color> {
 		Binding(
@@ -62,6 +64,15 @@ struct AppearanceView: View {
 					selection: _tintColorBinding,
 					supportsOpacity: false
 				)
+			}
+
+			Section {
+				NavigationLink(destination: AppIconView(currentIcon: $_currentIcon)) {
+					Label(.localized("App Icon"), systemImage: "app.badge")
+				}
+				NavigationLink(destination: NavigatorView()) {
+					Label(.localized("Navigator"), systemImage: "dock.rectangle")
+				}
 			}
 			
 			if #available(iOS 18.0, *) {

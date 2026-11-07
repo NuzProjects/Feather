@@ -9,12 +9,11 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = []
-
-    static let fixes: [Item] = [
-        Item(icon: "square.grid.2x2", title: "Widgets and Live Activities", detail: "Feather tells you when they need a one-time reinstall, or when your certificate can't run them. Settings shows a Finish Setting Up Widgets button until they're ready."),
-        Item(icon: "livephoto", title: "Live Activities", detail: "No more empty black bar when widgets can't run on your certificate.")
+    static let features: [Item] = [
+        Item(icon: "gearshape", title: "Tidier Settings", detail: "App Icon and Navigator are now inside Appearance, and compression and export options are in Signing Options.")
     ]
+
+    static let fixes: [Item] = []
 
     private static let seenKey = "WhatsNew.seenVersion"
 

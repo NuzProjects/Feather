@@ -7,12 +7,15 @@
 
 import SwiftUI
 import NimbleViews
+import Zip
 
 // MARK: - View
 struct ConfigurationView: View {
 	@StateObject private var _optionsManager = OptionsManager.shared
 	@State var isRandomAlertPresenting = false
 	@State var randomString = ""
+	@AppStorage("Feather.compressionLevel") private var _compressionLevel: Int = ZipCompression.DefaultCompression.rawValue
+	@AppStorage("Feather.useShareSheetForArchiving") private var _useShareSheet: Bool = false
 	
 	// MARK: Body
 	var body: some View {
@@ -36,6 +39,17 @@ struct ConfigurationView: View {
 				Text(.localized("This allows you to set rules for automatically replacing the Bundle ID/Display Name when signing an app."))
 			}
 			SigningOptionsView(options: $_optionsManager.options)
+
+			NBSection(.localized("Export")) {
+				Picker(.localized("Compression Level"), systemImage: "archivebox", selection: $_compressionLevel) {
+					ForEach(ZipCompression.allCases, id: \.rawValue) { level in
+						Text(level.label).tag(level)
+					}
+				}
+				Toggle(.localized("Show Sheet when Exporting"), systemImage: "square.and.arrow.up", isOn: $_useShareSheet)
+			} footer: {
+				Text(.localized("Toggling show sheet will present a share sheet after exporting to your files."))
+			}
 		}
 		.toolbar {
 			NBToolbarMenu(

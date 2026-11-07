@@ -14,7 +14,6 @@ import IDeviceSwift
 // MARK: - View
 struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
-	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
 	@State private var _isGetCertificatePresenting = false
 	@ObservedObject private var _updater = FeatherUpdater.shared
 	// MARK: Fetch
@@ -51,16 +50,9 @@ struct SettingsView: View {
 							Label(.localized("Finish Setting Up Widgets"), systemImage: "square.grid.2x2")
 						}
 					}
-				}
-
-				Section {
 					NavigationLink(destination: AppearanceView()) {
 						Label(.localized("Appearance"), systemImage: "paintbrush")
 					}
-					NavigationLink(destination: AppIconView(currentIcon: $_currentIcon)) {
-						Label(.localized("App Icon"), systemImage: "app.badge")
-					}
-					NavigationLink(destination: NavigatorView()) { Label(.localized("Navigator"), systemImage: "dock.rectangle") }
 				}
                 
 				NBSection(.localized("Certificates")) {
@@ -99,9 +91,6 @@ struct SettingsView: View {
 				NBSection(.localized("Features")) {
 					NavigationLink(destination: ConfigurationView()) {
 						Label(.localized("Signing Options"), systemImage: "signature")
-					}
-					NavigationLink(destination: ArchiveView()) {
-						Label(.localized("Archive & Compression"), systemImage: "archivebox")
 					}
 					NavigationLink(destination: InstallationView()) {
 						Label(.localized("Installation"), systemImage: "arrow.down.circle")
