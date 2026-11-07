@@ -12,8 +12,7 @@ enum WhatsNew {
 	static let features: [Item] = []
 
 	static let fixes: [Item] = [
-		Item(icon: "arrow.down.app", title: "Updates with Semi Local", detail: "Feather opens iOS's install prompt directly when it updates itself, instead of relying on a page that sometimes didn't appear."),
-		Item(icon: "square.stack", title: "Progress Panels", detail: "Use the same glass as the tab bar.")
+		Item(icon: "arrow.down.app", title: "Install Prompt", detail: "Semi Local installs and updates go straight to iOS's install prompt instead of opening a Safari page first.")
 	]
 
 	private static let seenKey = "WhatsNew.seenVersion"

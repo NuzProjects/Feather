@@ -19,7 +19,6 @@ struct InstallPreviewView: View {
 	@AppStorage("Feather.useShareSheetForArchiving") private var _useShareSheet: Bool = false
 	@AppStorage("Feather.installationMethod") private var _installationMethod: Int = 0
 	@AppStorage("Feather.serverMethod") private var _serverMethod: Int = 1
-	@State private var _isWebviewPresenting = false
 	@State private var progressTask: Task<Void, Never>?
 	@State private var _safari: SFSafariViewController?
 	
@@ -46,9 +45,6 @@ struct InstallPreviewView: View {
 	// MARK: Body
 	var body: some View {
 		_content()
-		.sheet(isPresented: $_isWebviewPresenting) {
-			SafariRepresentableView(url: installer.pageEndpoint).ignoresSafeArea()
-		}
 		.onReceive(viewModel.$status) { newStatus in
 			if _installationMethod == 0 {
 				if case .ready = newStatus {
@@ -63,16 +59,11 @@ struct InstallPreviewView: View {
 							_offerSemiLocal(String.localized("iOS didn't start the install from Feather's local server."))
 						}
 					} else if _serverMethod == 1 {
-						if inBackground {
-							_openExternalInstallLink()
-						} else {
-							_isWebviewPresenting = true
-						}
+						_openExternalInstallLink()
 					}
 				}
 				
 				if case .sendingPayload = newStatus, _serverMethod == 1 {
-					_isWebviewPresenting = false
 					_dismissSafari()
 				}
 				
@@ -134,18 +125,21 @@ struct InstallPreviewView: View {
 		if let onClose { onClose() } else { dismiss() }
 	}
 
-	// The Semi Local page only forwards to this link, so updates open it directly and
-	// fall back to the page if iOS refuses or doesn't start the install.
+	// The Semi Local page only forwards to this link, so open it directly and fall
+	// back to the page if iOS refuses or doesn't start the install.
 	private func _openExternalInstallLink() {
 		let link = installer.iTunesLinkExternal
 		guard let url = URL(string: link) else { return _presentSafari() }
+		// iOS's install prompt makes the app resign active, which means it appeared.
+		let prompt = _PromptWatcher()
 		UIApplication.shared.open(url) { opened in
 			DevLog.shared.log(opened ? .info : .error, "Semi Local install link \(opened ? "opened" : "failed to open")", category: "Install")
 			if !opened { _presentSafari() }
 		}
 		DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
-			guard case .ready = viewModel.status else { return }
-			DevLog.shared.log(.warning, "iOS didn't start the Semi Local install, showing the install page", category: "Install")
+			defer { prompt.stop() }
+			guard !prompt.appeared, case .ready = viewModel.status else { return }
+			DevLog.shared.log(.warning, "iOS didn't show the Semi Local install prompt, showing the install page", category: "Install")
 			_presentSafari()
 		}
 	}
@@ -355,5 +349,21 @@ struct InstallPreviewView: View {
 
 	private func _normalizeInstallProgress(_ rawProgress: Double) -> Double {
 		min(1.0, max(0.0, (rawProgress - 0.6) / 0.3))
+	}
+}
+
+private final class _PromptWatcher {
+	private(set) var appeared = false
+	private var token: NSObjectProtocol?
+
+	init() {
+		token = NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: .main) { [weak self] _ in
+			self?.appeared = true
+		}
+	}
+
+	func stop() {
+		if let token { NotificationCenter.default.removeObserver(token) }
+		token = nil
 	}
 }

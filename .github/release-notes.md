@@ -1,4 +1,4 @@
-## Update 1.3.4 Beta 7
+## Update 1.3.4 Beta 8
 
 **Bug Fixes:**
-* Updating Feather with Semi Local opens iOS's install prompt directly, instead of relying on an install page that sometimes didn't appear
+* Semi Local installs go straight to iOS's install prompt instead of opening a Safari page first. The page only appears if the prompt doesn't
