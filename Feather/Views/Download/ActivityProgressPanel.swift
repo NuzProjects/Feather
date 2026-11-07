@@ -1,5 +1,4 @@
 import SwiftUI
-import NukeUI
 
 @MainActor
 final class ImportProgress: ObservableObject {
@@ -76,9 +75,9 @@ private struct ImportProgressCard: View {
     var iconURL: URL? = nil
     let fraction: Double
     var body: some View {
-        surface {
+        ProgressPanelSurface(cornerRadius: 22) {
             HStack(spacing: 12) {
-                iconView
+                ProgressPanelIcon(image: icon, url: iconURL)
                 VStack(alignment: .leading, spacing: 7) {
                     HStack {
                         Text(name).font(.subheadline.weight(.semibold)).lineLimit(1)
@@ -94,32 +93,5 @@ private struct ImportProgressCard: View {
         .padding(.horizontal, 12)
         .animation(.smooth(duration: 0.2), value: Int(fraction * 100))
         .accessibilityElement(children: .combine)
-    }
-    @ViewBuilder private func surface<Content: View>(@ViewBuilder content: () -> Content) -> some View {
-        if #available(iOS 26, *) { content().glassEffect(.regular, in: RoundedRectangle(cornerRadius: 22)) }
-        else { content().background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22)) }
-    }
-}
-
-private extension ImportProgressCard {
-    var iconSize: CGFloat { 42 }
-    var iconShape: RoundedRectangle {
-        RoundedRectangle(cornerRadius: iconSize * (ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 26, minorVersion: 0, patchVersion: 0)) ? 0.2677 : 0.2337), style: .continuous)
-    }
-    @ViewBuilder var iconView: some View {
-        Group {
-            if let icon { Image(uiImage: icon).resizable().scaledToFill() }
-            else if let iconURL {
-                LazyImage(url: iconURL) { state in
-                    if let image = state.image { image.resizable().scaledToFill() } else { placeholder }
-                }
-            } else { placeholder }
-        }
-        .scaleEffect(1.06)
-        .frame(width: iconSize, height: iconSize)
-        .clipShape(iconShape)
-    }
-    var placeholder: some View {
-        Image("App_Unknown").resizable().scaledToFill()
     }
 }

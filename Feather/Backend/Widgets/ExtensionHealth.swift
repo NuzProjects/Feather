@@ -60,10 +60,6 @@ enum ExtensionHealth {
 		_present(current) { UserDefaults.standard.set(key, forKey: promptedKey) }
 	}
 
-	static func showExplanation() {
-		_present(state) {}
-	}
-
 	private static func _present(_ state: State, attempt: Int = 0, onShown: @escaping () -> Void) {
 		guard state != .ready else { return }
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {

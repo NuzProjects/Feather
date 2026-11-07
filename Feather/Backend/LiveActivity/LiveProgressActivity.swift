@@ -111,16 +111,7 @@ final class LiveProgressActivity {
 		lastSent = rounded
 		lastSentAt = Date()
 
-		let state = FeatherProgressAttributes.ContentState(
-			title: rounded.title,
-			detail: rounded.detail,
-			fraction: rounded.fraction,
-			symbol: rounded.symbol,
-			tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9",
-			others: max(0, rounded.others),
-			finished: rounded.finished
-		)
-		let content = ActivityContent(state: state, staleDate: Date().addingTimeInterval(120))
+		let content = ActivityContent(state: _state(rounded), staleDate: Date().addingTimeInterval(120))
 
 		if let current = activity as? Activity<FeatherProgressAttributes>, current.activityState == .active {
 			Task { await current.update(content) }
@@ -146,23 +137,31 @@ final class LiveProgressActivity {
 		let finalState = lastSent
 		lastSent = nil
 		Task {
-			if let finalState {
-				let state = FeatherProgressAttributes.ContentState(
-					title: finalState.title,
-					detail: finalState.detail,
-					fraction: finalState.fraction,
-					symbol: finalState.symbol,
-					tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9",
-					others: 0,
-					finished: true
-				)
-				await current.end(ActivityContent(state: state, staleDate: nil), dismissalPolicy: .after(Date().addingTimeInterval(4)))
+			if var finalState {
+				finalState.others = 0
+				finalState.finished = true
+				await current.end(ActivityContent(state: self._state(finalState), staleDate: nil), dismissalPolicy: .after(Date().addingTimeInterval(4)))
 			} else {
 				await current.end(nil, dismissalPolicy: .immediate)
 			}
 		}
 		#endif
 	}
+
+	#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
+	@available(iOS 16.2, *)
+	private func _state(_ snapshot: Snapshot) -> FeatherProgressAttributes.ContentState {
+		FeatherProgressAttributes.ContentState(
+			title: snapshot.title,
+			detail: snapshot.detail,
+			fraction: snapshot.fraction,
+			symbol: snapshot.symbol,
+			tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9",
+			others: max(0, snapshot.others),
+			finished: snapshot.finished
+		)
+	}
+	#endif
 
 	private func _endStaleActivities() {
 		#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)

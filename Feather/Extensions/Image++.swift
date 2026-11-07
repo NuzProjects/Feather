@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+extension CGFloat {
+	/// Corner radius of an app icon as a fraction of its size, matching the system on each iOS version.
+	static var appIconCornerRatio: CGFloat {
+		if #available(iOS 26.0, *) { return 0.2677 }
+		return 0.2337
+	}
+}
+
 extension Image {
 	/// Applies a standard icon style with firmware-aware corner radius
 	func appIconStyle(
@@ -15,12 +23,7 @@ extension Image {
 		isCircle: Bool = false,
 		background: Color = .clear
 	) -> some View {
-		var multiplier: CGFloat = 0.2337
-		if #available(iOS 26.0, *) {
-			multiplier = 0.2677
-		}
-		
-		let radius = isCircle ? (size / 2) : (size * multiplier)
+		let radius = isCircle ? (size / 2) : (size * .appIconCornerRatio)
 		
 		return self.resizable()
 			.scaledToFit()

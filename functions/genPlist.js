@@ -5,8 +5,11 @@
 const escapeXML = (value) =>
   String(value).replace(/[<>&'"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", "'": "&apos;", '"': "&quot;" })[c]);
 
-// Only manifests for IPAs served from the phone itself (loopback or a private
-// network address), so this can't be used to host installs for arbitrary apps.
+// Only manifests for IPAs served straight from a device by IP address (Feather's
+// local server), never from a domain name, so this can't front installs for
+// apps hosted on other websites. Carriers hand out all kinds of IPv4 addresses
+// (private, CGNAT, 192.0.0.x on IPv6-only networks, sometimes public), so any
+// IPv4 literal is accepted.
 function isLocalPayload(raw) {
   let url;
   try {
@@ -18,10 +21,8 @@ function isLocalPayload(raw) {
   if (!/\.ipa$/i.test(url.pathname)) return false;
   const host = url.hostname;
   if (host === "localhost" || host === "local.feather.madebynuz.dev") return true;
-  const parts = host.split(".").map(Number);
-  if (parts.length !== 4 || parts.some((n) => !Number.isInteger(n) || n < 0 || n > 255)) return false;
-  const [a, b] = parts;
-  return a === 127 || a === 10 || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || (a === 100 && b >= 64 && b <= 127) || (a === 169 && b === 254);
+  const parts = host.split(".");
+  return parts.length === 4 && parts.every((part) => /^\d{1,3}$/.test(part) && Number(part) <= 255);
 }
 
 export function onRequestGet({ request }) {

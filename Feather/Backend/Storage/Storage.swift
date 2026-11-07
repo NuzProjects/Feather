@@ -59,11 +59,6 @@ final class Storage: ObservableObject {
 		NSManagedObjectContext.mergeChanges(fromRemoteContextSave: [NSDeletedObjectsKey: ids], into: [context])
 	}
 	
-	func countContent<T: NSManagedObject>(for type: T.Type) -> String {
-		let request = T.fetchRequest()
-		return "\((try? context.count(for: request)) ?? 0)"
-	}
-
 	private func _loadPersistentStoreSafely() {
         container.loadPersistentStores { _, error in
             if let error {

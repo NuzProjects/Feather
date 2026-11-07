@@ -12,6 +12,15 @@ import NimbleViews
 // MARK: - Extension: Model
 extension ServerView {
 	struct ServerPackModel: Decodable {
+		static let url = "https://feather.madebynuz.dev/pack.json"
+
+		/// Saves the certificate, key and host name the install server uses.
+		func save() throws {
+			try FileManager.forceWrite(content: key, to: "server.pem")
+			try FileManager.forceWrite(content: cert, to: "server.crt")
+			try FileManager.forceWrite(content: info.domains.commonName, to: "commonName.txt")
+		}
+
 		var cert: String
 		var ca: String
 		var key: String
@@ -53,7 +62,7 @@ struct ServerView: View {
 	private let _serverMethods: [String] = [.localized("Fully Local"), .localized("Semi Local")]
 	
 	private let _dataService = NBFetchService()
-	private let _serverPackUrl = "https://feather.madebynuz.dev/pack.json"
+	private let _serverPackUrl = ServerPackModel.url
 	
 	// MARK: Body
 	var body: some View {

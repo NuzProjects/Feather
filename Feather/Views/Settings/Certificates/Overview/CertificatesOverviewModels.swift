@@ -131,12 +131,6 @@ extension CertificatePair {
 }
 
 // MARK: - Shared style
-enum CertificateOverviewStyle {
-	static var cornerRadius: CGFloat {
-		if #available(iOS 26.0, *) { return 28 } else { return 10.5 }
-	}
-}
-
 // MARK: - Validity ring
 struct CertificateValidityRing: View {
 	let expiration: Date?

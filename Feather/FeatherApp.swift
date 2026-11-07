@@ -24,7 +24,7 @@ struct FeatherApp: App {
 	var body: some Scene {
 		WindowGroup {
 			VStack {
-				VariedTabbarView()
+				TabbarView()
 					.modifier(_UpdateCertificateSheet())
 					.environment(\.managedObjectContext, storage.context)
 					.onOpenURL(perform: _handleURL)

@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import NukeUI
 
 @MainActor
 final class SigningProgress: ObservableObject {
@@ -163,21 +164,31 @@ struct UpdateProgressPanel: View {
 
 struct ProgressPanelIcon: View {
     let image: UIImage?
+    var url: URL? = nil
     var body: some View {
         Group {
             if let image { Image(uiImage: image).resizable().scaledToFill() }
-            else { Image("App_Unknown").resizable().scaledToFill() }
+            else if let url {
+                LazyImage(url: url) { state in
+                    if let loaded = state.image { loaded.resizable().scaledToFill() } else { placeholder }
+                }
+            } else { placeholder }
         }
         .scaleEffect(1.06)
         .frame(width: 42, height: 42)
-        .clipShape(RoundedRectangle(cornerRadius: 42 * (ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 26, minorVersion: 0, patchVersion: 0)) ? 0.2677 : 0.2337), style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: 42 * .appIconCornerRatio, style: .continuous))
+    }
+    private var placeholder: some View {
+        Image("App_Unknown").resizable().scaledToFill()
     }
 }
 
 struct ProgressPanelSurface<Content: View>: View {
+    var cornerRadius: CGFloat = 24
     @ViewBuilder let content: () -> Content
     var body: some View {
-        if #available(iOS 26, *) { content().glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24)) }
-        else { content().background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24)).overlay(RoundedRectangle(cornerRadius: 24).stroke(.white.opacity(0.12))) }
+        // Clear glass with a light dim reads like the tab bar instead of a heavier frosted card.
+        if #available(iOS 26, *) { content().glassEffect(.clear.tint(Color(uiColor: .systemBackground).opacity(0.25)), in: RoundedRectangle(cornerRadius: cornerRadius)) }
+        else { content().background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: cornerRadius)).overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(.white.opacity(0.12))) }
     }
 }
