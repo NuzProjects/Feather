@@ -29,6 +29,18 @@
 - **Navigator.** Choose, hide and reorder tabs, and show or hide tab labels.
 - **Clearer signing errors.** Plain-language messages instead of raw error codes.
 - **Better Sources.** Search apps across sources and see when each source last updated.
+- **Home Screen widgets.** Certificate and Library widgets in small and medium, in your accent color.
+- **Live Activities.** Signing, download and update progress on the Lock Screen and in the Dynamic Island.
+- **Certificate Overview.** Days left, capabilities, devices and signed apps for your certificate, with a revocation check.
+- **Get a Certificate.** Trusted certificate providers, one tap away in Settings when you don't have one.
+- **Signing checks.** A warning before signing an app that's still App Store encrypted or needs a newer iOS.
+- **Extensions that work.** Widgets and share sheets inside apps you sign get their own signing profile.
+- **Beta updates.** Turn on Receive Beta Updates to try new features first.
+- **Developer Logs.** Export logs and crash reports, or open a pre-filled bug report on GitHub after a crash.
+- **Offline indicator.** A small glass pill above the tab bar when you lose connection.
+- **13 languages.** Including all of the screens above.
+
+Widgets and Live Activities need a certificate that covers all app IDs.
 
 ## Features
 
