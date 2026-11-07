@@ -9,19 +9,10 @@ enum WhatsNew {
         var id: String { title }
     }
 
-    static let features: [Item] = [
-        Item(icon: "square.grid.2x2", title: "Home Screen Widgets", detail: "A Certificate widget with days left and status, and a Library widget with your recently signed apps, in small and medium."),
-        Item(icon: "livephoto", title: "Live Activities", detail: "Signing, downloads and updates show their progress on the Lock Screen and in the Dynamic Island."),
-        Item(icon: "exclamationmark.shield", title: "Signing Checks", detail: "Feather warns you before signing an app that's still App Store encrypted or needs a newer iOS."),
-        Item(icon: "wifi.slash", title: "Offline Indicator", detail: "A small glass pill above the tab bar shows when you're offline."),
-        Item(icon: "globe", title: "13 Languages", detail: "New screens, alerts and errors are translated."),
-        Item(icon: "ladybug", title: "Report on GitHub", detail: "After a crash, open a bug report with the details already filled in.")
-    ]
+    static let features: [Item] = []
 
     static let fixes: [Item] = [
-        Item(icon: "gearshape", title: "Tidier Settings", detail: "App Icon and Navigator are inside Appearance, which is now under Features, and export options are in Signing Options."),
-        Item(icon: "puzzlepiece.extension", title: "App Extensions", detail: "Widgets and share sheets inside apps you sign get a signing profile, so they can open."),
-        Item(icon: "rectangle.topthird.inset.filled", title: "Top Bar", detail: "No divider line at the top of pages. Content blurs under the bar when you scroll.")
+        Item(icon: "server.rack", title: "Fully Local Works Again", detail: "Fully Local now uses Feather's own certificate, which renews automatically and is replaced if it's ever revoked. Turn it on in Settings → Installation → Server.")
     ]
 
     private static let seenKey = "WhatsNew.seenVersion"
