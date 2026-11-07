@@ -18,7 +18,10 @@ struct CertificatesCellView: View {
 	var body: some View {
 		VStack(spacing: 6) {
 			let title = {
-				var title = cert.nickname ?? data?.Name ?? .localized("Unknown")
+				// Profile names are often a device ID, so prefer the team name when there's no nickname.
+				let teamName = data?.TeamName.trimmingCharacters(in: .whitespaces) ?? ""
+				let fallbackName: String? = teamName.isEmpty ? data?.Name : teamName
+				var title: String = cert.nickname ?? fallbackName ?? String.localized("Unknown")
 				
 				if let getTaskAllow = data?.Entitlements?["get-task-allow"]?.value as? Bool, getTaskAllow == true {
 					title = "🐞 \(title)"
@@ -29,7 +32,7 @@ struct CertificatesCellView: View {
 			
 			NBTitleWithSubtitleView(
 				title: title,
-				subtitle: data?.AppIDName ?? .localized("Unknown")
+				subtitle: _subtitle
 			)
 			
 			_certInfoPill(data: cert)
@@ -47,6 +50,11 @@ struct CertificatesCellView: View {
 
 // MARK: - Extension: View
 extension CertificatesCellView {
+	private var _subtitle: String {
+		if let team = data?.TeamIdentifier.first { return String(format: String.localized("Team %@"), team) }
+		return data?.AppIDName ?? String.localized("Unknown")
+	}
+
 	@ViewBuilder
 	private func _certInfoPill(data: CertificatePair) -> some View {
 		let pillItems = _buildPills(from: data)

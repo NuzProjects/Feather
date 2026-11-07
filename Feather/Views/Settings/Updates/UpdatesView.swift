@@ -27,7 +27,7 @@ struct UpdatesView: View {
             .animation(.smooth(duration: 0.35), value: updater.latest?.id)
 
             NBSection(.localized("What's New")) {
-                if let notes = updater.releaseNotes {
+                if updater.updateAvailable, let notes = updater.releaseNotes {
                     Text(LocalizedStringKey(notes))
                         .font(.subheadline)
                         .frame(maxWidth: .infinity, alignment: .leading)

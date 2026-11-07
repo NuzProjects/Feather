@@ -30,7 +30,17 @@ enum WidgetSnapshotStore {
 	private static let service = "Feather.Widgets"
 	private static let account = "snapshot"
 
-	static let accessGroup: String? = {
+	// Resolved lazily and only cached once it works, since the keychain can't be
+	// read before the device is first unlocked (for example on a background launch).
+	private static var _accessGroup: String?
+
+	static var accessGroup: String? {
+		if let _accessGroup { return _accessGroup }
+		_accessGroup = _resolveAccessGroup()
+		return _accessGroup
+	}
+
+	private static func _resolveAccessGroup() -> String? {
 		let probe: [String: Any] = [
 			kSecClass as String: kSecClassGenericPassword,
 			kSecAttrService as String: "Feather.Widgets.probe",
@@ -52,7 +62,7 @@ enum WidgetSnapshotStore {
 			let prefix = group.split(separator: ".").first
 		else { return nil }
 		return "\(prefix).feather.widgets"
-	}()
+	}
 
 	private static func query() -> [String: Any]? {
 		guard let accessGroup else { return nil }
