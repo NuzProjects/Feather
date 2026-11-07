@@ -28,6 +28,12 @@ struct SourcesView: View {
 		}
 	}
 
+	private var _filteredRepositories: [GitHubRepository] {
+		githubSources.repositories.filter {
+			_searchText.isEmpty || $0.slug.localizedCaseInsensitiveContains(_searchText)
+		}
+	}
+
 	private struct _AppMatch: Identifiable {
 		let source: AltSource
 		let repository: ASRepository
@@ -56,14 +62,21 @@ struct SourcesView: View {
 	var body: some View {
 		NBNavigationView(.localized("Sources")) {
 			NBListAdaptable {
-                if !githubSources.repositories.isEmpty {
-                    Section("GitHub") {
-                        ForEach(githubSources.repositories) { repository in
-                            Button { githubRepository = repository } label: { Label { Text(repository.slug) } icon: { Image("GitHubMark").renderingMode(.template) } }
-                            .swipeActions { Button("Remove", role: .destructive) { githubSources.remove(repository) } }
-                        }
-                    }
-                }
+				if !_filteredRepositories.isEmpty {
+					NBSection(
+						"GitHub",
+						secondary: _filteredRepositories.count.description
+					) {
+						ForEach(_filteredRepositories) { repository in
+							Button {
+								githubRepository = repository
+							} label: {
+								GitHubSourceCellView(repository: repository)
+							}
+							.buttonStyle(.plain)
+						}
+					}
+				}
 				if !_filteredSources.isEmpty {
 					Section {
 						NavigationLink {
@@ -122,7 +135,7 @@ struct SourcesView: View {
 			}
 			.searchable(text: $_searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search sources and apps")
 			.overlay {
-				if _filteredSources.isEmpty && _matchingApps.isEmpty && githubSources.repositories.isEmpty {
+				if _filteredSources.isEmpty && _matchingApps.isEmpty && _filteredRepositories.isEmpty {
 					if #available(iOS 17, *) {
 						ContentUnavailableView {
 							Label(.localized("No Repositories"), systemImage: "globe.desk.fill")
@@ -150,6 +163,7 @@ struct SourcesView: View {
 			}
 			.refreshable {
 				await viewModel.fetchSources(_sources, refresh: true)
+				await githubSources.refreshDates(force: true)
 			}
 			.sheet(item: $githubRepository) { GitHubImportView(repositoryInput: $0.slug) }
 			.sheet(isPresented: $_isAddingPresenting) {
@@ -158,6 +172,9 @@ struct SourcesView: View {
 		}
 		.task(id: Array(_sources)) {
 			await viewModel.fetchSources(_sources)
+		}
+		.task(id: githubSources.repositories) {
+			await githubSources.refreshDates()
 		}
 	}
 }

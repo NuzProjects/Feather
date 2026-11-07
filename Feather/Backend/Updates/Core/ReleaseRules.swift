@@ -4,6 +4,8 @@ struct GitHubRepository: Codable, Equatable, Hashable, Identifiable {
 	let owner: String
 	let name: String
 	var slug: String { "\(owner)/\(name)" }
+	var webURL: URL { URL(string: "https://github.com/\(slug)")! }
+	var avatarURL: URL? { URL(string: "https://github.com/\(owner).png?size=200") }
 	init(_ input: String) throws {
 		let text = input.trimmingCharacters(in: .whitespacesAndNewlines)
 		let url = URL(string: text.contains("://") ? text : "https://github.com/" + text)
