@@ -8,7 +8,7 @@ enum SSLCertificateCheck {
     static func run() {
         DispatchQueue.global(qos: .utility).async {
             guard !ServerInstaller.isCertificateTrusted() else { return }
-            NBFetchService().fetch(from: "https://backloop.dev/pack.json") { (result: Result<ServerView.ServerPackModel, Error>) in
+            NBFetchService().fetch(from: "https://feather.madebynuz.dev/pack.json") { (result: Result<ServerView.ServerPackModel, Error>) in
                 guard case .success(let pack) = result, ServerInstaller.isTrusted(pem: pack.cert) else { return }
                 do {
                     try FileManager.forceWrite(content: pack.key, to: "server.pem")
@@ -28,7 +28,7 @@ enum SSLCertificateCheck {
         defaults.set(cert, forKey: offeredKey)
         let alert = UIAlertController(
             title: "Fully Local Works Again",
-            message: "backloop.dev renewed its SSL certificate and Feather downloaded it. Switch the Server Type to Fully Local?",
+            message: "Feather downloaded a renewed SSL certificate, so Fully Local can install apps again. Switch the Server Type to Fully Local?",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "Not Now", style: .cancel))

@@ -174,7 +174,7 @@ struct InstallPreviewView: View {
 							await MainActor.run {
 								UIAlertController.showAlertWithOk(
 									title: "SSL Certificate Expired",
-									message: "Fully Local uses the backloop.dev certificate, which has expired, so iOS won't install the app. Tap Update SSL Certificates in Settings → Installation → Server, or switch the Server Type to Semi Local.",
+									message: "Fully Local's SSL certificate has expired, so iOS won't install the app. Tap Update SSL Certificates in Settings → Installation → Server, or switch the Server Type to Semi Local.",
 									action: { _close() }
 								)
 							}

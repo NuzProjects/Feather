@@ -1,0 +1,108 @@
+name: Fully Local certificate
+
+# Keeps local.feather.madebynuz.dev pointing at 127.0.0.1 and publishes a fresh
+# Let's Encrypt certificate for it at https://feather.madebynuz.dev/pack.json,
+# which Feather's Fully Local install server uses.
+on:
+  schedule:
+    - cron: "17 5 1,15 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fully-local-cert
+  cancel-in-progress: false
+
+env:
+  DOMAIN: local.feather.madebynuz.dev
+  ZONE_ID: 21214b4eb943b9813749f8f9982b723e
+
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Point the domain at this device (127.0.0.1)
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$CF_TOKEN" || { echo "Add the CLOUDFLARE_API_TOKEN repository secret first"; exit 1; }
+          api="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
+          body=$(jq -n --arg name "$DOMAIN" '{type:"A",name:$name,content:"127.0.0.1",ttl:3600,proxied:false,comment:"Feather Fully Local"}')
+          id=$(curl -fsS -H "Authorization: Bearer $CF_TOKEN" "$api?type=A&name=$DOMAIN" | jq -r '.result[0].id // empty')
+          if [ -n "$id" ]; then
+            curl -fsS -X PUT -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" --data "$body" "$api/$id" | jq -e '.success' >/dev/null
+          else
+            curl -fsS -X POST -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" --data "$body" "$api" | jq -e '.success' >/dev/null
+          fi
+          echo "$DOMAIN -> 127.0.0.1"
+
+      - name: Get a certificate from Let's Encrypt
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          pip install --quiet certbot certbot-dns-cloudflare
+          umask 077
+          printf 'dns_cloudflare_api_token = %s\n' "$CF_TOKEN" > "$RUNNER_TEMP/cloudflare.ini"
+          certbot certonly --non-interactive --agree-tos --register-unsafely-without-email \
+            --dns-cloudflare --dns-cloudflare-credentials "$RUNNER_TEMP/cloudflare.ini" \
+            --dns-cloudflare-propagation-seconds 30 \
+            --key-type rsa --rsa-key-size 2048 \
+            --config-dir "$RUNNER_TEMP/le" --work-dir "$RUNNER_TEMP/le-work" --logs-dir "$RUNNER_TEMP/le-logs" \
+            -d "$DOMAIN"
+          rm -f "$RUNNER_TEMP/cloudflare.ini"
+
+      - name: Write pack.json
+        run: |
+          set -euo pipefail
+          live="$RUNNER_TEMP/le/live/$DOMAIN"
+          python3 - "$live" "$DOMAIN" <<'PY'
+          import json, subprocess, sys
+          live, domain = sys.argv[1], sys.argv[2]
+          read = lambda name: open(f"{live}/{name}").read()
+          def field(flag):
+              out = subprocess.check_output(["openssl", "x509", "-in", f"{live}/cert.pem", "-noout", flag], text=True).strip()
+              return out.split("=", 1)[1].strip()
+          issuer = field("-issuer").split("CN = ")[-1].split("CN=")[-1]
+          key = read("privkey.pem")
+          half = len(key) // 2
+          pack = {
+              "version": 1,
+              "domain": domain,
+              "cert": read("fullchain.pem"),
+              "ca": read("chain.pem"),
+              "key1": key[:half],
+              "key2": key[half:],
+              "info": {
+                  "issuer": {"commonName": issuer},
+                  "domains": {"commonName": domain, "altNames": [domain]},
+                  "notBefore": field("-startdate"),
+                  "notAfter": field("-enddate"),
+              },
+          }
+          with open("website/pack.json", "w") as f:
+              json.dump(pack, f, indent=2)
+              f.write("\n")
+          print("Valid until", pack["info"]["notAfter"])
+          PY
+
+      - name: Publish
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/pack.json
+          git diff --cached --quiet && { echo "No change"; exit 0; }
+          git commit -m "Renew the Fully Local certificate for $DOMAIN"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1
