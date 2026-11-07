@@ -1,12 +1,18 @@
 name: Fully Local certificate
 
-# Keeps local.feather.madebynuz.dev pointing at 127.0.0.1 and publishes a fresh
+# Keeps local.feather.madebynuz.dev pointing at 127.0.0.1 and publishes a
 # Let's Encrypt certificate for it at https://feather.madebynuz.dev/pack.json,
-# which Feather's Fully Local install server uses.
+# which Feather's Fully Local install server uses. Runs daily and only gets a
+# new certificate when the current one is missing, revoked or close to expiring.
 on:
   schedule:
-    - cron: "17 5 1,15 * *"
+    - cron: "17 5 * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: Get a new certificate even if the current one is fine
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -43,7 +49,50 @@ jobs:
           fi
           echo "$DOMAIN -> 127.0.0.1"
 
+      - name: Check the current certificate
+        id: check
+        env:
+          FORCE: ${{ inputs.force || false }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, re, subprocess, tempfile, urllib.request
+
+          def decide():
+              if os.environ.get("FORCE") == "true":
+                  return "a new certificate was requested"
+              try:
+                  pack = json.load(open("website/pack.json"))
+              except (OSError, ValueError):
+                  return "there is no certificate yet"
+              if pack.get("domain") != os.environ["DOMAIN"]:
+                  return "the certificate is for another domain"
+              leaf = pack["cert"].split("-----END CERTIFICATE-----")[0] + "-----END CERTIFICATE-----\n"
+              path = tempfile.mktemp(suffix=".pem")
+              open(path, "w").write(leaf)
+              if subprocess.run(["openssl", "x509", "-in", path, "-noout", "-checkend", str(30 * 86400)], capture_output=True).returncode != 0:
+                  return "the certificate expires within 30 days"
+              text = subprocess.check_output(["openssl", "x509", "-in", path, "-noout", "-text", "-serial"], text=True)
+              serial = int(re.search(r"serial=([0-9A-Fa-f]+)", text).group(1), 16)
+              crl_url = re.search(r"URI:(http\S+\.crl)", text)
+              if not crl_url:
+                  return None
+              der = tempfile.mktemp(suffix=".crl")
+              urllib.request.urlretrieve(crl_url.group(1), der)
+              crl = subprocess.check_output(["openssl", "crl", "-inform", "DER", "-in", der, "-noout", "-text"], text=True)
+              revoked = {int(value, 16) for value in re.findall(r"Serial Number:\s*([0-9A-Fa-f]+)", crl)}
+              if serial in revoked:
+                  return "the certificate was revoked"
+              return None
+
+          reason = decide()
+          print(f"Renewing: {reason}" if reason else "Current certificate is valid and not revoked")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"renew={'true' if reason else 'false'}\n")
+          PY
+
       - name: Get a certificate from Let's Encrypt
+        if: steps.check.outputs.renew == 'true'
         env:
           CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
@@ -60,6 +109,7 @@ jobs:
           rm -f "$RUNNER_TEMP/cloudflare.ini"
 
       - name: Write pack.json
+        if: steps.check.outputs.renew == 'true'
         run: |
           set -euo pipefail
           live="$RUNNER_TEMP/le/live/$DOMAIN"
@@ -94,6 +144,7 @@ jobs:
           PY
 
       - name: Publish
+        if: steps.check.outputs.renew == 'true'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"

@@ -7,9 +7,11 @@ enum SSLCertificateCheck {
 
     static func run() {
         DispatchQueue.global(qos: .utility).async {
-            guard !ServerInstaller.isCertificateTrusted() else { return }
+            let wasTrusted = ServerInstaller.isCertificateTrusted()
+            let current = ServerInstaller.getUrl("server", ext: "crt").flatMap { try? String(contentsOf: $0, encoding: .utf8) }
+            // The published certificate is replaced when it's revoked or renewed, so always compare.
             NBFetchService().fetch(from: "https://feather.madebynuz.dev/pack.json") { (result: Result<ServerView.ServerPackModel, Error>) in
-                guard case .success(let pack) = result, ServerInstaller.isTrusted(pem: pack.cert) else { return }
+                guard case .success(let pack) = result, pack.cert != current, ServerInstaller.isTrusted(pem: pack.cert) else { return }
                 do {
                     try FileManager.forceWrite(content: pack.key, to: "server.pem")
                     try FileManager.forceWrite(content: pack.cert, to: "server.crt")
@@ -17,6 +19,7 @@ enum SSLCertificateCheck {
                 } catch {
                     return
                 }
+                guard !wasTrusted else { return }
                 DispatchQueue.main.async { offerFullyLocal(for: pack.cert) }
             }
         }
