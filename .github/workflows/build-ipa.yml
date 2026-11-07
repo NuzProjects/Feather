@@ -20,6 +20,10 @@ on:
         description: Only delete every beta pre-release and its tag (skips the build)
         type: boolean
         default: false
+      keep_newest_beta:
+        description: When deleting betas, keep the newest one
+        type: boolean
+        default: false
       clear_run_history:
         description: Only delete past workflow runs and their artifacts (skips the build)
         type: boolean
@@ -46,7 +50,12 @@ jobs:
         run: |
           set -euo pipefail
           gh api --paginate "repos/$GH_REPO/releases?per_page=100" \
-            --jq '.[] | select(.prerelease == true and (.tag_name | test("beta"; "i"))) | .tag_name' > tags.txt
+            --jq '.[] | select(.prerelease == true and (.tag_name | test("beta"; "i"))) | "\(.created_at) \(.tag_name)"' \
+            | sort -r | awk '{print $2}' > tags.txt
+          if [ "${{ inputs.keep_newest_beta }}" = "true" ]; then
+            echo "Keeping $(head -n 1 tags.txt)"
+            sed -i '1d' tags.txt
+          fi
           echo "Deleting $(wc -l < tags.txt) beta releases"
           while read -r tag; do
             [ -n "$tag" ] || continue
