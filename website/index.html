@@ -56,11 +56,10 @@
   --tint: #f1f2fe;
   --text: #1d1d1f;
   --text-2: #6e6e73;
-  --text-3: #86868b;
   --line: rgba(0, 0, 0, 0.08);
   --accent: #848ef9;
   --accent-deep: #6b74ec;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -108,81 +107,79 @@ svg { flex-shrink: 0; }
 /* Hero */
 .hero { position: relative; text-align: center; padding: 104px 0 0; overflow-x: clip; }
 .hero-icon {
-  width: 128px; height: 128px; margin: 0 auto 30px; border-radius: 29px;
+  width: 128px; height: 128px; margin: 0 auto 32px; border-radius: 29px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   animation: rise 1.2s var(--ease) both, float 7s ease-in-out 1.2s infinite;
 }
 @keyframes float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -6px, 0); } }
-.hero h1 { font-size: clamp(52px, 9.5vw, 96px); font-weight: 700; letter-spacing: -0.045em; line-height: 1; animation: rise 1.2s var(--ease) 0.08s both; }
-.lead { font-size: clamp(20px, 3vw, 27px); color: var(--text-2); font-weight: 500; letter-spacing: -0.015em; line-height: 1.28; max-width: 620px; margin: 20px auto 0; animation: rise 1.2s var(--ease) 0.16s both; }
+.hero h1 { font-size: clamp(52px, 9.5vw, 96px); font-weight: 600; letter-spacing: -0.035em; line-height: 1; animation: rise 1.2s var(--ease) 0.08s both; }
+.lead { font-size: clamp(20px, 3vw, 26px); color: var(--text-2); font-weight: 400; letter-spacing: -0.015em; line-height: 1.28; max-width: 620px; margin: 20px auto 0; animation: rise 1.2s var(--ease) 0.16s both; }
 .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px; animation: rise 1.2s var(--ease) 0.24s both; }
-.meta { margin-top: 16px; font-size: 14px; color: var(--text-3); animation: rise 1.2s var(--ease) 0.32s both; }
-.fork { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 8px 16px; border-radius: 980px; background: var(--soft); color: var(--text-2); font-size: 14px; animation: rise 1.2s var(--ease) 0.4s both; }
-.fork svg { width: 16px; height: 16px; color: var(--accent-deep); }
-.fork a { font-weight: 500; }
+.meta { margin-top: 16px; font-size: 14px; color: var(--text-2); font-variant-numeric: tabular-nums; animation: rise 1.2s var(--ease) 0.32s both; }
+.fork { margin-top: 4px; font-size: 14px; color: var(--text-2); animation: rise 1.2s var(--ease) 0.36s both; }
 @keyframes rise { from { opacity: 0; transform: translate3d(0, 14px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-width: 180px; padding: 15px 28px; border-radius: 980px; font-size: 17px; font-weight: 500; letter-spacing: -0.01em;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.25s;
+  min-width: 180px; height: 48px; padding: 0 28px; border-radius: 980px; font-size: 17px; font-weight: 500;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background-color 0.18s var(--ease);
 }
 .btn svg { width: 19px; height: 19px; }
-.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 24px rgba(132, 142, 249, 0.35); }
-@media (hover: hover) { .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(132, 142, 249, 0.45); } }
-.btn-secondary { background: var(--soft); color: var(--accent-deep); }
-.btn-secondary:hover { transform: translateY(-2px); background: #ececf1; }
-.btn:active { transform: scale(0.97); transition-duration: 0.12s; }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); }
+@media (hover: hover) { .btn-primary:hover { background: var(--accent-deep); } }
+.btn-secondary { background: var(--soft); color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
+@media (hover: hover) { .btn-secondary:hover { background: #ececf1; } }
+.btn:active { transform: scale(0.97); }
 
 .devices { margin: 64px auto 0; max-width: 980px; }
 .devices picture { display: block; transform: translate3d(0, calc(var(--p, 0) * -28px), 0) scale(calc(1 + var(--p, 0) * 0.035)); transform-origin: 50% 0; }
 .devices img { width: 100%; height: auto; }
 
 /* Scroll reveals */
-.reveal { opacity: 0; transform: translate3d(0, 18px, 0) scale(0.985); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); transition-delay: var(--d, 0s); }
+.reveal { opacity: 0; transform: translate3d(0, 12px, 0); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); transition-delay: var(--d, 0s); }
 .reveal.in { opacity: 1; transform: none; }
 
 /* Highlights */
 .highlights { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 88px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.highlight { padding: 30px 12px; text-align: center; }
+.highlight { padding: 32px 12px; text-align: center; }
 .highlight + .highlight { border-left: 1px solid var(--line); }
-.highlight strong { display: block; font-size: 30px; font-weight: 700; letter-spacing: -0.03em; }
+.highlight strong { display: block; font-size: 30px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .highlight > span { color: var(--text-2); font-size: 15px; }
 
 /* Sections */
 section.block { margin-top: 128px; }
-.title { text-align: center; font-size: clamp(34px, 5.6vw, 56px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
+.title { text-align: center; font-size: clamp(34px, 5.6vw, 56px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
 .sub { text-align: center; color: var(--text-2); font-size: 20px; max-width: 580px; margin: 16px auto 0; line-height: 1.4; }
 
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
 .card {
-  background: var(--soft); border-radius: 24px; padding: 30px 28px 32px;
-  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), background 0.3s;
+  background: var(--soft); border-radius: 20px; padding: 28px;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background-color 0.18s var(--ease);
 }
-.card:hover { transform: translateY(-4px); background: #f2f2f6; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06); }
-.card .icon { width: 48px; height: 48px; border-radius: 14px; background: #fff; color: var(--accent-deep); display: grid; place-items: center; margin-bottom: 22px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); transition: transform 0.5s var(--ease); }
-.card:hover .icon { transform: translateY(-2px) rotate(-8deg) scale(1.06); }
+.card:hover { transform: translateY(-2px); background: #f2f2f6; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.card .icon { width: 48px; height: 48px; border-radius: 14px; background: #fff; color: var(--accent-deep); display: grid; place-items: center; margin-bottom: 24px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); transition: transform 0.3s var(--ease); }
+.card:hover .icon { transform: rotate(-6deg); }
 .card .icon svg { width: 26px; height: 26px; }
 .card h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
-.card p { color: var(--text-2); font-size: 16px; margin-top: 6px; line-height: 1.45; }
+.card p { color: var(--text-2); font-size: 16px; margin-top: 8px; line-height: 1.45; }
 
-.steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
-.steps::before { content: ""; position: absolute; top: 22px; left: 16.7%; right: 16.7%; height: 2px; background: linear-gradient(90deg, var(--tint), var(--accent), var(--tint)); border-radius: 2px; transform: scaleX(0); transform-origin: 0 50%; transition: transform 1s var(--ease) 0.15s; }
+.steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+.steps::before { content: ""; position: absolute; top: 23px; left: 16.7%; right: 16.7%; height: 2px; background: var(--accent); opacity: 0.35; border-radius: 2px; transform: scaleX(0); transform-origin: 0 50%; transition: transform 1s var(--ease) 0.15s; }
 .steps.in::before { transform: scaleX(1); }
 .step { position: relative; text-align: center; padding: 0 12px; }
-.step .num { width: 46px; height: 46px; margin: 0 auto 18px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 18px; transform: scale(0.6); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transition-delay: calc(var(--d, 0s) + 0.15s); }
+.step .num { width: 48px; height: 48px; margin: 0 auto 20px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 18px; font-variant-numeric: tabular-nums; transform: scale(0.7); transition: transform 0.45s var(--ease); transition-delay: calc(var(--d, 0s) + 0.15s); }
 .step.in .num { transform: none; }
 .step h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
-.step p { color: var(--text-2); font-size: 16px; margin-top: 6px; }
+.step p { color: var(--text-2); font-size: 16px; margin-top: 8px; }
 
 .faq { max-width: 720px; margin: 48px auto 0; }
 .qa { border-bottom: 1px solid var(--line); }
 .qa button {
   width: 100%; background: none; border: 0; cursor: pointer; font: inherit; color: var(--text); text-align: left;
-  display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 2px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0;
   font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
 }
-.qa .plus { position: relative; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--soft); display: grid; place-items: center; transition: transform 0.4s var(--ease), background 0.3s; }
+.qa .plus { position: relative; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--soft); display: grid; place-items: center; transition: transform 0.4s var(--ease), background 0.3s; }
 .qa .plus::before, .qa .plus::after { content: ""; position: absolute; width: 11px; height: 1.6px; background: var(--text-2); border-radius: 2px; }
 .qa .plus::after { transform: rotate(90deg); }
 .qa button:hover .plus { background: var(--tint); }
@@ -190,7 +187,7 @@ section.block { margin-top: 128px; }
 .qa .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s var(--ease); }
 .qa.open .answer { grid-template-rows: 1fr; }
 .qa .answer > div { overflow: hidden; }
-.qa .answer p { color: var(--text-2); font-size: 16px; line-height: 1.55; padding: 0 2px 22px; opacity: 0; transform: translate3d(0, -6px, 0); transition: opacity 0.4s ease, transform 0.4s var(--ease); }
+.qa .answer p { color: var(--text-2); font-size: 16px; line-height: 1.55; padding: 0 0 20px; opacity: 0; transform: translate3d(0, -6px, 0); transition: opacity 0.4s ease, transform 0.4s var(--ease); }
 .qa.open .answer p { opacity: 1; transform: none; transition-delay: 0.08s; }
 
 .cta {
@@ -198,13 +195,14 @@ section.block { margin-top: 128px; }
   background: var(--tint);
 }
 .cta img { width: 84px; height: 84px; border-radius: 19px; margin: 0 auto 24px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); animation: float 7s ease-in-out infinite; }
-.cta h2 { font-size: clamp(34px, 5vw, 52px); font-weight: 700; letter-spacing: -0.04em; }
-.cta p { color: var(--text-2); font-size: 19px; margin-top: 10px; }
+.cta h2 { font-size: clamp(34px, 5vw, 52px); font-weight: 600; letter-spacing: -0.03em; }
+.cta p { color: var(--text-2); font-size: 19px; margin-top: 12px; }
 .cta .actions { animation: none; }
 .cta .btn-primary { box-shadow: none; }
 .cta .btn-secondary { background: #fff; }
+.cta .btn-secondary:hover { background: #f9f9fb; }
 
-footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 40px 0 56px; margin-top: 56px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-3); }
+footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 40px 0 56px; margin-top: 56px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-2); }
 footer p { max-width: 520px; line-height: 1.5; }
 footer nav { display: flex; gap: 20px; }
 footer a { color: var(--text-2); }
@@ -224,20 +222,20 @@ footer a:hover { color: var(--text); }
   .nav-links { gap: 20px; font-size: 14px; }
   .hero { padding-top: 56px; }
   .hero-icon { width: 104px; height: 104px; border-radius: 24px; margin-bottom: 24px; }
-  .lead { font-size: 19px; margin-top: 14px; max-width: 340px; }
-  .actions { flex-direction: column; align-items: stretch; gap: 10px; max-width: 320px; margin: 30px auto 0; }
-  .btn { min-width: 0; width: 100%; padding: 15px 22px; }
+  .lead { font-size: 19px; margin-top: 12px; max-width: 340px; }
+  .actions { flex-direction: column; align-items: stretch; gap: 12px; max-width: 320px; margin: 32px auto 0; }
+  .btn { min-width: 0; width: 100%; padding: 0 24px; }
   .meta { font-size: 13px; }
-  .fork { font-size: 13px; padding: 8px 14px; max-width: 320px; text-align: left; }
+  .fork { font-size: 13px; max-width: 300px; margin-left: auto; margin-right: auto; }
   .devices { margin-top: 44px; }
   .highlights { grid-template-columns: 1fr; margin-top: 56px; }
-  .highlight { padding: 22px 8px; }
+  .highlight { padding: 24px 8px; }
   .highlight + .highlight { border-left: 0; border-top: 1px solid var(--line); }
   .highlight strong { font-size: 24px; }
   section.block { margin-top: 80px; }
   .sub { font-size: 17px; margin-top: 12px; }
   .features { grid-template-columns: 1fr; gap: 12px; margin-top: 36px; }
-  .card { padding: 22px 22px 24px; border-radius: 20px; display: grid; grid-template-columns: 44px 1fr; column-gap: 16px; align-items: start; }
+  .card { padding: 24px; border-radius: 16px; display: grid; grid-template-columns: 44px 1fr; column-gap: 16px; align-items: start; }
   .card .icon { width: 44px; height: 44px; border-radius: 12px; margin: 0; grid-row: span 2; }
   .card h3 { font-size: 18px; align-self: center; }
   .card p { font-size: 15px; margin-top: 4px; }
@@ -245,10 +243,10 @@ footer a:hover { color: var(--text); }
   .steps { margin-top: 36px; }
   .step h3 { font-size: 18px; }
   .step p { font-size: 15px; }
-  .faq { margin-top: 28px; }
-  .qa button { font-size: 16px; padding: 18px 2px; }
+  .faq { margin-top: 32px; }
+  .qa button { font-size: 16px; padding: 16px 0; }
   .qa .answer p { font-size: 15px; }
-  .cta { margin-top: 88px; padding: 52px 20px; border-radius: 26px; }
+  .cta { margin-top: 88px; padding: 48px 20px; border-radius: 24px; }
   .cta img { width: 72px; height: 72px; border-radius: 16px; }
   .cta p { font-size: 17px; }
   footer { flex-direction: column; align-items: center; text-align: center; padding-bottom: max(40px, env(safe-area-inset-bottom)); }
@@ -287,7 +285,7 @@ footer a:hover { color: var(--text); }
       <a class="btn btn-secondary" href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json">Add to AltStore</a>
     </div>
     <p class="meta"><span id="version">Latest version</span> · iOS 16 or later</p>
-    <p class="fork"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 4.75a1 1 0 1 1 0 2a1 1 0 0 1 0-2m1 10.5h-2v-6h2z"/></svg><span>An unofficial fork of <a href="https://github.com/claration/feather">Feather by Samara</a>, not the official app.</span></p>
+    <p class="fork">An unofficial fork of <a href="https://github.com/claration/feather">Feather by Samara</a>, not the official app</p>
     <div class="devices reveal">
       <picture>
         <source srcset="assets/screenshot.webp" type="image/webp">
@@ -299,13 +297,13 @@ footer a:hover { color: var(--text); }
   <div class="wrap">
     <div class="highlights">
       <div class="highlight reveal"><strong>No computer</strong><span>Everything happens on your device</span></div>
-      <div class="highlight reveal" style="--d:.08s"><strong><span data-count="13">13</span> languages</strong><span>Translated for people everywhere</span></div>
+      <div class="highlight reveal" style="--d:.08s"><strong><span data-count="14">14</span> languages</strong><span>English plus 13 full translations</span></div>
       <div class="highlight reveal" style="--d:.16s"><strong>Self-updating</strong><span>New versions install from Settings</span></div>
     </div>
   </div>
 
   <section id="features" class="block wrap">
-    <h2 class="title reveal">Everything you need to sideload.</h2>
+    <h2 class="title reveal">Everything you need to sideload</h2>
     <p class="sub reveal">Your certificate, your apps, right on your device. No jailbreak and no cable.</p>
     <div class="features">
       <article class="card reveal"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><g fill="currentColor"><path d="M22 16v-1c0-2.828 0-4.242-.879-5.12C20.242 9 18.828 9 16 9H8c-2.829 0-4.243 0-5.122.88C2 10.757 2 12.17 2 14.997V16c0 2.829 0 4.243.879 5.122C3.757 22 5.172 22 8 22h8c2.828 0 4.243 0 5.121-.878C22 20.242 22 18.829 22 16" opacity=".5"/><path fill-rule="evenodd" d="M12 1.25a.75.75 0 0 0-.75.75v10.973l-1.68-1.961a.75.75 0 1 0-1.14.976l3 3.5a.75.75 0 0 0 1.14 0l3-3.5a.75.75 0 1 0-1.14-.976l-1.68 1.96V2a.75.75 0 0 0-.75-.75" clip-rule="evenodd"/></g></svg></div><h3>Updates Itself</h3><p>New versions download, sign and install from Settings. Turn on betas to try features first.</p></article>
@@ -318,7 +316,7 @@ footer a:hover { color: var(--text); }
   </section>
 
   <section id="how" class="block wrap">
-    <h2 class="title reveal">Up and running in minutes.</h2>
+    <h2 class="title reveal">Up and running in minutes</h2>
     <div class="steps" data-reveal>
       <div class="step reveal"><div class="num">1</div><h3>Get a certificate</h3><p>Use your Apple Developer account, or a provider listed in Feather.</p></div>
       <div class="step reveal" style="--d:.1s"><div class="num">2</div><h3>Import it</h3><p>Add the .p12 and .mobileprovision in Settings → Certificates.</p></div>
@@ -327,7 +325,7 @@ footer a:hover { color: var(--text); }
   </section>
 
   <section id="faq" class="block wrap">
-    <h2 class="title reveal">Questions, answered.</h2>
+    <h2 class="title reveal">Questions, answered</h2>
     <div class="faq">
       <div class="qa reveal"><button aria-expanded="false">Do I need a computer or a jailbreak?<span class="plus" aria-hidden="true"></span></button><div class="answer"><div><p>No. Feather runs on stock iOS and iPadOS 16 or later. All you need is a signing certificate.</p></div></div></div>
       <div class="qa reveal" style="--d:0.05s"><button aria-expanded="false">How is it different from AltStore or SideStore?<span class="plus" aria-hidden="true"></span></button><div class="answer"><div><p>AltStore and SideStore use a free Apple ID and refresh apps every 7 days. Feather uses a developer certificate, so apps last as long as the certificate does. It still reads AltStore sources.</p></div></div></div>
@@ -340,8 +338,8 @@ footer a:hover { color: var(--text); }
   <div class="wrap">
     <div class="cta reveal" id="get">
       <img src="assets/icon.png" alt="" width="84" height="84">
-      <h2>Get Feather.</h2>
-      <p>Sign it once, and it keeps itself up to date.</p>
+      <h2>Get Feather</h2>
+      <p>Sign it once, and it keeps itself up to date</p>
       <div class="actions">
         <a class="btn btn-primary" data-download href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 3.25a.75.75 0 0 1 .75.75v14.19l4.72-4.72a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 1 1 1.06-1.06l4.72 4.72V4a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>Download</a>
         <a class="btn btn-secondary" href="https://github.com/NuzProjects/Feather">View on GitHub</a>
