@@ -115,8 +115,7 @@ svg { flex-shrink: 0; }
 .hero h1 { font-size: clamp(52px, 9.5vw, 96px); font-weight: 600; letter-spacing: -0.035em; line-height: 1; animation: rise 1.2s var(--ease) 0.08s both; }
 .lead { font-size: clamp(20px, 3vw, 26px); color: var(--text-2); font-weight: 400; letter-spacing: -0.015em; line-height: 1.28; max-width: 620px; margin: 20px auto 0; animation: rise 1.2s var(--ease) 0.16s both; }
 .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px; animation: rise 1.2s var(--ease) 0.24s both; }
-.meta { margin-top: 16px; font-size: 14px; color: var(--text-2); font-variant-numeric: tabular-nums; animation: rise 1.2s var(--ease) 0.32s both; }
-.fork { margin-top: 4px; font-size: 14px; color: var(--text-2); animation: rise 1.2s var(--ease) 0.36s both; }
+.fork { margin-top: 16px; font-size: 14px; color: var(--text-2); animation: rise 1.2s var(--ease) 0.36s both; }
 @keyframes rise { from { opacity: 0; transform: translate3d(0, 14px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
 
 .btn {
@@ -225,8 +224,7 @@ footer a:hover { color: var(--text); }
   .lead { font-size: 19px; margin-top: 12px; max-width: 340px; }
   .actions { flex-direction: column; align-items: stretch; gap: 12px; max-width: 320px; margin: 32px auto 0; }
   .btn { min-width: 0; width: 100%; padding: 0 24px; }
-  .meta { font-size: 13px; }
-  .fork { font-size: 13px; max-width: 300px; margin-left: auto; margin-right: auto; }
+    .fork { font-size: 13px; max-width: 300px; margin-left: auto; margin-right: auto; }
   .devices { margin-top: 44px; }
   .highlights { grid-template-columns: 1fr; margin-top: 56px; }
   .highlight { padding: 24px 8px; }
@@ -284,7 +282,6 @@ footer a:hover { color: var(--text); }
       <a class="btn btn-primary" data-download href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 3.25a.75.75 0 0 1 .75.75v14.19l4.72-4.72a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 1 1 1.06-1.06l4.72 4.72V4a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>Download</a>
       <a class="btn btn-secondary" href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json">Add to AltStore</a>
     </div>
-    <p class="meta"><span id="version">Latest version</span> · iOS 16 or later</p>
     <p class="fork">An unofficial fork of <a href="https://github.com/claration/feather">Feather by Samara</a>, not the official app</p>
     <div class="devices reveal">
       <picture>
@@ -442,8 +439,6 @@ fetch("https://api.github.com/repos/NuzProjects/Feather/releases/latest")
   .then(r => r.ok ? r.json() : null)
   .then(release => {
     if (!release) return;
-    const name = (release.name || release.tag_name || "").replace(/^Update\s+/, "");
-    if (name) document.getElementById("version").textContent = "Version " + name;
     const ipa = (release.assets || []).find(a => a.name === "Feather.ipa");
     if (ipa) document.querySelectorAll("[data-download]").forEach(a => a.href = ipa.browser_download_url);
   })
