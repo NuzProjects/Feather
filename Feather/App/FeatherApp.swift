@@ -53,6 +53,7 @@ struct FeatherApp: App {
 				LiveProgressActivity.shared.start()
 				WidgetDataWriter.shared.start()
 				ExtensionHealth.check()
+				TemporaryFiles.removeLeftovers()
 			}
 		}
 	}

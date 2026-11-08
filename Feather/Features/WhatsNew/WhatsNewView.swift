@@ -11,12 +11,14 @@ enum WhatsNew {
 
 	static let features: [Item] = [
 		Item(icon: "globe.desk", title: "GitHub Sources", detail: "GitHub repositories in Sources show their icon, name and when they last released, just like other sources."),
-		Item(icon: "ipad.landscape", title: "Better on iPad", detail: "Settings, app pages and lists keep to a comfortable width, and progress panels fit the iPad's layout.")
+		Item(icon: "ipad.landscape", title: "Better on iPad", detail: "Settings, app pages and lists keep to a comfortable width, and progress panels fit the iPad's layout."),
+		Item(icon: "bolt", title: "Instant Sources", detail: "Sources open right away, even offline, and refresh in the background.")
 	]
 
 	static let fixes: [Item] = [
 		Item(icon: "exclamationmark.bubble", title: "Clearer Errors", detail: "GitHub and download errors explain what went wrong in plain words."),
-		Item(icon: "globe", title: "Fully Translated", detail: "Every screen is translated into all 13 languages.")
+		Item(icon: "globe", title: "Fully Translated", detail: "Every screen is translated into all 13 languages."),
+		Item(icon: "internaldrive", title: "Automatic Cleanup", detail: "Leftover files from signing and installing are cleared after a day.")
 	]
 
 	private static let seenKey = "WhatsNew.seenVersion"

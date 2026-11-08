@@ -23,6 +23,8 @@ struct GetCertificateView: View {
 	@Environment(\.dismiss) private var dismiss
 	@ObservedObject private var _remote = RemoteConfig.shared
 	@State private var _isImportPresenting = false
+	@ScaledMetric private var _providerTile: CGFloat = 36
+	@ScaledMetric private var _providerSymbol: CGFloat = 17
 	@State private var _certificateCountBeforeImport = 0
 
 	private var _providers: [CertificateProviders.Provider] { CertificateProviders.current }
@@ -91,9 +93,9 @@ extension GetCertificateView {
 	private func _icon(for provider: CertificateProviders.Provider) -> some View {
 		let shape = RoundedRectangle(cornerRadius: 9, style: .continuous)
 		let symbol = Image(systemName: provider.icon ?? "link")
-			.font(.system(size: 17, weight: .semibold))
+			.font(.system(size: _providerSymbol, weight: .semibold))
 			.foregroundStyle(.white)
-			.frame(width: 36, height: 36)
+			.frame(width: _providerTile, height: _providerTile)
 			.background(shape.fill(provider.official == true ? AnyShapeStyle(Color.black) : AnyShapeStyle(TintShapeStyle())))
 
 		if let iconURL = provider.iconURL {
@@ -102,7 +104,7 @@ extension GetCertificateView {
 					image
 						.resizable()
 						.scaledToFill()
-						.frame(width: 36, height: 36)
+						.frame(width: _providerTile, height: _providerTile)
 						.clipShape(shape)
 						.overlay(shape.strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
 				} else {

@@ -6,6 +6,8 @@ struct CertificateOverviewDetailView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
 	@ObservedObject var cert: CertificatePair
 	@State private var _data: Certificate?
+	@ScaledMetric private var _capabilityTile: CGFloat = 28
+	@ScaledMetric private var _capabilitySymbol: CGFloat = 14
 	@State private var _isCheckingRevocation = false
 	@State private var _revocationAlert: (title: String, message: String)?
 
@@ -105,9 +107,9 @@ extension CertificateOverviewDetailView {
 			ForEach(capabilities) { capability in
 				HStack(spacing: 12) {
 					Image(systemName: capability.icon)
-						.font(.system(size: 14, weight: .semibold))
+						.font(.system(size: _capabilitySymbol, weight: .semibold))
 						.foregroundStyle(.white)
-						.frame(width: 28, height: 28)
+						.frame(width: _capabilityTile, height: _capabilityTile)
 						.background(RoundedRectangle(cornerRadius: 7, style: .continuous).fill(Color.accentColor))
 					Text(capability.title)
 					Spacer()

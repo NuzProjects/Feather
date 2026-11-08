@@ -20,6 +20,7 @@ enum Onboarding {
 struct OnboardingView: View {
 	@Environment(\.dismiss) private var dismiss
 	@State private var page = 0
+	@ScaledMetric(relativeTo: .largeTitle) private var _symbolSize: CGFloat = 76
 	@State private var addingCertificate = false
 	@State private var addingSource = false
 
@@ -80,7 +81,7 @@ struct OnboardingView: View {
 		VStack(spacing: 20) {
 			Spacer()
 			Image(systemName: item.icon)
-				.font(.system(size: 76))
+				.font(.system(size: _symbolSize))
 				.foregroundStyle(Color.accentColor)
 				.symbolRenderingMode(.hierarchical)
 			Text(item.title)

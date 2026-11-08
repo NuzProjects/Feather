@@ -4,6 +4,9 @@
 
 	struct SettingsDonationCellView: View {
 		var site: String
+		@ScaledMetric(relativeTo: .title) private var _heartSize: CGFloat = 38
+		@ScaledMetric private var _benefitSymbol: CGFloat = 32
+		@ScaledMetric private var _benefitColumn: CGFloat = 39
 
 		var body: some View {
 			Section {
@@ -41,7 +44,7 @@
 		private func _title() -> some View {
 			VStack(alignment: .center, spacing: 12) {
 				Image(systemName: "heart")
-					.font(.system(size: 38, weight: .bold))
+					.font(.system(size: _heartSize, weight: .bold))
 					.foregroundStyle(.pink)
 
 				Text(.localized("Donations"))
@@ -59,9 +62,9 @@
 		) -> some View {
 			HStack(alignment: .center, spacing: 14) {
 				Image(systemName: systemName)
-					.font(.system(size: 32))
+					.font(.system(size: _benefitSymbol))
 					.foregroundStyle(.tint)
-					.frame(width: 39, alignment: .center)
+					.frame(width: _benefitColumn, alignment: .center)
 
 				NBTitleWithSubtitleView(
 					title: title,

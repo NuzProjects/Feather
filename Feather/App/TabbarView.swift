@@ -7,6 +7,8 @@ struct TabbarView: View {
 	@State private var selected: TabEnum = NavigatorPreferences.shared.tabs.first ?? .settings
 	@ObservedObject private var updater = FeatherUpdater.shared
 	@State private var installingFromPrompt = false
+	@State private var promptedRelease: GitHubRelease?
+	@State private var acceptedPrompt = false
 	@State private var showWhatsNew = false
 	@State private var showOnboarding = false
 
@@ -85,24 +87,21 @@ struct TabbarView: View {
 				.presentationDetents([.medium, .large])
 				.presentationDragIndicator(.visible)
 		}
-		.alert(
-			"Update Available",
-			isPresented: Binding(get: { updater.promptRelease != nil }, set: { if !$0 { updater.promptRelease = nil } }),
-			presenting: updater.promptRelease
-		) { release in
-			Button("Update") {
-				if navigator.tabs.contains(.settings) {
-					if selected != .settings { TabTransition.crossfade() }
-					selected = .settings
-					updater.openUpdatesPage = true
-				} else {
-					installingFromPrompt = true
-				}
-				updater.install()
+		.sheet(item: Binding(get: { updater.promptRelease }, set: { updater.promptRelease = $0 }), onDismiss: {
+			if let release = promptedRelease, !acceptedPrompt { updater.skip(release) }
+			if acceptedPrompt { _installPromptedUpdate() }
+			promptedRelease = nil
+			acceptedPrompt = false
+		}) { release in
+			UpdatePromptView(release: release, notes: updater.releaseNotes) {
+				acceptedPrompt = true
+				updater.promptRelease = nil
+			} onLater: {
+				updater.promptRelease = nil
 			}
-			Button("Later", role: .cancel) { updater.skip(release) }
-		} message: { release in
-			Text("Feather \(FeatherUpdater.displayName(release)) is ready to install.\n\n\(updater.plainReleaseNotes ?? "")")
+			.onAppear { promptedRelease = release }
+			.presentationDetents([.medium, .large])
+			.presentationDragIndicator(.visible)
 		}
 		.onChange(of: updater.phase) { phase in
 			guard installingFromPrompt else { return }
@@ -116,6 +115,19 @@ struct TabbarView: View {
 				break
 			}
 		}
+	}
+}
+
+private extension TabbarView {
+	func _installPromptedUpdate() {
+		if navigator.tabs.contains(.settings) {
+			if selected != .settings { TabTransition.crossfade() }
+			selected = .settings
+			updater.openUpdatesPage = true
+		} else {
+			installingFromPrompt = true
+		}
+		updater.install()
 	}
 }
 
