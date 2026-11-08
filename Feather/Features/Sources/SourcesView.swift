@@ -6,7 +6,6 @@ import NimbleViews
 struct SourcesView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	@ObservedObject private var githubSources = GitHubSources.shared
-	@State private var githubRepository: GitHubRepository?
 	@StateObject var viewModel = SourcesViewModel.shared
 	@State private var _isAddingPresenting = false
 	@State private var _addingSourceLoading = false
@@ -59,8 +58,8 @@ struct SourcesView: View {
 						secondary: _filteredRepositories.count.description
 					) {
 						ForEach(_filteredRepositories) { repository in
-							Button {
-								githubRepository = repository
+							NavigationLink {
+								GitHubImportView(repository: repository)
 							} label: {
 								GitHubSourceCellView(repository: repository)
 							}
@@ -156,7 +155,6 @@ struct SourcesView: View {
 				await viewModel.fetchSources(_sources, refresh: true)
 				await githubSources.refreshDates(force: true)
 			}
-			.sheet(item: $githubRepository) { GitHubImportView(repositoryInput: $0.slug) }
 			.sheet(isPresented: $_isAddingPresenting) {
 				SourcesAddView()
 			}

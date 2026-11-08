@@ -22,12 +22,14 @@ enum ReleaseError: LocalizedError {
 	case invalidRepository, noIPA, ambiguousAsset, requestFailed(Int), invalidApp
 	var errorDescription: String? {
 		switch self {
-		case .invalidRepository: return "Enter a public GitHub repository URL or owner/repository."
-		case .noIPA: return "No IPA release assets were found."
-		case .ambiguousAsset: return "Several IPA files are available. Import from GitHub again to select the correct asset."
-		case .requestFailed(let code) where (500...599).contains(code): return "GitHub is having trouble right now (HTTP \(code)). Try again in a minute."
-		case .requestFailed(let code): return "GitHub returned HTTP \(code). Try again later."
-		case .invalidApp: return "The IPA does not contain a valid application."
+		case .invalidRepository: return NSLocalizedString("Enter a GitHub repository like owner/name, or paste its link.", comment: "")
+		case .noIPA: return NSLocalizedString("This repository has no releases with an IPA file.", comment: "")
+		case .ambiguousAsset: return NSLocalizedString("This release has more than one IPA file. Open it from GitHub again and pick the one you want.", comment: "")
+		case .requestFailed(let code) where code == 403 || code == 429: return NSLocalizedString("GitHub is limiting how often Feather can check right now. Try again in a few minutes.", comment: "")
+		case .requestFailed(404): return NSLocalizedString("Couldn't find that repository. Check the name, and make sure it's public.", comment: "")
+		case .requestFailed(let code) where (500...599).contains(code): return NSLocalizedString("GitHub is having trouble right now. Try again in a minute.", comment: "")
+		case .requestFailed: return NSLocalizedString("Couldn't reach GitHub. Check your connection and try again.", comment: "")
+		case .invalidApp: return NSLocalizedString("This IPA doesn't contain an app Feather can install.", comment: "")
 		}
 	}
 }

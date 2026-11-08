@@ -14,7 +14,10 @@ enum WhatsNew {
 		Item(icon: "ipad.landscape", title: "Better on iPad", detail: "Settings, app pages and lists keep to a comfortable width, and progress panels fit the iPad's layout.")
 	]
 
-	static let fixes: [Item] = []
+	static let fixes: [Item] = [
+		Item(icon: "exclamationmark.bubble", title: "Clearer Errors", detail: "GitHub and download errors explain what went wrong in plain words."),
+		Item(icon: "globe", title: "Fully Translated", detail: "Every screen is translated into all 13 languages.")
+	]
 
 	private static let seenKey = "WhatsNew.seenVersion"
 

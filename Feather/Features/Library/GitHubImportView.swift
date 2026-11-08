@@ -11,39 +11,59 @@ struct GitHubImportView: View {
 	@State private var notify = true
 	@State private var offerSource = false
 	@State private var prompted: Set<String> = []
-	init(repositoryInput: String = "") { _input = State(initialValue: repositoryInput) }
+	private let pinned: GitHubRepository?
+	init(repositoryInput: String = "") {
+		_input = State(initialValue: repositoryInput)
+		pinned = nil
+	}
+	init(repository: GitHubRepository) {
+		_input = State(initialValue: repository.slug)
+		pinned = repository
+	}
 	var body: some View {
-		NavigationStack {
-			Form {
+		if let pinned {
+			_form
+				.navigationTitle(pinned.name)
+				.navigationBarTitleDisplayMode(.inline)
+		} else {
+			NavigationStack {
+				_form
+					.navigationTitle("Import from GitHub")
+					.toolbar { ToolbarItem(placement: .cancellationAction) { Button("Close") { dismiss() }.disabled(busy) } }
+					.interactiveDismissDisabled(busy)
+			}
+		}
+	}
+	private var _form: some View {
+		Form {
+			if pinned == nil {
 				Section("Repository") {
 					TextField("owner/repository or GitHub URL", text: $input).textInputAutocapitalization(.never).autocorrectionDisabled().keyboardType(.URL)
 					Button("Find Releases") { Task { await load() } }.disabled(busy || input.isEmpty)
 				}
-				Section {
-					Toggle("Notify About Updates", isOn: $notify)
-				} footer: { Text("Checks run when you open the app and when iOS allows background refresh. Updates install only when you choose Update.") }
-				if busy { ProgressView("Working…") }
-				if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
-				ForEach(releases) { release in
-					Section(release.name ?? release.tag_name) {
-						ForEach(release.ipaAssets) { asset in
-							Button { Task { await importIPA(release, asset) } } label: {
-								Label(asset.name, systemImage: "arrow.down.circle")
-							}.disabled(busy)
-						}
+			}
+			Section {
+				Toggle("Notify About Updates", isOn: $notify)
+			} footer: { Text("Checks run when you open the app and when iOS allows background refresh. Updates install only when you choose Update.") }
+			if busy { ProgressView("Working…") }
+			if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
+			ForEach(releases) { release in
+				Section(release.name ?? release.tag_name) {
+					ForEach(release.ipaAssets) { asset in
+						Button { Task { await importIPA(release, asset) } } label: {
+							Label(asset.name, systemImage: "arrow.down.circle")
+						}.disabled(busy)
 					}
 				}
 			}
-			.navigationTitle("Import from GitHub")
-			.nbSoftTopEdge()
-			.task { if !input.isEmpty { await load() } }
-			.alert("Add to Sources?", isPresented: $offerSource) {
-				Button("Add to Sources") { if let repository { GitHubSources.shared.add(repository) } }
-				Button("Not Now", role: .cancel) {}
-			} message: { Text("Keep this GitHub repository in Sources to browse its IPA releases later.") }
-			.toolbar { ToolbarItem(placement: .cancellationAction) { Button("Close") { dismiss() }.disabled(busy) } }
-			.interactiveDismissDisabled(busy)
 		}
+		.nbSoftTopEdge()
+		.refreshable { if pinned != nil { await load() } }
+		.task { if !input.isEmpty && releases.isEmpty { await load() } }
+		.alert("Add to Sources?", isPresented: $offerSource) {
+			Button("Add to Sources") { if let repository { GitHubSources.shared.add(repository) } }
+			Button("Not Now", role: .cancel) {}
+		} message: { Text("Keep this GitHub repository in Sources to browse its IPA releases later.") }
 	}
 	private func load() async {
 		busy = true; error = nil; releases = []; defer { busy = false }

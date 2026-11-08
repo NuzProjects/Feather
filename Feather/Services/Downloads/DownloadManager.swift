@@ -211,7 +211,7 @@ extension DownloadManager: URLSessionDownloadDelegate {
 
 		if let http = downloadTask.response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
 			DevLog.shared.log(.error, "Downloading \(download.fileName) failed: HTTP \(http.statusCode)", category: "Downloads")
-			_fail(download, message: .localized("The server returned an error (HTTP %lld) for %@. The link may be broken or expired.", arguments: http.statusCode, download.fileName))
+			_fail(download, message: .localized("Couldn't download %@. The link may be broken or expired.", arguments: download.fileName))
 			return
 		}
 
