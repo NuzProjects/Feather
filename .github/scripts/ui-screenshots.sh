@@ -111,8 +111,27 @@ tap() {
 		axe describe-ui --udid "$UDID" > "$OUT/failed-tap-$(echo "$1" | tr -c 'A-Za-z0-9' '_').txt" 2>&1 || true
 	fi
 }
+wait_for() {
+	for _ in $(seq 1 30); do
+		locate "$1" >/dev/null 2>&1 && return 0
+		sleep 1
+	done
+	echo "Timed out waiting for \"$1\""
+	return 1
+}
+write_prefs() {
+	xcrun simctl spawn "$UDID" defaults write "$PREFS" Onboarding.seen -bool YES
+	xcrun simctl spawn "$UDID" defaults write "$PREFS" WhatsNew.seenVersion -string "$LABEL"
+	xcrun simctl spawn "$UDID" defaults write "$PREFS" GitHub.sources -data "$GITHUB_HEX"
+	xcrun simctl spawn "$UDID" defaults write "$PREFS" Feather.serverMethodSemiLocal -bool YES
+	xcrun simctl spawn "$UDID" defaults write "$PREFS" Feather.serverMethod -int 0
+}
 add_source() {
 	tap "Add"
+	if ! wait_for "Save"; then
+		echo "The Add Source sheet didn't open"
+		return
+	fi
 	tap "last:type:TextField"
 	axe type "$1" --udid "$UDID" >/dev/null 2>&1 || echo "Couldn't type the source URL"
 	sleep 1
@@ -131,8 +150,18 @@ crashed() {
 }
 
 xcrun simctl launch "$UDID" "$BUNDLE"
-sleep 8
+wait_for "Sources"
+sleep 3
 tap "Not Now"
+if ! locate "LiveContainer" >/dev/null 2>&1; then
+	echo "Settings didn't apply on first launch, writing them again"
+	xcrun simctl terminate "$UDID" "$BUNDLE" || true
+	write_prefs
+	sleep 2
+	xcrun simctl launch "$UDID" "$BUNDLE"
+	wait_for "Sources"
+	sleep 3
+fi
 add_source "https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
 add_source "https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json"
 sleep 3
