@@ -121,11 +121,31 @@ struct LibraryView: View {
 						} description: {
 							Text(.localized("Get started by importing your first IPA file."))
 						} actions: {
-							Menu {
-								_importActions()
-							} label: {
-								NBButton(.localized("Import"), style: .text)
+							VStack(spacing: 10) {
+								Button {
+									_isImportingPresenting = true
+								} label: {
+									Label(.localized("Import from Files"), systemImage: "folder")
+										.frame(maxWidth: .infinity)
+								}
+								.buttonStyle(.borderedProminent)
+								Button {
+									_isGitHubPresenting = true
+								} label: {
+									Label { Text("Import from GitHub") } icon: { Image("GitHubMark").renderingMode(.template) }
+										.frame(maxWidth: .infinity)
+								}
+								.buttonStyle(.bordered)
+								Button {
+									_isDownloadingPresenting = true
+								} label: {
+									Label(.localized("Import from URL"), systemImage: "globe")
+										.frame(maxWidth: .infinity)
+								}
+								.buttonStyle(.bordered)
 							}
+							.controlSize(.large)
+							.frame(maxWidth: 300)
 						}
 					}
 				}

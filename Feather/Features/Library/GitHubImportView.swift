@@ -47,12 +47,23 @@ struct GitHubImportView: View {
 			} footer: { Text("Checks run when you open the app and when iOS allows background refresh. Updates install only when you choose Update.") }
 			if busy { ProgressView("Working…") }
 			if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
-			ForEach(releases) { release in
-				Section(release.name ?? release.tag_name) {
-					ForEach(release.ipaAssets) { asset in
-						Button { Task { await importIPA(release, asset) } } label: {
-							Label(asset.name, systemImage: "arrow.down.circle")
-						}.disabled(busy)
+			if let latest = _sortedReleases.first {
+				Section("Latest Release") {
+					ForEach(latest.ipaAssets) { asset in
+						_assetRow(latest, asset)
+					}
+				}
+			}
+			if _sortedReleases.count > 1 {
+				Section {
+					DisclosureGroup {
+						ForEach(_sortedReleases.dropFirst()) { release in
+							ForEach(release.ipaAssets) { asset in
+								_assetRow(release, asset)
+							}
+						}
+					} label: {
+						LabeledContent("Older Versions", value: "\(_sortedReleases.count - 1)")
 					}
 				}
 			}
@@ -66,6 +77,42 @@ struct GitHubImportView: View {
 			Button("Not Now", role: .cancel) {}
 		} message: { Text("Keep this GitHub repository in Sources to browse its IPA releases later.") }
 	}
+	private var _sortedReleases: [GitHubRelease] {
+		releases.sorted { ($0.published_at ?? "") > ($1.published_at ?? "") }
+	}
+
+	private func _caption(for release: GitHubRelease) -> String {
+		let name = release.name.flatMap { $0.isEmpty ? nil : $0 } ?? release.tag_name
+		guard let published = release.published_at.flatMap(ISO8601DateFormatter().date(from:)) else { return name }
+		return "\(name) · \(published.formatted(date: .abbreviated, time: .omitted))"
+	}
+
+	private func _assetRow(_ release: GitHubRelease, _ asset: GitHubAsset) -> some View {
+		Button { Task { await importIPA(release, asset) } } label: {
+			HStack(spacing: 12) {
+				VStack(alignment: .leading, spacing: 2) {
+					Text(asset.name)
+						.foregroundStyle(.primary)
+						.lineLimit(1)
+					Text(_caption(for: release))
+						.font(.caption)
+						.foregroundStyle(.secondary)
+						.lineLimit(1)
+				}
+				Spacer(minLength: 8)
+				Text("Get")
+					.font(.subheadline.bold())
+					.padding(.horizontal, 16)
+					.padding(.vertical, 6)
+					.background(Color.accentColor.opacity(0.15), in: Capsule())
+					.foregroundStyle(Color.accentColor)
+			}
+			.contentShape(Rectangle())
+		}
+		.buttonStyle(.plain)
+		.disabled(busy)
+	}
+
 	private func load() async {
 		busy = true; error = nil; releases = []; defer { busy = false }
 		do {
