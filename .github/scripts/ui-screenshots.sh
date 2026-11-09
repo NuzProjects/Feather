@@ -62,8 +62,49 @@ shot() {
 	axe describe-ui --udid "$UDID" > "$OUT/$name.txt" 2>&1 || true
 	echo "Captured $name"
 }
+# Finds the centre of the first on-screen element whose label is (or starts with) the text,
+# or of the first element of a type when called with "type:TextField".
+locate() {
+	axe describe-ui --udid "$UDID" 2>/dev/null | python3 -c '
+import json, re, sys
+wanted = sys.argv[1]
+try:
+    tree = json.load(sys.stdin)
+except Exception:
+    sys.exit(1)
+def frame(node):
+    numbers = re.findall(r"-?[0-9.]+", node.get("AXFrame") or "")
+    return [float(n) for n in numbers] if len(numbers) == 4 else None
+last = wanted.startswith("last:")
+if last:
+    wanted = wanted[5:]
+def matches(node):
+    if wanted.startswith("type:"):
+        return node.get("type") == wanted[5:]
+    label = node.get("AXLabel") or ""
+    return label == wanted or label.startswith(wanted + ",")
+found = []
+def walk(node):
+    if isinstance(node, list):
+        for child in node:
+            walk(child)
+        return
+    if not isinstance(node, dict):
+        return
+    box = frame(node)
+    if matches(node) and box and box[2] > 0 and box[3] > 0:
+        found.append(box)
+    walk(node.get("children") or [])
+walk(tree)
+if not found:
+    sys.exit(1)
+box = found[-1] if last else found[0]
+print(round(box[0] + box[2] / 2), round(box[1] + box[3] / 2))
+' "$1"
+}
 tap() {
-	if axe tap --label "$1" --udid "$UDID" >/dev/null 2>&1; then
+	local point
+	if point="$(locate "$1")" && axe tap -x "${point% *}" -y "${point#* }" --udid "$UDID" >/dev/null 2>&1; then
 		sleep 2
 	else
 		echo "Couldn't tap \"$1\""
@@ -72,11 +113,11 @@ tap() {
 }
 add_source() {
 	tap "Add"
-	tap "Enter Source URL"
+	tap "last:type:TextField"
 	axe type "$1" --udid "$UDID" >/dev/null 2>&1 || echo "Couldn't type the source URL"
 	sleep 1
 	tap "Save"
-	sleep 5
+	sleep 6
 }
 rotate() {
 	osascript -e 'tell application "Simulator" to activate' \
@@ -84,8 +125,9 @@ rotate() {
 		|| echo "Couldn't rotate"
 	sleep 3
 }
+CRASHES_BEFORE="$(ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -c '^Feather' || true)"
 crashed() {
-	! xcrun simctl spawn "$UDID" launchctl list 2>/dev/null | grep -q "$BUNDLE"
+	[ "$(ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -c '^Feather' || true)" -gt "$CRASHES_BEFORE" ]
 }
 
 xcrun simctl launch "$UDID" "$BUNDLE"
@@ -124,6 +166,7 @@ fi
 
 xcrun simctl spawn "$UDID" log show --last 10m --predicate "process == \"Feather\" AND messageType == fault" --style compact > "$OUT/faults.log" 2>/dev/null || true
 if crashed; then
-	echo "Feather is no longer running on the $KIND simulator" | tee "$OUT/CRASHED.txt"
+	echo "Feather crashed on the $KIND simulator" | tee "$OUT/CRASHED.txt"
+	cp ~/Library/Logs/DiagnosticReports/Feather* "$OUT/" 2>/dev/null || true
 fi
 xcrun simctl shutdown "$UDID" || true
