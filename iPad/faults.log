@@ -1,6 +1,2 @@
 Timestamp               Ty Process[PID:TID]
-2026-11-09 03:51:45.091 F  Feather[19738:f01c] [com.apple.renderbox:error] building pipeline plane_image_stretch-dea3eabca7dheba4 took 0.572671 seconds
-2026-11-09 03:53:45.764 F  Feather[19738:efe4] [com.apple.UIKit:KeyboardTaskQueue] -[UIKeyboardTaskQueue _lockWhenReadyForMainThread] Keyboard queue task timeout detected
-
-Last Exception Backtrace:
-No stack!
+2026-11-09 04:07:36.707 F  Feather[14036:b50e] [com.apple.renderbox:error] building pipeline plane_image_stretch-dea3eabca7dheba4 took 12.086969 seconds
