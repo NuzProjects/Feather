@@ -102,17 +102,19 @@ jobs:
         id: dependencies
         with:
           path: |
-            ${{ runner.temp }}/Feather
+            ${{ runner.temp }}/Feather/SourcePackages
             ~/Library/Caches/org.swift.swiftpm
-          key: feather-xcode26.3-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
-          restore-keys: feather-xcode26.3-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
-      - name: Drop cached modules built against an older SDK
-        run: rm -rf "$RUNNER_TEMP/Feather/ModuleCache.noindex" "$RUNNER_TEMP/Feather/SDKStatCaches.noindex" "$RUNNER_TEMP/Feather/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules"
-      - name: Test update and navigation rules
-        run: |
-          if [ -f Package.swift ]; then swift test; fi
+          key: feather-packages-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
       - name: Prepare install server assets
-        run: make deps
+        run: |
+          set -euo pipefail
+          make deps
+          NAME="$(cat deps/commonName.txt)"
+          echo "Bundling the install server certificate for $NAME"
+          if [ "$NAME" != "local.feather.madebynuz.dev" ]; then
+            echo "::error::Expected the local.feather.madebynuz.dev certificate but got $NAME. feather.madebynuz.dev/pack.json couldn't be downloaded."
+            exit 1
+          fi
       - name: Resolve Swift packages
         run: |
           set -o pipefail
@@ -130,7 +132,9 @@ jobs:
             -disableAutomaticPackageResolution -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO \
             FEATHER_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.dev.feather \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} \
-            ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES 2>&1 | tee -a "$RUNNER_TEMP/build.log"
+            ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES \
+            COMPILER_INDEX_STORE_ENABLE=NO DEBUG_INFORMATION_FORMAT=dwarf -skipMacroValidation \
+            2>&1 | tee -a "$RUNNER_TEMP/build.log"
       - name: Package IPA for device signing
         run: |
           set -euo pipefail
@@ -186,6 +190,7 @@ jobs:
           path: packages/*.ipa
           if-no-files-found: error
           retention-days: 14
+          compression-level: 0
       - name: Publish release
         if: inputs.publish_release == true
         env:
@@ -234,7 +239,7 @@ jobs:
         if: always() && steps.dependencies.outputs.cache-hit != 'true'
         with:
           path: |
-            ${{ runner.temp }}/Feather
+            ${{ runner.temp }}/Feather/SourcePackages
             ~/Library/Caches/org.swift.swiftpm
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Save build log

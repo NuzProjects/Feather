@@ -19,7 +19,7 @@ deps:
 	rm -rf deps || true
 	mkdir -p deps
 
-	curl -fsSL "$(CERT_JSON_URL)" -o cert.json || curl -fsSL "$(CERT_JSON_FALLBACK)" -o cert.json
+	curl -fsSL --retry 5 --retry-all-errors --retry-delay 3 --connect-timeout 10 "$(CERT_JSON_URL)" -o cert.json || curl -fsSL --retry 3 --retry-all-errors "$(CERT_JSON_FALLBACK)" -o cert.json
 	jq -r '.cert' cert.json > deps/server.crt
 	jq -r '.key1, .key2' cert.json > deps/server.pem
 	jq -r '.info.domains.commonName' cert.json > deps/commonName.txt

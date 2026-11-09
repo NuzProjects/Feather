@@ -1,0 +1,96 @@
+name: UI Screenshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      devices:
+        description: Which simulators to screenshot
+        type: choice
+        options: [iPad, iPhone, both]
+        default: iPad
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ui-screenshots
+  cancel-in-progress: true
+
+jobs:
+  screenshots:
+    runs-on: macos-26
+    timeout-minutes: 45
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Apply Zsign patches
+        run: for patch in patches/zsign-*.patch; do git -C Zsign apply "../$patch"; done
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_26.3.app/Contents/Developer
+      - name: Install AXe
+        run: brew install cameroncooke/axe/axe
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            ${{ runner.temp }}/Feather/SourcePackages
+            ~/Library/Caches/org.swift.swiftpm
+          key: feather-packages-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+      - name: Build for the simulator
+        run: |
+          set -o pipefail
+          git config --global http.version HTTP/1.1
+          xcodebuild -workspace Feather.xcworkspace -scheme Feather -configuration Release \
+            -destination 'generic/platform=iOS Simulator' -derivedDataPath "$RUNNER_TEMP/Feather" \
+            -skipPackagePluginValidation -skipMacroValidation \
+            ARCHS=arm64 ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM= PROVISIONING_PROFILE_SPECIFIER= \
+            FEATHER_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.dev.feather \
+            COMPILER_INDEX_STORE_ENABLE=NO DEBUG_INFORMATION_FORMAT=dwarf 2>&1 | tee "$RUNNER_TEMP/build.log" | grep -E "error:|warning: .*deprecated|BUILD (SUCCEEDED|FAILED)" || true
+          grep -q "BUILD SUCCEEDED" "$RUNNER_TEMP/build.log"
+      - name: Take screenshots
+        run: |
+          set -uo pipefail
+          APP="$(find "$RUNNER_TEMP/Feather/Build/Products" _build -type d -name Feather.app -path '*iphonesimulator*' 2>/dev/null | head -n 1)"
+          test -n "$APP"
+          chmod +x .github/scripts/ui-screenshots.sh
+          case "${{ inputs.devices }}" in
+            both) KINDS="iPad iPhone" ;;
+            *) KINDS="${{ inputs.devices }}" ;;
+          esac
+          for kind in $KINDS; do
+            .github/scripts/ui-screenshots.sh "$APP" "$RUNNER_TEMP/shots/$kind" "$kind"
+          done
+      - name: Save screenshots to the ci-screenshots branch
+        if: always()
+        run: |
+          set -euo pipefail
+          test -d "$RUNNER_TEMP/shots" || exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git fetch --depth 1 origin ci-screenshots 2>/dev/null; then
+            git worktree add "$RUNNER_TEMP/branch" FETCH_HEAD
+            cd "$RUNNER_TEMP/branch"
+            git checkout -B ci-screenshots
+          else
+            git worktree add --detach "$RUNNER_TEMP/branch"
+            cd "$RUNNER_TEMP/branch"
+            git checkout --orphan ci-screenshots
+            git rm -rfq .
+          fi
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R "$RUNNER_TEMP/shots/." .
+          printf 'Commit %s, run %s\n' "$GITHUB_SHA" "$GITHUB_RUN_NUMBER" > RUN.txt
+          git add -A
+          git commit -qm "Screenshots for ${GITHUB_SHA::7} (run $GITHUB_RUN_NUMBER)"
+          git push origin ci-screenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: UI-Screenshots
+          path: ${{ runner.temp }}/shots
+          if-no-files-found: ignore
+          retention-days: 14
