@@ -57,6 +57,7 @@ struct GitHubImportView: View {
 				}
 			}
 		}
+		.nbReadableWidth()
 		.nbSoftTopEdge()
 		.refreshable { if pinned != nil { await load() } }
 		.task { if !input.isEmpty && releases.isEmpty { await load() } }

@@ -141,7 +141,7 @@ shot sources
 tap "All Repositories"; shot all-apps
 tap "Sources"
 tap "Feather (NuzProjects)"; shot source
-tap "Feather"; shot app-page
+tap "last:Feather"; shot app-page
 tap "Sources"; tap "Sources"
 tap "LiveContainer"; sleep 4; shot github-source
 tap "Sources"
@@ -155,13 +155,19 @@ tap "Installation"; shot settings-installation
 tap "Settings"
 
 if [ "$KIND" = "iPad" ]; then
-	rotate 123
-	LANDSCAPE=1
-	shot settings-landscape
-	tap "Sources"; shot sources-landscape
-	tap "Feather (NuzProjects)"; shot source-landscape
-	rotate 124
-	LANDSCAPE=0
+	landscape_shot() {
+		rotate 123
+		LANDSCAPE=1
+		shot "$1"
+		LANDSCAPE=0
+		rotate 124
+	}
+	landscape_shot settings-landscape
+	tap "Sources"; landscape_shot sources-landscape
+	tap "Feather (NuzProjects)"; landscape_shot source-landscape
+	tap "last:Feather"; landscape_shot app-page-landscape
+	tap "Sources"; tap "Sources"
+	tap "LiveContainer"; sleep 4; landscape_shot github-source-landscape
 fi
 
 xcrun simctl spawn "$UDID" log show --last 10m --predicate "process == \"Feather\" AND messageType == fault" --style compact > "$OUT/faults.log" 2>/dev/null || true
