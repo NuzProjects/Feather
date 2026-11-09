@@ -1,2 +1,2 @@
 Timestamp               Ty Process[PID:TID]
-2026-11-09 03:13:26.688 F  Feather[16860:cf7d] [com.apple.renderbox:error] building pipeline plane_image_stretch-dea3eabca7dheba4 took 0.691466 seconds
+2026-11-09 03:31:51.960 F  Feather[16161:c9e2] [com.apple.renderbox:error] building pipeline plane_image_stretch-dea3eabca7dheba4 took 3.289945 seconds
