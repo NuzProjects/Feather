@@ -1,1 +1,0 @@
-Feather is no longer running on the iPad simulator
