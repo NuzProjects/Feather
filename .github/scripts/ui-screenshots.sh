@@ -46,6 +46,9 @@ GITHUB_HEX="$(printf '%s' '[{"owner":"LiveContainer","name":"LiveContainer"}]' |
 xcrun simctl spawn "$UDID" defaults write "$PREFS" Onboarding.seen -bool YES
 xcrun simctl spawn "$UDID" defaults write "$PREFS" WhatsNew.seenVersion -string "$LABEL"
 xcrun simctl spawn "$UDID" defaults write "$PREFS" GitHub.sources -data "$GITHUB_HEX"
+# The simulator build has no bundled install certificate, so keep Feather from offering to switch server type.
+xcrun simctl spawn "$UDID" defaults write "$PREFS" Feather.serverMethodSemiLocal -bool YES
+xcrun simctl spawn "$UDID" defaults write "$PREFS" Feather.serverMethod -int 0
 
 STEP=0
 LANDSCAPE=0
@@ -87,7 +90,7 @@ crashed() {
 
 xcrun simctl launch "$UDID" "$BUNDLE"
 sleep 8
-tap "Skip"
+tap "Not Now"
 add_source "https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
 add_source "https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json"
 sleep 3
