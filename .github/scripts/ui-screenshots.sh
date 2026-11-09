@@ -38,31 +38,24 @@ xcrun simctl status_bar "$UDID" override --time "9:41" --batteryState charged --
 xcrun simctl install "$UDID" "$APP"
 
 # Skip onboarding and keep one GitHub repository in Sources so that screen has content.
+# Preferences are written through the simulator's own defaults so the app sees them.
 DATA="$(xcrun simctl get_app_container "$UDID" "$BUNDLE" data)"
 PREFS="$DATA/Library/Preferences/$BUNDLE"
-mkdir -p "$DATA/Library/Preferences"
-defaults write "$PREFS" Onboarding.seen -bool YES
-defaults write "$PREFS" WhatsNew.seenVersion -string "$(/usr/libexec/PlistBuddy -c 'Print :FeatherVersionLabel' "$APP/Info.plist" 2>/dev/null || echo none)"
-GITHUB_JSON='[{"owner":"LiveContainer","name":"LiveContainer"}]'
-defaults write "$PREFS" GitHub.sources -data "$(printf '%s' "$GITHUB_JSON" | xxd -p | tr -d '\n')"
-
-xcrun simctl launch "$UDID" "$BUNDLE"
-sleep 6
-for source in \
-	"https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json" \
-	"https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json"; do
-	xcrun simctl openurl "$UDID" "feather://source/$source"
-	sleep 4
-done
-sleep 4
+LABEL="$(/usr/libexec/PlistBuddy -c 'Print :FeatherVersionLabel' "$APP/Info.plist" 2>/dev/null || echo none)"
+GITHUB_HEX="$(printf '%s' '[{"owner":"LiveContainer","name":"LiveContainer"}]' | xxd -p | tr -d '\n')"
+xcrun simctl spawn "$UDID" defaults write "$PREFS" Onboarding.seen -bool YES
+xcrun simctl spawn "$UDID" defaults write "$PREFS" WhatsNew.seenVersion -string "$LABEL"
+xcrun simctl spawn "$UDID" defaults write "$PREFS" GitHub.sources -data "$GITHUB_HEX"
 
 STEP=0
+LANDSCAPE=0
 shot() {
 	STEP=$((STEP + 1))
 	local name
 	name="$(printf '%02d' "$STEP")-$1"
 	sleep 1.5
 	xcrun simctl io "$UDID" screenshot "$OUT/$name.png" >/dev/null 2>&1 || echo "Screenshot failed: $name"
+	if [ "$LANDSCAPE" = "1" ]; then sips -r 270 "$OUT/$name.png" >/dev/null 2>&1 || true; fi
 	axe describe-ui --udid "$UDID" > "$OUT/$name.txt" 2>&1 || true
 	echo "Captured $name"
 }
@@ -71,7 +64,16 @@ tap() {
 		sleep 2
 	else
 		echo "Couldn't tap \"$1\""
+		axe describe-ui --udid "$UDID" > "$OUT/failed-tap-$(echo "$1" | tr -c 'A-Za-z0-9' '_').txt" 2>&1 || true
 	fi
+}
+add_source() {
+	tap "Add"
+	tap "Enter Source URL"
+	axe type "$1" --udid "$UDID" >/dev/null 2>&1 || echo "Couldn't type the source URL"
+	sleep 1
+	tap "Save"
+	sleep 5
 }
 rotate() {
 	osascript -e 'tell application "Simulator" to activate' \
@@ -82,6 +84,13 @@ rotate() {
 crashed() {
 	! xcrun simctl spawn "$UDID" launchctl list 2>/dev/null | grep -q "$BUNDLE"
 }
+
+xcrun simctl launch "$UDID" "$BUNDLE"
+sleep 8
+tap "Skip"
+add_source "https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
+add_source "https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json"
+sleep 3
 
 shot sources
 tap "All Repositories"; shot all-apps
@@ -102,10 +111,12 @@ tap "Settings"
 
 if [ "$KIND" = "iPad" ]; then
 	rotate 123
+	LANDSCAPE=1
 	shot settings-landscape
 	tap "Sources"; shot sources-landscape
 	tap "Feather (NuzProjects)"; shot source-landscape
 	rotate 124
+	LANDSCAPE=0
 fi
 
 xcrun simctl spawn "$UDID" log show --last 10m --predicate "process == \"Feather\" AND messageType == fault" --style compact > "$OUT/faults.log" 2>/dev/null || true
