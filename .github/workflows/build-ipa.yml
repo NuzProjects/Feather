@@ -102,9 +102,12 @@ jobs:
         id: dependencies
         with:
           path: |
-            ${{ runner.temp }}/Feather/SourcePackages
+            ${{ runner.temp }}/Feather
             ~/Library/Caches/org.swift.swiftpm
-          key: feather-packages-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+          key: feather-xcode26.3-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+          restore-keys: feather-xcode26.3-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+      - name: Drop cached modules built against an older SDK
+        run: rm -rf "$RUNNER_TEMP/Feather/ModuleCache.noindex" "$RUNNER_TEMP/Feather/SDKStatCaches.noindex" "$RUNNER_TEMP/Feather/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules"
       - name: Prepare install server assets
         run: |
           set -euo pipefail
@@ -239,7 +242,7 @@ jobs:
         if: always() && steps.dependencies.outputs.cache-hit != 'true'
         with:
           path: |
-            ${{ runner.temp }}/Feather/SourcePackages
+            ${{ runner.temp }}/Feather
             ~/Library/Caches/org.swift.swiftpm
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Save build log
