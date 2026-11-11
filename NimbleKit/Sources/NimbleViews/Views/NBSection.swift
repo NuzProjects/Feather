@@ -47,14 +47,14 @@ public struct NBSection<Content, Footer>: View
 			} footer: {
 				_footer
 					.font(.caption)
-					.foregroundColor(.secondary)
+					.foregroundColor(Color(uiColor: .secondaryLabel))
 			}
 		} else {
 			Section(
 				header: _header,
 				footer: _footer
 					.font(.caption)
-					.foregroundColor(.secondary)
+					.foregroundColor(Color(uiColor: .secondaryLabel))
 			) {
 				_content
 			}
@@ -91,7 +91,7 @@ public struct NBSection<Content, Footer>: View
 	private func _secondary(_ text: String) -> some View {
 		Text(text)
 			.font(.caption)
-			.foregroundStyle(.secondary)
+			.foregroundStyle(Color(uiColor: .secondaryLabel))
 			.contentTransition(.numericText())
 			.padding(.horizontal, 8)
 			.padding(.vertical, 4.4)

@@ -36,7 +36,7 @@ struct AboutView: View {
 						Text(Bundle.main.version)
 					}
 					.font(.footnote)
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 				}
 			}
 			.frame(maxWidth: .infinity)
@@ -51,7 +51,7 @@ struct AboutView: View {
 
 			NBSection(.localized("Sponsors")) {
 				Text(.localized("💜 This couldn't of been done without my sponsors!"))
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 					.padding(.vertical, 2)
 				AsyncImage(url: pngURL) { phase in
 					switch phase {

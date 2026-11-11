@@ -60,12 +60,12 @@ struct SourceAppsView: View {
 				VStack(spacing: 10) {
 					Image(systemName: "exclamationmark.icloud")
 						.font(.largeTitle)
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 					Text("Couldn't Load Source")
 						.font(.headline)
 					Text("Check your connection, then pull to refresh in Sources.")
 						.font(.subheadline)
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 						.multilineTextAlignment(.center)
 				}
 				.padding()

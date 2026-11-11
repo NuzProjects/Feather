@@ -46,7 +46,7 @@ struct WhatsNewView: View {
 							.font(.largeTitle.bold())
 						Text("Feather \(WhatsNew.version)")
 							.font(.title3)
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 					.padding(.top, 36)
 
@@ -92,7 +92,7 @@ struct WhatsNewView: View {
 						Text(item.title).font(.headline)
 						Text(item.detail)
 							.font(.subheadline)
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 							.fixedSize(horizontal: false, vertical: true)
 					}
 				}

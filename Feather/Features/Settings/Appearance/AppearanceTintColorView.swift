@@ -38,7 +38,7 @@ struct AppearanceTintColorView: View {
 
 						Text(option.name)
 							.font(.subheadline)
-							.foregroundColor(.secondary)
+							.foregroundColor(Color(uiColor: .secondaryLabel))
 					}
 					.frame(width: 120, height: 100)
 					.background(Color(uiColor: .secondarySystemGroupedBackground))

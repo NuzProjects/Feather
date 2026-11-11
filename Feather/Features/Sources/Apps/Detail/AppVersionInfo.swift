@@ -20,14 +20,14 @@ struct AppVersionInfo: View {
 			HStack {
 				Text("Version \(version)")
 					.font(.subheadline)
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 
 				Spacer()
 
 				if let date {
 					Text(date.formatted(.relative(presentation: .named)))
 						.font(.subheadline)
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 				}
 			}
 			.padding(.vertical, 4)

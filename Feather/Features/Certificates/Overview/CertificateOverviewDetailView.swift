@@ -55,7 +55,7 @@ extension CertificateOverviewDetailView {
 				if let team = _data?.TeamName {
 					Text(team)
 						.font(.subheadline)
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 				}
 				HStack(spacing: 6) {
 					CertificateStatusCapsule(status: CertificateStatus(cert))
@@ -102,7 +102,7 @@ extension CertificateOverviewDetailView {
 		NBSection(.localized("Capabilities"), secondary: capabilities.isEmpty ? nil : "\(capabilities.count)") {
 			if capabilities.isEmpty {
 				Text("No special capabilities.")
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 			}
 			ForEach(capabilities) { capability in
 				HStack(spacing: 12) {
@@ -116,7 +116,7 @@ extension CertificateOverviewDetailView {
 					if let detail = capability.detail {
 						Text(detail)
 							.font(.footnote)
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 				}
 			}
@@ -141,7 +141,7 @@ extension CertificateOverviewDetailView {
 					ForEach(devices, id: \.self) { udid in
 						Text(udid)
 							.font(.system(.footnote, design: .monospaced))
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 							.copyableText(udid)
 					}
 				} label: {
@@ -149,7 +149,7 @@ extension CertificateOverviewDetailView {
 				}
 			} else {
 				Label("No devices listed", systemImage: "iphone.slash")
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 			}
 		} footer: {
 			Text("Apps signed with this certificate only open on devices listed in its provisioning profile.")
@@ -162,7 +162,7 @@ extension CertificateOverviewDetailView {
 		NBSection(.localized("Signed Apps"), secondary: apps.isEmpty ? nil : "\(apps.count)") {
 			if apps.isEmpty {
 				Text("No apps signed with this certificate yet.")
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 			}
 			ForEach(apps, id: \.objectID) { app in
 				HStack(spacing: 12) {
@@ -172,14 +172,14 @@ extension CertificateOverviewDetailView {
 							.lineLimit(1)
 						Text([app.version, app.identifier].compactMap { $0 }.joined(separator: " · "))
 							.font(.footnote)
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 							.lineLimit(1)
 					}
 					Spacer()
 					if let date = app.date {
 						Text(date, style: .relative)
 							.font(.caption)
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 				}
 			}

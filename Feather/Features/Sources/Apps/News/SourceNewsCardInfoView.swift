@@ -49,7 +49,7 @@ struct SourceNewsCardInfoView: View {
 						if !new.caption.isEmpty {
 							Text(new.caption)
 								.font(.body)
-								.foregroundStyle(.secondary)
+								.foregroundStyle(Color(uiColor: .secondaryLabel))
 								.multilineTextAlignment(.leading)
 						}
 
@@ -65,7 +65,7 @@ struct SourceNewsCardInfoView: View {
 						if let date = new.date?.date {
 							Text(date.formatted(date: .abbreviated, time: .omitted))
 								.font(.footnote)
-								.foregroundStyle(.secondary)
+								.foregroundStyle(Color(uiColor: .secondaryLabel))
 						}
 					}
 				}

@@ -18,7 +18,7 @@ public struct NBTitleWithSubtitleView: View {
 				.foregroundColor(.primary)
 			Text(_subtitle)
 				.font(.subheadline)
-				.foregroundColor(.secondary)
+				.foregroundColor(Color(uiColor: .secondaryLabel))
 		}
 		.padding(.vertical, 2)
 		.lineLimit(_linelimit)

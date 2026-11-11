@@ -96,7 +96,7 @@ struct GitHubImportView: View {
 						.lineLimit(1)
 					Text(_caption(for: release))
 						.font(.caption)
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 						.lineLimit(1)
 				}
 				Spacer(minLength: 8)

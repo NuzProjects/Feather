@@ -89,7 +89,7 @@ struct OnboardingView: View {
 				.multilineTextAlignment(.center)
 			Text(item.detail)
 				.font(.body)
-				.foregroundStyle(.secondary)
+				.foregroundStyle(Color(uiColor: .secondaryLabel))
 				.multilineTextAlignment(.center)
 				.frame(maxWidth: 520)
 				.padding(.horizontal, 36)

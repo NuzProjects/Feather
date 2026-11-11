@@ -29,7 +29,7 @@ struct DeveloperLogsView: View {
 			NBSection(.localized("Crashes"), secondary: _crashes.isEmpty ? nil : "\(_crashes.count)") {
 				if _crashes.isEmpty {
 					Label("No crashes recorded", systemImage: "checkmark.seal")
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 				} else {
 					ForEach(_crashes, id: \.self) { url in
 						NavigationLink(destination: LogFileView(url: url, title: _title(for: url))) {
@@ -92,7 +92,7 @@ extension DeveloperLogsView {
 				Text(_title(for: url))
 				Text(subtitle)
 					.font(.footnote)
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 					.lineLimit(1)
 			}
 		}

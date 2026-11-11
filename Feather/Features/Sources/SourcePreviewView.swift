@@ -33,7 +33,7 @@ struct SourcePreviewView: View {
 								.lineLimit(2)
 							Text(url.host ?? url.absoluteString)
 								.font(.subheadline)
-								.foregroundStyle(.secondary)
+								.foregroundStyle(Color(uiColor: .secondaryLabel))
 								.lineLimit(1)
 							_addButton
 								.padding(.top, 2)
@@ -54,7 +54,7 @@ struct SourcePreviewView: View {
 			NBSection(.localized("Apps"), secondary: "\(repository.apps.count)") {
 				if _apps.isEmpty {
 					Text(LocalizedStringKey(repository.apps.isEmpty ? "This source has no apps." : "No matching apps."))
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 				}
 				ForEach(_apps, id: \.currentUniqueId) { app in
 					NavigationLink {

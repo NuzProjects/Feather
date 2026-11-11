@@ -83,7 +83,7 @@ private struct ImportProgressCard: View {
 						Text(name).font(.subheadline.weight(.semibold)).lineLimit(1)
 						Spacer(minLength: 8)
 						Text("\(Int(min(1, max(0, fraction)) * 100))%")
-							.font(.caption.monospacedDigit()).foregroundStyle(.secondary)
+							.font(.caption.monospacedDigit()).foregroundStyle(Color(uiColor: .secondaryLabel))
 							.contentTransition(.numericText())
 					}
 					ProgressView(value: min(1, max(0, fraction))).progressViewStyle(.linear)

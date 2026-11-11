@@ -107,7 +107,7 @@ extension CertificatesInfoView {
 		DisclosureGroup(title) {
 			ForEach(keys, id: \.self) { key in
 				Text(key)
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 					.copyableText(key)
 			}
 		}

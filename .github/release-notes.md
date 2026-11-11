@@ -1,4 +1,4 @@
-## Update 1.3.5 Beta 5
+## Update 1.3.5 Beta 6
 
-**New Features:**
-* The signing card shows the time left on the right, like 5s or 1m 5s, instead of a sentence under the app name
+**Bug Fixes:**
+* Subtext no longer changes shade when sheets and pop-ups open or get pulled up; it keeps one fixed color

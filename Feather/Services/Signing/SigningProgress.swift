@@ -133,12 +133,12 @@ struct SigningProgressPanel: View {
 					ProgressPanelIcon(image: job.icon)
 					VStack(alignment: .leading, spacing: 2) {
 						Text(job.name).font(.subheadline.weight(.semibold)).lineLimit(1)
-						Text(job.stage.title).font(.caption).foregroundStyle(.secondary)
+						Text(job.stage.title).font(.caption).foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 					Spacer(minLength: 8)
 					TimelineView(.periodic(from: .now, by: 1)) { context in
 						if let left = _timeLeft(job, at: context.date) {
-							Text(left).font(.subheadline.monospacedDigit()).foregroundStyle(.secondary)
+							Text(left).font(.subheadline.monospacedDigit()).foregroundStyle(Color(uiColor: .secondaryLabel))
 						}
 					}
 					if progress.visibleJobs.count > 1 { Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit()) }
@@ -190,7 +190,7 @@ struct UpdateProgressPanel: View {
 					ProgressPanelIcon(image: icon)
 					VStack(alignment: .leading, spacing: 2) {
 						Text("Feather").font(.subheadline.weight(.semibold)).lineLimit(1)
-						Text(state.title).font(.caption).foregroundStyle(.secondary)
+						Text(state.title).font(.caption).foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 					Spacer(minLength: 8)
 				}

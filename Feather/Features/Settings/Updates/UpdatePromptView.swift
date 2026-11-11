@@ -15,7 +15,7 @@ struct UpdatePromptView: View {
 							.font(.largeTitle.bold())
 						Text(verbatim: "Feather \(FeatherUpdater.displayName(release))")
 							.font(.title3)
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 					.padding(.top, 36)
 
@@ -25,7 +25,7 @@ struct UpdatePromptView: View {
 								.font(.title3.bold())
 							Text(LocalizedStringKey(notes))
 								.font(.body)
-								.foregroundStyle(.secondary)
+								.foregroundStyle(Color(uiColor: .secondaryLabel))
 								.fixedSize(horizontal: false, vertical: true)
 						}
 					}

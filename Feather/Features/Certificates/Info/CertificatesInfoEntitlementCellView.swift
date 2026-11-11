@@ -15,7 +15,7 @@ struct CertificatesInfoEntitlementCellView: View {
 				Text(key)
 				Spacer()
 				Text(_formatted(value))
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 					.copyableText(_formatted(value))
 			}
 		}

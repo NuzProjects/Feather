@@ -46,7 +46,7 @@ struct SourceAppsDetailView: View {
 							.foregroundColor(.primary)
 						Text(app.currentDescription ?? .localized("An awesome application"))
 							.font(.subheadline)
-							.foregroundColor(.secondary)
+							.foregroundColor(Color(uiColor: .secondaryLabel))
 
 						Spacer()
 
@@ -151,7 +151,7 @@ struct SourceAppsDetailView: View {
 							} else {
 								Text(.localized("No Entitlements listed."))
 									.font(.subheadline)
-									.foregroundStyle(.secondary)
+									.foregroundStyle(Color(uiColor: .secondaryLabel))
 							}
 							if let privacyItems = appPermissions.privacy {
 								ForEach(privacyItems, id: \.self) { item in
@@ -163,7 +163,7 @@ struct SourceAppsDetailView: View {
 							} else {
 								Text(.localized("No Privacy Permissions listed."))
 									.font(.subheadline)
-									.foregroundStyle(.secondary)
+									.foregroundStyle(Color(uiColor: .secondaryLabel))
 							}
 						}
 						.padding()

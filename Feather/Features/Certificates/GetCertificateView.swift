@@ -40,7 +40,7 @@ struct GetCertificateView: View {
 							.frame(width: 72, height: 72)
 						Text("Feather signs apps with your own certificate. Get one from Apple or a provider below, then import it here.")
 							.font(.subheadline)
-							.foregroundStyle(.secondary)
+							.foregroundStyle(Color(uiColor: .secondaryLabel))
 							.multilineTextAlignment(.center)
 					}
 					.frame(maxWidth: .infinity)
@@ -129,13 +129,13 @@ extension GetCertificateView {
 						.foregroundStyle(.primary)
 					Text(provider.detail)
 						.font(.footnote)
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 						.fixedSize(horizontal: false, vertical: true)
 				}
 				Spacer(minLength: 8)
 				Image(systemName: "arrow.up.right")
 					.font(.footnote.weight(.semibold))
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 			}
 			.padding(.vertical, 2)
 		}

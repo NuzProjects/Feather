@@ -155,7 +155,7 @@ struct CertificateValidityRing: View {
 						.contentTransition(.numericText())
 					Text(_unit)
 						.font(.system(size: max(size * 0.11, 9), weight: .semibold))
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 				}
 				.minimumScaleFactor(0.6)
 				.padding(_lineWidth)

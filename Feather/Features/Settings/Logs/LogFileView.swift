@@ -35,12 +35,12 @@ struct LogFileView: View {
 				if _isTruncated {
 					Text("Showing the last \(Self.maxLines) lines. Export to see everything.")
 						.font(.footnote)
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 						.padding(.bottom, 6)
 				}
 				if _visible.isEmpty {
 					Text(LocalizedStringKey(_lines.isEmpty ? "This log is empty." : "No matching lines."))
-						.foregroundStyle(.secondary)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
 						.frame(maxWidth: .infinity)
 						.padding(.top, 40)
 				}

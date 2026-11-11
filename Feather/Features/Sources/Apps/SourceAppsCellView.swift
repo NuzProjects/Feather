@@ -40,7 +40,7 @@ struct SourceAppsCellView: View {
 				Text(desc)
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.font(.subheadline)
-					.foregroundStyle(.secondary)
+					.foregroundStyle(Color(uiColor: .secondaryLabel))
 					.padding(.top, 2)
 			}
 		}
