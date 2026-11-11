@@ -122,10 +122,8 @@ struct SigningProgressPanel: View {
 		Binding(get: { confirming != nil }, set: { if !$0 { confirming = nil } })
 	}
 
-	private func _subtitle(_ job: SigningProgress.Job, at date: Date) -> String {
-		guard let seconds = job.secondsLeft(at: date) else { return job.stage.title }
-		let remaining = Duration.seconds(seconds).formatted(.units(allowed: [.minutes, .seconds], width: .narrow))
-		return String(format: .localized("%@ · about %@ left"), job.stage.title, remaining)
+	private func _timeLeft(_ job: SigningProgress.Job, at date: Date) -> String? {
+		job.secondsLeft(at: date).map { Duration.seconds($0).formatted(.units(allowed: [.minutes, .seconds], width: .narrow)) }
 	}
 
 	private func card(_ job: SigningProgress.Job) -> some View {
@@ -135,11 +133,14 @@ struct SigningProgressPanel: View {
 					ProgressPanelIcon(image: job.icon)
 					VStack(alignment: .leading, spacing: 2) {
 						Text(job.name).font(.subheadline.weight(.semibold)).lineLimit(1)
-						TimelineView(.periodic(from: .now, by: 1)) { context in
-							Text(_subtitle(job, at: context.date)).font(.caption).foregroundStyle(.secondary)
-						}
+						Text(job.stage.title).font(.caption).foregroundStyle(.secondary)
 					}
 					Spacer(minLength: 8)
+					TimelineView(.periodic(from: .now, by: 1)) { context in
+						if let left = _timeLeft(job, at: context.date) {
+							Text(left).font(.subheadline.monospacedDigit()).foregroundStyle(.secondary)
+						}
+					}
 					if progress.visibleJobs.count > 1 { Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit()) }
 				}
 				ProgressView(value: job.stage.fraction)
