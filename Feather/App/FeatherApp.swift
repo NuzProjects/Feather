@@ -152,7 +152,15 @@ struct FeatherApp: App {
 				FR.exportCertificateAndOpenUrl(using: callbackTemplate)
 			}
 			if let fullPath = url.validatedScheme(after: "/source/") {
-				FR.handleSource(fullPath) { }
+				UIAlertController.showAlertWithCancel(
+					title: .localized("Add Source?"),
+					message: .localized("A link wants to add this source to Feather. Only add sources you trust.") + "\n\n\(fullPath)",
+					actions: [
+						UIAlertAction(title: .localized("Add"), style: .default) { _ in
+							FR.handleSource(fullPath) { }
+						}
+					]
+				)
 			}
 			if
 				let fullPath = url.validatedScheme(after: "/install/"),

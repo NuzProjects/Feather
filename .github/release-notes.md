@@ -6,4 +6,5 @@
 * Signing keeps going when you leave Feather, and you get a notification when it finishes
 
 **Security:**
-* A malicious IPA or .deb tweak can no longer write files outside its own unpack folder
+* A malicious IPA or .deb tweak can no longer write files outside its own unpack folder* Links that add a source now ask you first instead of adding it silently
+* Removed a leftover exception that allowed one website to load over plain HTTP
