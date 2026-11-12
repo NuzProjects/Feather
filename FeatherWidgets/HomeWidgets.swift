@@ -50,7 +50,7 @@ struct CertificateWidget: Widget {
 		}
 		.configurationDisplayName("Certificate")
 		.description("Days left on your certificate and whether it's still valid.")
-		.supportedFamilies([.systemSmall, .systemMedium])
+		.supportedFamilies([.systemSmall, .systemMedium, .accessoryCircular, .accessoryRectangular, .accessoryInline])
 	}
 }
 
@@ -99,11 +99,64 @@ private struct CertificateWidgetView: View {
 		return min(1, Double(daysLeft) / 365)
 	}
 
+	@ViewBuilder
 	var body: some View {
-		Group {
-			if family == .systemMedium { medium } else { small }
+		switch family {
+		case .accessoryCircular: lockCircular.widgetBackground(Color.clear)
+		case .accessoryRectangular: lockRectangular.widgetBackground(Color.clear)
+		case .accessoryInline: lockInline.widgetBackground(Color.clear)
+		case .systemMedium: medium.widgetBackground(Color(uiColor: .systemBackground))
+		default: small.widgetBackground(Color(uiColor: .systemBackground))
 		}
-		.widgetBackground(Color(uiColor: .systemBackground))
+	}
+
+	private var daysLeftText: LocalizedStringKey {
+		guard let daysLeft else { return "No certificate" }
+		if daysLeft < 0 { return "Expired" }
+		return daysLeft == 1 ? "1 day left" : "\(daysLeft) days left"
+	}
+
+	private var lockCircular: some View {
+		Gauge(value: ringFraction) {
+			Image(systemName: "checkmark.seal.fill")
+		} currentValueLabel: {
+			if certificate?.revoked == true {
+				Image(systemName: "xmark")
+			} else if let daysLeft {
+				Text(daysLeft < 0 ? "0" : "\(daysLeft)")
+			} else {
+				Image(systemName: "plus")
+			}
+		}
+		.gaugeStyle(.accessoryCircularCapacity)
+	}
+
+	private var lockRectangular: some View {
+		VStack(alignment: .leading, spacing: 2) {
+			Label("Certificate", systemImage: "checkmark.seal.fill")
+				.font(.headline)
+				.widgetAccentable()
+			if certificate?.revoked == true {
+				Text("Revoked").font(.subheadline)
+			} else {
+				Text(daysLeftText).font(.subheadline)
+			}
+			if let expiration = certificate?.expiration, certificate?.revoked != true {
+				Text("Expires \(expiration.formatted(date: .abbreviated, time: .omitted))")
+					.font(.caption)
+			}
+		}
+		.frame(maxWidth: .infinity, alignment: .leading)
+	}
+
+	private var lockInline: some View {
+		ViewThatFits {
+			Label {
+				if certificate?.revoked == true { Text("Revoked") } else { Text(daysLeftText) }
+			} icon: {
+				Image(systemName: "checkmark.seal.fill")
+			}
+		}
 	}
 
 	private var header: some View {

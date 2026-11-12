@@ -12,7 +12,10 @@ enum WhatsNew {
 	static let features: [Item] = [
 		Item(icon: "globe.desk", title: "GitHub Sources", detail: "GitHub repositories in Sources show their icon, name and when they last released, just like other sources."),
 		Item(icon: "ipad.landscape", title: "Better on iPad", detail: "Settings, app pages and lists keep to a comfortable width, and progress panels fit the iPad's layout."),
-		Item(icon: "bolt", title: "Instant Sources", detail: "Sources open right away, even offline, and refresh in the background.")
+		Item(icon: "bolt", title: "Instant Sources", detail: "Sources open right away, even offline, and refresh in the background."),
+		Item(icon: "lock.rectangle", title: "Lock Screen Widgets", detail: "See how many days are left on your certificate right from the Lock Screen."),
+		Item(icon: "exclamationmark.shield", title: "Install Check", detail: "Feather warns you before installing an app whose certificate has expired or been revoked."),
+		Item(icon: "signature", title: "Signing in the Background", detail: "Signing keeps going when you leave Feather, and a notification tells you when it's done.")
 	]
 
 	static let fixes: [Item] = [

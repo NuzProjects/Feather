@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import NukeUI
+import UserNotifications
 
 @MainActor
 final class SigningProgress: ObservableObject {
@@ -61,7 +62,35 @@ final class SigningProgress: ObservableObject {
 		leases[id] = UIApplication.shared.beginBackgroundTask(withName: "Sign app") { [weak self] in
 			Task { @MainActor in self?.endLease(id) }
 		}
+		keepAwakeInBackground()
 		return id
+	}
+
+	private func keepAwakeInBackground() {
+		#if !targetEnvironment(macCatalyst)
+		guard jobs.filter({ $0.stage.isActive }).count == 1 else { return }
+		BackgroundAudioManager.shared.start()
+		#endif
+	}
+
+	private func letGoOfBackground() {
+		#if !targetEnvironment(macCatalyst)
+		guard !jobs.contains(where: { $0.stage.isActive }), DownloadManager.shared.downloads.isEmpty else { return }
+		BackgroundAudioManager.shared.stop()
+		#endif
+	}
+
+	private func notifyIfInBackground(name: String, success: Bool) {
+		guard UIApplication.shared.applicationState != .active else { return }
+		let center = UNUserNotificationCenter.current()
+		center.getNotificationSettings { settings in
+			guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else { return }
+			let content = UNMutableNotificationContent()
+			content.title = success ? String.localized("Signing complete") : String.localized("Signing failed")
+			content.body = name
+			content.sound = .default
+			center.add(UNNotificationRequest(identifier: "Feather.signing.\(UUID().uuidString)", content: content, trigger: nil))
+		}
 	}
 	func stage(_ id: UUID?, _ stage: Stage) {
 		guard let id, let index = jobs.firstIndex(where: { $0.id == id }), jobs[index].stage.isActive else { return }
@@ -73,6 +102,7 @@ final class SigningProgress: ObservableObject {
 		stage(id, .cancelled)
 		UINotificationFeedbackGenerator().notificationOccurred(.warning)
 		endLease(id)
+		letGoOfBackground()
 		remove(id, after: 1_200_000_000)
 	}
 	func isCancelled(_ id: UUID) -> Bool { cancelled.contains(id) }
@@ -83,9 +113,12 @@ final class SigningProgress: ObservableObject {
 			let blended = Self.secondsPerMegabyte.map { $0 * 0.6 + rate * 0.4 } ?? rate
 			UserDefaults.standard.set(blended, forKey: Self.rateKey)
 		}
+		let name = jobs.first(where: { $0.id == id })?.name ?? ""
 		stage(id, success ? .complete : .failed)
 		UINotificationFeedbackGenerator().notificationOccurred(success ? .success : .error)
 		endLease(id)
+		letGoOfBackground()
+		if !(jobs.first(where: { $0.id == id })?.isUpdate ?? false) { notifyIfInBackground(name: name, success: success) }
 		remove(id, after: success ? 1_500_000_000 : 4_000_000_000)
 	}
 	private func remove(_ id: UUID, after delay: UInt64) {

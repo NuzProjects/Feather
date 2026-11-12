@@ -44791,6 +44791,362 @@
           }
         }
       }
+    },
+    "Install Anyway" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install Anyway"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zainstaluj mimo to"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "그래도 설치"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yine de Yükle"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仍然安装"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التثبيت على أي حال"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vẫn cài đặt"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installa comunque"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trotzdem installieren"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tetap Pasang"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přesto nainstalovat"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer quand même"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всё равно установить"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar de todos modos"
+          }
+        }
+      }
+    },
+    "Certificate Expired" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificate Expired"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certyfikat wygasł"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증서 만료됨"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikanın Süresi Doldu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "证书已过期"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتهت صلاحية الشهادة"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chứng chỉ đã hết hạn"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificato scaduto"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikat abgelaufen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikat Kedaluwarsa"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platnost certifikátu vypršela"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificat expiré"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Срок действия сертификата истёк"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificado caducado"
+          }
+        }
+      }
+    },
+    "This app was signed with a certificate that has been revoked, so iOS won't open it. Re-sign it with a valid certificate first." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This app was signed with a certificate that has been revoked, so iOS won't open it. Re-sign it with a valid certificate first."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta aplikacja została podpisana unieważnionym certyfikatem, więc iOS jej nie otworzy. Najpierw podpisz ją ponownie ważnym certyfikatem."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 앱은 해지된 인증서로 서명되어 iOS에서 열리지 않습니다. 먼저 유효한 인증서로 다시 서명하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu uygulama iptal edilmiş bir sertifikayla imzalandığı için iOS açmaz. Önce geçerli bir sertifikayla yeniden imzalayın."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此应用使用已被吊销的证书签名，iOS 将无法打开。请先使用有效证书重新签名。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم توقيع هذا التطبيق بشهادة أُلغيت، لذا لن يفتحه iOS. أعد توقيعه بشهادة صالحة أولًا."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng này được ký bằng chứng chỉ đã bị thu hồi nên iOS sẽ không mở được. Hãy ký lại bằng chứng chỉ hợp lệ trước."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questa app è firmata con un certificato revocato, quindi iOS non la aprirà. Firmala di nuovo con un certificato valido."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App wurde mit einem widerrufenen Zertifikat signiert, daher öffnet iOS sie nicht. Signiere sie zuerst mit einem gültigen Zertifikat neu."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi ini ditandatangani dengan sertifikat yang dicabut, jadi iOS tidak akan membukanya. Tanda tangani ulang dengan sertifikat yang valid dulu."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tato aplikace byla podepsána odvolaným certifikátem, takže ji iOS neotevře. Nejdřív ji znovu podepište platným certifikátem."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette app a été signée avec un certificat révoqué, donc iOS ne l’ouvrira pas. Signez-la d’abord à nouveau avec un certificat valide."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Это приложение подписано отозванным сертификатом, поэтому iOS его не откроет. Сначала подпишите его заново действующим сертификатом."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta app se firmó con un certificado revocado, así que iOS no la abrirá. Vuelve a firmarla antes con un certificado válido."
+          }
+        }
+      }
+    },
+    "This app was signed with a certificate that has expired, so iOS won't open it. Re-sign it with a valid certificate first." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This app was signed with a certificate that has expired, so iOS won't open it. Re-sign it with a valid certificate first."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta aplikacja została podpisana wygasłym certyfikatem, więc iOS jej nie otworzy. Najpierw podpisz ją ponownie ważnym certyfikatem."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 앱은 만료된 인증서로 서명되어 iOS에서 열리지 않습니다. 먼저 유효한 인증서로 다시 서명하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu uygulama süresi dolmuş bir sertifikayla imzalandığı için iOS açmaz. Önce geçerli bir sertifikayla yeniden imzalayın."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此应用使用已过期的证书签名，iOS 将无法打开。请先使用有效证书重新签名。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم توقيع هذا التطبيق بشهادة منتهية الصلاحية، لذا لن يفتحه iOS. أعد توقيعه بشهادة صالحة أولًا."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng này được ký bằng chứng chỉ đã hết hạn nên iOS sẽ không mở được. Hãy ký lại bằng chứng chỉ hợp lệ trước."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questa app è firmata con un certificato scaduto, quindi iOS non la aprirà. Firmala di nuovo con un certificato valido."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App wurde mit einem abgelaufenen Zertifikat signiert, daher öffnet iOS sie nicht. Signiere sie zuerst mit einem gültigen Zertifikat neu."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi ini ditandatangani dengan sertifikat yang sudah kedaluwarsa, jadi iOS tidak akan membukanya. Tanda tangani ulang dengan sertifikat yang valid dulu."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tato aplikace byla podepsána certifikátem, jehož platnost vypršela, takže ji iOS neotevře. Nejdřív ji znovu podepište platným certifikátem."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette app a été signée avec un certificat expiré, donc iOS ne l’ouvrira pas. Signez-la d’abord à nouveau avec un certificat valide."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Это приложение подписано сертификатом с истёкшим сроком, поэтому iOS его не откроет. Сначала подпишите его заново действующим сертификатом."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta app se firmó con un certificado caducado, así que iOS no la abrirá. Vuelve a firmarla antes con un certificado válido."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

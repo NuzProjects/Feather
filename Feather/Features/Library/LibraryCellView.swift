@@ -10,6 +10,7 @@ struct LibraryCellView: View {
 	@ObservedObject private var updateManager = UpdateManager.shared
 	@State private var _signedUpdateConfirmation: AppUpdate?
 	@State private var _isSignedUpdateConfirmationPresented = false
+	@State private var _installProblem: InstallProblem?
 
 	var certInfo: Date.ExpirationInfo? {
 		Storage.shared.getCertificate(from: app)?.expiration?.expirationInfo()
@@ -97,7 +98,7 @@ struct LibraryCellView: View {
 			if !isEditing {
 				if app.isSigned {
 					Button(.localized("Install"), systemImage: "square.and.arrow.down") {
-						selectedInstallAppPresenting = AnyApp(base: app)
+						_requestInstall(app)
 					}
 					.tint(Color(hex: _tintHex))
 					Button(.localized("Re-sign"), systemImage: "signature") {
@@ -114,7 +115,7 @@ struct LibraryCellView: View {
 					}
 					.tint(Color(hex: _tintHex))
 					Button(.localized("Install"), systemImage: "square.and.arrow.down") {
-						selectedInstallAppPresenting = AnyApp(base: app)
+						_requestInstall(app)
 					}
 					.tint(Color(hex: _tintHex))
 				}
@@ -129,13 +130,25 @@ struct LibraryCellView: View {
 				_actions(for: app)
 			}
 		}
+		.alert(item: $_installProblem) { problem in
+			Alert(
+				title: Text(problem.title),
+				message: Text(problem.message),
+				primaryButton: .default(Text(.localized("Re-sign"))) {
+					ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
+				},
+				secondaryButton: .destructive(Text(.localized("Install Anyway"))) {
+					selectedInstallAppPresenting = AnyApp(base: app)
+				}
+			)
+		}
 		.confirmationDialog(
 			.localized("Update Available"),
 			isPresented: $_isSignedUpdateConfirmationPresented,
 			titleVisibility: .visible
 		) {
 			Button(.localized("Install Current Version"), systemImage: "square.and.arrow.down") {
-				selectedInstallAppPresenting = AnyApp(base: app)
+				_requestInstall(app)
 			}
 			if let update = _signedUpdateConfirmation {
 				Button(.localized("Download Update"), systemImage: "arrow.down.circle") {
@@ -214,7 +227,7 @@ extension LibraryCellView {
 				}
 			}
 			Button(.localized("Install"), systemImage: "square.and.arrow.down") {
-				selectedInstallAppPresenting = AnyApp(base: app)
+				_requestInstall(app)
 			}
 			Button(.localized("Re-sign"), systemImage: "signature") {
 				ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
@@ -224,7 +237,7 @@ extension LibraryCellView {
 			}
 		} else {
 			Button(.localized("Install"), systemImage: "square.and.arrow.down") {
-				selectedInstallAppPresenting = AnyApp(base: app)
+				_requestInstall(app)
 			}
 			Button(.localized("Sign"), systemImage: "signature") {
 				ReplacementCoordinator.shared.requestSigning(app) { selectedSigningAppPresenting = $0 }
@@ -260,7 +273,7 @@ extension LibraryCellView {
 				}
 			} else if app.isSigned {
 				Button {
-					selectedInstallAppPresenting = AnyApp(base: app)
+					_requestInstall(app)
 				} label: {
 					FRExpirationPillView(
 						title: .localized("Install"),
@@ -289,5 +302,39 @@ extension LibraryCellView {
 			id: "FeatherManualDownload_Update_\(update.localUUID)",
 			sourceProvenance: update.sourceProvenance
 		)
+	}
+}
+
+extension LibraryCellView {
+	struct InstallProblem: Identifiable {
+		let title: String
+		let message: String
+		var id: String { title }
+	}
+
+	private func _requestInstall(_ app: AppInfoPresentable) {
+		guard app.isSigned, let problem = _problem(for: app) else {
+			selectedInstallAppPresenting = AnyApp(base: app)
+			return
+		}
+		UINotificationFeedbackGenerator().notificationOccurred(.warning)
+		_installProblem = problem
+	}
+
+	private func _problem(for app: AppInfoPresentable) -> InstallProblem? {
+		guard let certificate = Storage.shared.getCertificate(from: app) else { return nil }
+		if certificate.revoked {
+			return InstallProblem(
+				title: .localized("Certificate Revoked"),
+				message: .localized("This app was signed with a certificate that has been revoked, so iOS won't open it. Re-sign it with a valid certificate first.")
+			)
+		}
+		if let expiration = certificate.expiration, expiration < Date() {
+			return InstallProblem(
+				title: .localized("Certificate Expired"),
+				message: .localized("This app was signed with a certificate that has expired, so iOS won't open it. Re-sign it with a valid certificate first.")
+			)
+		}
+		return nil
 	}
 }

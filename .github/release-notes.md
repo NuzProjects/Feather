@@ -1,4 +1,6 @@
-## Update 1.3.5 Beta 6
+## Update 1.3.5 Beta 7
 
-**Bug Fixes:**
-* Subtext no longer changes shade when sheets and pop-ups open or get pulled up; it keeps one fixed color
+**New Features:**
+* Lock Screen certificate widgets: a days-left gauge, a larger card with the expiry date, and a one-line version
+* Feather warns before installing an app signed with an expired or revoked certificate, and offers to re-sign it
+* Signing keeps going when you leave Feather, and you get a notification when it finishes
