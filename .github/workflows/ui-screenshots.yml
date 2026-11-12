@@ -27,6 +27,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+          persist-credentials: false
       - name: Apply Zsign patches
         run: for patch in patches/zsign-*.patch; do git -C Zsign apply "../$patch"; done
       - name: Select Xcode
@@ -78,9 +79,12 @@ jobs:
           key: ${{ steps.simcache.outputs.cache-primary-key }}
       - name: Save screenshots to the ci-screenshots branch
         if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           test -d "$RUNNER_TEMP/shots" || exit 0
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git fetch --depth 1 origin ci-screenshots 2>/dev/null; then

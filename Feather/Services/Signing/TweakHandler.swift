@@ -361,4 +361,5 @@ enum TweakHandlerError: Error {
 	case decompressionFailed(String)
 	case missingFile(String)
 	case noAccess
+	case unsafeArchiveEntry(String)
 }

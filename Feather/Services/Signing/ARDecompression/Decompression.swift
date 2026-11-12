@@ -29,12 +29,18 @@ func extractFile(at fileURL: inout URL) throws {
 		let extractionDirectory = fileURL.deletingLastPathComponent().appendingPathComponent(UUID().uuidString)
 		try fileManager.createDirectory(at: extractionDirectory, withIntermediateDirectories: true)
 
+		let root = extractionDirectory.standardizedFileURL.path + "/"
 		for entry in tarContainer {
-			let entryPath = extractionDirectory.appendingPathComponent(entry.info.name)
+			let entryPath = extractionDirectory.appendingPathComponent(entry.info.name).standardizedFileURL
+			// Entries named with ".." or an absolute path must not land outside the extraction folder.
+			guard (entryPath.path + "/").hasPrefix(root) else {
+				throw TweakHandlerError.unsafeArchiveEntry(entry.info.name)
+			}
 
 			if entry.info.type == .directory {
 				try fileManager.createDirectory(at: entryPath, withIntermediateDirectories: true)
 			} else if entry.info.type == .regular, let entryData = entry.data {
+				try fileManager.createDirectory(at: entryPath.deletingLastPathComponent(), withIntermediateDirectories: true)
 				try entryData.write(to: entryPath)
 			}
 		}
