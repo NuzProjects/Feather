@@ -189,7 +189,10 @@ final class GrandSlamClient {
 			let salt = start["s"] as? Data,
 			let iterations = (start["i"] as? NSNumber)?.intValue,
 			let serverKey = start["B"] as? Data
-		else { throw GrandSlamError.badResponse("init") }
+		else {
+			DevLog.shared.log(.warning, "Apple ID init: reply was missing fields, got \(start.keys.sorted().joined(separator: ", "))", category: "AppleID")
+			throw GrandSlamError.badResponse("init")
+		}
 
 		let proof = try srp.clientProof(
 			username: username,

@@ -20,37 +20,61 @@ struct AppleIDSignInView: View {
 
 	var body: some View {
 		Form {
-			NBSection(.localized("Apple ID")) {
-				TextField(.localized("Email or Phone Number"), text: $_appleID)
-					.textContentType(.username)
-					.keyboardType(.emailAddress)
-					.textInputAutocapitalization(.never)
-					.autocorrectionDisabled()
-				SecureField(.localized("Password"), text: $_password)
-					.textContentType(.password)
-			} footer: {
-				Text(.localized("Your Apple ID and password go only to Apple and are kept in this device's Keychain. A sign-in helper server identifies this device to Apple, but it never sees your password."))
+			Section {
+				VStack(spacing: 10) {
+					Image(systemName: "person.crop.circle.fill")
+						.font(.system(size: 40))
+						.foregroundStyle(Color.accentColor)
+						.frame(width: 76, height: 76)
+						.background(
+							RoundedRectangle(cornerRadius: 76 * .appIconCornerRatio, style: .continuous)
+								.fill(Color.accentColor.opacity(0.15))
+						)
+					Text(.localized("Sign In with Apple ID"))
+						.font(.title3.bold())
+					Text(.localized("No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days."))
+						.font(.subheadline)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
+						.multilineTextAlignment(.center)
+				}
+				.frame(maxWidth: .infinity)
+				.listRowBackground(Color.clear)
+				.listRowInsets(EdgeInsets())
 			}
 
-			NBSection(.localized("Device")) {
-				TextField(.localized("UDID"), text: $_udid)
-					.textInputAutocapitalization(.characters)
-					.autocorrectionDisabled()
-				if _udidSource == nil {
-					Button {
-						_isFindingUDID = true
-					} label: {
-						Label(.localized("Find My UDID"), systemImage: "wand.and.stars")
-					}
+			Section {
+				_field("envelope") {
+					TextField(.localized("Email or Phone Number"), text: $_appleID)
+						.textContentType(.username)
+						.keyboardType(.emailAddress)
+						.textInputAutocapitalization(.never)
+						.autocorrectionDisabled()
+				}
+				_field("lock") {
+					SecureField(.localized("Password"), text: $_password)
+						.textContentType(.password)
+				}
+				_field("iphone") {
+					TextField(.localized("UDID"), text: $_udid)
+						.textInputAutocapitalization(.characters)
+						.autocorrectionDisabled()
 				}
 			} footer: {
-				switch _udidSource {
-				case .pairing:
-					Text(.localized("Filled in from your pairing file."))
-				case .profile:
-					EmptyView()
-				case nil:
-					Text(.localized("Apple needs this device's UDID to register it. Tap Find My UDID and allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Settings brings you straight back here with your UDID filled in."))
+				VStack(alignment: .leading, spacing: 10) {
+					if _udidSource == nil {
+						Button {
+							_isFindingUDID = true
+						} label: {
+							Label(.localized("Find My UDID"), systemImage: "wand.and.stars")
+								.font(.subheadline.weight(.semibold))
+						}
+						.buttonStyle(.bordered)
+						.buttonBorderShape(.capsule)
+						.controlSize(.small)
+						.tint(.accentColor)
+						Text(.localized("Apple needs this device's UDID to register it. Tap Find My UDID and allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Settings brings you straight back here with your UDID filled in."))
+					}
+					Text(.localized("Your Apple ID and password go only to Apple and are kept in this device's Keychain. A sign-in helper server identifies this device to Apple, but it never sees your password."))
 				}
 			}
 
@@ -58,17 +82,25 @@ struct AppleIDSignInView: View {
 				Button {
 					_signIn()
 				} label: {
-					HStack {
-						Text(.localized("Sign In"))
-						Spacer()
+					HStack(spacing: 8) {
 						if _isWorking {
 							ProgressView()
+								.tint(.white)
 						}
+						Text(.localized("Sign In"))
+							.font(.headline)
 					}
+					.frame(maxWidth: .infinity)
+					.padding(.vertical, 6)
 				}
+				.buttonStyle(.borderedProminent)
+				.controlSize(.large)
 				.disabled(!_canSignIn)
+				.listRowBackground(Color.clear)
+				.listRowInsets(EdgeInsets())
 			} footer: {
 				Text(.localized("Free Apple IDs have limits: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID."))
+					.padding(.top, 8)
 			}
 		}
 		.interactiveDismissDisabled(_isWorking)
@@ -82,6 +114,15 @@ struct AppleIDSignInView: View {
 		.sheet(isPresented: $_isFindingUDID) {
 			SafariRepresentableView(url: AppleIDAccount.udidProfileURL)
 				.ignoresSafeArea()
+		}
+	}
+
+	private func _field<Content: View>(_ icon: String, @ViewBuilder content: () -> Content) -> some View {
+		HStack(spacing: 12) {
+			Image(systemName: icon)
+				.foregroundStyle(Color.accentColor)
+				.frame(width: 24)
+			content()
 		}
 	}
 
