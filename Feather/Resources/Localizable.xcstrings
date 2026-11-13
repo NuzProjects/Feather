@@ -45325,6 +45325,3299 @@
           }
         }
       }
+    },
+    "The Apple ID or password is incorrect." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Apple ID or password is incorrect."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID lub hasło jest nieprawidłowe."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID 또는 암호가 올바르지 않습니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Kimliği veya parola yanlış."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID 或密码不正确。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معرّف Apple أو كلمة السر غير صحيحة."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID hoặc mật khẩu không đúng."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'ID Apple o la password non sono corretti."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Apple-ID oder das Passwort ist falsch."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID atau kata sandi salah."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID nebo heslo není správné."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’identifiant Apple ou le mot de passe est incorrect."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный Apple ID или пароль."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El Apple ID o la contraseña no son correctos."
+          }
+        }
+      }
+    },
+    "Apple sent an unexpected reply (%@). Try again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple sent an unexpected reply (%@). Try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple wysłało nieoczekiwaną odpowiedź (%@). Spróbuj ponownie."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple에서 예상치 못한 응답을 보냈습니다(%@). 다시 시도하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple beklenmeyen bir yanıt gönderdi (%@). Tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 返回了意外的响应（%@）。请重试。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أرسلت Apple ردًا غير متوقع (%@). حاول مرة أخرى."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple gửi phản hồi không mong đợi (%@). Hãy thử lại."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha inviato una risposta inattesa (%@). Riprova."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple hat unerwartet geantwortet (%@). Versuche es erneut."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple mengirim balasan yang tidak terduga (%@). Coba lagi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple poslal neočekávanou odpověď (%@). Zkuste to znovu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple a envoyé une réponse inattendue (%@). Réessayez."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple прислала неожиданный ответ (%@). Попробуйте ещё раз."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple envió una respuesta inesperada (%@). Inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "That verification code is incorrect." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "That verification code is incorrect."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ten kod weryfikacyjny jest nieprawidłowy."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증 코드가 올바르지 않습니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu doğrulama kodu yanlış."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "验证码不正确。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمز التحقق هذا غير صحيح."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mã xác minh không đúng."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il codice di verifica non è corretto."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieser Bestätigungscode ist falsch."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kode verifikasi itu salah."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento ověřovací kód není správný."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce code de vérification est incorrect."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный код подтверждения."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ese código de verificación no es correcto."
+          }
+        }
+      }
+    },
+    "Sign-in was cancelled." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-in was cancelled."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logowanie zostało anulowane."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인이 취소되었습니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giriş iptal edildi."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录已取消。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم إلغاء تسجيل الدخول."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã hủy đăng nhập."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accesso annullato."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Anmeldung wurde abgebrochen."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masuk dibatalkan."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlášení bylo zrušeno."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion a été annulée."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вход отменён."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se canceló el inicio de sesión."
+          }
+        }
+      }
+    },
+    "Two-factor verification didn't complete. Try signing in again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Two-factor verification didn't complete. Try signing in again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weryfikacja dwuetapowa nie została ukończona. Spróbuj zalogować się ponownie."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이중 인증이 완료되지 않았습니다. 다시 로그인해 보세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İki adımlı doğrulama tamamlanmadı. Yeniden giriş yapmayı deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "双重认证未完成。请重新登录。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يكتمل التحقق بخطوتين. حاول تسجيل الدخول مرة أخرى."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xác minh hai yếu tố chưa hoàn tất. Hãy thử đăng nhập lại."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La verifica in due passaggi non è stata completata. Prova ad accedere di nuovo."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Zwei-Faktor-Bestätigung wurde nicht abgeschlossen. Melde dich erneut an."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifikasi dua langkah tidak selesai. Coba masuk lagi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dvoufázové ověření nebylo dokončeno. Zkuste se přihlásit znovu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La vérification en deux étapes n’a pas abouti. Reconnectez-vous."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Двухфакторная проверка не завершена. Попробуйте войти снова."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La verificación en dos pasos no se completó. Intenta iniciar sesión de nuevo."
+          }
+        }
+      }
+    },
+    "Feather couldn't reach a sign-in helper server. Check your connection and try again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather couldn't reach a sign-in helper server. Check your connection and try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather nie mógł połączyć się z serwerem pomocniczym logowania. Sprawdź połączenie i spróbuj ponownie."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather가 로그인 도우미 서버에 연결하지 못했습니다. 연결을 확인하고 다시 시도하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather bir giriş yardımcı sunucusuna ulaşamadı. Bağlantınızı kontrol edip tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather 无法连接登录辅助服务器。请检查网络后重试。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر على Feather الوصول إلى خادم مساعد تسجيل الدخول. تحقق من اتصالك وحاول مرة أخرى."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather không kết nối được máy chủ hỗ trợ đăng nhập. Hãy kiểm tra kết nối và thử lại."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather non riesce a raggiungere un server di supporto all'accesso. Controlla la connessione e riprova."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather konnte keinen Anmelde-Hilfsserver erreichen. Prüfe deine Verbindung und versuche es erneut."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather tidak dapat menjangkau server bantuan masuk. Periksa koneksi lalu coba lagi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather se nemohl spojit s pomocným přihlašovacím serverem. Zkontrolujte připojení a zkuste to znovu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather n’a pas pu joindre un serveur d’aide à la connexion. Vérifiez votre connexion et réessayez."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather не удалось связаться с вспомогательным сервером входа. Проверьте подключение и попробуйте снова."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feather no pudo conectar con un servidor auxiliar de inicio de sesión. Revisa tu conexión e inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "Setting up this device with Apple failed (%@). Try again in a moment." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setting up this device with Apple failed (%@). Try again in a moment."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguracja tego urządzenia w Apple nie powiodła się (%@). Spróbuj za chwilę."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple에 이 기기를 설정하지 못했습니다(%@). 잠시 후 다시 시도하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu cihaz Apple ile ayarlanamadı (%@). Biraz sonra tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法在 Apple 设置此设备（%@）。请稍后重试。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فشل إعداد هذا الجهاز مع Apple (%@). حاول مرة أخرى بعد قليل."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thiết lập thiết bị này với Apple thất bại (%@). Hãy thử lại sau giây lát."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurazione del dispositivo con Apple non riuscita (%@). Riprova tra poco."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Einrichtung dieses Geräts bei Apple ist fehlgeschlagen (%@). Versuche es gleich noch einmal."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gagal menyiapkan perangkat ini dengan Apple (%@). Coba lagi sebentar lagi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavení tohoto zařízení u Applu selhalo (%@). Zkuste to za chvíli."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La configuration de cet appareil auprès d’Apple a échoué (%@). Réessayez dans un instant."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось настроить это устройство в Apple (%@). Попробуйте чуть позже."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo configurar este dispositivo con Apple (%@). Inténtalo de nuevo en un momento."
+          }
+        }
+      }
+    },
+    "This Apple ID's sign-in details are missing. Delete it and sign in again in Settings → Certificates." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This Apple ID's sign-in details are missing. Delete it and sign in again in Settings → Certificates."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brakuje danych logowania tego Apple ID. Usuń je i zaloguj się ponownie w Ustawienia → Certyfikaty."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 Apple ID의 로그인 정보가 없습니다. 삭제한 후 설정 → 인증서에서 다시 로그인하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu Apple Kimliğinin giriş bilgileri eksik. Silip Ayarlar → Sertifikalar'dan yeniden giriş yapın."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 Apple ID 的登录信息丢失。请删除后在“设置 → 证书”中重新登录。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بيانات تسجيل الدخول لمعرّف Apple هذا مفقودة. احذفه وسجّل الدخول مجددًا من الإعدادات ← الشهادات."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thiếu thông tin đăng nhập của Apple ID này. Hãy xóa nó rồi đăng nhập lại trong Cài đặt → Chứng chỉ."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mancano i dati di accesso di questo ID Apple. Eliminalo e accedi di nuovo in Impostazioni → Certificati."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Anmeldedaten dieser Apple-ID fehlen. Lösche sie und melde dich unter Einstellungen → Zertifikate erneut an."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detail masuk Apple ID ini hilang. Hapus lalu masuk lagi di Pengaturan → Sertifikat."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chybí přihlašovací údaje tohoto Apple ID. Smažte ho a přihlaste se znovu v Nastavení → Certifikáty."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les informations de connexion de cet identifiant Apple sont introuvables. Supprimez-le et reconnectez-vous dans Réglages → Certificats."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Данные входа для этого Apple ID отсутствуют. Удалите его и войдите снова в Настройки → Сертификаты."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faltan los datos de inicio de sesión de este Apple ID. Elimínalo y vuelve a iniciar sesión en Ajustes → Certificados."
+          }
+        }
+      }
+    },
+    "The certificate for this Apple ID was revoked, possibly by another signing tool. Delete it and sign in again to make a new one." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The certificate for this Apple ID was revoked, possibly by another signing tool. Delete it and sign in again to make a new one."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certyfikat tego Apple ID został unieważniony, być może przez inne narzędzie do podpisywania. Usuń go i zaloguj się ponownie, aby utworzyć nowy."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 Apple ID의 인증서가 다른 서명 도구 등에 의해 폐기되었습니다. 삭제한 후 다시 로그인하여 새로 만드세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu Apple Kimliğinin sertifikası muhtemelen başka bir imzalama aracı tarafından iptal edildi. Silip yeniden giriş yaparak yenisini oluşturun."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 Apple ID 的证书已被吊销，可能是其他签名工具所为。请删除后重新登录以创建新证书。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أُلغيت شهادة معرّف Apple هذا، ربما بواسطة أداة توقيع أخرى. احذفه وسجّل الدخول مجددًا لإنشاء شهادة جديدة."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chứng chỉ của Apple ID này đã bị thu hồi, có thể bởi công cụ ký khác. Hãy xóa và đăng nhập lại để tạo chứng chỉ mới."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il certificato di questo ID Apple è stato revocato, forse da un altro strumento di firma. Eliminalo e accedi di nuovo per crearne uno nuovo."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Zertifikat dieser Apple-ID wurde widerrufen, möglicherweise von einem anderen Signier-Tool. Lösche sie und melde dich erneut an, um ein neues zu erstellen."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikat untuk Apple ID ini dicabut, mungkin oleh alat penandatangan lain. Hapus lalu masuk lagi untuk membuat yang baru."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifikát tohoto Apple ID byl zneplatněn, možná jiným nástrojem pro podepisování. Smažte ho a přihlaste se znovu, abyste vytvořili nový."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le certificat de cet identifiant Apple a été révoqué, peut-être par un autre outil de signature. Supprimez-le et reconnectez-vous pour en créer un nouveau."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сертификат этого Apple ID отозван, возможно другим инструментом подписи. Удалите его и войдите снова, чтобы создать новый."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El certificado de este Apple ID se revocó, quizá por otra herramienta de firma. Elimínalo y vuelve a iniciar sesión para crear uno nuevo."
+          }
+        }
+      }
+    },
+    "Verification Code" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verification Code"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kod weryfikacyjny"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증 코드"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doğrulama Kodu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "验证码"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمز التحقق"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mã xác minh"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Codice di verifica"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigungscode"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kode Verifikasi"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ověřovací kód"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code de vérification"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Код подтверждения"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de verificación"
+          }
+        }
+      }
+    },
+    "Enter the code Apple texted to the phone number for %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the code Apple texted to the phone number for %@."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wpisz kod, który Apple wysłało SMS-em na numer telefonu dla %@."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple이 %@의 전화번호로 보낸 코드를 입력하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple'ın %@ için telefon numarasına SMS ile gönderdiği kodu girin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入 Apple 发送到 %@ 绑定手机号码的短信验证码。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل الرمز الذي أرسلته Apple برسالة نصية إلى رقم الهاتف الخاص بـ %@."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhập mã Apple đã nhắn tới số điện thoại của %@."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci il codice che Apple ha inviato via SMS al numero di telefono di %@."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib den Code ein, den Apple per SMS an die Telefonnummer von %@ gesendet hat."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan kode yang dikirim Apple lewat SMS ke nomor telepon untuk %@."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadejte kód, který Apple poslal SMS na telefonní číslo pro %@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez le code envoyé par SMS par Apple au numéro associé à %@."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите код, который Apple отправила по SMS на номер телефона для %@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce el código que Apple envió por SMS al número de teléfono de %@."
+          }
+        }
+      }
+    },
+    "Enter the code shown on your other Apple devices for %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the code shown on your other Apple devices for %@."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wpisz kod wyświetlony na innych urządzeniach Apple dla %@."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@의 다른 Apple 기기에 표시된 코드를 입력하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ için diğer Apple cihazlarınızda gösterilen kodu girin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入 %@ 在你其他 Apple 设备上显示的验证码。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل الرمز الظاهر على أجهزة Apple الأخرى الخاصة بـ %@."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhập mã hiển thị trên các thiết bị Apple khác của %@."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci il codice mostrato sugli altri dispositivi Apple di %@."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib den Code ein, der auf deinen anderen Apple-Geräten für %@ angezeigt wird."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan kode yang muncul di perangkat Apple lain milik %@."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadejte kód zobrazený na vašich dalších zařízeních Apple pro %@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez le code affiché sur vos autres appareils Apple pour %@."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите код, показанный на других ваших устройствах Apple для %@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce el código que aparece en tus otros dispositivos Apple para %@."
+          }
+        }
+      }
+    },
+    "Apple's developer service sent an unexpected reply (%@). Try again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple's developer service sent an unexpected reply (%@). Try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usługa deweloperska Apple wysłała nieoczekiwaną odpowiedź (%@). Spróbuj ponownie."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 개발자 서비스에서 예상치 못한 응답을 보냈습니다(%@). 다시 시도하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple geliştirici hizmeti beklenmeyen bir yanıt gönderdi (%@). Tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 开发者服务返回了意外的响应（%@）。请重试。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أرسلت خدمة مطوري Apple ردًا غير متوقع (%@). حاول مرة أخرى."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dịch vụ nhà phát triển của Apple gửi phản hồi không mong đợi (%@). Hãy thử lại."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il servizio sviluppatori di Apple ha inviato una risposta inattesa (%@). Riprova."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apples Entwicklerdienst hat unerwartet geantwortet (%@). Versuche es erneut."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Layanan pengembang Apple mengirim balasan yang tidak terduga (%@). Coba lagi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vývojářská služba Applu poslala neočekávanou odpověď (%@). Zkuste to znovu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le service développeur d’Apple a envoyé une réponse inattendue (%@). Réessayez."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сервис разработчиков Apple прислал неожиданный ответ (%@). Попробуйте ещё раз."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servicio para desarrolladores de Apple envió una respuesta inesperada (%@). Inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "This Apple ID isn't set up for app signing yet. Sign in once at developer.apple.com, accept the agreement, then try again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This Apple ID isn't set up for app signing yet. Sign in once at developer.apple.com, accept the agreement, then try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To Apple ID nie jest jeszcze skonfigurowane do podpisywania aplikacji. Zaloguj się raz na developer.apple.com, zaakceptuj umowę i spróbuj ponownie."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 Apple ID는 아직 앱 서명용으로 설정되지 않았습니다. developer.apple.com에 한 번 로그인하여 약관에 동의한 후 다시 시도하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu Apple Kimliği henüz uygulama imzalama için ayarlanmamış. developer.apple.com'da bir kez giriş yapıp sözleşmeyi kabul edin, ardından tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 Apple ID 尚未开通应用签名。请先在 developer.apple.com 登录一次并接受协议，然后重试。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معرّف Apple هذا غير مُعد لتوقيع التطبيقات بعد. سجّل الدخول مرة في developer.apple.com ووافق على الاتفاقية، ثم حاول مرة أخرى."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID này chưa được thiết lập để ký ứng dụng. Hãy đăng nhập một lần tại developer.apple.com, chấp nhận thỏa thuận rồi thử lại."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questo ID Apple non è ancora configurato per firmare app. Accedi una volta a developer.apple.com, accetta il contratto e riprova."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Apple-ID ist noch nicht zum Signieren von Apps eingerichtet. Melde dich einmal bei developer.apple.com an, akzeptiere die Vereinbarung und versuche es erneut."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID ini belum disiapkan untuk menandatangani app. Masuk sekali di developer.apple.com, setujui perjanjiannya, lalu coba lagi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toto Apple ID ještě není nastavené pro podepisování aplikací. Jednou se přihlaste na developer.apple.com, přijměte smlouvu a zkuste to znovu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cet identifiant Apple n’est pas encore configuré pour signer des apps. Connectez-vous une fois sur developer.apple.com, acceptez le contrat, puis réessayez."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этот Apple ID ещё не настроен для подписи приложений. Войдите один раз на developer.apple.com, примите соглашение и попробуйте снова."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este Apple ID aún no está configurado para firmar apps. Inicia sesión una vez en developer.apple.com, acepta el acuerdo e inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "A security step failed while talking to Apple (%@). Try again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A security step failed while talking to Apple (%@). Try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krok zabezpieczeń nie powiódł się podczas komunikacji z Apple (%@). Spróbuj ponownie."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple과 통신하는 중 보안 단계에 실패했습니다(%@). 다시 시도하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ile iletişim sırasında bir güvenlik adımı başarısız oldu (%@). Tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "与 Apple 通信时某个安全步骤失败（%@）。请重试。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فشلت خطوة أمان أثناء التواصل مع Apple (%@). حاول مرة أخرى."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một bước bảo mật thất bại khi kết nối với Apple (%@). Hãy thử lại."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un passaggio di sicurezza non è riuscito durante la comunicazione con Apple (%@). Riprova."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Sicherheitsschritt ist bei der Verbindung mit Apple fehlgeschlagen (%@). Versuche es erneut."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Satu langkah keamanan gagal saat berkomunikasi dengan Apple (%@). Coba lagi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Při komunikaci s Applem selhal bezpečnostní krok (%@). Zkuste to znovu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une étape de sécurité a échoué lors de la communication avec Apple (%@). Réessayez."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сбой шага безопасности при связи с Apple (%@). Попробуйте ещё раз."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falló un paso de seguridad al comunicarse con Apple (%@). Inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "Apple ID" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Kimliği"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معرّف Apple"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID Apple"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple-ID"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identifiant Apple"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID"
+          }
+        }
+      }
+    },
+    "Email or Phone Number" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email or Phone Number"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-mail lub numer telefonu"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이메일 또는 전화번호"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-posta veya Telefon Numarası"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电子邮件或电话号码"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "البريد الإلكتروني أو رقم الهاتف"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email hoặc số điện thoại"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-mail o numero di telefono"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail oder Telefonnummer"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email atau Nomor Telepon"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-mail nebo telefonní číslo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-mail ou numéro de téléphone"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Эл. почта или номер телефона"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correo o número de teléfono"
+          }
+        }
+      }
+    },
+    "Your Apple ID and password go only to Apple and are kept in this device's Keychain. A sign-in helper server identifies this device to Apple, but it never sees your password." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Apple ID and password go only to Apple and are kept in this device's Keychain. A sign-in helper server identifies this device to Apple, but it never sees your password."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twoje Apple ID i hasło trafiają wyłącznie do Apple i są przechowywane w pęku kluczy tego urządzenia. Serwer pomocniczy logowania identyfikuje to urządzenie w Apple, ale nigdy nie widzi Twojego hasła."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID와 암호는 Apple에만 전송되며 이 기기의 키체인에 보관됩니다. 로그인 도우미 서버는 Apple에 이 기기를 식별해 주지만 암호는 볼 수 없습니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Kimliğiniz ve parolanız yalnızca Apple'a gider ve bu cihazın Anahtar Zinciri'nde saklanır. Bir giriş yardımcı sunucusu bu cihazı Apple'a tanıtır ama parolanızı asla görmez."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的 Apple ID 和密码只会发送给 Apple，并保存在本设备的钥匙串中。登录辅助服务器会向 Apple 识别此设备，但它永远看不到你的密码。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يُرسل معرّف Apple وكلمة السر إلى Apple فقط ويُحفظان في سلسلة مفاتيح هذا الجهاز. يعرّف خادم مساعد تسجيل الدخول هذا الجهاز لدى Apple، لكنه لا يرى كلمة السر أبدًا."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID và mật khẩu chỉ được gửi tới Apple và lưu trong Chuỗi khóa của thiết bị này. Máy chủ hỗ trợ đăng nhập giúp Apple nhận diện thiết bị, nhưng không bao giờ thấy mật khẩu của bạn."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID Apple e password vengono inviati solo ad Apple e conservati nel portachiavi di questo dispositivo. Un server di supporto all'accesso identifica il dispositivo presso Apple, ma non vede mai la tua password."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Apple-ID und dein Passwort gehen nur an Apple und werden im Schlüsselbund dieses Geräts gespeichert. Ein Anmelde-Hilfsserver identifiziert dieses Gerät gegenüber Apple, sieht dein Passwort aber nie."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID dan kata sandi hanya dikirim ke Apple dan disimpan di Rantai Kunci perangkat ini. Server bantuan masuk mengenalkan perangkat ini ke Apple, tetapi tidak pernah melihat kata sandimu."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaše Apple ID a heslo jdou jen do Applu a ukládají se do klíčenky tohoto zařízení. Pomocný přihlašovací server identifikuje zařízení vůči Applu, ale vaše heslo nikdy nevidí."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre identifiant Apple et votre mot de passe ne sont envoyés qu’à Apple et restent dans le trousseau de cet appareil. Un serveur d’aide à la connexion identifie cet appareil auprès d’Apple, sans jamais voir votre mot de passe."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID и пароль отправляются только в Apple и хранятся в связке ключей этого устройства. Вспомогательный сервер входа представляет устройство Apple, но никогда не видит ваш пароль."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu Apple ID y tu contraseña solo se envían a Apple y se guardan en el llavero de este dispositivo. Un servidor auxiliar de inicio de sesión identifica este dispositivo ante Apple, pero nunca ve tu contraseña."
+          }
+        }
+      }
+    },
+    "Device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Device"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Urządzenie"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기기"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cihaz"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设备"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الجهاز"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thiết bị"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dispositivo"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerät"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perangkat"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zařízení"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appareil"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Устройство"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dispositivo"
+          }
+        }
+      }
+    },
+    "UDID" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UDID"
+          }
+        }
+      }
+    },
+    "Filled in from your pairing file." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filled in from your pairing file."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uzupełniono na podstawie pliku parowania."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "페어링 파일에서 가져왔습니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eşleştirme dosyanızdan dolduruldu."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已从你的配对文件填入。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم ملؤه من ملف الاقتران."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã điền từ tệp ghép nối của bạn."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compilato dal file di abbinamento."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus deiner Kopplungsdatei übernommen."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diisi dari file pairing kamu."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyplněno ze souboru párování."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rempli à partir de votre fichier de jumelage."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заполнено из файла сопряжения."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rellenado a partir de tu archivo de emparejamiento."
+          }
+        }
+      }
+    },
+    "Apple needs this device's UDID to register it. Import a pairing file in Settings → Installation, or look up your UDID with a site like udid.tech and paste it here." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple needs this device's UDID to register it. Import a pairing file in Settings → Installation, or look up your UDID with a site like udid.tech and paste it here."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple potrzebuje UDID tego urządzenia, aby je zarejestrować. Zaimportuj plik parowania w Ustawienia → Instalacja albo sprawdź UDID na stronie takiej jak udid.tech i wklej go tutaj."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple이 이 기기를 등록하려면 UDID가 필요합니다. 설정 → 설치에서 페어링 파일을 가져오거나 udid.tech 같은 사이트에서 UDID를 확인해 여기에 붙여 넣으세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple'ın bu cihazı kaydetmesi için UDID gerekir. Ayarlar → Yükleme'den bir eşleştirme dosyası içe aktarın veya UDID'nizi udid.tech gibi bir siteden öğrenip buraya yapıştırın."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 需要此设备的 UDID 才能注册它。请在“设置 → 安装”中导入配对文件，或通过 udid.tech 等网站查询 UDID 并粘贴到这里。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحتاج Apple إلى UDID هذا الجهاز لتسجيله. استورد ملف اقتران من الإعدادات ← التثبيت، أو اعرف UDID من موقع مثل udid.tech والصقه هنا."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple cần UDID của thiết bị này để đăng ký. Hãy nhập tệp ghép nối trong Cài đặt → Cài đặt ứng dụng, hoặc tra UDID trên trang như udid.tech rồi dán vào đây."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha bisogno dell'UDID di questo dispositivo per registrarlo. Importa un file di abbinamento in Impostazioni → Installazione oppure trova il tuo UDID su un sito come udid.tech e incollalo qui."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple benötigt die UDID dieses Geräts, um es zu registrieren. Importiere eine Kopplungsdatei unter Einstellungen → Installation oder ermittle deine UDID über eine Seite wie udid.tech und füge sie hier ein."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple memerlukan UDID perangkat ini untuk mendaftarkannya. Impor file pairing di Pengaturan → Instalasi, atau cari UDID kamu lewat situs seperti udid.tech lalu tempel di sini."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple potřebuje UDID tohoto zařízení, aby ho zaregistroval. Importujte soubor párování v Nastavení → Instalace, nebo zjistěte UDID na webu jako udid.tech a vložte ho sem."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple a besoin de l’UDID de cet appareil pour l’enregistrer. Importez un fichier de jumelage dans Réglages → Installation, ou trouvez votre UDID sur un site comme udid.tech et collez-le ici."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple нужен UDID этого устройства для регистрации. Импортируйте файл сопряжения в Настройки → Установка или узнайте UDID на сайте вроде udid.tech и вставьте его сюда."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple necesita el UDID de este dispositivo para registrarlo. Importa un archivo de emparejamiento en Ajustes → Instalación, o consulta tu UDID en un sitio como udid.tech y pégalo aquí."
+          }
+        }
+      }
+    },
+    "Sign In" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaloguj się"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giriş Yap"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تسجيل الدخول"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng nhập"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accedi"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anmelden"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masuk"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se connecter"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войти"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión"
+          }
+        }
+      }
+    },
+    "Free Apple IDs have limits: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free Apple IDs have limits: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Darmowe Apple ID mają limity: podpisane aplikacje działają 7 dni, naraz można mieć zainstalowane do 3, a co tydzień można dodać do 10 nowych. Aplikacje dostają identyfikator pakietu kończący się Twoim ID zespołu."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무료 Apple ID에는 제한이 있습니다. 서명된 앱은 7일 동안 유지되고, 한 번에 최대 3개까지 설치할 수 있으며, 주당 최대 10개의 새 앱을 추가할 수 있습니다. 앱의 번들 ID는 팀 ID로 끝납니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ücretsiz Apple Kimliklerinin sınırları vardır: imzalı uygulamalar 7 gün çalışır, aynı anda en fazla 3 tanesi yüklü olabilir ve haftada en fazla 10 yeni uygulama eklenebilir. Uygulamalar ekip kimliğinizle biten bir paket kimliği alır."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免费 Apple ID 有限制：签名的应用有效期为 7 天，最多同时安装 3 个，每周最多添加 10 个新应用。应用的 Bundle ID 会以你的团队 ID 结尾。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لمعرّفات Apple المجانية حدود: تعمل التطبيقات الموقّعة 7 أيام، ويمكن تثبيت 3 منها كحد أقصى في وقت واحد، وإضافة 10 تطبيقات جديدة كحد أقصى أسبوعيًا. يحصل كل تطبيق على معرّف حزمة ينتهي بمعرّف فريقك."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID miễn phí có giới hạn: ứng dụng đã ký dùng được 7 ngày, cài tối đa 3 ứng dụng cùng lúc và thêm tối đa 10 ứng dụng mới mỗi tuần. Ứng dụng sẽ có Bundle ID kết thúc bằng Team ID của bạn."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gli ID Apple gratuiti hanno dei limiti: le app firmate durano 7 giorni, se ne possono installare al massimo 3 alla volta e aggiungere al massimo 10 nuove a settimana. Le app ricevono un bundle ID che termina con il tuo Team ID."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kostenlose Apple-IDs haben Grenzen: Signierte Apps laufen 7 Tage, höchstens 3 können gleichzeitig installiert sein und pro Woche lassen sich bis zu 10 neue Apps hinzufügen. Apps erhalten eine Bundle-ID, die auf deine Team-ID endet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID gratis punya batasan: app yang ditandatangani berlaku 7 hari, maksimal 3 bisa terpasang sekaligus, dan maksimal 10 app baru bisa ditambahkan per minggu. App mendapat bundle ID yang diakhiri ID tim kamu."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bezplatná Apple ID mají limity: podepsané aplikace fungují 7 dní, naráz jich lze mít nainstalované nejvýš 3 a týdně lze přidat nejvýš 10 nových. Aplikace dostanou identifikátor balíčku končící vaším ID týmu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les identifiants Apple gratuits ont des limites : les apps signées durent 7 jours, 3 au maximum peuvent être installées en même temps et 10 nouvelles au maximum peuvent être ajoutées par semaine. Les apps reçoivent un identifiant de bundle se terminant par votre identifiant d’équipe."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "У бесплатных Apple ID есть ограничения: подписанные приложения работают 7 дней, одновременно можно установить до 3, а в неделю можно добавить до 10 новых. Приложения получают Bundle ID, оканчивающийся на ваш Team ID."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los Apple ID gratuitos tienen límites: las apps firmadas duran 7 días, se pueden tener hasta 3 instaladas a la vez y añadir hasta 10 nuevas por semana. Las apps reciben un identificador de paquete que termina con tu ID de equipo."
+          }
+        }
+      }
+    },
+    "Couldn't Sign In" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't Sign In"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się zalogować"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인할 수 없음"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giriş Yapılamadı"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法登录"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر تسجيل الدخول"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể đăng nhập"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile accedere"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anmeldung fehlgeschlagen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak Dapat Masuk"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nelze se přihlásit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion impossible"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось войти"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo iniciar sesión"
+          }
+        }
+      }
+    },
+    "Replace Certificate?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace Certificate?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zastąpić certyfikat?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증서를 교체할까요?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifika Değiştirilsin mi?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "替换证书？"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استبدال الشهادة؟"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thay thế chứng chỉ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sostituire il certificato?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikat ersetzen?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ganti Sertifikat?"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nahradit certifikát?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remplacer le certificat ?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заменить сертификат?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Reemplazar el certificado?"
+          }
+        }
+      }
+    },
+    "This Apple ID already has %lld development certificates and free accounts can't make more. Feather can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This Apple ID already has %lld development certificates and free accounts can't make more. Feather can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To Apple ID ma już certyfikaty deweloperskie (%lld), a darmowe konta nie mogą tworzyć kolejnych. Feather może je unieważnić, aby utworzyć własny, ale aplikacje nimi podpisane, np. przez AltStore lub Sideloadly, przestaną się otwierać."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 Apple ID에는 이미 개발 인증서가 %lld개 있으며 무료 계정은 더 만들 수 없습니다. Feather가 이를 폐기하고 자체 인증서를 만들 수 있지만, AltStore나 Sideloadly 등으로 서명한 앱은 더 이상 열리지 않습니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu Apple Kimliğinde zaten %lld geliştirme sertifikası var ve ücretsiz hesaplar daha fazlasını oluşturamaz. Feather kendi sertifikasını oluşturmak için bunları iptal edebilir, ancak bunlarla imzalanan uygulamalar (örneğin AltStore veya Sideloadly ile) açılmaz olur."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此 Apple ID 已有 %lld 个开发证书，免费账户无法再创建。Feather 可以吊销它们来创建自己的证书，但用它们签名的应用（例如通过 AltStore 或 Sideloadly 签名的）将无法打开。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لدى معرّف Apple هذا بالفعل %lld من شهادات التطوير ولا يمكن للحسابات المجانية إنشاء المزيد. يمكن لـ Feather إلغاؤها لإنشاء شهادته، لكن التطبيقات الموقّعة بها، مثلًا عبر AltStore أو Sideloadly، ستتوقف عن الفتح."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID này đã có %lld chứng chỉ phát triển và tài khoản miễn phí không thể tạo thêm. Feather có thể thu hồi chúng để tạo chứng chỉ riêng, nhưng các ứng dụng đã ký bằng chúng, ví dụ qua AltStore hoặc Sideloadly, sẽ không mở được nữa."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questo ID Apple ha già %lld certificati di sviluppo e gli account gratuiti non possono crearne altri. Feather può revocarli per crearne uno suo, ma le app firmate con essi, ad esempio da AltStore o Sideloadly, non si apriranno più."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Apple-ID hat bereits %lld Entwicklungszertifikate, und kostenlose Konten können keine weiteren erstellen. Feather kann sie widerrufen, um ein eigenes zu erstellen, aber damit signierte Apps, etwa von AltStore oder Sideloadly, öffnen sich dann nicht mehr."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID ini sudah punya %lld sertifikat pengembangan dan akun gratis tidak bisa membuat lagi. Feather bisa mencabutnya untuk membuat sertifikat sendiri, tetapi app yang ditandatangani dengannya, misalnya lewat AltStore atau Sideloadly, tidak akan bisa dibuka."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toto Apple ID už má %lld vývojářských certifikátů a bezplatné účty nemohou vytvořit další. Feather je může zneplatnit a vytvořit vlastní, ale aplikace jimi podepsané, například přes AltStore nebo Sideloadly, se přestanou otevírat."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cet identifiant Apple possède déjà %lld certificats de développement et les comptes gratuits ne peuvent pas en créer d’autres. Feather peut les révoquer pour créer le sien, mais les apps signées avec eux, par exemple via AltStore ou Sideloadly, ne s’ouvriront plus."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "У этого Apple ID уже есть сертификаты разработчика (%lld), а бесплатные аккаунты не могут создавать новые. Feather может отозвать их и создать свой, но подписанные ими приложения, например через AltStore или Sideloadly, перестанут открываться."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este Apple ID ya tiene %lld certificados de desarrollo y las cuentas gratuitas no pueden crear más. Feather puede revocarlos para crear el suyo, pero las apps firmadas con ellos, por ejemplo con AltStore o Sideloadly, dejarán de abrirse."
+          }
+        }
+      }
+    },
+    "Revoke and Continue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revoke and Continue"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unieważnij i kontynuuj"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "폐기하고 계속"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İptal Et ve Devam Et"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "吊销并继续"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلغاء الشهادة والمتابعة"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thu hồi và tiếp tục"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revoca e continua"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widerrufen und fortfahren"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabut dan Lanjutkan"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zneplatnit a pokračovat"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Révoquer et continuer"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отозвать и продолжить"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revocar y continuar"
+          }
+        }
+      }
+    },
+    "Sign In with Apple ID" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In with Apple ID"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaloguj się przez Apple ID"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID로 로그인"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Kimliği ile Giriş Yap"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用 Apple ID 登录"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تسجيل الدخول بمعرّف Apple"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng nhập bằng Apple ID"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accedi con ID Apple"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit Apple-ID anmelden"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masuk dengan Apple ID"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se pomocí Apple ID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se connecter avec un identifiant Apple"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войти с Apple ID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión con Apple ID"
+          }
+        }
+      }
+    },
+    "No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie masz certyfikatu? Zaloguj się darmowym Apple ID. Tak podpisane aplikacje działają 7 dni."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증서가 없나요? 무료 Apple ID로 로그인하세요. 이렇게 서명한 앱은 7일 동안 유지됩니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikanız yok mu? Bunun yerine ücretsiz bir Apple Kimliği ile giriş yapın. Bu şekilde imzalanan uygulamalar 7 gün çalışır."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有证书？改用免费 Apple ID 登录。这样签名的应用有效期为 7 天。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ليست لديك شهادة؟ سجّل الدخول بمعرّف Apple مجاني بدلًا من ذلك. تعمل التطبيقات الموقّعة بهذه الطريقة 7 أيام."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có chứng chỉ? Hãy đăng nhập bằng Apple ID miễn phí. Ứng dụng ký theo cách này dùng được 7 ngày."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun certificato? Accedi invece con un ID Apple gratuito. Le app firmate così durano 7 giorni."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Zertifikat? Melde dich stattdessen mit einer kostenlosen Apple-ID an. So signierte Apps laufen 7 Tage."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak punya sertifikat? Masuk dengan Apple ID gratis saja. App yang ditandatangani dengan cara ini berlaku 7 hari."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nemáte certifikát? Přihlaste se místo toho bezplatným Apple ID. Takto podepsané aplikace fungují 7 dní."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de certificat ? Connectez-vous plutôt avec un identifiant Apple gratuit. Les apps signées ainsi durent 7 jours."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет сертификата? Войдите с бесплатным Apple ID. Подписанные так приложения работают 7 дней."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿No tienes certificado? Inicia sesión con un Apple ID gratuito. Las apps firmadas así duran 7 días."
+          }
+        }
+      }
+    },
+    "Apple ID · Team %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · Team %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · Zespół %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · 팀 %@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Kimliği · Ekip %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · 团队 %@"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معرّف Apple · الفريق %@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · Nhóm %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID Apple · Team %@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple-ID · Team %@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · Tim %@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · Tým %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identifiant Apple · Équipe %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · Команда %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ID · Equipo %@"
+          }
+        }
+      }
+    },
+    "Apps Last 7 Days" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps Last 7 Days"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacje działają 7 dni"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앱 7일 유지"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulamalar 7 Gün"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用有效 7 天"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التطبيقات تعمل 7 أيام"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng dùng 7 ngày"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App valide 7 giorni"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps laufen 7 Tage"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Berlaku 7 Hari"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace na 7 dní"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps valables 7 jours"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приложения на 7 дней"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps duran 7 días"
+          }
+        }
+      }
+    },
+    "Team ID" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team ID"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID zespołu"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "팀 ID"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekip Kimliği"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "团队 ID"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معرّف الفريق"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team ID"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team ID"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team-ID"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID Tim"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID týmu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identifiant d’équipe"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team ID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID de equipo"
+          }
+        }
+      }
+    },
+    "Certificate Expires" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificate Expires"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certyfikat wygasa"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증서 만료"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikanın Süresi Doluyor"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "证书到期"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنتهي الشهادة"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chứng chỉ hết hạn"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scadenza certificato"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikat läuft ab"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikat Kedaluwarsa"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifikát vyprší"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expiration du certificat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сертификат истекает"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caducidad del certificado"
+          }
+        }
+      }
+    },
+    "Signed Apps Last" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signed Apps Last"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podpisane aplikacje działają"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서명된 앱 유지 기간"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İmzalı Uygulamaların Süresi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "签名应用有效期"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مدة عمل التطبيقات الموقّعة"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng đã ký dùng được"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durata delle app firmate"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signierte Apps laufen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masa Berlaku App"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podepsané aplikace fungují"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durée des apps signées"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подписанные приложения работают"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duración de las apps firmadas"
+          }
+        }
+      }
+    },
+    "7 days" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 days"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dni"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7일"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 gün"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 天"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 أيام"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 ngày"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 giorni"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 Tage"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 hari"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 dní"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 jours"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 дней"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 días"
+          }
+        }
+      }
+    },
+    "Each app gets its own provisioning profile from Apple when you sign it. Re-sign apps before 7 days pass to keep them opening." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each app gets its own provisioning profile from Apple when you sign it. Re-sign apps before 7 days pass to keep them opening."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Każda aplikacja dostaje od Apple własny profil podczas podpisywania. Podpisz aplikacje ponownie przed upływem 7 dni, aby nadal się otwierały."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "각 앱은 서명할 때 Apple에서 자체 프로비저닝 프로파일을 받습니다. 앱이 계속 열리도록 7일이 지나기 전에 다시 서명하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Her uygulama imzalandığında Apple'dan kendi hazırlık profilini alır. Açılmaya devam etmeleri için uygulamaları 7 gün dolmadan yeniden imzalayın."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每个应用在签名时都会从 Apple 获得自己的描述文件。请在 7 天内重新签名，应用才能继续打开。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يحصل كل تطبيق على ملف تعريف خاص به من Apple عند توقيعه. أعد توقيع التطبيقات قبل مرور 7 أيام لتستمر في الفتح."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mỗi ứng dụng nhận hồ sơ cấp phép riêng từ Apple khi bạn ký. Hãy ký lại trước khi hết 7 ngày để ứng dụng tiếp tục mở được."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ogni app riceve da Apple un proprio profilo di provisioning quando la firmi. Firma di nuovo le app prima che passino 7 giorni per continuare ad aprirle."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jede App erhält beim Signieren ein eigenes Bereitstellungsprofil von Apple. Signiere Apps vor Ablauf von 7 Tagen neu, damit sie sich weiter öffnen."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setiap app mendapat profil provisioning sendiri dari Apple saat ditandatangani. Tandatangani ulang sebelum 7 hari berlalu agar app tetap bisa dibuka."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Každá aplikace dostane při podepsání od Applu vlastní zřizovací profil. Podepište aplikace znovu dřív, než uplyne 7 dní, aby se dál otevíraly."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chaque app reçoit son propre profil d’approvisionnement d’Apple lors de la signature. Resignez les apps avant 7 jours pour qu’elles continuent de s’ouvrir."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Каждое приложение получает от Apple собственный профиль при подписи. Переподпишите приложения до истечения 7 дней, чтобы они продолжали открываться."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada app recibe su propio perfil de aprovisionamiento de Apple al firmarla. Vuelve a firmar las apps antes de que pasen 7 días para que sigan abriéndose."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

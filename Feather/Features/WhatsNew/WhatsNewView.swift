@@ -10,6 +10,7 @@ enum WhatsNew {
 	}
 
 	static let features: [Item] = [
+		Item(icon: "person.crop.circle.badge.plus", title: "Sign In with Apple ID", detail: "No certificate? Sign in with a free Apple ID in Certificates and sign apps with it. Apps signed this way last 7 days."),
 		Item(icon: "globe.desk", title: "GitHub Sources", detail: "GitHub repositories in Sources show their icon, name and when they last released, just like other sources."),
 		Item(icon: "ipad.landscape", title: "Better on iPad", detail: "Settings, app pages and lists keep to a comfortable width, and progress panels fit the iPad's layout."),
 		Item(icon: "bolt", title: "Instant Sources", detail: "Sources open right away, even offline, and refresh in the background."),

@@ -3,6 +3,7 @@ import NimbleViews
 
 struct CertificatesCellView: View {
 	@State var data: Certificate?
+	@State private var _appleID: AppleIDMarker?
 
 	@ObservedObject var cert: CertificatePair
 
@@ -11,7 +12,7 @@ struct CertificatesCellView: View {
 			let title = {
 				let teamName = data?.TeamName.trimmingCharacters(in: .whitespaces) ?? ""
 				let fallbackName: String? = teamName.isEmpty ? data?.Name : teamName
-				var title: String = cert.nickname ?? fallbackName ?? String.localized("Unknown")
+				var title: String = cert.nickname ?? fallbackName ?? _appleID?.appleID ?? String.localized("Unknown")
 
 				if let getTaskAllow = data?.Entitlements?["get-task-allow"]?.value as? Bool, getTaskAllow == true {
 					title = "🐞 \(title)"
@@ -33,6 +34,7 @@ struct CertificatesCellView: View {
 		.onAppear {
 			withAnimation {
 				data = Storage.shared.getProvisionFileDecoded(for: cert)
+				_appleID = AppleIDAccount.marker(for: cert)
 			}
 		}
 	}
@@ -40,6 +42,7 @@ struct CertificatesCellView: View {
 
 extension CertificatesCellView {
 	private var _subtitle: String {
+		if let appleID = _appleID { return String(format: String.localized("Apple ID · Team %@"), appleID.teamID) }
 		if let team = data?.TeamIdentifier.first { return String(format: String.localized("Team %@"), team) }
 		return data?.AppIDName ?? String.localized("Unknown")
 	}
@@ -70,6 +73,12 @@ extension CertificatesCellView {
 
 		if cert.revoked == true {
 			pills.append(NBPillItem(title: .localized("Revoked"), icon: "xmark.octagon", color: .red))
+		}
+
+		if _appleID != nil {
+			pills.append(NBPillItem(title: .localized("Apple ID"), icon: "person.crop.circle", color: .accentColor))
+			pills.append(NBPillItem(title: .localized("Apps Last 7 Days"), icon: "clock.arrow.circlepath", color: .orange))
+			return pills
 		}
 
 		if let info = cert.expiration?.expirationInfo() {

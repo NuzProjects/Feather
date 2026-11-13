@@ -5,6 +5,7 @@ import Zsign
 struct CertificatesInfoView: View {
 	@Environment(\.dismiss) var dismiss
 	@State var data: Certificate?
+	@State private var _appleID: AppleIDMarker?
 
 	var cert: CertificatePair
 
@@ -17,6 +18,23 @@ struct CertificatesInfoView: View {
 						.scaledToFit()
 						.frame(width: 107, height: 107)
 						.frame(maxWidth: .infinity, alignment: .center)
+				}
+
+				if let appleID = _appleID {
+					NBSection(.localized("Apple ID")) {
+						_info(.localized("Apple ID"), description: appleID.appleID)
+						_info(.localized("Team Name"), description: appleID.teamName)
+						_info(.localized("Team ID"), description: appleID.teamID)
+					}
+					Section {
+						if let expiration = cert.expiration {
+							_info(.localized("Certificate Expires"), description: expiration.expirationInfo().formatted)
+						}
+						_info(.localized("Signed Apps Last"), description: String.localized("7 days"))
+						_info(.localized("Revoked"), description: cert.revoked ? "✓" : "✗")
+					} footer: {
+						Text(.localized("Each app gets its own provisioning profile from Apple when you sign it. Re-sign apps before 7 days pass to keep them opening."))
+					}
 				}
 
 				if let data {
@@ -37,6 +55,7 @@ struct CertificatesInfoView: View {
 		}
 		.onAppear {
 			data = Storage.shared.getProvisionFileDecoded(for: cert)
+			_appleID = AppleIDAccount.marker(for: cert)
 		}
 	}
 }

@@ -31,6 +31,9 @@ enum ExtensionHealth {
 	}
 
 	static var selectedCertificateCoversOneApp: Bool {
+		if let certificate = Storage.shared.getCertificate(for: UserDefaults.standard.integer(forKey: "feather.selectedCert")), AppleIDAccount.isAppleID(certificate) {
+			return true
+		}
 		guard
 			let certificate = Storage.shared.getCertificate(for: UserDefaults.standard.integer(forKey: "feather.selectedCert")),
 			let identifier = Storage.shared.getProvisionFileDecoded(for: certificate)?.Entitlements?["application-identifier"]?.value as? String

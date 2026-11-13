@@ -66,7 +66,7 @@ struct CertificatesView: View {
 		}
 		.sheet(isPresented: $_isAddingPresenting) {
 			CertificatesAddView()
-				.presentationDetents([.medium])
+				.presentationDetents([.medium, .large])
 		}
 		.alert(.localized("Change Nickname"), isPresented: $_isRenamingPresenting, presenting: _certToRename) { cert in
 			TextField(.localized("Nickname"), text: $_newNickname)

@@ -30,6 +30,9 @@ extension Storage {
 	}
 
 	func deleteCertificate(for cert: CertificatePair) {
+		if let uuid = cert.uuid {
+			AppleIDAccount.forget(uuid: uuid)
+		}
 		if let url = getUuidDirectory(for: cert) {
 			try? FileManager.default.removeItem(at: url)
 		}
@@ -52,7 +55,7 @@ extension Storage {
 	}
 
 	func revokagedCertificate(for cert: CertificatePair) {
-		guard !cert.revoked else { return }
+		guard !cert.revoked, !AppleIDAccount.isAppleID(cert) else { return }
 
 		Zsign.checkRevokage(
 			provisionPath: Storage.shared.getFile(.provision, from: cert)?.path ?? "",

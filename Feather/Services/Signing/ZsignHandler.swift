@@ -8,15 +8,18 @@ final class ZsignHandler {
 	private var _appUrl: URL
 	private var _options: Options
 	private var _certificate: CertificatePair?
+	private var _provisionOverride: URL?
 
 	init(
 		appUrl: URL,
 		options: Options = OptionsManager.shared.options,
-		cert: CertificatePair? = nil
+		cert: CertificatePair? = nil,
+		provisionOverride: URL? = nil
 	) {
 		self._appUrl = appUrl
 		self._options = options
 		self._certificate = cert
+		self._provisionOverride = provisionOverride
 	}
 
 	func disinject() async throws {
@@ -37,8 +40,9 @@ final class ZsignHandler {
 			throw SigningFileHandlerError.missingCertifcate
 		}
 
+		let override = _provisionOverride
 		let material = await MainActor.run {
-			(Storage.shared.getFile(.provision, from: cert)?.path ?? "", Storage.shared.getFile(.certificate, from: cert)?.path ?? "", cert.password ?? "")
+			(override?.path ?? Storage.shared.getFile(.provision, from: cert)?.path ?? "", Storage.shared.getFile(.certificate, from: cert)?.path ?? "", cert.password ?? "")
 		}
 		let success = Zsign.sign(
 			appPath: _appUrl.relativePath,

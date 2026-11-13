@@ -20,6 +20,16 @@ struct CertificatesAddView: View {
 	var body: some View {
 		NBNavigationView(.localized("New Certificate"), displayMode: .inline) {
 			Form {
+				Section {
+					NavigationLink {
+						AppleIDSignInView { dismiss() }
+					} label: {
+						Label(.localized("Sign In with Apple ID"), systemImage: "person.crop.circle.badge.plus")
+					}
+				} footer: {
+					Text(.localized("No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days."))
+				}
+
 				NBSection(.localized("Files")) {
 					_importButton(.localized("Import Certificate File"), file: _p12URL) {
 						_isImportingP12Presenting = true

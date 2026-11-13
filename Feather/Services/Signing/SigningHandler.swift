@@ -14,6 +14,7 @@ final class SigningHandler: NSObject {
 	private let _uniqueWorkDir: URL
 	var appIcon: UIImage?
 	var appCertificate: CertificatePair?
+	private var _provisionOverride: URL?
 
 	init(app: AppInfoPresentable, options: Options = OptionsManager.shared.options, progressID: UUID? = nil) {
 		self.progressID = progressID
@@ -49,6 +50,19 @@ final class SigningHandler: NSObject {
 			)?.mutableCopy() as? NSMutableDictionary
 		else {
 			throw SigningFileHandlerError.infoPlistNotFound
+		}
+
+		if
+			_options.signingOption == .default,
+			let certificate = appCertificate,
+			AppleIDAccount.isAppleID(certificate),
+			let originalIdentifier = infoDictionary["CFBundleIdentifier"] as? String
+		{
+			let provisioned = try await AppleIDAccount.provision(certificate, bundleIdentifier: _options.appIdentifier ?? originalIdentifier)
+			let profileURL = _uniqueWorkDir.appendingPathComponent("AppleID.mobileprovision")
+			try provisioned.profile.write(to: profileURL, options: .atomic)
+			_provisionOverride = profileURL
+			_options.appIdentifier = provisioned.bundleIdentifier
 		}
 
 		if
@@ -103,7 +117,7 @@ final class SigningHandler: NSObject {
 
 		try await _removeExtensionsIfProfileIsExplicit(for: movedAppPath)
 
-		let handler = ZsignHandler(appUrl: movedAppPath, options: _options, cert: appCertificate)
+		let handler = ZsignHandler(appUrl: movedAppPath, options: _options, cert: appCertificate, provisionOverride: _provisionOverride)
 		try await handler.disinject()
 
 		if
@@ -338,8 +352,10 @@ extension SigningHandler {
 
 	private func _removeExtensionsIfProfileIsExplicit(for app: URL) async throws {
 		guard let certificate = appCertificate else { return }
+		let override = _provisionOverride
 		let identifier = await MainActor.run {
-			Storage.shared.getProvisionFileDecoded(for: certificate)?.Entitlements?["application-identifier"]?.value as? String
+			let decoded = override.flatMap { CertificateReader($0).decoded } ?? Storage.shared.getProvisionFileDecoded(for: certificate)
+			return decoded?.Entitlements?["application-identifier"]?.value as? String
 		}
 		guard let identifier, !identifier.hasSuffix("*") else { return }
 		for folder in ["PlugIns", "Extensions"] {
@@ -445,8 +461,9 @@ extension SigningHandler {
 			return
 		}
 
+		let override = _provisionOverride
 		let provisionURL: URL? = await MainActor.run {
-			self.appCertificate.flatMap { Storage.shared.getFile(.provision, from: $0) }
+			override ?? self.appCertificate.flatMap { Storage.shared.getFile(.provision, from: $0) }
 		}
 		guard
 			let provisionURL,
@@ -578,6 +595,9 @@ enum SigningFileHandlerError: Error, LocalizedError {
 		guard let certificate else { throw missingCertifcate }
 		if certificate.revoked { throw certificateRevoked }
 		if let expiration = certificate.expiration, expiration < Date() { throw certificateExpired(expiration) }
-		guard Storage.shared.getFile(.certificate, from: certificate) != nil, Storage.shared.getFile(.provision, from: certificate) != nil else { throw certificateFilesMissing }
+		guard
+			Storage.shared.getFile(.certificate, from: certificate) != nil,
+			AppleIDAccount.isAppleID(certificate) || Storage.shared.getFile(.provision, from: certificate) != nil
+		else { throw certificateFilesMissing }
 	}
 }
