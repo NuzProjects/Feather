@@ -48885,6 +48885,95 @@
           }
         }
       }
+    },
+    "Apple's sign-in service is busy right now (HTTP %lld). Try again in a minute." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple's sign-in service is busy right now (HTTP %lld). Try again in a minute."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usługa logowania Apple jest teraz zajęta (HTTP %lld). Spróbuj ponownie za minutę."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 로그인 서비스가 지금 사용 중입니다(HTTP %lld). 잠시 후 다시 시도하세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple'ın giriş hizmeti şu anda meşgul (HTTP %lld). Bir dakika sonra tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 登录服务当前繁忙（HTTP %lld）。请过一分钟再试。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خدمة تسجيل الدخول من Apple مشغولة الآن (HTTP %lld). حاول مرة أخرى بعد دقيقة."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dịch vụ đăng nhập của Apple đang bận (HTTP %lld). Hãy thử lại sau một phút."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il servizio di accesso di Apple è occupato in questo momento (HTTP %lld). Riprova tra un minuto."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apples Anmeldedienst ist gerade ausgelastet (HTTP %lld). Versuche es in einer Minute erneut."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Layanan masuk Apple sedang sibuk (HTTP %lld). Coba lagi dalam satu menit."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlašovací služba Applu je právě vytížená (HTTP %lld). Zkuste to za minutu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le service de connexion d’Apple est occupé pour le moment (HTTP %lld). Réessayez dans une minute."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сервис входа Apple сейчас занят (HTTP %lld). Попробуйте через минуту."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servicio de inicio de sesión de Apple está ocupado ahora mismo (HTTP %lld). Inténtalo de nuevo en un minuto."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

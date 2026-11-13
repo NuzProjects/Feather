@@ -65,10 +65,8 @@ final class DeveloperServices {
 			"protocolVersion": "QH65B2",
 			"userLocale": [Locale.current.identifier]
 		], format: .xml, options: 0)
-		let (data, _) = try await URLSession.shared.data(for: request)
-		guard let plist = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
-			throw DeveloperServicesError.badResponse("teams")
-		}
+		let data = try await GrandSlamLookup.send(request, step: "teams")
+		let plist = try GrandSlamLookup.plist(data, step: "teams")
 		let resultCode = (plist["resultCode"] as? NSNumber)?.intValue ?? Int((plist["resultCode"] as? String) ?? "") ?? 0
 		guard resultCode == 0 else {
 			throw DeveloperServicesError.apple((plist["userString"] as? String) ?? (plist["resultString"] as? String) ?? "Error \(resultCode)")

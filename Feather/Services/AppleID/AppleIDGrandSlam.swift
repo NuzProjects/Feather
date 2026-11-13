@@ -6,6 +6,7 @@ enum GrandSlamError: LocalizedError {
 	case wrongCode
 	case cancelled
 	case twoFactorFailed
+	case unavailable(Int)
 
 	var errorDescription: String? {
 		switch self {
@@ -16,6 +17,7 @@ enum GrandSlamError: LocalizedError {
 		case .wrongCode: return String.localized("That verification code is incorrect.")
 		case .cancelled: return String.localized("Sign-in was cancelled.")
 		case .twoFactorFailed: return String.localized("Two-factor verification didn't complete. Try signing in again.")
+		case .unavailable(let status): return String(format: String.localized("Apple's sign-in service is busy right now (HTTP %lld). Try again in a minute."), status)
 		}
 	}
 }
@@ -37,15 +39,41 @@ final class GrandSlamLookup {
 	static let xcodeVersion = "26.5 (17F42)"
 	static let loginClientInfo = "<PC> <Windows;6.2(0,0);9200> <com.apple.AuthKit/1 (com.apple.akd/1.0)>"
 
-	static func plist(_ data: Data) throws -> [String: Any] {
-		if let value = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] {
+	static func plist(_ data: Data, step: String) throws -> [String: Any] {
+		var bytes = [UInt8](data)
+		if bytes.starts(with: [0xEF, 0xBB, 0xBF]) { bytes.removeFirst(3) }
+		while let first = bytes.first, first == 0 || first == 0x20 || first == 0x09 || first == 0x0A || first == 0x0D { bytes.removeFirst() }
+		let trimmed = Data(bytes)
+		if let value = try? PropertyListSerialization.propertyList(from: trimmed, format: nil) as? [String: Any] {
 			return value
 		}
-		let wrapped = Data("<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\">".utf8) + data + Data("</plist>".utf8)
-		guard let value = try PropertyListSerialization.propertyList(from: wrapped, format: nil) as? [String: Any] else {
-			throw GrandSlamError.badResponse("plist")
+		let wrapped = Data("<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\">".utf8) + trimmed + Data("</plist>".utf8)
+		if let value = try? PropertyListSerialization.propertyList(from: wrapped, format: nil) as? [String: Any] {
+			return value
 		}
-		return value
+		DevLog.shared.log(.warning, "Apple ID \(step): reply wasn't a plist (\(data.count) bytes)", category: "AppleID")
+		throw GrandSlamError.badResponse(step)
+	}
+
+	static func send(_ request: URLRequest, step: String) async throws -> Data {
+		var lastStatus = 0
+		for attempt in 0..<3 {
+			let session = Self.session()
+			defer { session.finishTasksAndInvalidate() }
+			let (data, response) = try await session.data(for: request)
+			let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+			if [502, 503, 504].contains(status) {
+				lastStatus = status
+				DevLog.shared.log(.warning, "Apple ID \(step): HTTP \(status), attempt \(attempt + 1)", category: "AppleID")
+				try await Task.sleep(nanoseconds: 3_000_000_000)
+				continue
+			}
+			if status >= 400 {
+				DevLog.shared.log(.warning, "Apple ID \(step): HTTP \(status)", category: "AppleID")
+			}
+			return data
+		}
+		throw GrandSlamError.unavailable(lastStatus)
 	}
 	private static let lookupURL = URL(string: "https://gsa.apple.com/grandslam/GsService2/lookup")!
 
@@ -72,13 +100,10 @@ final class GrandSlamLookup {
 			request.setValue(TimeZone.current.identifier, forHTTPHeaderField: "X-Apple-I-TimeZone")
 			request.setValue(info.clientInfo, forHTTPHeaderField: "X-MMe-Client-Info")
 			request.setValue(anisette.deviceID, forHTTPHeaderField: "X-Mme-Device-Id")
-			let session = Self.session()
-			defer { session.finishTasksAndInvalidate() }
-			let (data, _) = try await session.data(for: request)
-			guard
-				let plist = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
-				let urls = plist["urls"] as? [String: String]
-			else { throw GrandSlamError.badResponse("lookup") }
+			let data = try await Self.send(request, step: "lookup")
+			guard let urls = try Self.plist(data, step: "lookup")["urls"] as? [String: String] else {
+				throw GrandSlamError.badResponse("lookup")
+			}
 			_endpoints = urls
 		}
 		guard let value = _endpoints?[key], let url = URL(string: value) else { throw GrandSlamError.badResponse("lookup") }
@@ -93,17 +118,14 @@ final class GrandSlamLookup {
 		if let region = Locale.current.regionCode { request.setValue(region, forHTTPHeaderField: "X-MMe-Country") }
 		headers.forEach { request.setValue($1, forHTTPHeaderField: $0) }
 		request.httpBody = try PropertyListSerialization.data(fromPropertyList: ["Header": [String: Any](), "Request": body], format: .xml, options: 0)
-		let session = Self.session()
-		defer { session.finishTasksAndInvalidate() }
-		let (data, _) = try await session.data(for: request)
-		return try Self.operationResponse(data)
+		let data = try await Self.send(request, step: key)
+		return try Self.operationResponse(data, step: key)
 	}
 
-	static func operationResponse(_ data: Data) throws -> [String: Any] {
-		guard
-			let plist = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
-			let response = plist["Response"] as? [String: Any]
-		else { throw GrandSlamError.badResponse("response") }
+	static func operationResponse(_ data: Data, step: String) throws -> [String: Any] {
+		guard let response = try plist(data, step: step)["Response"] as? [String: Any] else {
+			throw GrandSlamError.badResponse(step)
+		}
 		if let status = response["Status"] as? [String: Any], let code = (status["ec"] as? NSNumber)?.intValue, code != 0 {
 			throw GrandSlamError.apple(code: code, message: (status["em"] as? String) ?? "")
 		}
@@ -149,10 +171,8 @@ final class GrandSlamClient {
 			format: .xml,
 			options: 0
 		)
-		let session = GrandSlamLookup.session()
-		defer { session.finishTasksAndInvalidate() }
-		let (data, _) = try await session.data(for: request)
-		return try GrandSlamLookup.operationResponse(data)
+		let data = try await GrandSlamLookup.send(request, step: name)
+		return try GrandSlamLookup.operationResponse(data, step: name)
 	}
 
 	func authenticate(username: String, password: String, code: VerificationCodeProvider) async throws -> GrandSlamLogin {
@@ -187,7 +207,7 @@ final class GrandSlamClient {
 		else { throw GrandSlamError.badResponse("complete") }
 
 		let decrypted = try srp.decrypt(encrypted)
-		let spd = try GrandSlamLookup.plist(decrypted)
+		let spd = try GrandSlamLookup.plist(decrypted, step: "session")
 		guard
 			let adsid = spd["adsid"] as? String,
 			let idmsToken = spd["GsIdmsToken"] as? String,
@@ -259,7 +279,7 @@ final class GrandSlamClient {
 			extra: ["security-code": entered]
 		)
 		if
-			let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
+			let plist = try? GrandSlamLookup.plist(data, step: "validate"),
 			let errorCode = (plist["ec"] as? NSNumber)?.intValue, errorCode != 0
 		{
 			throw GrandSlamError.wrongCode
@@ -277,7 +297,7 @@ final class GrandSlamClient {
 		])
 		guard let encrypted = response["et"] as? Data else { throw GrandSlamError.badResponse("token") }
 		let decrypted = try AppleIDCrypto.decryptGCM(encrypted, key: login.sessionKey)
-		let plist = try GrandSlamLookup.plist(decrypted)
+		let plist = try GrandSlamLookup.plist(decrypted, step: "token")
 		guard
 			let tokens = plist["t"] as? [String: Any],
 			let entry = tokens[app] as? [String: Any],

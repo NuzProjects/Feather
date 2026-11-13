@@ -143,7 +143,7 @@ final class AnisetteProvider {
 		])
 		let (data, _) = try await URLSession.shared.data(for: request)
 		guard
-			let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+			let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
 			let machineID = json["X-Apple-I-MD-M"] as? String,
 			let otp = json["X-Apple-I-MD"] as? String
 		else { throw AnisetteError.provisioningFailed("headers") }
@@ -219,7 +219,7 @@ final class AnisetteProvider {
 		case .string(let text): data = Data(text.utf8)
 		@unknown default: data = Data()
 		}
-		guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+		guard let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else {
 			throw AnisetteError.provisioningFailed(result)
 		}
 		guard json["result"] as? String == result else {
