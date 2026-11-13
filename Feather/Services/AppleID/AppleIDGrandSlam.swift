@@ -10,12 +10,12 @@ enum GrandSlamError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .apple(let code, let message):
-			if code == -22406 { return .localized("The Apple ID or password is incorrect.") }
+			if code == -22406 { return String.localized("The Apple ID or password is incorrect.") }
 			return "\(message) (\(code))"
-		case .badResponse(let step): String(format: .localized("Apple sent an unexpected reply (%@). Try again."), step)
-		case .wrongCode: .localized("That verification code is incorrect.")
-		case .cancelled: .localized("Sign-in was cancelled.")
-		case .twoFactorFailed: .localized("Two-factor verification didn't complete. Try signing in again.")
+		case .badResponse(let step): return String(format: String.localized("Apple sent an unexpected reply (%@). Try again."), step)
+		case .wrongCode: return String.localized("That verification code is incorrect.")
+		case .cancelled: return String.localized("Sign-in was cancelled.")
+		case .twoFactorFailed: return String.localized("Two-factor verification didn't complete. Try signing in again.")
 		}
 	}
 }
