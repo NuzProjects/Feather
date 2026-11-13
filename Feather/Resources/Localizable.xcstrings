@@ -48708,95 +48708,6 @@
         }
       }
     },
-    "Find My UDID Automatically" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Find My UDID Automatically"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Znajdź UDID automatycznie"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UDID 자동으로 찾기"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UDID'mi Otomatik Bul"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自动获取 UDID"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "العثور على UDID تلقائيًا"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tự động tìm UDID"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trova UDID automaticamente"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UDID automatisch ermitteln"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Temukan UDID Otomatis"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zjistit UDID automaticky"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trouver mon UDID automatiquement"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Найти UDID автоматически"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buscar mi UDID automáticamente"
-          }
-        }
-      }
-    },
     "Filled in automatically." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -48886,91 +48797,180 @@
         }
       }
     },
-    "Apple needs this device's UDID to register it. Tap Find My UDID Automatically, allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Feather opens again with your UDID filled in." : {
+    "Find My UDID" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple needs this device's UDID to register it. Tap Find My UDID Automatically, allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Feather opens again with your UDID filled in."
+            "value" : "Find My UDID"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple potrzebuje UDID tego urządzenia, aby je zarejestrować. Stuknij Znajdź UDID automatycznie, zezwól na pobranie, a potem otwórz Ustawienia, stuknij Pobrano profil i Zainstaluj. Nic nie zostaje zainstalowane, a Feather otworzy się ponownie z wpisanym UDID."
+            "value" : "Znajdź mój UDID"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple이 이 기기를 등록하려면 UDID가 필요합니다. UDID 자동으로 찾기를 탭하고 다운로드를 허용한 다음, 설정을 열어 '프로파일이 다운로드됨'을 탭하고 설치하세요. 아무것도 설치된 채로 남지 않으며, Feather가 UDID가 입력된 상태로 다시 열립니다."
+            "value" : "내 UDID 찾기"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple'ın bu cihazı kaydetmesi için UDID gerekir. UDID'mi Otomatik Bul'a dokunun, indirmeye izin verin, ardından Ayarlar'ı açıp İndirilen Profil'e ve Yükle'ye dokunun. Hiçbir şey yüklü kalmaz ve Feather UDID'niz doldurulmuş olarak yeniden açılır."
+            "value" : "UDID'mi Bul"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple 需要此设备的 UDID 才能注册它。轻点“自动获取 UDID”，允许下载，然后打开“设置”，轻点“已下载描述文件”并安装。不会留下任何已安装的内容，Feather 会重新打开并自动填入你的 UDID。"
+            "value" : "获取我的 UDID"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تحتاج Apple إلى UDID هذا الجهاز لتسجيله. اضغط على العثور على UDID تلقائيًا، واسمح بالتنزيل، ثم افتح الإعدادات واضغط على تم تنزيل ملف التعريف ثم تثبيت. لن يبقى أي شيء مثبتًا، وسيُفتح Feather مجددًا مع ملء UDID."
+            "value" : "العثور على UDID"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple cần UDID của thiết bị này để đăng ký. Chạm Tự động tìm UDID, cho phép tải về, rồi mở Cài đặt, chạm Đã tải về hồ sơ và Cài đặt. Không có gì được giữ lại, và Feather sẽ mở lại với UDID đã được điền."
+            "value" : "Tìm UDID của tôi"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple ha bisogno dell'UDID di questo dispositivo per registrarlo. Tocca Trova UDID automaticamente, consenti il download, poi apri Impostazioni, tocca Profilo scaricato e Installa. Non resta installato nulla e Feather si riapre con l'UDID già inserito."
+            "value" : "Trova il mio UDID"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple benötigt die UDID dieses Geräts, um es zu registrieren. Tippe auf „UDID automatisch ermitteln“, erlaube den Download, öffne dann die Einstellungen, tippe auf „Profil geladen“ und auf „Installieren“. Es bleibt nichts installiert, und Feather öffnet sich wieder mit eingetragener UDID."
+            "value" : "Meine UDID ermitteln"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple memerlukan UDID perangkat ini untuk mendaftarkannya. Ketuk Temukan UDID Otomatis, izinkan unduhan, lalu buka Pengaturan, ketuk Profil Diunduh dan Instal. Tidak ada yang tetap terpasang, dan Feather terbuka lagi dengan UDID kamu sudah terisi."
+            "value" : "Temukan UDID Saya"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple potřebuje UDID tohoto zařízení, aby ho zaregistroval. Klepněte na Zjistit UDID automaticky, povolte stažení, pak otevřete Nastavení, klepněte na Stažený profil a Instalovat. Nic nezůstane nainstalované a Feather se znovu otevře s vyplněným UDID."
+            "value" : "Zjistit moje UDID"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple a besoin de l’UDID de cet appareil pour l’enregistrer. Touchez Trouver mon UDID automatiquement, autorisez le téléchargement, puis ouvrez Réglages, touchez Profil téléchargé et Installer. Rien ne reste installé, et Feather se rouvre avec votre UDID rempli."
+            "value" : "Trouver mon UDID"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple нужен UDID этого устройства для регистрации. Нажмите «Найти UDID автоматически», разрешите загрузку, затем откройте Настройки, нажмите «Профиль загружен» и «Установить». Ничего не останется установленным, а Feather снова откроется с заполненным UDID."
+            "value" : "Найти мой UDID"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple necesita el UDID de este dispositivo para registrarlo. Toca Buscar mi UDID automáticamente, permite la descarga y luego abre Ajustes, toca Perfil descargado e Instalar. No queda nada instalado y Feather se vuelve a abrir con tu UDID ya rellenado."
+            "value" : "Buscar mi UDID"
+          }
+        }
+      }
+    },
+    "Apple needs this device's UDID to register it. Tap Find My UDID and allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Settings brings you straight back here with your UDID filled in." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple needs this device's UDID to register it. Tap Find My UDID and allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Settings brings you straight back here with your UDID filled in."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple potrzebuje UDID tego urządzenia, aby je zarejestrować. Stuknij Znajdź mój UDID i zezwól na pobranie, a potem otwórz Ustawienia, stuknij Pobrano profil i Zainstaluj. Nic nie zostaje zainstalowane, a Ustawienia od razu przeniosą Cię tutaj z wpisanym UDID."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple이 이 기기를 등록하려면 UDID가 필요합니다. 내 UDID 찾기를 탭하고 다운로드를 허용한 다음, 설정을 열어 '프로파일이 다운로드됨'을 탭하고 설치하세요. 아무것도 설치된 채로 남지 않으며, 설정에서 UDID가 입력된 상태로 바로 여기로 돌아옵니다."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple'ın bu cihazı kaydetmesi için UDID gerekir. UDID'mi Bul'a dokunup indirmeye izin verin, ardından Ayarlar'ı açıp İndirilen Profil'e ve Yükle'ye dokunun. Hiçbir şey yüklü kalmaz ve Ayarlar sizi UDID'niz doldurulmuş olarak doğrudan buraya geri getirir."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple 需要此设备的 UDID 才能注册它。轻点“获取我的 UDID”并允许下载，然后打开“设置”，轻点“已下载描述文件”并安装。不会留下任何已安装的内容，“设置”会直接带你回到这里并填好 UDID。"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحتاج Apple إلى UDID هذا الجهاز لتسجيله. اضغط على العثور على UDID واسمح بالتنزيل، ثم افتح الإعدادات واضغط على تم تنزيل ملف التعريف ثم تثبيت. لن يبقى أي شيء مثبتًا، وستعيدك الإعدادات مباشرةً إلى هنا مع ملء UDID."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple cần UDID của thiết bị này để đăng ký. Chạm Tìm UDID của tôi và cho phép tải về, rồi mở Cài đặt, chạm Đã tải về hồ sơ và Cài đặt. Không có gì được giữ lại, và Cài đặt sẽ đưa bạn quay lại đây với UDID đã được điền."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ha bisogno dell'UDID di questo dispositivo per registrarlo. Tocca Trova il mio UDID e consenti il download, poi apri Impostazioni, tocca Profilo scaricato e Installa. Non resta installato nulla e Impostazioni ti riporta subito qui con l'UDID già inserito."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple benötigt die UDID dieses Geräts, um es zu registrieren. Tippe auf „Meine UDID ermitteln“ und erlaube den Download, öffne dann die Einstellungen, tippe auf „Profil geladen“ und auf „Installieren“. Es bleibt nichts installiert, und die Einstellungen bringen dich mit eingetragener UDID direkt hierher zurück."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple memerlukan UDID perangkat ini untuk mendaftarkannya. Ketuk Temukan UDID Saya dan izinkan unduhan, lalu buka Pengaturan, ketuk Profil Diunduh dan Instal. Tidak ada yang tetap terpasang, dan Pengaturan langsung membawamu kembali ke sini dengan UDID sudah terisi."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple potřebuje UDID tohoto zařízení, aby ho zaregistroval. Klepněte na Zjistit moje UDID a povolte stažení, pak otevřete Nastavení, klepněte na Stažený profil a Instalovat. Nic nezůstane nainstalované a Nastavení vás rovnou vrátí sem s vyplněným UDID."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple a besoin de l’UDID de cet appareil pour l’enregistrer. Touchez Trouver mon UDID et autorisez le téléchargement, puis ouvrez Réglages, touchez Profil téléchargé et Installer. Rien ne reste installé, et Réglages vous ramène directement ici avec votre UDID rempli."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple нужен UDID этого устройства для регистрации. Нажмите «Найти мой UDID» и разрешите загрузку, затем откройте Настройки, нажмите «Профиль загружен» и «Установить». Ничего не останется установленным, а Настройки сразу вернут вас сюда с заполненным UDID."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple necesita el UDID de este dispositivo para registrarlo. Toca Buscar mi UDID y permite la descarga; luego abre Ajustes, toca Perfil descargado e Instalar. No queda nada instalado y Ajustes te devuelve directamente aquí con tu UDID ya rellenado."
           }
         }
       }

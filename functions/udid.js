@@ -1,6 +1,6 @@
 // Finds a device's UDID for Feather's Apple ID sign-in, the same way UDID websites do.
 // GET /udid serves a Profile Service profile. After it's installed, iOS posts the device's
-// UDID here and Feather is reopened with it. Nothing is stored.
+// UDID here and Settings is sent straight back to Feather with it. Nothing is stored.
 
 const noStore = { "Cache-Control": "no-store" };
 
@@ -96,9 +96,8 @@ export async function onRequestPost({ request }) {
   const body = new TextDecoder("utf-8", { fatal: false }).decode(await request.arrayBuffer());
   const match = body.match(/<key>UDID<\/key>\s*<string>([0-9A-Fa-f-]{24,40})<\/string>/);
   if (!match) return new Response("Bad request", { status: 400, headers: noStore });
-  const origin = new URL(request.url).origin;
   return new Response(null, {
     status: 301,
-    headers: { ...noStore, Location: `${origin}/udid?udid=${encodeURIComponent(match[1])}` },
+    headers: { ...noStore, Location: `feather://udid?value=${encodeURIComponent(match[1])}` },
   });
 }

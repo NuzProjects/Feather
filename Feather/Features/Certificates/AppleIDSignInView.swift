@@ -9,6 +9,7 @@ struct AppleIDSignInView: View {
 	@State private var _udid = AppleIDAccount.knownUDID?.value ?? ""
 	@State private var _udidSource = AppleIDAccount.knownUDID?.source
 	@State private var _isWorking = false
+	@State private var _isFindingUDID = false
 
 	private var _trimmedAppleID: String { _appleID.trimmingCharacters(in: .whitespacesAndNewlines) }
 	private var _trimmedUDID: String { _udid.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -38,9 +39,9 @@ struct AppleIDSignInView: View {
 					.autocorrectionDisabled()
 				if _udidSource == nil {
 					Button {
-						UIApplication.shared.open(AppleIDAccount.udidProfileURL)
+						_isFindingUDID = true
 					} label: {
-						Label(.localized("Find My UDID Automatically"), systemImage: "wand.and.stars")
+						Label(.localized("Find My UDID"), systemImage: "wand.and.stars")
 					}
 				}
 			} footer: {
@@ -50,7 +51,7 @@ struct AppleIDSignInView: View {
 				case .profile:
 					Text(.localized("Filled in automatically."))
 				case nil:
-					Text(.localized("Apple needs this device's UDID to register it. Tap Find My UDID Automatically, allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Feather opens again with your UDID filled in."))
+					Text(.localized("Apple needs this device's UDID to register it. Tap Find My UDID and allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Settings brings you straight back here with your UDID filled in."))
 				}
 			}
 
@@ -76,7 +77,12 @@ struct AppleIDSignInView: View {
 			if let udid = note.object as? String {
 				_udid = udid
 				_udidSource = .profile
+				_isFindingUDID = false
 			}
+		}
+		.sheet(isPresented: $_isFindingUDID) {
+			SafariRepresentableView(url: AppleIDAccount.udidProfileURL)
+				.ignoresSafeArea()
 		}
 	}
 
