@@ -139,6 +139,11 @@ struct FeatherApp: App {
 
 				return
 			}
+			if url.host == "udid" {
+				let value = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first { $0.name == "value" }?.value ?? ""
+				AppleIDAccount.receiveDetectedUDID(value)
+				return
+			}
 			if url.host == "export-certificate" {
 				guard
 					let components = URLComponents(url: url, resolvingAgainstBaseURL: false)

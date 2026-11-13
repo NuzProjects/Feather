@@ -6,9 +6,9 @@ struct AppleIDSignInView: View {
 
 	@State private var _appleID = ""
 	@State private var _password = ""
-	@State private var _udid = AppleIDAccount.pairingFileUDID() ?? ""
+	@State private var _udid = AppleIDAccount.knownUDID?.value ?? ""
+	@State private var _udidSource = AppleIDAccount.knownUDID?.source
 	@State private var _isWorking = false
-	private let _udidFromPairing = AppleIDAccount.pairingFileUDID() != nil
 
 	private var _trimmedAppleID: String { _appleID.trimmingCharacters(in: .whitespacesAndNewlines) }
 	private var _trimmedUDID: String { _udid.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -36,10 +36,22 @@ struct AppleIDSignInView: View {
 					.font(.footnote.monospaced())
 					.textInputAutocapitalization(.characters)
 					.autocorrectionDisabled()
+				if _udidSource == nil {
+					Button {
+						UIApplication.shared.open(AppleIDAccount.udidProfileURL)
+					} label: {
+						Label(.localized("Find My UDID Automatically"), systemImage: "wand.and.stars")
+					}
+				}
 			} footer: {
-				Text(_udidFromPairing
-					? String.localized("Filled in from your pairing file.")
-					: String.localized("Apple needs this device's UDID to register it. Import a pairing file in Settings → Installation, or look up your UDID with a site like udid.tech and paste it here."))
+				switch _udidSource {
+				case .pairing:
+					Text(.localized("Filled in from your pairing file."))
+				case .profile:
+					Text(.localized("Filled in automatically."))
+				case nil:
+					Text(.localized("Apple needs this device's UDID to register it. Tap Find My UDID Automatically, allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Feather opens again with your UDID filled in."))
+				}
 			}
 
 			Section {
@@ -59,9 +71,13 @@ struct AppleIDSignInView: View {
 				Text(.localized("Free Apple IDs have limits: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID."))
 			}
 		}
-		.navigationTitle(.localized("Apple ID"))
-		.navigationBarTitleDisplayMode(.inline)
 		.interactiveDismissDisabled(_isWorking)
+		.onReceive(NotificationCenter.default.publisher(for: AppleIDAccount.detectedUDIDNotification)) { note in
+			if let udid = note.object as? String {
+				_udid = udid
+				_udidSource = .profile
+			}
+		}
 	}
 
 	private func _signIn() {

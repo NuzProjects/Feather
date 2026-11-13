@@ -12,19 +12,35 @@ struct CertificatesAddView: View {
 
 	@State private var _isImportingP12Presenting = false
 	@State private var _isImportingMobileProvisionPresenting = false
+	@State private var _isAppleIDPresenting = false
 
 	var saveButtonDisabled: Bool {
 		_p12URL == nil || _provisionURL == nil
 	}
 
 	var body: some View {
-		NBNavigationView(.localized("New Certificate"), displayMode: .inline) {
+		NBNavigationView(_isAppleIDPresenting ? String.localized("Apple ID") : String.localized("New Certificate"), displayMode: .inline) {
+			if _isAppleIDPresenting {
+				AppleIDSignInView { dismiss() }
+					.toolbar {
+						NBToolbarButton(String.localized("Back"), systemImage: "chevron.left", style: .icon, placement: .cancellationAction) {
+							withAnimation(.snappy) { _isAppleIDPresenting = false }
+						}
+					}
+					.transition(.move(edge: .trailing).combined(with: .opacity))
+			} else {
 			Form {
 				Section {
-					NavigationLink {
-						AppleIDSignInView { dismiss() }
+					Button {
+						withAnimation(.snappy) { _isAppleIDPresenting = true }
 					} label: {
-						Label(.localized("Sign In with Apple ID"), systemImage: "person.crop.circle.badge.plus")
+						HStack {
+							Label(.localized("Sign In with Apple ID"), systemImage: "person.crop.circle.badge.plus")
+							Spacer()
+							Image(systemName: "chevron.right")
+								.font(.footnote.weight(.semibold))
+								.foregroundStyle(.tertiary)
+						}
 					}
 				} footer: {
 					Text(.localized("No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days."))
@@ -79,6 +95,8 @@ struct CertificatesAddView: View {
 					}
 				)
 				.ignoresSafeArea()
+			}
+			.transition(.move(edge: .leading).combined(with: .opacity))
 			}
 		}
 	}

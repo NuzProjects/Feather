@@ -66,6 +66,32 @@ enum AppleIDAccount {
 		] as CFDictionary)
 	}
 
+	enum UDIDSource {
+		case pairing
+		case profile
+	}
+
+	static let detectedUDIDNotification = Notification.Name("Feather.AppleID.detectedUDID")
+	static let udidProfileURL = URL(string: "https://feather.madebynuz.dev/udid")!
+	private static let detectedUDIDKey = "AppleID.detectedUDID"
+
+	static var knownUDID: (value: String, source: UDIDSource)? {
+		if let udid = pairingFileUDID() { return (udid, .pairing) }
+		if let udid = UserDefaults.standard.string(forKey: detectedUDIDKey), isValidUDID(udid) { return (udid, .profile) }
+		return nil
+	}
+
+	static func isValidUDID(_ value: String) -> Bool {
+		value.range(of: "^[0-9A-Fa-f-]{24,40}$", options: .regularExpression) != nil
+	}
+
+	static func receiveDetectedUDID(_ value: String) {
+		let udid = value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+		guard isValidUDID(udid) else { return }
+		UserDefaults.standard.set(udid, forKey: detectedUDIDKey)
+		NotificationCenter.default.post(name: detectedUDIDNotification, object: udid)
+	}
+
 	static func pairingFileUDID() -> String? {
 		let url = URL.documentsDirectory.appendingPathComponent("pairingFile.plist")
 		guard
