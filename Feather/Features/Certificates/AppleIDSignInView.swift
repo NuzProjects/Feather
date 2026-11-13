@@ -34,7 +34,6 @@ struct AppleIDSignInView: View {
 
 			NBSection(.localized("Device")) {
 				TextField(.localized("UDID"), text: $_udid)
-					.font(.footnote.monospaced())
 					.textInputAutocapitalization(.characters)
 					.autocorrectionDisabled()
 				if _udidSource == nil {
@@ -49,7 +48,7 @@ struct AppleIDSignInView: View {
 				case .pairing:
 					Text(.localized("Filled in from your pairing file."))
 				case .profile:
-					Text(.localized("Filled in automatically."))
+					EmptyView()
 				case nil:
 					Text(.localized("Apple needs this device's UDID to register it. Tap Find My UDID and allow the download, then open Settings, tap Profile Downloaded and Install. Nothing stays installed, and Settings brings you straight back here with your UDID filled in."))
 				}

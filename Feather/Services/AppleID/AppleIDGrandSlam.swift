@@ -35,6 +35,18 @@ typealias VerificationCodeProvider = (_ sentBySMS: Bool) async -> String?
 
 final class GrandSlamLookup {
 	static let xcodeVersion = "26.5 (17F42)"
+	static let loginClientInfo = "<PC> <Windows;6.2(0,0);9200> <com.apple.AuthKit/1 (com.apple.akd/1.0)>"
+
+	static func plist(_ data: Data) throws -> [String: Any] {
+		if let value = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] {
+			return value
+		}
+		let wrapped = Data("<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\">".utf8) + data + Data("</plist>".utf8)
+		guard let value = try PropertyListSerialization.propertyList(from: wrapped, format: nil) as? [String: Any] else {
+			throw GrandSlamError.badResponse("plist")
+		}
+		return value
+	}
 	private static let lookupURL = URL(string: "https://gsa.apple.com/grandslam/GsService2/lookup")!
 
 	let anisette: AnisetteProvider
@@ -108,15 +120,20 @@ final class GrandSlamClient {
 
 	private func _operation(_ name: String, username: String, parameters: [String: Any]) async throws -> [String: Any] {
 		let headers = try await _lookup.anisette.headers(lookup: _lookup)
+		var anisette = headers.dictionary
+		anisette["X-MMe-Client-Info"] = nil
 		var clientData: [String: Any] = [
 			"bootstrap": true,
 			"icscrec": true,
 			"pbe": false,
 			"prkgen": true,
 			"svct": "iCloud",
-			"loc": Locale.current.identifier
+			"loc": anisette["X-Apple-Locale"] ?? "en_US",
+			"X-Apple-I-ROM": "94f6a300e9a0",
+			"X-Apple-I-MLB": "C02520301W0GF2D1U",
+			"X-Apple-I-SRL-NO": "C02PQKRJG8WP"
 		]
-		headers.dictionary.forEach { clientData[$0] = $1 }
+		anisette.forEach { clientData[$0] = $1 }
 
 		var body: [String: Any] = ["o": name, "u": username, "cpd": clientData]
 		parameters.forEach { body[$0] = $1 }
@@ -126,7 +143,7 @@ final class GrandSlamClient {
 		request.setValue("text/x-xml-plist", forHTTPHeaderField: "Content-Type")
 		request.setValue("*/*", forHTTPHeaderField: "Accept")
 		request.setValue(headers.userAgent, forHTTPHeaderField: "User-Agent")
-		request.setValue(headers.clientInfo, forHTTPHeaderField: "X-MMe-Client-Info")
+		request.setValue(GrandSlamLookup.loginClientInfo, forHTTPHeaderField: "X-MMe-Client-Info")
 		request.httpBody = try PropertyListSerialization.data(
 			fromPropertyList: ["Header": ["Version": "1.0.1"], "Request": body],
 			format: .xml,
@@ -139,7 +156,7 @@ final class GrandSlamClient {
 	}
 
 	func authenticate(username: String, password: String, code: VerificationCodeProvider) async throws -> GrandSlamLogin {
-		try await _authenticate(username: username, password: password, code: code, isRetry: false)
+		try await _authenticate(username: username.lowercased(), password: password, code: code, isRetry: false)
 	}
 
 	private func _authenticate(username: String, password: String, code: VerificationCodeProvider, isRetry: Bool) async throws -> GrandSlamLogin {
@@ -170,8 +187,8 @@ final class GrandSlamClient {
 		else { throw GrandSlamError.badResponse("complete") }
 
 		let decrypted = try srp.decrypt(encrypted)
+		let spd = try GrandSlamLookup.plist(decrypted)
 		guard
-			let spd = try PropertyListSerialization.propertyList(from: decrypted, format: nil) as? [String: Any],
 			let adsid = spd["adsid"] as? String,
 			let idmsToken = spd["GsIdmsToken"] as? String,
 			let sessionKey = spd["sk"] as? Data,
@@ -260,8 +277,8 @@ final class GrandSlamClient {
 		])
 		guard let encrypted = response["et"] as? Data else { throw GrandSlamError.badResponse("token") }
 		let decrypted = try AppleIDCrypto.decryptGCM(encrypted, key: login.sessionKey)
+		let plist = try GrandSlamLookup.plist(decrypted)
 		guard
-			let plist = try PropertyListSerialization.propertyList(from: decrypted, format: nil) as? [String: Any],
 			let tokens = plist["t"] as? [String: Any],
 			let entry = tokens[app] as? [String: Any],
 			let token = entry["token"] as? String

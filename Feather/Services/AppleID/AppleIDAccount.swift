@@ -144,6 +144,7 @@ enum AppleIDAccount {
 		let lookup = GrandSlamLookup(anisette: anisette)
 		let client = GrandSlamClient(lookup: lookup)
 
+		let appleID = appleID.lowercased()
 		let login = try await client.authenticate(username: appleID, password: password, code: code)
 		let token = try await client.xcodeToken(for: login)
 		let services = DeveloperServices(lookup: lookup, adsid: login.adsid, token: token.token)
