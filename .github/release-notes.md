@@ -1,4 +1,4 @@
-## Update 1.3.5 Beta 10
+## Update 1.3.5 Beta 11
 
 **New Features:**
 * Sign in with a free Apple ID: no certificate needed. Go to Settings → Certificates → + → Sign In with Apple ID, and Feather makes a free development certificate and signs each app with its own profile from Apple
@@ -9,6 +9,8 @@
 **Fixes:**
 * Fixed Apple ID sign-in failing with "cannot be completed at this time (-80045)" after Apple changed how it checks sign-ins
 * The UDID field matches the style of the Apple ID field
+* Apple ID sign-in retries when Apple's service is busy and handles replies it couldn't read before, and any remaining error now says which step failed
+* The update sheet has a new look that matches the rest of Feather
 * Two-factor codes are asked for when Apple needs them, and your Apple ID details stay in this device's Keychain
 * Lock Screen certificate widgets: a days-left gauge, a larger card with the expiry date, and a one-line version
 * Feather warns before installing an app signed with an expired or revoked certificate, and offers to re-sign it
