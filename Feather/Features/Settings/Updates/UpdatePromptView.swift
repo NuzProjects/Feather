@@ -42,15 +42,10 @@ struct UpdatePromptView: View {
 		return sections.filter { !$0.items.isEmpty }
 	}
 
-	private var _cardRadius: CGFloat {
-		if #available(iOS 26.0, *) { return 28 }
-		return 10.5
-	}
-
 	var body: some View {
 		VStack(spacing: 0) {
 			ScrollView {
-				VStack(spacing: 22) {
+				VStack(spacing: 26) {
 					_header()
 					ForEach(_sections) { section in
 						_card(section)
@@ -90,8 +85,8 @@ struct UpdatePromptView: View {
 			Text("Update Available")
 				.font(.largeTitle.bold())
 			Text(verbatim: "Feather \(FeatherUpdater.displayName(release))")
-				.font(.title3.weight(.semibold))
-				.foregroundStyle(Color.accentColor)
+				.font(.title3)
+				.foregroundStyle(Color(uiColor: .secondaryLabel))
 		}
 		.frame(maxWidth: .infinity, alignment: .leading)
 		.padding(.horizontal, 4)
@@ -99,18 +94,18 @@ struct UpdatePromptView: View {
 	}
 
 	private func _card(_ section: NotesSection) -> some View {
-		VStack(alignment: .leading, spacing: 14) {
+		VStack(alignment: .leading, spacing: 12) {
 			if let title = section.title {
 				Text(verbatim: title)
 					.font(.headline)
 					.foregroundStyle(.primary)
 			}
 			ForEach(Array(section.items.enumerated()), id: \.offset) { _, item in
-				HStack(alignment: .top, spacing: 12) {
+				HStack(alignment: .firstTextBaseline, spacing: 10) {
 					Image(systemName: section.icon)
-						.font(.body.weight(.semibold))
+						.font(.subheadline.weight(.semibold))
 						.foregroundStyle(Color.accentColor)
-						.frame(width: 24)
+						.frame(width: 20)
 					Text(LocalizedStringKey(item))
 						.font(.subheadline)
 						.foregroundStyle(Color(uiColor: .secondaryLabel))
@@ -119,11 +114,7 @@ struct UpdatePromptView: View {
 				}
 			}
 		}
-		.padding(16)
 		.frame(maxWidth: .infinity, alignment: .leading)
-		.background(
-			RoundedRectangle(cornerRadius: _cardRadius, style: .continuous)
-				.fill(Color(uiColor: .quaternarySystemFill))
-		)
+		.padding(.horizontal, 4)
 	}
 }
