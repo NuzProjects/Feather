@@ -16,7 +16,7 @@ struct CertificateOverviewDetailView: View {
 	}
 
 	var body: some View {
-		NBList(cert.nickname ?? _data?.Name ?? AppleIDAccount.marker(for: cert)?.appleID ?? .localized("Certificate"), displayMode: .inline) {
+		NBList(cert.nickname ?? _data?.Name ?? AppleIDAccount.marker(for: cert)?.displayName ?? .localized("Certificate"), displayMode: .inline) {
 			_header()
 
 			if let data = _data {
@@ -49,7 +49,7 @@ extension CertificateOverviewDetailView {
 			VStack(spacing: 10) {
 				CertificateValidityRing(expiration: cert.expiration, fraction: _data?.remainingFraction() ?? 0, size: 140)
 					.padding(.bottom, 4)
-				Text(cert.nickname ?? _data?.Name ?? AppleIDAccount.marker(for: cert)?.appleID ?? .localized("Unknown"))
+				Text(cert.nickname ?? _data?.Name ?? AppleIDAccount.marker(for: cert)?.displayName ?? .localized("Unknown"))
 					.font(.title3.bold())
 					.multilineTextAlignment(.center)
 				if let team = _data?.TeamName ?? AppleIDAccount.marker(for: cert)?.teamName {
@@ -220,7 +220,7 @@ extension CertificateOverviewDetailView {
 	private func _checkRevocation() {
 		guard !_isCheckingRevocation else { return }
 		_isCheckingRevocation = true
-		let name = cert.nickname ?? _data?.Name ?? AppleIDAccount.marker(for: cert)?.appleID ?? .localized("This certificate")
+		let name = cert.nickname ?? _data?.Name ?? AppleIDAccount.marker(for: cert)?.displayName ?? .localized("This certificate")
 		let provision = Storage.shared.getFile(.provision, from: cert)?.path ?? ""
 		let p12 = Storage.shared.getFile(.certificate, from: cert)?.path ?? ""
 		let password = cert.password ?? ""

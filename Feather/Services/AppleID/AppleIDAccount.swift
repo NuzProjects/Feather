@@ -6,6 +6,13 @@ struct AppleIDMarker: Codable {
 	let appleID: String
 	let teamID: String
 	let teamName: String
+	var name: String? = nil
+
+	var displayName: String {
+		if let name, !name.isEmpty { return name }
+		let team = teamName.replacingOccurrences(of: "(Personal Team)", with: "").trimmingCharacters(in: .whitespaces)
+		return team.isEmpty ? appleID : team
+	}
 }
 
 private struct AppleIDRecord: Codable {
@@ -178,7 +185,7 @@ enum AppleIDAccount {
 		let directory = FileManager.default.certificates(uuid)
 		try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
 		try p12.write(to: directory.appendingPathComponent("AppleID.p12"), options: .atomic)
-		try JSONEncoder().encode(AppleIDMarker(appleID: appleID, teamID: team.id, teamName: team.name))
+		try JSONEncoder().encode(AppleIDMarker(appleID: appleID, teamID: team.id, teamName: team.name, name: login.name))
 			.write(to: directory.appendingPathComponent(markerName), options: .atomic)
 
 		_save(AppleIDRecord(

@@ -22,6 +22,7 @@ struct CertificatesInfoView: View {
 
 				if let appleID = _appleID {
 					NBSection(.localized("Apple ID")) {
+						_info(.localized("Name"), description: appleID.displayName)
 						_info(.localized("Apple ID"), description: appleID.appleID)
 						_info(.localized("Team Name"), description: appleID.teamName)
 						_info(.localized("Team ID"), description: appleID.teamID)

@@ -21,20 +21,6 @@ struct AppleIDSignInView: View {
 	var body: some View {
 		Form {
 			Section {
-				VStack(alignment: .leading, spacing: 6) {
-					Text(.localized("Sign In with Apple ID"))
-						.font(.title2.bold())
-					Text(.localized("No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days."))
-						.font(.subheadline)
-						.foregroundStyle(Color(uiColor: .secondaryLabel))
-						.fixedSize(horizontal: false, vertical: true)
-				}
-				.frame(maxWidth: .infinity, alignment: .leading)
-				.listRowBackground(Color.clear)
-				.listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
-			}
-
-			Section {
 				_field("envelope") {
 					TextField(.localized("Email or Phone Number"), text: $_appleID)
 						.textContentType(.username)
@@ -51,6 +37,19 @@ struct AppleIDSignInView: View {
 						.textInputAutocapitalization(.characters)
 						.autocorrectionDisabled()
 				}
+			} header: {
+				VStack(alignment: .leading, spacing: 6) {
+					Text(.localized("Sign In with Apple ID"))
+						.font(.title2.bold())
+						.foregroundStyle(.primary)
+					Text(.localized("No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days."))
+						.font(.subheadline)
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
+				}
+				.textCase(nil)
+				.fixedSize(horizontal: false, vertical: true)
+				.frame(maxWidth: .infinity, alignment: .leading)
+				.padding(.bottom, 10)
 			} footer: {
 				VStack(alignment: .leading, spacing: 10) {
 					if _udidSource == nil {
@@ -83,20 +82,20 @@ struct AppleIDSignInView: View {
 						Text(.localized("Sign In"))
 							.font(.headline)
 					}
+					.foregroundStyle(_canSignIn || _isWorking ? Color.white : Color(uiColor: .tertiaryLabel))
 					.frame(maxWidth: .infinity)
-					.frame(height: 22)
-					.padding(.vertical, 6)
+					.frame(height: 50)
+					.background(_buttonShape.fill(_canSignIn || _isWorking ? Color.accentColor : Color(uiColor: .tertiarySystemFill)))
+					.contentShape(_buttonShape)
 				}
-				.buttonStyle(.borderedProminent)
-				.controlSize(.large)
+				.buttonStyle(.plain)
 				.disabled(!_canSignIn)
+				.transaction { $0.animation = nil }
 				.listRowBackground(Color.clear)
 				.listRowInsets(EdgeInsets())
-			} footer: {
-				Text(.localized("Free Apple IDs have limits: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID."))
-					.padding(.top, 8)
 			}
 		}
+		.modifier(_TopMargin())
 		.interactiveDismissDisabled(_isWorking)
 		.onReceive(NotificationCenter.default.publisher(for: AppleIDAccount.detectedUDIDNotification)) { note in
 			if let udid = note.object as? String {
@@ -109,6 +108,10 @@ struct AppleIDSignInView: View {
 			SafariRepresentableView(url: AppleIDAccount.udidProfileURL)
 				.ignoresSafeArea()
 		}
+	}
+
+	private var _buttonShape: some Shape {
+		RoundedRectangle(cornerRadius: 25, style: .continuous)
 	}
 
 	private func _field<Content: View>(_ icon: String, @ViewBuilder content: () -> Content) -> some View {
@@ -177,6 +180,16 @@ extension AppleIDCodePrompt {
 				return
 			}
 			presenter.present(alert, animated: true)
+		}
+	}
+}
+
+private struct _TopMargin: ViewModifier {
+	func body(content: Content) -> some View {
+		if #available(iOS 17.0, *) {
+			content.contentMargins(.top, 4, for: .scrollContent)
+		} else {
+			content
 		}
 	}
 }

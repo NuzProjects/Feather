@@ -1,4 +1,4 @@
-## Update 1.3.5 Beta 13
+## Update 1.3.5 Beta 14
 
 **New Features:**
 * Sign in with a free Apple ID: no certificate needed. Go to Settings → Certificates → + → Sign In with Apple ID, and Feather makes a free development certificate and signs each app with its own profile from Apple
@@ -14,6 +14,8 @@
 * The Apple ID sign-in screen has a cleaner layout, with a full-width Sign In button
 * Fixed Apple ID sign-in being refused by Apple (HTTP 403 at the first step)
 * The update sheet and Apple ID sign-in headers are left-aligned, and the Sign In button keeps its size while loading
+* Apple ID certificates show your name, your team and the expiry date, just like other certificates
+* The Sign In button no longer flashes dark when the sign-in screen opens, and the sign-in header sits higher without being cut off
 * Two-factor codes are asked for when Apple needs them, and your Apple ID details stay in this device's Keychain
 * Lock Screen certificate widgets: a days-left gauge, a larger card with the expiry date, and a one-line version
 * Feather warns before installing an app signed with an expired or revoked certificate, and offers to re-sign it

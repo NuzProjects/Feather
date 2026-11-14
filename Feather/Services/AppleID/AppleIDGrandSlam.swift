@@ -27,6 +27,7 @@ struct GrandSlamLogin {
 	let idmsToken: String
 	let sessionKey: Data
 	let cookie: Data
+	var name: String? = nil
 
 	var identityToken: String {
 		Data("\(adsid):\(idmsToken)".utf8).base64EncodedString()
@@ -217,7 +218,8 @@ final class GrandSlamClient {
 			let sessionKey = spd["sk"] as? Data,
 			let loginCookie = spd["c"] as? Data
 		else { throw GrandSlamError.badResponse("session") }
-		let login = GrandSlamLogin(adsid: adsid, idmsToken: idmsToken, sessionKey: sessionKey, cookie: loginCookie)
+		let fullName = [spd["fn"] as? String, spd["ln"] as? String].compactMap { $0 }.joined(separator: " ").trimmingCharacters(in: .whitespaces)
+		let login = GrandSlamLogin(adsid: adsid, idmsToken: idmsToken, sessionKey: sessionKey, cookie: loginCookie, name: fullName.isEmpty ? nil : fullName)
 
 		let status = complete["Status"] as? [String: Any]
 		let mode = (status?["au"] as? String) ?? (spd["url"] as? String)
