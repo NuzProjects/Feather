@@ -1,25 +1,21 @@
-## Update 1.3.5 Beta 14
+## Update 1.3.5
 
 **New Features:**
-* Sign in with a free Apple ID: no certificate needed. Go to Settings → Certificates → + → Sign In with Apple ID, and Feather makes a free development certificate and signs each app with its own profile from Apple
-* Free Apple ID limits still apply: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID
-* Find My UDID fills in your device's UDID for the Apple ID sign-in: allow the profile download, install it in Settings, and you're brought straight back to Feather
-* The Apple ID sign-in now opens inside the same sheet as New Certificate
-
-**Fixes:**
-* Fixed Apple ID sign-in failing with "cannot be completed at this time (-80045)" after Apple changed how it checks sign-ins
-* The UDID field matches the style of the Apple ID field
-* Apple ID sign-in retries when Apple's service is busy and handles replies it couldn't read before, and any remaining error now says which step failed
-* The update sheet has a new look that matches the rest of Feather
-* The Apple ID sign-in screen has a cleaner layout, with a full-width Sign In button
-* Fixed Apple ID sign-in being refused by Apple (HTTP 403 at the first step)
-* The update sheet and Apple ID sign-in headers are left-aligned, and the Sign In button keeps its size while loading
-* Apple ID certificates show your name, your team and the expiry date, just like other certificates
-* The Sign In button no longer flashes dark when the sign-in screen opens, and the sign-in header sits higher without being cut off
-* Two-factor codes are asked for when Apple needs them, and your Apple ID details stay in this device's Keychain
+* Sign in with a free Apple ID: no certificate needed. Go to Settings → Certificates → + → Sign In with Apple ID, and Feather creates a free development certificate and signs each app with its own profile from Apple
+* Find My UDID fills in your device's UDID for the Apple ID sign-in, and two-factor codes are asked for when Apple needs them. Your Apple ID details stay in this device's Keychain
+* Free Apple ID limits apply: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID
+* GitHub repositories in Sources show their icon, name and latest release, just like other sources
+* Sources open instantly, even offline, and refresh in the background
+* Better on iPad: Settings, app pages and lists keep to a comfortable width
 * Lock Screen certificate widgets: a days-left gauge, a larger card with the expiry date, and a one-line version
 * Feather warns before installing an app signed with an expired or revoked certificate, and offers to re-sign it
 * Signing keeps going when you leave Feather, and you get a notification when it finishes
+* A refreshed update sheet that matches the rest of Feather
+
+**Fixes:**
+* GitHub and download errors explain what went wrong in plain words
+* Leftover files from signing and installing are cleared automatically
+* Subtext no longer flickers between shades when screens open
 
 **Security:**
 * A malicious IPA or .deb tweak can no longer write files outside its own unpack folder
