@@ -21,25 +21,17 @@ struct AppleIDSignInView: View {
 	var body: some View {
 		Form {
 			Section {
-				VStack(spacing: 10) {
-					Image(systemName: "person.crop.circle.fill")
-						.font(.system(size: 40))
-						.foregroundStyle(Color.accentColor)
-						.frame(width: 76, height: 76)
-						.background(
-							RoundedRectangle(cornerRadius: 76 * .appIconCornerRatio, style: .continuous)
-								.fill(Color.accentColor.opacity(0.15))
-						)
+				VStack(alignment: .leading, spacing: 6) {
 					Text(.localized("Sign In with Apple ID"))
-						.font(.title3.bold())
+						.font(.title2.bold())
 					Text(.localized("No certificate? Sign in with a free Apple ID instead. Apps signed this way last 7 days."))
 						.font(.subheadline)
 						.foregroundStyle(Color(uiColor: .secondaryLabel))
-						.multilineTextAlignment(.center)
+						.fixedSize(horizontal: false, vertical: true)
 				}
-				.frame(maxWidth: .infinity)
+				.frame(maxWidth: .infinity, alignment: .leading)
 				.listRowBackground(Color.clear)
-				.listRowInsets(EdgeInsets())
+				.listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
 			}
 
 			Section {
