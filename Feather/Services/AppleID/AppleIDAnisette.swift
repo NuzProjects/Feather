@@ -58,10 +58,8 @@ enum AnisetteError: LocalizedError {
 
 final class AnisetteProvider {
 	static let servers = [
-		"https://ani.sidestore.io",
-		"https://ani.sidestore.app",
 		"https://mac-ani.jkcoxson.com",
-		"https://ani.sidestore.zip"
+		"https://new.ani.sidestore.io"
 	]
 
 	private(set) var state: AnisetteState
@@ -84,7 +82,7 @@ final class AnisetteProvider {
 	}
 
 	func clientInfo() async throws -> (clientInfo: String, userAgent: String) {
-		if let clientInfo = state.clientInfo, let userAgent = state.userAgent, state.server != nil {
+		if let clientInfo = state.clientInfo, let userAgent = state.userAgent, let server = state.server, Self.servers.contains(server) {
 			return (clientInfo, userAgent)
 		}
 		for server in _orderedServers {
@@ -110,7 +108,7 @@ final class AnisetteProvider {
 	}
 
 	private var _orderedServers: [String] {
-		guard let current = state.server else { return Self.servers }
+		guard let current = state.server, Self.servers.contains(current) else { return Self.servers }
 		return [current] + Self.servers.filter { $0 != current }
 	}
 

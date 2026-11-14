@@ -37,7 +37,6 @@ typealias VerificationCodeProvider = (_ sentBySMS: Bool) async -> String?
 
 final class GrandSlamLookup {
 	static let xcodeVersion = "26.5 (17F42)"
-	static let loginClientInfo = "<PC> <Windows;6.2(0,0);9200> <com.apple.AuthKit/1 (com.apple.akd/1.0)>"
 
 	static func plist(_ data: Data, step: String) throws -> [String: Any] {
 		var bytes = [UInt8](data)
@@ -151,11 +150,12 @@ final class GrandSlamClient {
 			"prkgen": true,
 			"svct": "iCloud",
 			"loc": anisette["X-Apple-Locale"] ?? "en_US",
-			"X-Apple-I-ROM": "94f6a300e9a0",
-			"X-Apple-I-MLB": "C02520301W0GF2D1U",
-			"X-Apple-I-SRL-NO": "C02PQKRJG8WP"
+			"X-Apple-I-SRL-NO": "C02LKHBBFD57"
 		]
 		anisette.forEach { clientData[$0] = $1 }
+		if let routing = anisette["X-Apple-I-MD-RINFO"], let number = Int64(routing) {
+			clientData["X-Apple-I-MD-RINFO"] = NSNumber(value: number)
+		}
 
 		var body: [String: Any] = ["o": name, "u": username, "cpd": clientData]
 		parameters.forEach { body[$0] = $1 }
@@ -165,7 +165,7 @@ final class GrandSlamClient {
 		request.setValue("text/x-xml-plist", forHTTPHeaderField: "Content-Type")
 		request.setValue("*/*", forHTTPHeaderField: "Accept")
 		request.setValue(headers.userAgent, forHTTPHeaderField: "User-Agent")
-		request.setValue(GrandSlamLookup.loginClientInfo, forHTTPHeaderField: "X-MMe-Client-Info")
+		request.setValue(headers.clientInfo, forHTTPHeaderField: "X-MMe-Client-Info")
 		request.httpBody = try PropertyListSerialization.data(
 			fromPropertyList: ["Header": ["Version": "1.0.1"], "Request": body],
 			format: .xml,
