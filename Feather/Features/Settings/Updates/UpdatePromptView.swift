@@ -86,28 +86,16 @@ struct UpdatePromptView: View {
 	}
 
 	private func _header() -> some View {
-		VStack(spacing: 12) {
-			Image("Glyph")
-				.resizable()
-				.renderingMode(.template)
-				.scaledToFit()
-				.frame(width: 44, height: 44)
-				.foregroundStyle(Color.accentColor)
-				.frame(width: 84, height: 84)
-				.background(
-					RoundedRectangle(cornerRadius: 84 * .appIconCornerRatio, style: .continuous)
-						.fill(Color.accentColor.opacity(0.15))
-				)
+		VStack(alignment: .leading, spacing: 4) {
 			Text("Update Available")
-				.font(.title2.bold())
+				.font(.largeTitle.bold())
 			Text(verbatim: "Feather \(FeatherUpdater.displayName(release))")
-				.font(.subheadline.weight(.semibold))
+				.font(.title3.weight(.semibold))
 				.foregroundStyle(Color.accentColor)
-				.padding(.horizontal, 12)
-				.padding(.vertical, 5)
-				.background(Capsule().fill(Color.accentColor.opacity(0.15)))
 		}
-		.padding(.top, 32)
+		.frame(maxWidth: .infinity, alignment: .leading)
+		.padding(.horizontal, 4)
+		.padding(.top, 36)
 	}
 
 	private func _card(_ section: NotesSection) -> some View {
