@@ -77,12 +77,14 @@ struct AppleIDSignInView: View {
 					HStack(spacing: 8) {
 						if _isWorking {
 							ProgressView()
+								.controlSize(.small)
 								.tint(.white)
 						}
 						Text(.localized("Sign In"))
 							.font(.headline)
 					}
 					.frame(maxWidth: .infinity)
+					.frame(height: 22)
 					.padding(.vertical, 6)
 				}
 				.buttonStyle(.borderedProminent)
