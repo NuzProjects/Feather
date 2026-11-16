@@ -1,7 +1,7 @@
 
 <div align="center">
 
-<img title="Feather" alt="Feather" height="180" src="landing.png">
+<img title="Quill" alt="Quill" height="180" src="landing.png">
 
 **Sign and install apps on your iPhone or iPad with your own developer certificate. No computer needed, and it updates itself.**
 
