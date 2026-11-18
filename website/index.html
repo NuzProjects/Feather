@@ -82,30 +82,29 @@ svg { flex-shrink: 0; }
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 [id] { scroll-margin-top: 72px; }
 
-/* Header: hidden at the top, fades in with a soft blur once you scroll */
+/* Header: floating pill, hidden at the top, slides in once you scroll */
 .nav {
-  position: fixed; inset: 0 0 auto; z-index: 20; padding-bottom: 20px;
-  opacity: 0; transform: translateY(-10px); pointer-events: none;
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  position: fixed; top: 14px; left: 0; right: 0; z-index: 20; padding: 0 16px;
+  opacity: 0; transform: translateY(-14px); pointer-events: none;
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
-.nav::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  -webkit-mask-image: linear-gradient(#000 58%, transparent);
-  mask-image: linear-gradient(#000 58%, transparent);
+.nav.visible { opacity: 1; transform: none; }
+.nav.visible .nav-inner { pointer-events: auto; }
+.nav-inner {
+  max-width: 720px; margin: 0 auto; height: 52px; padding: 0 8px 0 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  border-radius: 999px; background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+  box-shadow: 0 0 0 1px var(--line), 0 6px 24px rgba(0, 0, 0, 0.06);
 }
-.nav.visible { opacity: 1; transform: none; pointer-events: auto; }
-.nav-inner { max-width: 1040px; margin: 0 auto; height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
 .brand img { width: 28px; height: 28px; border-radius: 7px; }
-.nav-links { display: flex; gap: 28px; font-size: 13px; }
-.nav-links a { position: relative; color: var(--text); opacity: 0.72; transition: opacity 0.2s; }
-.nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 1.5px; border-radius: 2px; background: currentColor; transform: scaleX(0); transition: transform 0.35s var(--ease); }
-.nav-links a:hover { opacity: 1; }
-.nav-links a:hover::after { transform: scaleX(1); }
-.progress { position: fixed; top: 0; left: 0; right: 0; z-index: 30; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
+.nav-links { display: flex; align-items: center; gap: 4px; font-size: 14px; }
+.nav-links a { padding: 8px 12px; border-radius: 999px; color: var(--text); opacity: 0.72; transition: opacity 0.2s, background-color 0.2s; }
+.nav-links a:hover { opacity: 1; background: var(--soft); }
+.nav-links a.cta-link { opacity: 1; background: var(--accent); color: #fff; font-weight: 500; margin-left: 6px; padding: 8px 16px; }
+.nav-links a.cta-link:hover { background: var(--accent-deep); }
+.progress { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 30; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
 
 /* Hero */
 .hero { position: relative; text-align: center; padding: 104px 0 0; overflow-x: clip; }
@@ -220,8 +219,10 @@ footer a:hover { color: var(--text); }
   .cta { margin-top: 104px; padding: 64px 24px; }
 }
 @media (max-width: 600px) {
-  .wrap, .nav-inner { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
-  .nav-links { gap: 20px; font-size: 14px; }
+  .wrap { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+  .nav { top: 10px; padding: 0 10px; }
+  .nav-links { gap: 2px; }
+  .nav-links a { padding: 8px 10px; }
   .hero { padding-top: 56px; }
   .hero-icon { width: 104px; height: 104px; border-radius: 24px; margin-bottom: 24px; }
   .lead { font-size: 19px; margin-top: 12px; max-width: 340px; }
@@ -283,7 +284,7 @@ footer a:hover { color: var(--text); }
       <a class="optional" href="#features">Features</a>
       <a class="optional" href="#how">How It Works</a>
       <a href="#faq">FAQ</a>
-      <a href="#get">Download</a>
+      <a class="cta-link" href="#get">Download</a>
     </nav>
   </div>
 </header>
