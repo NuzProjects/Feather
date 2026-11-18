@@ -79,7 +79,7 @@ enum AppleIDAccount {
 	}
 
 	static let detectedUDIDNotification = Notification.Name("Feather.AppleID.detectedUDID")
-	static let udidProfileURL = URL(string: "https://feather.madebynuz.dev/udid")!
+	static let udidProfileURL = URL(string: "https://quill.madebynuz.dev/udid")!
 	private static let detectedUDIDKey = "AppleID.detectedUDID"
 
 	static var knownUDID: (value: String, source: UDIDSource)? {

@@ -4,7 +4,7 @@ import NimbleViews
 
 extension ServerView {
 	struct ServerPackModel: Decodable {
-		static let url = "https://feather.madebynuz.dev/pack.json"
+		static let url = "https://quill.madebynuz.dev/pack.json"
 
 		func save() throws {
 			try FileManager.forceWrite(content: key, to: "server.pem")

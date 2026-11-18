@@ -1,8 +1,8 @@
 name: Fully Local certificate
 
-# Keeps local.feather.madebynuz.dev pointing at 127.0.0.1 and publishes a
-# Let's Encrypt certificate for it at https://feather.madebynuz.dev/pack.json,
-# which Feather's Fully Local install server uses. Runs daily and only gets a
+# Keeps local.quill.madebynuz.dev pointing at 127.0.0.1 and publishes a
+# Let's Encrypt certificate for it at https://quill.madebynuz.dev/pack.json,
+# which Quill's Fully Local install server uses. Runs daily and only gets a
 # new certificate when the current one is missing, revoked or close to expiring.
 on:
   schedule:
@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  DOMAIN: local.feather.madebynuz.dev
+  DOMAIN: local.quill.madebynuz.dev
   ZONE_ID: 21214b4eb943b9813749f8f9982b723e
 
 jobs:
@@ -40,7 +40,7 @@ jobs:
           set -euo pipefail
           test -n "$CF_TOKEN" || { echo "Add the CLOUDFLARE_API_TOKEN repository secret first"; exit 1; }
           api="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
-          body=$(jq -n --arg name "$DOMAIN" '{type:"A",name:$name,content:"127.0.0.1",ttl:3600,proxied:false,comment:"Feather Fully Local"}')
+          body=$(jq -n --arg name "$DOMAIN" '{type:"A",name:$name,content:"127.0.0.1",ttl:3600,proxied:false,comment:"Quill Fully Local"}')
           id=$(curl -fsS -H "Authorization: Bearer $CF_TOKEN" "$api?type=A&name=$DOMAIN" | jq -r '.result[0].id // empty')
           if [ -n "$id" ]; then
             curl -fsS -X PUT -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" --data "$body" "$api/$id" | jq -e '.success' >/dev/null

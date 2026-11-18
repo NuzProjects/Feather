@@ -14,7 +14,7 @@ function isLocalPayload(raw) {
   if (url.protocol !== "http:" && url.protocol !== "https:") return false;
   if (!/\.ipa$/i.test(url.pathname)) return false;
   const host = url.hostname;
-  if (host === "localhost" || host === "local.feather.madebynuz.dev") return true;
+  if (host === "localhost" || host === "local.quill.madebynuz.dev" || host === "local.feather.madebynuz.dev") return true;
   const parts = host.split(".");
   return parts.length === 4 && parts.every((part) => /^\d{1,3}$/.test(part) && Number(part) <= 255);
 }
