@@ -45,7 +45,7 @@ final class GitHubReleases: ObservableObject {
 		var request = URLRequest(url: url)
 		request.timeoutInterval = 30
 		request.setValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
-		request.setValue("MadeByNuz-Feather", forHTTPHeaderField: "User-Agent")
+		request.setValue("MadeByNuz-Quill", forHTTPHeaderField: "User-Agent")
 		let (data, response) = try await GitHubRetry.perform { try await URLSession.shared.data(for: request) }
 		guard let http = response as? HTTPURLResponse, http.statusCode == 200 else { throw ReleaseError.requestFailed((response as? HTTPURLResponse)?.statusCode ?? 0) }
 		return try JSONDecoder().decode([GitHubRelease].self, from: data).filter { !$0.draft && !$0.ipaAssets.isEmpty }
@@ -144,9 +144,9 @@ final class GitHubReleases: ObservableObject {
 				}
 			}
 			if oldWasSigned { Storage.shared.deleteApp(for: old) }
-			NotificationCenter.default.post(name: .init("Feather.installApp"), object: signed)
+			NotificationCenter.default.post(name: .init("Quill.installApp"), object: signed)
 		} else {
-			NotificationCenter.default.post(name: .init("Feather.signApp"), object: AnyApp(base: imported, replacementUUID: oldWasSigned ? oldUUID : nil, preferredIdentifier: oldIdentifier))
+			NotificationCenter.default.post(name: .init("Quill.signApp"), object: AnyApp(base: imported, replacementUUID: oldWasSigned ? oldUUID : nil, preferredIdentifier: oldIdentifier))
 		}
 	}
 	func update(_ app: AppInfoPresentable) {

@@ -30,7 +30,7 @@ final class LiveProgressActivity {
 			DownloadManager.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher(),
 			ImportProgress.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher(),
 			SigningProgress.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher(),
-			FeatherUpdater.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher()
+			QuillUpdater.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher()
 		]
 		Publishers.MergeMany(publishers)
 			.receive(on: DispatchQueue.main)
@@ -57,7 +57,7 @@ final class LiveProgressActivity {
 	}
 
 	private func _snapshot() -> Snapshot? {
-		let updater = FeatherUpdater.shared
+		let updater = QuillUpdater.shared
 		let signing = SigningProgress.shared
 		let imports = ImportProgress.shared
 		let downloads = DownloadManager.shared.downloads
@@ -113,7 +113,7 @@ final class LiveProgressActivity {
 
 		let content = ActivityContent(state: _state(rounded), staleDate: Date().addingTimeInterval(120))
 
-		if let current = activity as? Activity<FeatherProgressAttributes>, current.activityState == .active {
+		if let current = activity as? Activity<QuillProgressAttributes>, current.activityState == .active {
 			Task { await current.update(content) }
 			return
 		}
@@ -122,7 +122,7 @@ final class LiveProgressActivity {
 			return
 		}
 		do {
-			activity = try Activity.request(attributes: FeatherProgressAttributes(), content: content, pushType: nil)
+			activity = try Activity.request(attributes: QuillProgressAttributes(), content: content, pushType: nil)
 		} catch {
 			DevLog.shared.error(error, while: "Starting the Live Activity", category: "Widgets")
 		}
@@ -132,7 +132,7 @@ final class LiveProgressActivity {
 	private func _end() {
 		#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
 		guard #available(iOS 16.2, *) else { return }
-		guard let current = activity as? Activity<FeatherProgressAttributes> else { return }
+		guard let current = activity as? Activity<QuillProgressAttributes> else { return }
 		activity = nil
 		let finalState = lastSent
 		lastSent = nil
@@ -150,8 +150,8 @@ final class LiveProgressActivity {
 
 	#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
 	@available(iOS 16.2, *)
-	private func _state(_ snapshot: Snapshot) -> FeatherProgressAttributes.ContentState {
-		FeatherProgressAttributes.ContentState(
+	private func _state(_ snapshot: Snapshot) -> QuillProgressAttributes.ContentState {
+		QuillProgressAttributes.ContentState(
 			title: snapshot.title,
 			detail: snapshot.detail,
 			fraction: snapshot.fraction,
@@ -166,7 +166,7 @@ final class LiveProgressActivity {
 	private func _endStaleActivities() {
 		#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
 		guard #available(iOS 16.2, *) else { return }
-		for stale in Activity<FeatherProgressAttributes>.activities {
+		for stale in Activity<QuillProgressAttributes>.activities {
 			Task { await stale.end(nil, dismissalPolicy: .immediate) }
 		}
 		#endif

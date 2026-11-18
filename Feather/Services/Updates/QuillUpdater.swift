@@ -2,9 +2,9 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class FeatherUpdater: ObservableObject {
-	static let shared = FeatherUpdater()
-	static let repository = try! GitHubRepository("NuzProjects/Feather")
+final class QuillUpdater: ObservableObject {
+	static let shared = QuillUpdater()
+	static let repository = try! GitHubRepository("NuzProjects/Quill")
 
 	enum Phase: Equatable { case idle, checking, downloading, signing, ready, failed(String) }
 
@@ -127,8 +127,9 @@ final class FeatherUpdater: ObservableObject {
 			}
 			return
 		}
-		guard let asset = release.matchingAsset(named: "Feather.ipa") else {
-			_fail(.localized("This release doesn't include Feather.ipa, so it can't be installed from here."))
+		// Releases ship Quill.ipa; older ones only have Feather.ipa.
+		guard let asset = release.matchingAsset(named: "Quill.ipa") ?? release.matchingAsset(named: "Feather.ipa") else {
+			_fail(.localized("This release doesn't include Quill.ipa, so it can't be installed from here."))
 			return
 		}
 		phase = .downloading
@@ -141,7 +142,7 @@ final class FeatherUpdater: ObservableObject {
 				let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 				try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
 				defer { try? FileManager.default.removeItem(at: folder) }
-				let ipa = folder.appendingPathComponent("Feather.ipa")
+				let ipa = folder.appendingPathComponent("Quill.ipa")
 				try FileManager.default.moveItem(at: temporary, to: ipa)
 
 				let previous = ((try? Storage.shared.context.fetch(Imported.fetchRequest())) ?? []).first { $0.identifier == Bundle.main.bundleIdentifier }

@@ -12,7 +12,7 @@ final class ImportProgress: ObservableObject {
 	}
 	@Published private(set) var jobs: [Job] = []
 	func begin(_ name: String) -> UUID {
-		let id = UUID(); jobs.append(Job(id: id, name: name, fraction: 0, isUpdate: FeatherUpdater.shared.phase == .downloading)); return id
+		let id = UUID(); jobs.append(Job(id: id, name: name, fraction: 0, isUpdate: QuillUpdater.shared.phase == .downloading)); return id
 	}
 	func update(_ id: UUID?, fraction: Double, name: String? = nil, icon: UIImage? = nil) {
 		guard let id, let index = jobs.firstIndex(where: { $0.id == id }) else { return }

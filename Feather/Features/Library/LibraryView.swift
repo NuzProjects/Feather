@@ -216,7 +216,7 @@ struct LibraryView: View {
 						guard !urls.isEmpty else { return }
 
 						for url in urls {
-							let id = "FeatherManualDownload_\(UUID().uuidString)"
+							let id = "QuillManualDownload_\(UUID().uuidString)"
 							let dl = downloadManager.startArchive(from: url, id: id)
 							try? downloadManager.handlePachageFile(url: url, dl: dl)
 						}
@@ -232,16 +232,16 @@ struct LibraryView: View {
 				}
 				Button(.localized("OK")) {
 					if let url = URL(string: _alertDownloadString) {
-						_ = downloadManager.startDownload(from: url, id: "FeatherManualDownload_\(UUID().uuidString)")
+						_ = downloadManager.startDownload(from: url, id: "QuillManualDownload_\(UUID().uuidString)")
 					}
 				}
 			}
-			.onReceive(NotificationCenter.default.publisher(for: Notification.Name("Feather.installApp"))) { notification in
+			.onReceive(NotificationCenter.default.publisher(for: Notification.Name("Quill.installApp"))) { notification in
 				if let latest = notification.object as? Signed ?? _signedApps.first {
 					_selectedInstallAppPresenting = AnyApp(base: latest)
 				}
 			}
-			.onReceive(NotificationCenter.default.publisher(for: Notification.Name("Feather.signApp"))) { notification in
+			.onReceive(NotificationCenter.default.publisher(for: Notification.Name("Quill.signApp"))) { notification in
 				_selectedSigningAppPresenting = notification.object as? AnyApp
 			}
 			.onChange(of: _editMode) { mode in

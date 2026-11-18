@@ -19,7 +19,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 	private(set) var didCrashLastLaunch = false
 	private var crashPromptShown = false
 	private let launchDate = Date()
-	private let queue = DispatchQueue(label: "Feather.DevLog", qos: .utility)
+	private let queue = DispatchQueue(label: "Quill.DevLog", qos: .utility)
 	private var handle: FileHandle?
 	private var started = false
 
@@ -149,7 +149,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 						text += "\n----- System log -----\n" + body
 					}
 				}
-				let out = FileManager.default.temporaryDirectory.appendingPathComponent("Feather-Logs-\(Self.fileStamp.string(from: Date())).txt")
+				let out = FileManager.default.temporaryDirectory.appendingPathComponent("Quill-Logs-\(Self.fileStamp.string(from: Date())).txt")
 				do {
 					try Data(text.utf8).write(to: out, options: .atomic)
 					continuation.resume(returning: out)
@@ -222,7 +222,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 			}
 		}
 		let body = """
-		**What were you doing when Feather crashed?**
+		**What were you doing when Quill crashed?**
 
 
 		**Crash**
@@ -240,7 +240,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 		var allowed = CharacterSet.urlQueryAllowed
 		allowed.remove(charactersIn: "&=+#?")
 		func encode(_ value: String) -> String { value.addingPercentEncoding(withAllowedCharacters: allowed) ?? "" }
-		return URL(string: "https://github.com/NuzProjects/Feather/issues/new?template=bug.yml&title=\(encode(title))&text=\(encode(body))")
+		return URL(string: "https://github.com/NuzProjects/Quill/issues/new?template=bug.yml&title=\(encode(title))&text=\(encode(body))")
 	}
 
 	static let deviceSummary: String = {
@@ -252,7 +252,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 		let version = info?["CFBundleShortVersionString"] as? String ?? "?"
 		let build = info?["CFBundleVersion"] as? String ?? "?"
 		return """
-		App: Feather \(label.isEmpty ? version : label) (\(version), build \(build))
+		App: Quill \(label.isEmpty ? version : label) (\(version), build \(build))
 		Bundle: \(Bundle.main.bundleIdentifier ?? "?")
 		Device: \(model), \(UIDevice.current.systemName) \(UIDevice.current.systemVersion)
 		Locale: \(Locale.current.identifier)

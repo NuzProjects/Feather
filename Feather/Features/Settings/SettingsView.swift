@@ -8,7 +8,7 @@ struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
 	@State private var _isGetCertificatePresenting = false
 	@State private var _widgetsNeedReinstall = false
-	@ObservedObject private var _updater = FeatherUpdater.shared
+	@ObservedObject private var _updater = QuillUpdater.shared
 	@FetchRequest(
 		entity: CertificatePair.entity(),
 		sortDescriptors: [NSSortDescriptor(keyPath: \CertificatePair.date, ascending: false)],
@@ -34,7 +34,7 @@ struct SettingsView: View {
 					}
 					if _widgetsNeedReinstall {
 						Button {
-							FeatherUpdater.shared.install()
+							QuillUpdater.shared.install()
 						} label: {
 							Label(.localized("Finish Setting Up Widgets"), systemImage: "square.grid.2x2")
 						}
@@ -92,11 +92,11 @@ struct SettingsView: View {
 				_directories()
 
 				NBSection(.localized("GitHub")) {
-					Button { UIApplication.open("https://github.com/NuzProjects/Feather") } label: {
+					Button { UIApplication.open("https://github.com/NuzProjects/Quill") } label: {
 						Label { Text("Star on GitHub") } icon: { Image("GitHubMark").renderingMode(.template) }
 					}
 					Button("Report an Issue", systemImage: "exclamationmark.bubble") {
-						UIApplication.open("https://github.com/NuzProjects/Feather/issues/new/choose")
+						UIApplication.open("https://github.com/NuzProjects/Quill/issues/new/choose")
 					}
 					NavigationLink(destination: AboutView()) {
 						Label(.localized("About"), systemImage: "info.circle")

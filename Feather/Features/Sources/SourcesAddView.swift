@@ -44,7 +44,7 @@ struct SourcesAddView: View {
 		"https://xitrix.github.io/iTorrent/AltStore.json",
 		"https://alt.crystall1ne.dev",
 		"https://mikevillarroel.github.io/mikebuilds-source/originals.json",
-		"https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
+		"https://raw.githubusercontent.com/NuzProjects/Quill/refs/heads/main/source.json"
 	].map { URL(string: $0)! }
 
 	@State private var _isImporting = false
@@ -117,7 +117,7 @@ struct SourcesAddView: View {
 							}
 						}
 					} footer: {
-						Text(.localized("Open an [issue](https://github.com/NuzProjects/Feather/issues) on GitHub if you want your source to be featured."))
+						Text(.localized("Open an [issue](https://github.com/NuzProjects/Quill/issues) on GitHub if you want your source to be featured."))
 					}
 				}
 			}

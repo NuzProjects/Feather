@@ -304,7 +304,7 @@ extension SigningView {
 			certificate: _selectedCert(),
 			onSigned: { signed in
 				if options.post_installAppAfterSigned {
-					DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { NotificationCenter.default.post(name: Notification.Name("Feather.installApp"), object: signed) }
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { NotificationCenter.default.post(name: Notification.Name("Quill.installApp"), object: signed) }
 				}
 				if let replacementUUID, let old = GitHubReleases.shared.allApps().first(where: { $0.uuid == replacementUUID }), old.uuid != signed.uuid {
 					Storage.shared.deleteApp(for: old)

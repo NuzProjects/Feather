@@ -1301,7 +1301,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "링크가 인증서를 앱이 아닌 곳으로 보내려고 했습니다. Feather는 다른 앱으로만 인증서를 내보냅니다."
+            "value" : "링크가 인증서를 앱이 아닌 곳으로 보내려고 했습니다. Quill은 다른 앱으로만 인증서를 내보냅니다."
           }
         },
         "pl" : {
@@ -1532,7 +1532,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Odkaz chce do Featheru přidat certifikát „%@“. Přidávejte jen certifikáty, kterým důvěřujete."
+            "value" : "Odkaz chce do Quillu přidat certifikát „%@“. Přidávejte jen certifikáty, kterým důvěřujete."
           }
         },
         "de" : {
@@ -1568,7 +1568,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "링크가 Feather에 \"%@\" 인증서를 추가하려고 합니다. 신뢰하는 인증서만 추가하세요."
+            "value" : "링크가 Quill에 \"%@\" 인증서를 추가하려고 합니다. 신뢰하는 인증서만 추가하세요."
           }
         },
         "pl" : {
@@ -1888,7 +1888,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vaše síť nebo DNS blokuje adresu, kterou Fully Local používá, takže iOS se nedostane k instalačnímu serveru Featheru."
+            "value" : "Vaše síť nebo DNS blokuje adresu, kterou Fully Local používá, takže iOS se nedostane k instalačnímu serveru Quillu."
           }
         },
         "de" : {
@@ -1924,7 +1924,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "네트워크 또는 DNS가 Fully Local이 사용하는 주소를 차단하고 있어 iOS가 Feather의 설치 서버에 연결할 수 없습니다."
+            "value" : "네트워크 또는 DNS가 Fully Local이 사용하는 주소를 차단하고 있어 iOS가 Quill의 설치 서버에 연결할 수 없습니다."
           }
         },
         "pl" : {
@@ -1977,7 +1977,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS nezahájil instalaci z místního serveru Featheru."
+            "value" : "iOS nezahájil instalaci z místního serveru Quillu."
           }
         },
         "de" : {
@@ -2013,7 +2013,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS가 Feather의 로컬 서버에서 설치를 시작하지 않았습니다."
+            "value" : "iOS가 Quill의 로컬 서버에서 설치를 시작하지 않았습니다."
           }
         },
         "pl" : {
@@ -2814,7 +2814,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "홈 화면 위젯과 실시간 현황이 작동하려면 Feather를 한 번 재설치해야 합니다. 앱, 소스 및 설정은 그대로 유지됩니다."
+            "value" : "홈 화면 위젯과 실시간 현황이 작동하려면 Quill을 한 번 재설치해야 합니다. 앱, 소스 및 설정은 그대로 유지됩니다."
           }
         },
         "pl" : {
@@ -4801,7 +4801,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Je k dispozici nová verze Featheru."
+            "value" : "Je k dispozici nová verze Quillu."
           }
         },
         "de" : {
@@ -4837,7 +4837,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "새로운 버전의 Feather가 있습니다."
+            "value" : "새로운 버전의 Quill이 있습니다."
           }
         },
         "pl" : {
@@ -5994,7 +5994,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "베타는 새로운 기능을 먼저 받지만 버그나 충돌이 있을 수 있습니다. 언제든 끌 수 있으며, 끄면 Feather는 다음 정식 버전을 기다립니다."
+            "value" : "베타는 새로운 기능을 먼저 받지만 버그나 충돌이 있을 수 있습니다. 언제든 끌 수 있으며, 끄면 Quill은 다음 정식 버전을 기다립니다."
           }
         },
         "pl" : {
@@ -8183,7 +8183,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Každé spuštění má vlastní protokol s chybami podepisování, instalace, stahování a aktualizací a také systémový protokol Featheru."
+            "value" : "Každé spuštění má vlastní protokol s chybami podepisování, instalace, stahování a aktualizací a také systémový protokol Quillu."
           }
         },
         "de" : {
@@ -9020,7 +9020,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather가 예기치 않게 종료됨"
+            "value" : "Quill이 예기치 않게 종료됨"
           }
         },
         "pl" : {
@@ -9073,7 +9073,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Featheru se nepodařilo spustit instalační server. Zavřete a znovu otevřete Quill a zkuste to znovu."
+            "value" : "Quillu se nepodařilo spustit instalační server. Zavřete a znovu otevřete Quill a zkuste to znovu."
           }
         },
         "de" : {
@@ -9109,7 +9109,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather가 설치 서버를 시작하지 못했습니다. Feather를 닫았다가 다시 연 뒤 다시 시도하세요."
+            "value" : "Quill이 설치 서버를 시작하지 못했습니다. Quill을 닫았다가 다시 연 뒤 다시 시도하세요."
           }
         },
         "pl" : {
@@ -9198,7 +9198,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather는 GitHub에서 최신 빌드를 내려받아 선택한 인증서로 서명한 뒤 현재 앱 위에 설치합니다. 앱, 소스, 설정은 그대로 유지됩니다. 베타 업데이트는 새로운 기능을 먼저 받지만 버그가 있을 수 있습니다."
+            "value" : "Quill은 GitHub에서 최신 빌드를 내려받아 선택한 인증서로 서명한 뒤 현재 앱 위에 설치합니다. 앱, 소스, 설정은 그대로 유지됩니다. 베타 업데이트는 새로운 기능을 먼저 받지만 버그가 있을 수 있습니다."
           }
         },
         "pl" : {
@@ -9287,7 +9287,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather는 무료 오픈 소스입니다. 별표를 주면 다른 사람들이 찾기 쉬워집니다."
+            "value" : "Quill은 무료 오픈 소스입니다. 별표를 주면 다른 사람들이 찾기 쉬워집니다."
           }
         },
         "pl" : {
@@ -9376,7 +9376,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather가 최신 상태입니다."
+            "value" : "Quill이 최신 상태입니다."
           }
         },
         "pl" : {
@@ -9465,7 +9465,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather는 사용 중인 인증서가 만료되기 3일 전과 1일 전에 알려 주고, 백그라운드에서 해지 여부를 확인합니다."
+            "value" : "Quill은 사용 중인 인증서가 만료되기 3일 전과 1일 전에 알려 주고, 백그라운드에서 해지 여부를 확인합니다."
           }
         },
         "pl" : {
@@ -9554,7 +9554,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather는 내 인증서로 앱에 서명합니다. Apple이나 아래 제공업체에서 받은 뒤 여기서 가져오세요."
+            "value" : "Quill은 내 인증서로 앱에 서명합니다. Apple이나 아래 제공업체에서 받은 뒤 여기서 가져오세요."
           }
         },
         "pl" : {
@@ -9643,7 +9643,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "완료하려면 Feather가 종료됩니다. 홈 화면에서 다시 여세요."
+            "value" : "완료하려면 Quill이 종료됩니다. 홈 화면에서 다시 여세요."
           }
         },
         "pl" : {
@@ -10408,7 +10408,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zahrnuje pády zachycené Featherem a diagnostické zprávy z iOS, které mohou dorazit až o den později."
+            "value" : "Zahrnuje pády zachycené Quillem a diagnostické zprávy z iOS, které mohou dorazit až o den později."
           }
         },
         "de" : {
@@ -10444,7 +10444,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather가 감지한 충돌과 iOS 진단 보고서가 포함되며, 진단 보고서는 최대 하루 뒤에 도착할 수 있습니다."
+            "value" : "Quill이 감지한 충돌과 iOS 진단 보고서가 포함되며, 진단 보고서는 최대 하루 뒤에 도착할 수 있습니다."
           }
         },
         "pl" : {
@@ -14769,7 +14769,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jde o nezávislé prodejce, kteří nejsou součástí Featheru. Před nákupem si ověřte ceny a podmínky vrácení peněz."
+            "value" : "Jde o nezávislé prodejce, kteří nejsou součástí Quillu. Před nákupem si ověřte ceny a podmínky vrácení peněz."
           }
         },
         "de" : {
@@ -14805,7 +14805,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather와 관계없는 독립 판매자입니다. 구매 전에 가격과 환불 정책을 확인하세요."
+            "value" : "Quill과 관계없는 독립 판매자입니다. 구매 전에 가격과 환불 정책을 확인하세요."
           }
         },
         "pl" : {
@@ -15285,91 +15285,91 @@
         }
       }
     },
-    "This release doesn't include Feather.ipa, so it can't be installed from here." : {
+    "This release doesn't include Quill.ipa, so it can't be installed from here." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This release doesn't include Feather.ipa, so it can't be installed from here."
+            "value" : "This release doesn't include Quill.ipa, so it can't be installed from here."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لا يتضمن هذا الإصدار ملف Feather.ipa، لذا لا يمكن تثبيته من هنا."
+            "value" : "لا يتضمن هذا الإصدار ملف Quill.ipa، لذا لا يمكن تثبيته من هنا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toto vydání neobsahuje Feather.ipa, takže ho odsud nelze nainstalovat."
+            "value" : "Toto vydání neobsahuje Quill.ipa, takže ho odsud nelze nainstalovat."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Version enthält kein Feather.ipa und kann daher nicht von hier installiert werden."
+            "value" : "Diese Version enthält kein Quill.ipa und kann daher nicht von hier installiert werden."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esta versión no incluye Feather.ipa, así que no se puede instalar desde aquí."
+            "value" : "Esta versión no incluye Quill.ipa, así que no se puede instalar desde aquí."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cette version ne contient pas Feather.ipa et ne peut donc pas être installée d’ici."
+            "value" : "Cette version ne contient pas Quill.ipa et ne peut donc pas être installée d’ici."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rilis ini tidak menyertakan Feather.ipa, jadi tidak bisa dipasang dari sini."
+            "value" : "Rilis ini tidak menyertakan Quill.ipa, jadi tidak bisa dipasang dari sini."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Questa versione non include Feather.ipa, quindi non può essere installata da qui."
+            "value" : "Questa versione non include Quill.ipa, quindi non può essere installata da qui."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 릴리스에는 Feather.ipa가 없어서 여기서 설치할 수 없습니다."
+            "value" : "이 릴리스에는 Quill.ipa가 없어서 여기서 설치할 수 없습니다."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To wydanie nie zawiera Feather.ipa, więc nie można go stąd zainstalować."
+            "value" : "To wydanie nie zawiera Quill.ipa, więc nie można go stąd zainstalować."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "В этом выпуске нет Feather.ipa, поэтому его нельзя установить отсюда."
+            "value" : "В этом выпуске нет Quill.ipa, поэтому его нельзя установить отсюда."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bu sürüm Feather.ipa içermediği için buradan kurulamaz."
+            "value" : "Bu sürüm Quill.ipa içermediği için buradan kurulamaz."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bản phát hành này không có Feather.ipa nên không thể cài từ đây."
+            "value" : "Bản phát hành này không có Quill.ipa nên không thể cài từ đây."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此版本不包含 Feather.ipa，因此无法从这里安装。"
+            "value" : "此版本不包含 Quill.ipa，因此无法从这里安装。"
           }
         }
       }
@@ -17338,7 +17338,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Všechny soubory Featheru jsou v složce Dokumenty, zde jsou na ně rychlé odkazy."
+            "value" : "Všechny soubory Quillu jsou v složce Dokumenty, zde jsou na ně rychlé odkazy."
           }
         },
         "de" : {
@@ -29329,91 +29329,91 @@
         }
       }
     },
-    "Open an [issue](https://github.com/NuzProjects/Feather/issues) on GitHub if you want your source to be featured." : {
+    "Open an [issue](https://github.com/NuzProjects/Quill/issues) on GitHub if you want your source to be featured." : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "افتح [issues](https://github.com/NuzProjects/Feather/issues) على GitHub إذا كنت تريد أن يتم تمييز مصدرك."
+            "value" : "افتح [issues](https://github.com/NuzProjects/Quill/issues) على GitHub إذا كنت تريد أن يتم تمييز مصدرك."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erstelle ein [Issue](https://github.com/NuzProjects/Feather/issues) auf GitHub wenn du deine Quelle aufgelistet haben möchtest."
+            "value" : "Erstelle ein [Issue](https://github.com/NuzProjects/Quill/issues) auf GitHub wenn du deine Quelle aufgelistet haben möchtest."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open an [issue](https://github.com/NuzProjects/Feather/issues) on GitHub if you want your source to be featured."
+            "value" : "Open an [issue](https://github.com/NuzProjects/Quill/issues) on GitHub if you want your source to be featured."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apri un [problema](https://github.com/NuzProjects/Feather/issues) su GitHub se vuoi che la tua fonte sia consigliata."
+            "value" : "Apri un [problema](https://github.com/NuzProjects/Quill/issues) su GitHub se vuoi che la tua fonte sia consigliata."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "소스가 소개되기를 원하신다면 GitHub에서 [이슈](https://github.com/NuzProjects/Feather/issues)를 등록해 주세요."
+            "value" : "소스가 소개되기를 원하신다면 GitHub에서 [이슈](https://github.com/NuzProjects/Quill/issues)를 등록해 주세요."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Otwórz [issue](https://github.com/NuzProjects/Feather/issues) na GitHubie, jeśli chcesz, aby Twoje źródło zostało wyróżnione."
+            "value" : "Otwórz [issue](https://github.com/NuzProjects/Quill/issues) na GitHubie, jeśli chcesz, aby Twoje źródło zostało wyróżnione."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kaynağınızın öne çıkarılmasını istiyorsanız GitHub’da bir [sorun kaydı](https://github.com/NuzProjects/Feather/issues) açın."
+            "value" : "Kaynağınızın öne çıkarılmasını istiyorsanız GitHub’da bir [sorun kaydı](https://github.com/NuzProjects/Quill/issues) açın."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mở [issue](https://github.com/NuzProjects/Feather/issues) trên GitHub nếu bạn muốn nguồn của mình được giới thiệu."
+            "value" : "Mở [issue](https://github.com/NuzProjects/Quill/issues) trên GitHub nếu bạn muốn nguồn của mình được giới thiệu."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "开启一个[issue](https://github.com/NuzProjects/Feather/issues)"
+            "value" : "开启一个[issue](https://github.com/NuzProjects/Quill/issues)"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buka [issue](https://github.com/NuzProjects/Feather/issues) di GitHub jika ingin sumbermu ditampilkan."
+            "value" : "Buka [issue](https://github.com/NuzProjects/Quill/issues) di GitHub jika ingin sumbermu ditampilkan."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pokud chcete, aby byl váš zdroj doporučený, založte [issue](https://github.com/NuzProjects/Feather/issues) na GitHubu."
+            "value" : "Pokud chcete, aby byl váš zdroj doporučený, založte [issue](https://github.com/NuzProjects/Quill/issues) na GitHubu."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ouvrez une [demande](https://github.com/NuzProjects/Feather/issues) sur GitHub si vous voulez que votre source soit mise en avant."
+            "value" : "Ouvrez une [demande](https://github.com/NuzProjects/Quill/issues) sur GitHub si vous voulez que votre source soit mise en avant."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Создайте [issue](https://github.com/NuzProjects/Feather/issues) на GitHub, если хотите, чтобы ваш источник попал в рекомендуемые."
+            "value" : "Создайте [issue](https://github.com/NuzProjects/Quill/issues) на GitHub, если хотите, чтобы ваш источник попал в рекомендуемые."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abre una [incidencia](https://github.com/NuzProjects/Feather/issues) en GitHub si quieres que tu fuente sea destacada."
+            "value" : "Abre una [incidencia](https://github.com/NuzProjects/Quill/issues) en GitHub si quieres que tu fuente sea destacada."
           }
         }
       }
@@ -39915,7 +39915,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather에 오신 것을 환영합니다"
+            "value" : "Quill에 오신 것을 환영합니다"
           }
         },
         "tr" : {
@@ -42852,7 +42852,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather가 갱신된 SSL 인증서를 다운로드했으므로 완전 로컬로 다시 앱을 설치할 수 있습니다. 서버 유형을 완전 로컬로 전환할까요?"
+            "value" : "Quill이 갱신된 SSL 인증서를 다운로드했으므로 완전 로컬로 다시 앱을 설치할 수 있습니다. 서버 유형을 완전 로컬로 전환할까요?"
           }
         },
         "tr" : {
@@ -44276,7 +44276,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub가 현재 Feather의 확인 횟수를 제한하고 있습니다. 몇 분 후 다시 시도하세요."
+            "value" : "GitHub가 현재 Quill의 확인 횟수를 제한하고 있습니다. 몇 분 후 다시 시도하세요."
           }
         },
         "tr" : {
@@ -44632,7 +44632,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 IPA에는 Feather가 설치할 수 있는 앱이 없습니다."
+            "value" : "이 IPA에는 Quill이 설치할 수 있는 앱이 없습니다."
           }
         },
         "tr" : {
@@ -45255,7 +45255,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "링크가 이 소스를 Feather에 추가하려고 합니다. 신뢰하는 소스만 추가하세요."
+            "value" : "링크가 이 소스를 Quill에 추가하려고 합니다. 신뢰하는 소스만 추가하세요."
           }
         },
         "tr" : {
@@ -45789,7 +45789,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather가 로그인 도우미 서버에 연결하지 못했습니다. 연결을 확인하고 다시 시도하세요."
+            "value" : "Quill이 로그인 도우미 서버에 연결하지 못했습니다. 연결을 확인하고 다시 시도하세요."
           }
         },
         "tr" : {
@@ -47658,7 +47658,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 Apple ID에는 이미 개발 인증서가 %lld개 있으며 무료 계정은 더 만들 수 없습니다. Feather가 이를 폐기하고 자체 인증서를 만들 수 있지만, AltStore나 Sideloadly 등으로 서명한 앱은 더 이상 열리지 않습니다."
+            "value" : "이 Apple ID에는 이미 개발 인증서가 %lld개 있으며 무료 계정은 더 만들 수 없습니다. Quill이 이를 폐기하고 자체 인증서를 만들 수 있지만, AltStore나 Sideloadly 등으로 서명한 앱은 더 이상 열리지 않습니다."
           }
         },
         "tr" : {

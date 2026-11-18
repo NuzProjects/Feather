@@ -2,7 +2,7 @@ import SwiftUI
 import NimbleViews
 
 struct UpdatesView: View {
-	@ObservedObject private var updater = FeatherUpdater.shared
+	@ObservedObject private var updater = QuillUpdater.shared
 	@State private var alert: String?
 	@State private var showWhatsNew = false
 	@State private var confirmingBetas = false
@@ -13,7 +13,7 @@ struct UpdatesView: View {
 				LabeledContent("Current Version", value: updater.currentVersion)
 				if let latest = updater.latest {
 					LabeledContent("Latest Release") {
-						Text(FeatherUpdater.displayName(latest))
+						Text(QuillUpdater.displayName(latest))
 							.contentTransition(.numericText())
 					}
 					if let date = latest.published_at.flatMap(ISO8601DateFormatter().date(from:)) {
@@ -101,8 +101,8 @@ struct UpdatesView: View {
 
 	private var _installTitle: String {
 		if updater.updateAvailable { return .localized("Download and Install Update") }
-		if let latest = updater.latest, FeatherUpdater.displayName(latest) != updater.currentVersion {
-			return .localized("Install %@", arguments: FeatherUpdater.displayName(latest))
+		if let latest = updater.latest, QuillUpdater.displayName(latest) != updater.currentVersion {
+			return .localized("Install %@", arguments: QuillUpdater.displayName(latest))
 		}
 		return .localized("Reinstall Latest Release")
 	}

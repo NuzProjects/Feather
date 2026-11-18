@@ -1,8 +1,8 @@
-#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
+#if canImport(ActivityKit)
 import ActivityKit
 import Foundation
 
-struct FeatherProgressAttributes: ActivityAttributes {
+struct QuillProgressAttributes: ActivityAttributes {
 	struct ContentState: Codable, Hashable {
 		var title: String
 		var detail: String

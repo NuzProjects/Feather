@@ -31,7 +31,7 @@ struct RemoteConfigData: Codable, Equatable {
 @MainActor
 final class RemoteConfig: ObservableObject {
 	static let shared = RemoteConfig()
-	static let url = URL(string: "https://raw.githubusercontent.com/NuzProjects/Feather/main/remote-config.json")!
+	static let url = URL(string: "https://raw.githubusercontent.com/NuzProjects/Quill/main/remote-config.json")!
 
 	private static let cacheKey = "RemoteConfig.cache"
 	private static let seenAnnouncementKey = "RemoteConfig.seenAnnouncement"
@@ -52,7 +52,7 @@ final class RemoteConfig: ObservableObject {
 		guard force || Date().timeIntervalSince(lastFetch) > 900 else { return }
 		lastFetch = Date()
 		var request = URLRequest(url: Self.url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20)
-		request.setValue("MadeByNuz-Feather", forHTTPHeaderField: "User-Agent")
+		request.setValue("MadeByNuz-Quill", forHTTPHeaderField: "User-Agent")
 		do {
 			let (body, response) = try await URLSession.shared.data(for: request)
 			guard (response as? HTTPURLResponse)?.statusCode == 200 else { return }
@@ -77,8 +77,8 @@ final class RemoteConfig: ObservableObject {
 		else { return }
 		if
 			let maxVersion = announcement.maxVersion,
-			let max = FeatherUpdater.versionKey(maxVersion),
-			let current = FeatherUpdater.versionKey(FeatherUpdater.shared.currentVersion),
+			let max = QuillUpdater.versionKey(maxVersion),
+			let current = QuillUpdater.versionKey(QuillUpdater.shared.currentVersion),
 			max.lexicographicallyPrecedes(current)
 		{
 			return

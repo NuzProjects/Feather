@@ -84,7 +84,7 @@ struct UpdatePromptView: View {
 		VStack(alignment: .leading, spacing: 4) {
 			Text("Update Available")
 				.font(.largeTitle.bold())
-			Text(verbatim: "Quill \(FeatherUpdater.displayName(release))")
+			Text(verbatim: "Quill \(QuillUpdater.displayName(release))")
 				.font(.title3)
 				.foregroundStyle(Color(uiColor: .secondaryLabel))
 		}

@@ -58,7 +58,7 @@ final class SigningProgress: ObservableObject {
 	private var cancelled: Set<UUID> = []
 	func begin(name: String, icon: UIImage? = nil, megabytes: Double = 0) -> UUID {
 		let id = UUID()
-		jobs.append(Job(id: id, name: name, icon: icon, stage: .copying, isUpdate: FeatherUpdater.shared.phase == .signing, megabytes: megabytes))
+		jobs.append(Job(id: id, name: name, icon: icon, stage: .copying, isUpdate: QuillUpdater.shared.phase == .signing, megabytes: megabytes))
 		leases[id] = UIApplication.shared.beginBackgroundTask(withName: "Sign app") { [weak self] in
 			Task { @MainActor in self?.endLease(id) }
 		}
@@ -89,7 +89,7 @@ final class SigningProgress: ObservableObject {
 			content.title = success ? String.localized("Signing complete") : String.localized("Signing failed")
 			content.body = name
 			content.sound = .default
-			center.add(UNNotificationRequest(identifier: "Feather.signing.\(UUID().uuidString)", content: content, trigger: nil))
+			center.add(UNNotificationRequest(identifier: "Quill.signing.\(UUID().uuidString)", content: content, trigger: nil))
 		}
 	}
 	func stage(_ id: UUID?, _ stage: Stage) {
@@ -187,7 +187,7 @@ struct SigningProgressPanel: View {
 }
 
 struct UpdateProgressPanel: View {
-	@ObservedObject private var updater = FeatherUpdater.shared
+	@ObservedObject private var updater = QuillUpdater.shared
 	@ObservedObject private var signing = SigningProgress.shared
 	@ObservedObject private var imports = ImportProgress.shared
 	@State private var icon: UIImage?

@@ -29,7 +29,7 @@ print(runtimes[-1]["identifier"])
 DEVICE_TYPE="$(pick_device_type)"
 echo "Using $DEVICE_TYPE on $RUNTIME"
 
-UDID="$(xcrun simctl create "Feather $KIND" "$DEVICE_TYPE" "$RUNTIME")"
+UDID="$(xcrun simctl create "Quill $KIND" "$DEVICE_TYPE" "$RUNTIME")"
 xcrun simctl boot "$UDID"
 xcrun simctl bootstatus "$UDID" -b
 open -a Simulator --args -CurrentDeviceUDID "$UDID" || true
@@ -46,7 +46,7 @@ GITHUB_HEX="$(printf '%s' '[{"owner":"LiveContainer","name":"LiveContainer"}]' |
 xcrun simctl spawn "$UDID" defaults write "$PREFS" Onboarding.seen -bool YES
 xcrun simctl spawn "$UDID" defaults write "$PREFS" WhatsNew.seenVersion -string "$LABEL"
 xcrun simctl spawn "$UDID" defaults write "$PREFS" GitHub.sources -data "$GITHUB_HEX"
-# The simulator build has no bundled install certificate, so keep Feather from offering to switch server type.
+# The simulator build has no bundled install certificate, so keep Quill from offering to switch server type.
 xcrun simctl spawn "$UDID" defaults write "$PREFS" Feather.serverMethodSemiLocal -bool YES
 xcrun simctl spawn "$UDID" defaults write "$PREFS" Feather.serverMethod -int 0
 
@@ -162,7 +162,7 @@ if ! locate "LiveContainer" >/dev/null 2>&1; then
 	wait_for "Sources"
 	sleep 3
 fi
-add_source "https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
+add_source "https://raw.githubusercontent.com/NuzProjects/Quill/refs/heads/main/source.json"
 add_source "https://raw.githubusercontent.com/Aidoku/Aidoku/altstore/apps.json"
 sleep 3
 

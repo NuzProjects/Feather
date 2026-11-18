@@ -54,7 +54,7 @@ enum ExtensionHealth {
 			UserDefaults.standard.removeObject(forKey: promptedKey)
 			return
 		}
-		let key = "\(current)-\(FeatherUpdater.shared.currentVersion)"
+		let key = "\(current)-\(QuillUpdater.shared.currentVersion)"
 		guard UserDefaults.standard.string(forKey: promptedKey) != key else { return }
 		_present(current) { UserDefaults.standard.set(key, forKey: promptedKey) }
 	}
@@ -73,7 +73,7 @@ enum ExtensionHealth {
 					title: String.localized("Finish Setting Up Widgets"),
 					message: String.localized("Quill needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept."),
 					actions: [
-						UIAlertAction(title: String.localized("Reinstall"), style: .default) { _ in FeatherUpdater.shared.install() },
+						UIAlertAction(title: String.localized("Reinstall"), style: .default) { _ in QuillUpdater.shared.install() },
 						UIAlertAction(title: String.localized("Not Now"), style: .cancel)
 					]
 				)

@@ -27,7 +27,7 @@ enum WhatsNew {
 
 	private static let seenKey = "WhatsNew.seenVersion"
 
-	static var version: String { FeatherUpdater.shared.currentVersion }
+	static var version: String { QuillUpdater.shared.currentVersion }
 
 	static var shouldShow: Bool {
 		!version.localizedCaseInsensitiveContains("beta") && UserDefaults.standard.string(forKey: seenKey) != version

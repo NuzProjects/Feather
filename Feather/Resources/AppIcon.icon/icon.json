@@ -32,13 +32,13 @@
     {
       "layers" : [
         {
-          "image-name" : "feather.png",
-          "name" : "feather"
+          "image-name" : "quill.png",
+          "name" : "quill"
         },
         {
           "glass" : false,
-          "image-name" : "feather 5.png",
-          "name" : "feather 5",
+          "image-name" : "quill 5.png",
+          "name" : "quill 5",
           "opacity" : 0.14
         }
       ],

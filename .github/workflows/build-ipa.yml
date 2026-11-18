@@ -187,10 +187,15 @@ jobs:
           cp "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa" "$RUNNER_TEMP/package/Payload/Feather.app/LegacyTransfer.ipa"
           cd "$RUNNER_TEMP/package"
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather.ipa" Payload
+      - name: Name the IPA Quill.ipa
+        # Feather.ipa stays on releases as a copy: updaters in Quill 1.3.6 and older only look for that name.
+        run: cp packages/Feather.ipa packages/Quill.ipa
       - uses: actions/upload-artifact@v4
         with:
-          name: Feather-iPhone-IPA
-          path: packages/*.ipa
+          name: Quill-iPhone-IPA
+          path: |
+            packages/*.ipa
+            !packages/Feather.ipa
           if-no-files-found: error
           retention-days: 14
           compression-level: 0
@@ -205,7 +210,7 @@ jobs:
           TAG="v${SLUG}-build${{ github.run_number }}"
           PRERELEASE=""
           case "$LABEL" in *[Bb]eta*) PRERELEASE="--prerelease" ;; esac
-          gh release create "$TAG" packages/Feather.ipa --target "$GITHUB_SHA" \
+          gh release create "$TAG" packages/Quill.ipa packages/Feather.ipa --target "$GITHUB_SHA" \
             --title "Update $LABEL" --notes-file .github/release-notes.md $PRERELEASE
           echo "TAG=$TAG" >> "$GITHUB_ENV"
           echo "LABEL=$LABEL" >> "$GITHUB_ENV"
@@ -217,8 +222,8 @@ jobs:
           set -euo pipefail
           VERSION="$(sed -n 's/^FEATHER_PROJECT_VERSION=//p' Feather.xcconfig)"
           DATE="$(gh release view "$TAG" --json publishedAt --jq .publishedAt)"
-          SIZE="$(stat -f%z packages/Feather.ipa)"
-          URL="https://github.com/${{ github.repository }}/releases/download/$TAG/Feather.ipa"
+          SIZE="$(stat -f%z packages/Quill.ipa)"
+          URL="https://github.com/${{ github.repository }}/releases/download/$TAG/Quill.ipa"
           git fetch origin main
           git checkout -B source-update origin/main
           python3 - "$VERSION" "$DATE" "$SIZE" "$URL" <<'PY'

@@ -5,7 +5,7 @@ import OSLog
 import UserNotifications
 
 @main
-struct FeatherApp: App {
+struct QuillApp: App {
 	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 	@Environment(\.scenePhase) private var scenePhase
 
@@ -204,7 +204,7 @@ struct FeatherApp: App {
 }
 
 private struct _UpdateCertificateSheet: ViewModifier {
-	@ObservedObject private var updater = FeatherUpdater.shared
+	@ObservedObject private var updater = QuillUpdater.shared
 
 	func body(content: Content) -> some View {
 		content.sheet(isPresented: $updater.needsCertificate) {

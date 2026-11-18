@@ -15,7 +15,7 @@ final class NetworkStatus: ObservableObject {
 			let offline = path.status != .satisfied
 			Task { @MainActor in self?._apply(offline: offline) }
 		}
-		_monitor.start(queue: DispatchQueue(label: "Feather.NetworkStatus"))
+		_monitor.start(queue: DispatchQueue(label: "Quill.NetworkStatus"))
 	}
 
 	private func _apply(offline: Bool) {

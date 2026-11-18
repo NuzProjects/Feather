@@ -2,9 +2,9 @@ import ActivityKit
 import SwiftUI
 import WidgetKit
 
-struct FeatherProgressActivityWidget: Widget {
+struct QuillProgressActivityWidget: Widget {
 	var body: some WidgetConfiguration {
-		ActivityConfiguration(for: FeatherProgressAttributes.self) { context in
+		ActivityConfiguration(for: QuillProgressAttributes.self) { context in
 			LockScreenProgressView(state: context.state)
 		} dynamicIsland: { context in
 			let state = context.state
@@ -63,7 +63,7 @@ struct FeatherProgressActivityWidget: Widget {
 }
 
 private struct LockScreenProgressView: View {
-	let state: FeatherProgressAttributes.ContentState
+	let state: QuillProgressAttributes.ContentState
 
 	var body: some View {
 		let tint = Color(widgetHex: state.tint)
@@ -98,7 +98,7 @@ private struct LockScreenProgressView: View {
 }
 
 private struct ProgressSymbol: View {
-	let state: FeatherProgressAttributes.ContentState
+	let state: QuillProgressAttributes.ContentState
 	let tint: Color
 
 	var body: some View {
@@ -140,6 +140,6 @@ private struct ProgressRing: View {
 	}
 }
 
-private extension FeatherProgressAttributes.ContentState {
+private extension QuillProgressAttributes.ContentState {
 	var percentText: String { "\(Int((min(1, max(0, fraction)) * 100).rounded()))%" }
 }

@@ -5,7 +5,7 @@ struct TabbarView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	@ObservedObject private var navigator = NavigatorPreferences.shared
 	@State private var selected: TabEnum = NavigatorPreferences.shared.tabs.first ?? .settings
-	@ObservedObject private var updater = FeatherUpdater.shared
+	@ObservedObject private var updater = QuillUpdater.shared
 	@State private var installingFromPrompt = false
 	@State private var promptedRelease: GitHubRelease?
 	@State private var acceptedPrompt = false

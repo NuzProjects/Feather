@@ -3,7 +3,7 @@
 const escapeXML = (value) =>
   String(value).replace(/[<>&'"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", "'": "&apos;", '"': "&quot;" })[c]);
 
-// IP addresses only (Feather serves IPAs from the device), never domain names.
+// IP addresses only (Quill serves IPAs from the device), never domain names.
 function isLocalPayload(raw) {
   let url;
   try {

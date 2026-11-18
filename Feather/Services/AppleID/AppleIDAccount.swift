@@ -78,7 +78,7 @@ enum AppleIDAccount {
 		case profile
 	}
 
-	static let detectedUDIDNotification = Notification.Name("Feather.AppleID.detectedUDID")
+	static let detectedUDIDNotification = Notification.Name("Quill.AppleID.detectedUDID")
 	static let udidProfileURL = URL(string: "https://quill.madebynuz.dev/udid")!
 	private static let detectedUDIDKey = "AppleID.detectedUDID"
 

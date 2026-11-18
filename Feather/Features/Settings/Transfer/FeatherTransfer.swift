@@ -40,7 +40,7 @@ enum FeatherTransfer {
 		let index = UserDefaults.standard.integer(forKey: "feather.selectedCert")
 		if certificates.indices.contains(index), let uuid = certificates[index].value(forKey: "uuid") as? String { manifest["selectedCertificate"] = uuid }
 		let data = try PropertyListSerialization.data(fromPropertyList: manifest, format: .binary, options: 0)
-		let folder = FileManager.default.temporaryDirectory.appendingPathComponent("Feather Backup " + UUID().uuidString.prefix(8), isDirectory: true)
+		let folder = FileManager.default.temporaryDirectory.appendingPathComponent("Quill Backup " + UUID().uuidString.prefix(8), isDirectory: true)
 		let documents = URL.documentsDirectory
 		return try await Task.detached(priority: .userInitiated) {
 			try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
