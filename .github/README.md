@@ -5,10 +5,10 @@
 
 **Sign and install apps on your iPhone or iPad with your own developer certificate. No computer needed, and it updates itself.**
 
-[![Latest release](https://img.shields.io/github/v/release/NuzProjects/Feather?label=release&color=1D4ED8)](https://github.com/NuzProjects/Feather/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/NuzProjects/Feather/total?label=downloads&color=1D4ED8&cacheSeconds=3600)](https://github.com/NuzProjects/Feather/releases)
-[![Stars](https://img.shields.io/github/stars/NuzProjects/Feather?style=flat&color=1D4ED8)](https://github.com/NuzProjects/Feather/stargazers)
-[![License](https://img.shields.io/github/license/NuzProjects/Feather?color=1D4ED8)](https://github.com/NuzProjects/Feather/blob/main/LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/NuzProjects/Quill?label=release&color=1D4ED8)](https://github.com/NuzProjects/Quill/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/NuzProjects/Quill/total?label=downloads&color=1D4ED8&cacheSeconds=3600)](https://github.com/NuzProjects/Quill/releases)
+[![Stars](https://img.shields.io/github/stars/NuzProjects/Quill?style=flat&color=1D4ED8)](https://github.com/NuzProjects/Quill/stargazers)
+[![License](https://img.shields.io/github/license/NuzProjects/Quill?color=1D4ED8)](https://github.com/NuzProjects/Quill/blob/main/LICENSE)
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="demo-dark.png"><source media="(prefers-color-scheme: light)" srcset="demo-light.png"><img alt="Quill" src="demo-light.png"></picture></p>
 
@@ -59,18 +59,18 @@ Widgets and Live Activities need a certificate that covers all app IDs.
 
 ## Download
 
-Visit [releases](https://github.com/NuzProjects/Feather/releases) and get the latest `.ipa`. Once installed, Quill keeps itself up to date from Settings → Updates.
+Visit [releases](https://github.com/NuzProjects/Quill/releases) and get the latest `.ipa`. Once installed, Quill keeps itself up to date from Settings → Updates.
 
-<a href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json" target="_blank">
+<a href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Quill/refs/heads/main/source.json" target="_blank">
    <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/AltSource_Blue.png?raw=true" alt="Add AltSource" width="200">
 </a>
-<a href="https://github.com/NuzProjects/Feather/releases/latest/download/Feather.ipa" target="_blank">
+<a href="https://github.com/NuzProjects/Quill/releases/latest/download/Feather.ipa" target="_blank">
    <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/Download_Blue.png?raw=true" alt="Download .ipa" width="200">
 </a>
 
 ## Translating
 
-Quill now supports translation; all localizations are in `Feather/Resources/Localizable.xcstrings`
+Quill now supports translation; all localizations are in `Quill/Resources/Localizable.xcstrings`
 
 To add a new language, open Xcode and use the interface to add/contribute to languages.
 
@@ -91,6 +91,6 @@ To properly contribute and test potentially new localizations, you can head over
 
 ## License 
 
-This project is licensed under the GPL-3.0 license. You can see the full details of the license [here](https://github.com/NuzProjects/Feather/blob/main/LICENSE). It's under this specific license because I wanted to make a project that is transparent to the user thats related to certificate paired sideloading, before this project there weren't any open source projects that filled in this gap.
+This project is licensed under the GPL-3.0 license. You can see the full details of the license [here](https://github.com/NuzProjects/Quill/blob/main/LICENSE). It's under this specific license because I wanted to make a project that is transparent to the user thats related to certificate paired sideloading, before this project there weren't any open source projects that filled in this gap.
 
 By contributing to this project, you agree to license your code under the GPL-3.0 license as well (including agreeing to license exceptions), ensuring that your work, like all other contributions, remains freely accessible and open.

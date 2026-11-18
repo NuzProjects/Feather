@@ -2,8 +2,8 @@
   "name": "Quill (NuzProjects)",
   "identifier": "dev.madebynuz.feather-repo",
   "subtitle": "On-device signing with in-app updates",
-  "iconURL": "https://raw.githubusercontent.com/NuzProjects/Feather/main/Feather/Resources/Assets.xcassets/AppIcon.appiconset/feather.png",
-  "website": "https://github.com/NuzProjects/Feather",
+  "iconURL": "https://raw.githubusercontent.com/NuzProjects/Quill/main/Quill/Resources/Assets.xcassets/AppIcon.appiconset/quill.png",
+  "website": "https://github.com/NuzProjects/Quill",
   "tintColor": "848ef9",
   "apps": [
     {
@@ -12,77 +12,77 @@
       "developerName": "NuzFlameV2",
       "subtitle": "On-device signing with in-app updates",
       "localizedDescription": "A fork of Feather that signs and installs apps on your iPhone or iPad with your own developer certificate. It adds in-app updates, a customizable tab bar, Backup & Transfer, GitHub sources, certificate expiry and revocation alerts, and live signing progress.",
-      "iconURL": "https://raw.githubusercontent.com/NuzProjects/Feather/main/Feather/Resources/Assets.xcassets/AppIcon.appiconset/feather.png",
+      "iconURL": "https://raw.githubusercontent.com/NuzProjects/Quill/main/Quill/Resources/Assets.xcassets/AppIcon.appiconset/quill.png",
       "tintColor": "848ef9",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/NuzProjects/Feather/main/.github/demo-light.png"
+        "https://raw.githubusercontent.com/NuzProjects/Quill/main/.github/demo-light.png"
       ],
       "versions": [
         {
           "version": "1.3.5",
           "date": "2026-11-14T17:24:37Z",
           "size": 14242313,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.3.5-build153/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.3.5-build153/Feather.ipa"
         },
         {
           "version": "1.3.4",
           "date": "2026-11-07T04:30:18Z",
           "size": 14881967,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.3.4-build124/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.3.4-build124/Feather.ipa"
         },
         {
           "version": "1.3.3",
           "date": "2026-11-07T01:55:04Z",
           "size": 14848785,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.3.3-build112/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.3.3-build112/Feather.ipa"
         },
         {
           "version": "1.3.2",
           "date": "2026-11-07T00:50:59Z",
           "size": 14831039,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.3.2-build107/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.3.2-build107/Feather.ipa"
         },
         {
           "version": "1.3.0",
           "date": "2026-11-06T03:31:42Z",
           "size": 14547702,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.3.0-build94/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.3.0-build94/Feather.ipa"
         },
         {
           "version": "1.2.5",
           "date": "2026-11-06T02:05:14Z",
           "size": 14531566,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.2.5-build88/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.2.5-build88/Feather.ipa"
         },
         {
           "version": "1.2.4",
           "date": "2026-11-06T01:41:56Z",
           "size": 14516933,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.2.4-build86/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.2.4-build86/Feather.ipa"
         },
         {
           "version": "1.2.2",
           "date": "2026-11-06T00:10:11Z",
           "size": 14491585,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.2.2-build85/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.2.2-build85/Feather.ipa"
         },
         {
           "version": "1.2.1",
           "date": "2026-11-05T23:45:49Z",
           "size": 14491428,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.2.1-build82/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.2.1-build82/Feather.ipa"
         },
         {
           "version": "1.2.0",
           "date": "2026-11-05T23:34:51Z",
           "size": 14488318,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.2.0-build78/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.2.0-build78/Feather.ipa"
         },
         {
           "version": "1.1.0",
           "date": "2026-11-05T15:55:06Z",
           "size": 14358458,
-          "downloadURL": "https://github.com/NuzProjects/Feather/releases/download/v1.1.0/Feather.ipa"
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.1.0/Feather.ipa"
         }
       ],
       "appPermissions": {}

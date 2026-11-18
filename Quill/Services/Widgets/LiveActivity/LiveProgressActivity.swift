@@ -1,0 +1,174 @@
+import Combine
+import SwiftUI
+#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
+import ActivityKit
+#endif
+
+@MainActor
+final class LiveProgressActivity {
+	static let shared = LiveProgressActivity()
+
+	private struct Snapshot: Equatable {
+		var title: String
+		var detail: String
+		var fraction: Double
+		var symbol: String
+		var others: Int
+		var finished: Bool
+	}
+
+	private var cancellables: Set<AnyCancellable> = []
+	private var timer: Timer?
+	private var activity: Any?
+	private var lastSent: Snapshot?
+	private var lastSentAt = Date.distantPast
+
+	func start() {
+		guard cancellables.isEmpty else { return }
+		_endStaleActivities()
+		let publishers: [AnyPublisher<Void, Never>] = [
+			DownloadManager.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher(),
+			ImportProgress.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher(),
+			SigningProgress.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher(),
+			QuillUpdater.shared.objectWillChange.map { _ in () }.eraseToAnyPublisher()
+		]
+		Publishers.MergeMany(publishers)
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] in self?._wake() }
+			.store(in: &cancellables)
+	}
+
+	private func _wake() {
+		_tick()
+		guard timer == nil else { return }
+		timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+			Task { @MainActor in self?._tick() }
+		}
+	}
+
+	private func _tick() {
+		guard let snapshot = _snapshot() else {
+			timer?.invalidate()
+			timer = nil
+			_end()
+			return
+		}
+		_show(snapshot)
+	}
+
+	private func _snapshot() -> Snapshot? {
+		let updater = QuillUpdater.shared
+		let signing = SigningProgress.shared
+		let imports = ImportProgress.shared
+		let downloads = DownloadManager.shared.downloads
+
+		let signingJobs = signing.visibleJobs
+		let importJobs = imports.jobs.filter { !$0.isUpdate }
+		let total = signingJobs.count + downloads.count + importJobs.count
+
+		if updater.signedUpdate != nil {
+			return Snapshot(title: "Quill", detail: updater.installLabel ?? .localized("Installing"), fraction: 0.7 + updater.installFraction * 0.3, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
+		}
+		switch updater.phase {
+		case .downloading:
+			let fraction = imports.jobs.first(where: \.isUpdate).map { 0.1 + $0.fraction * 0.1 } ?? 0.05
+			return Snapshot(title: "Quill", detail: .localized("Downloading update"), fraction: fraction, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
+		case .signing:
+			let stage = signing.jobs.first(where: \.isUpdate)?.stage
+			return Snapshot(title: "Quill", detail: stage?.title ?? .localized("Signing app"), fraction: 0.2 + (stage?.fraction ?? 0) * 0.5, symbol: "arrow.triangle.2.circlepath", others: total, finished: false)
+		default:
+			break
+		}
+
+		if let job = signingJobs.first {
+			let symbol: String
+			switch job.stage {
+			case .complete: symbol = "checkmark.circle.fill"
+			case .failed: symbol = "xmark.circle.fill"
+			case .cancelled: symbol = "xmark.circle"
+			default: symbol = "signature"
+			}
+			let fraction = job.stage == .complete ? 1 : job.stage.fraction
+			return Snapshot(title: job.name, detail: job.stage.title, fraction: fraction, symbol: symbol, others: total - 1, finished: !job.stage.isActive)
+		}
+		if let download = downloads.first {
+			return Snapshot(title: download.displayName ?? download.fileName, detail: .localized("Downloading"), fraction: download.overallProgress, symbol: "arrow.down.circle.fill", others: total - 1, finished: false)
+		}
+		if let job = importJobs.first {
+			return Snapshot(title: job.name, detail: .localized("Importing"), fraction: job.fraction, symbol: "square.and.arrow.down.fill", others: total - 1, finished: false)
+		}
+		return nil
+	}
+
+	private func _show(_ snapshot: Snapshot) {
+		#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
+		guard #available(iOS 16.2, *), ExtensionHealth.extensionsCanRun else { return }
+		var rounded = snapshot
+		rounded.fraction = (min(1, max(0, snapshot.fraction)) * 100).rounded() / 100
+		guard rounded != lastSent else { return }
+		let important = rounded.detail != lastSent?.detail || rounded.title != lastSent?.title || rounded.finished
+		guard important || Date().timeIntervalSince(lastSentAt) >= 1 else { return }
+		lastSent = rounded
+		lastSentAt = Date()
+
+		let content = ActivityContent(state: _state(rounded), staleDate: Date().addingTimeInterval(120))
+
+		if let current = activity as? Activity<QuillProgressAttributes>, current.activityState == .active {
+			Task { await current.update(content) }
+			return
+		}
+		guard ActivityAuthorizationInfo().areActivitiesEnabled else {
+			DevLog.shared.log(.info, "Live Activities are turned off for Quill in iOS Settings", category: "Widgets")
+			return
+		}
+		do {
+			activity = try Activity.request(attributes: QuillProgressAttributes(), content: content, pushType: nil)
+		} catch {
+			DevLog.shared.error(error, while: "Starting the Live Activity", category: "Widgets")
+		}
+		#endif
+	}
+
+	private func _end() {
+		#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
+		guard #available(iOS 16.2, *) else { return }
+		guard let current = activity as? Activity<QuillProgressAttributes> else { return }
+		activity = nil
+		let finalState = lastSent
+		lastSent = nil
+		Task {
+			if var finalState {
+				finalState.others = 0
+				finalState.finished = true
+				await current.end(ActivityContent(state: self._state(finalState), staleDate: nil), dismissalPolicy: .after(Date().addingTimeInterval(4)))
+			} else {
+				await current.end(nil, dismissalPolicy: .immediate)
+			}
+		}
+		#endif
+	}
+
+	#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
+	@available(iOS 16.2, *)
+	private func _state(_ snapshot: Snapshot) -> QuillProgressAttributes.ContentState {
+		QuillProgressAttributes.ContentState(
+			title: snapshot.title,
+			detail: snapshot.detail,
+			fraction: snapshot.fraction,
+			symbol: snapshot.symbol,
+			tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#1D4ED8",
+			others: max(0, snapshot.others),
+			finished: snapshot.finished
+		)
+	}
+	#endif
+
+	private func _endStaleActivities() {
+		#if canImport(ActivityKit) && !targetEnvironment(macCatalyst)
+		guard #available(iOS 16.2, *) else { return }
+		for stale in Activity<QuillProgressAttributes>.activities {
+			Task { await stale.end(nil, dismissalPolicy: .immediate) }
+		}
+		#endif
+	}
+}

@@ -20,7 +20,7 @@ Example announcement:
   "title": "Certificates Revoked",
   "message": "Apple revoked many certificates today. Check yours in Settings.",
   "buttonTitle": "Learn More",
-  "url": "https://github.com/NuzProjects/Feather/discussions"
+  "url": "https://github.com/NuzProjects/Quill/discussions"
 }
 ```
 

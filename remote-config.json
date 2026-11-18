@@ -47,7 +47,7 @@
     "https://xitrix.github.io/iTorrent/AltStore.json",
     "https://alt.crystall1ne.dev",
     "https://mikevillarroel.github.io/mikebuilds-source/originals.json",
-    "https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json"
+    "https://raw.githubusercontent.com/NuzProjects/Quill/refs/heads/main/source.json"
   ],
   "plistServer": "https://quill.madebynuz.dev/genPlist",
   "flags": {}

@@ -1,6 +1,6 @@
-// Finds a device's UDID for Feather's Apple ID sign-in, the same way UDID websites do.
+// Finds a device's UDID for Quill's Apple ID sign-in, the same way UDID websites do.
 // GET /udid serves a Profile Service profile. After it's installed, iOS posts the device's
-// UDID here and Settings is sent straight back to Feather with it. Nothing is stored.
+// UDID here and Settings is sent straight back to Quill with it. Nothing is stored.
 
 const noStore = { "Cache-Control": "no-store" };
 
@@ -25,11 +25,11 @@ function profile(origin) {
     </array>
   </dict>
   <key>PayloadOrganization</key>
-  <string>Feather</string>
+  <string>Quill</string>
   <key>PayloadDisplayName</key>
-  <string>Feather Device ID</string>
+  <string>Quill Device ID</string>
   <key>PayloadDescription</key>
-  <string>Sends this device's UDID back to Feather so it can register your device with your Apple ID. Nothing stays installed.</string>
+  <string>Sends this device's UDID back to Quill so it can register your device with your Apple ID. Nothing stays installed.</string>
   <key>PayloadIdentifier</key>
   <string>dev.madebynuz.feather.udid</string>
   <key>PayloadUUID</key>
@@ -51,7 +51,7 @@ function donePage(udid) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Feather UDID</title>
+<title>Quill UDID</title>
 <style>
   :root { color-scheme: light dark; --bg: #f2f2f7; --card: #fff; --text: #1c1c1e; --muted: #6c6c70; --accent: #848ef9; }
   @media (prefers-color-scheme: dark) { :root { --bg: #000; --card: #1c1c1e; --text: #f2f2f7; --muted: #98989f; } }
@@ -66,9 +66,9 @@ function donePage(udid) {
 <body>
 <main>
   <h1>UDID Found</h1>
-  <p>Head back to Feather to finish signing in.</p>
+  <p>Head back to Quill to finish signing in.</p>
   <code>${escapeHTML(udid)}</code>
-  <a href="${escapeHTML(appURL)}">Open Feather</a>
+  <a href="${escapeHTML(appURL)}">Open Quill</a>
 </main>
 <script>setTimeout(function () { location.href = ${JSON.stringify(appURL)}; }, 300);</script>
 </body>
@@ -87,7 +87,7 @@ export function onRequestGet({ request }) {
     headers: {
       ...noStore,
       "Content-Type": "application/x-apple-aspen-config",
-      "Content-Disposition": 'attachment; filename="Feather-UDID.mobileconfig"',
+      "Content-Disposition": 'attachment; filename="Quill-UDID.mobileconfig"',
     },
   });
 }
