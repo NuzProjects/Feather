@@ -115,7 +115,7 @@ jobs:
           NAME="$(cat deps/commonName.txt)"
           echo "Bundling the install server certificate for $NAME"
           if [ "$NAME" != "local.feather.madebynuz.dev" ]; then
-            echo "::error::Expected the local.feather.madebynuz.dev certificate but got $NAME. feather.madebynuz.dev/pack.json couldn't be downloaded."
+            echo "::error::Expected the local.feather.madebynuz.dev certificate but got $NAME. quill.madebynuz.dev/pack.json couldn't be downloaded."
             exit 1
           fi
       - name: Resolve Swift packages
