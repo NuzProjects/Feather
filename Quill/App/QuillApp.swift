@@ -54,7 +54,14 @@ struct QuillApp: App {
 					}
 					UserDefaults.standard.set(true, forKey: "Feather.migratedQuillTint")
 				}
-				UIApplication.topViewController()?.view.window?.tintColor = UIColor(Color(hex: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#1D4ED8"))
+				// Anyone still on the old deep blue default moves to the new Cornflower default
+				if !UserDefaults.standard.bool(forKey: "Feather.migratedCornflowerTint") {
+					if UserDefaults.standard.string(forKey: "Feather.userTintColor")?.lowercased() == "#1d4ed8" {
+						UserDefaults.standard.removeObject(forKey: "Feather.userTintColor")
+					}
+					UserDefaults.standard.set(true, forKey: "Feather.migratedCornflowerTint")
+				}
+				UIApplication.topViewController()?.view.window?.tintColor = UIColor(Color(hex: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#5B85F0"))
 				UIApplication.topViewController()?.view.window?.tintAdjustmentMode = .normal
 				_offerCrashLogsIfNeeded()
 				LiveProgressActivity.shared.start()

@@ -5,7 +5,7 @@ import NimbleViews
 struct LibraryCellView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	@Environment(\.editMode) private var editMode
-	@AppStorage("Feather.userTintColor") private var _tintHex: String = "#1D4ED8"
+	@AppStorage("Feather.userTintColor") private var _tintHex: String = "#5B85F0"
 	@ObservedObject private var github = GitHubReleases.shared
 	@ObservedObject private var updateManager = UpdateManager.shared
 	@State private var _signedUpdateConfirmation: AppUpdate?
