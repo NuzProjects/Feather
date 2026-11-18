@@ -38,7 +38,7 @@ struct DeveloperLogsView: View {
 					}
 				}
 			} footer: {
-				Text("Includes crashes caught by Feather and diagnostic reports from iOS, which can arrive up to a day later.")
+				Text("Includes crashes caught by Quill and diagnostic reports from iOS, which can arrive up to a day later.")
 			}
 
 			NBSection(.localized("Sessions")) {
@@ -53,7 +53,7 @@ struct DeveloperLogsView: View {
 					}
 				}
 			} footer: {
-				Text("Each launch gets its own log with signing, install, download and update errors, plus Feather's system log.")
+				Text("Each launch gets its own log with signing, install, download and update errors, plus Quill's system log.")
 			}
 
 			Section {

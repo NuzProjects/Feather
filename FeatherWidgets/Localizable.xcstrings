@@ -802,55 +802,55 @@
         }
       }
     },
-    "Open Feather to sign apps" : {
+    "Open Quill to sign apps" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open Feather to sign apps"
+            "value" : "Open Quill to sign apps"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "افتح Feather لتوقيع التطبيقات"
+            "value" : "افتح Quill لتوقيع التطبيقات"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Otevřete Feather a podepisujte aplikace"
+            "value" : "Otevřete Quill a podepisujte aplikace"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Öffne Feather, um Apps zu signieren"
+            "value" : "Öffne Quill, um Apps zu signieren"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abre Feather para firmar apps"
+            "value" : "Abre Quill para firmar apps"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ouvrez Feather pour signer des apps"
+            "value" : "Ouvrez Quill pour signer des apps"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buka Feather untuk menandatangani aplikasi"
+            "value" : "Buka Quill untuk menandatangani aplikasi"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apri Feather per firmare le app"
+            "value" : "Apri Quill per firmare le app"
           }
         },
         "ko" : {
@@ -862,31 +862,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Otwórz Feather, aby podpisywać aplikacje"
+            "value" : "Otwórz Quill, aby podpisywać aplikacje"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Откройте Feather, чтобы подписывать приложения"
+            "value" : "Откройте Quill, чтобы подписывать приложения"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama imzalamak için Feather’ı aç"
+            "value" : "Uygulama imzalamak için Quill’ı aç"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mở Feather để ký ứng dụng"
+            "value" : "Mở Quill để ký ứng dụng"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "打开 Feather 签名 App"
+            "value" : "打开 Quill 签名 App"
           }
         }
       }

@@ -43,7 +43,7 @@ class ServerInstaller: Identifiable, ObservableObject {
 
 	enum ServerStartError: LocalizedError {
 		case unavailable
-		var errorDescription: String? { .localized("Feather couldn't start its install server. Close and reopen Feather, then try again.") }
+		var errorDescription: String? { .localized("Quill couldn't start its install server. Close and reopen Quill, then try again.") }
 	}
 
 	deinit {

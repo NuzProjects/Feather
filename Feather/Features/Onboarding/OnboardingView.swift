@@ -31,8 +31,8 @@ struct OnboardingView: View {
 	}
 
 	private let pages = [
-		Page(icon: "app.gift.fill", title: "Welcome to Feather", detail: "Sign and install apps right on your iPhone, no computer needed."),
-		Page(icon: "checkmark.seal.fill", title: "Add a Certificate", detail: "Feather signs apps with your certificate. Import your .p12 and .mobileprovision files to get started."),
+		Page(icon: "app.gift.fill", title: "Welcome to Quill", detail: "Sign and install apps right on your iPhone, no computer needed."),
+		Page(icon: "checkmark.seal.fill", title: "Add a Certificate", detail: "Quill signs apps with your certificate. Import your .p12 and .mobileprovision files to get started."),
 		Page(icon: "globe.desk.fill", title: "Add a Source", detail: "Sources are app libraries. Add one from the featured list or paste a source link."),
 		Page(icon: "signature", title: "Sign and Install", detail: "Pick an app, tap Sign, then Install. Swipe on apps in your Library for quick actions.")
 	]

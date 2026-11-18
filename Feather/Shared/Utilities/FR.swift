@@ -265,7 +265,7 @@ enum FR {
 			DispatchQueue.main.async {
 				UIAlertController.showAlertWithOk(
 					title: .localized("Export Blocked"),
-					message: .localized("A link tried to send your certificate somewhere other than an app. Feather only exports certificates to other apps.")
+					message: .localized("A link tried to send your certificate somewhere other than an app. Quill only exports certificates to other apps.")
 				)
 			}
 			return

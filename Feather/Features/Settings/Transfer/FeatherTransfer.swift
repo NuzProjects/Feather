@@ -7,7 +7,7 @@ enum FeatherTransfer {
 		case invalid, busy
 		var errorDescription: String? {
 			switch self {
-			case .invalid: return "Choose a complete Feather backup folder exported from Settings → Backup & Transfer."
+			case .invalid: return "Choose a complete Quill backup folder exported from Settings → Backup & Transfer."
 			case .busy: return "Wait for active downloads to finish before transferring data."
 			}
 		}

@@ -54,7 +54,7 @@ final class Storage: ObservableObject {
 	private func _loadPersistentStoreSafely() {
 		container.loadPersistentStores { _, error in
 			if let error {
-				fatalError("Feather could not open its database. Existing data has been preserved. \(error.localizedDescription)")
+				fatalError("Quill could not open its database. Existing data has been preserved. \(error.localizedDescription)")
 			}
 		}
 	}

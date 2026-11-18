@@ -579,10 +579,10 @@ enum SigningFileHandlerError: Error, LocalizedError {
 
 	var errorDescription: String? {
 		switch self {
-		case .appNotFound: "Feather couldn't find the app inside this file. The IPA may be damaged, so try downloading it again."
+		case .appNotFound: "Quill couldn't find the app inside this file. The IPA may be damaged, so try downloading it again."
 		case .infoPlistNotFound: "This app is missing its Info.plist, so it can't be signed. Try a different copy of the IPA."
 		case .missingCertifcate: "No certificate is selected. Add or pick one in Settings → Certificates."
-		case .disinjectFailed: "Feather couldn't remove the selected tweaks or libraries from this app. Try signing without removing them."
+		case .disinjectFailed: "Quill couldn't remove the selected tweaks or libraries from this app. Try signing without removing them."
 		case .signFailed: "Signing didn't finish. This usually means the certificate's password is wrong or the provisioning profile doesn't belong to the certificate. Try importing the certificate again."
 		case .certificateExpired(let date): "This certificate expired on \(date.formatted(date: .abbreviated, time: .omitted)). Add a new certificate in Settings → Certificates."
 		case .certificateRevoked: "Apple revoked this certificate, so apps signed with it won't open. Add a new certificate in Settings → Certificates."

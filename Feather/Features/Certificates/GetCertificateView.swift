@@ -9,7 +9,7 @@ enum CertificateProviders {
 		Provider(name: "Apple Developer Program", detail: "Your own certificate straight from Apple. $99 a year.", url: URL(string: "https://developer.apple.com/programs/enroll/")!, icon: "apple.logo", official: true),
 		Provider(name: "Signulous", detail: "Certificates registered to your device, with their own signing app.", url: URL(string: "https://www.signulous.com")!, icon: "signature", official: false, iconURL: URL(string: "https://www.signulous.com/apple-touch-icon.png")),
 		Provider(name: "UDID Registrations", detail: "Registers your device on a developer account and sends you the certificate files.", url: URL(string: "https://www.udidregistrations.com")!, icon: "iphone.badge.checkmark", official: false, iconURL: URL(string: "https://www.udidregistrations.com/apple-touch-icon.png")),
-		Provider(name: "KravaSign", detail: "Device certificates you can import straight into Feather.", url: URL(string: "https://www.kravasign.com")!, icon: "checkmark.seal.fill", official: false, iconURL: URL(string: "https://www.kravasign.com/images/logo.png"))
+		Provider(name: "KravaSign", detail: "Device certificates you can import straight into Quill.", url: URL(string: "https://www.kravasign.com")!, icon: "checkmark.seal.fill", official: false, iconURL: URL(string: "https://www.kravasign.com/images/logo.png"))
 	]
 
 	@MainActor
@@ -38,7 +38,7 @@ struct GetCertificateView: View {
 							.resizable()
 							.scaledToFit()
 							.frame(width: 72, height: 72)
-						Text("Feather signs apps with your own certificate. Get one from Apple or a provider below, then import it here.")
+						Text("Quill signs apps with your own certificate. Get one from Apple or a provider below, then import it here.")
 							.font(.subheadline)
 							.foregroundStyle(Color(uiColor: .secondaryLabel))
 							.multilineTextAlignment(.center)
@@ -57,7 +57,7 @@ struct GetCertificateView: View {
 				NBSection(.localized("Unofficial Providers")) {
 					ForEach(_providers.filter { $0.official != true }) { _row($0) }
 				} footer: {
-					Text("These are independent sellers, not part of Feather. Check their prices and refund policy before you buy.")
+					Text("These are independent sellers, not part of Quill. Check their prices and refund policy before you buy.")
 				}
 
 				Section {

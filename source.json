@@ -1,5 +1,5 @@
 {
-  "name": "Feather (NuzProjects)",
+  "name": "Quill (NuzProjects)",
   "identifier": "dev.madebynuz.feather-repo",
   "subtitle": "On-device signing with in-app updates",
   "iconURL": "https://raw.githubusercontent.com/NuzProjects/Feather/main/Feather/Resources/Assets.xcassets/AppIcon.appiconset/feather.png",
@@ -7,7 +7,7 @@
   "tintColor": "848ef9",
   "apps": [
     {
-      "name": "Feather",
+      "name": "Quill",
       "bundleIdentifier": "dev.madebynuz.dev.feather",
       "developerName": "NuzFlameV2",
       "subtitle": "On-device signing with in-app updates",

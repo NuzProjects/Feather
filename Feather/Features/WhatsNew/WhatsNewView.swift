@@ -15,8 +15,8 @@ enum WhatsNew {
 		Item(icon: "ipad.landscape", title: "Better on iPad", detail: "Settings, app pages and lists keep to a comfortable width, and progress panels fit the iPad's layout."),
 		Item(icon: "bolt", title: "Instant Sources", detail: "Sources open right away, even offline, and refresh in the background."),
 		Item(icon: "lock.rectangle", title: "Lock Screen Widgets", detail: "See how many days are left on your certificate right from the Lock Screen."),
-		Item(icon: "exclamationmark.shield", title: "Install Check", detail: "Feather warns you before installing an app whose certificate has expired or been revoked."),
-		Item(icon: "signature", title: "Signing in the Background", detail: "Signing keeps going when you leave Feather, and a notification tells you when it's done.")
+		Item(icon: "exclamationmark.shield", title: "Install Check", detail: "Quill warns you before installing an app whose certificate has expired or been revoked."),
+		Item(icon: "signature", title: "Signing in the Background", detail: "Signing keeps going when you leave Quill, and a notification tells you when it's done.")
 	]
 
 	static let fixes: [Item] = [
@@ -48,7 +48,7 @@ struct WhatsNewView: View {
 					VStack(alignment: .leading, spacing: 6) {
 						Text("What's New")
 							.font(.largeTitle.bold())
-						Text("Feather \(WhatsNew.version)")
+						Text("Quill \(WhatsNew.version)")
 							.font(.title3)
 							.foregroundStyle(Color(uiColor: .secondaryLabel))
 					}

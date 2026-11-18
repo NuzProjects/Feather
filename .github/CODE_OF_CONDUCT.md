@@ -2,7 +2,7 @@
 
 ## Our pledge
 
-We want Feather to be a welcoming project for everyone, whatever their experience, background or identity.
+We want Quill to be a welcoming project for everyone, whatever their experience, background or identity.
 
 ## Expected behavior
 
@@ -15,7 +15,7 @@ We want Feather to be a welcoming project for everyone, whatever their experienc
 - Harassment, insults, or personal attacks.
 - Sharing or asking for leaked, stolen or company-owned signing certificates.
 - Posting pirated apps or links to them.
-- Spam or self-promotion unrelated to Feather.
+- Spam or self-promotion unrelated to Quill.
 
 ## Enforcement
 

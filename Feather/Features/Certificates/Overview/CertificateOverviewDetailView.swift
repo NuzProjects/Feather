@@ -92,7 +92,7 @@ extension CertificateOverviewDetailView {
 				_info(.localized("PPQCheck"), ppq ? .localized("Yes") : .localized("No"))
 			}
 		} footer: {
-			Text("Feather notifies you 3 days and 1 day before the certificate in use expires, and checks for revocation in the background.")
+			Text("Quill notifies you 3 days and 1 day before the certificate in use expires, and checks for revocation in the background.")
 		}
 	}
 

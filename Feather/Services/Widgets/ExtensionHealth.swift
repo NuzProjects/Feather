@@ -71,7 +71,7 @@ enum ExtensionHealth {
 				UIAlertController.showAlert(
 					top,
 					title: String.localized("Finish Setting Up Widgets"),
-					message: String.localized("Feather needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept."),
+					message: String.localized("Quill needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept."),
 					actions: [
 						UIAlertAction(title: String.localized("Reinstall"), style: .default) { _ in FeatherUpdater.shared.install() },
 						UIAlertAction(title: String.localized("Not Now"), style: .cancel)

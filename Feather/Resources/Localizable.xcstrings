@@ -1247,55 +1247,55 @@
         }
       }
     },
-    "A link tried to send your certificate somewhere other than an app. Feather only exports certificates to other apps." : {
+    "A link tried to send your certificate somewhere other than an app. Quill only exports certificates to other apps." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A link tried to send your certificate somewhere other than an app. Feather only exports certificates to other apps."
+            "value" : "A link tried to send your certificate somewhere other than an app. Quill only exports certificates to other apps."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حاول رابط إرسال شهادتك إلى مكان غير تطبيق. يصدّر Feather الشهادات إلى التطبيقات الأخرى فقط."
+            "value" : "حاول رابط إرسال شهادتك إلى مكان غير تطبيق. يصدّر Quill الشهادات إلى التطبيقات الأخرى فقط."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Odkaz se pokusil odeslat váš certifikát jinam než do aplikace. Feather exportuje certifikáty pouze do jiných aplikací."
+            "value" : "Odkaz se pokusil odeslat váš certifikát jinam než do aplikace. Quill exportuje certifikáty pouze do jiných aplikací."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ein Link wollte dein Zertifikat an etwas anderes als eine App senden. Feather exportiert Zertifikate nur an andere Apps."
+            "value" : "Ein Link wollte dein Zertifikat an etwas anderes als eine App senden. Quill exportiert Zertifikate nur an andere Apps."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un enlace intentó enviar tu certificado a algo que no es una app. Feather solo exporta certificados a otras apps."
+            "value" : "Un enlace intentó enviar tu certificado a algo que no es una app. Quill solo exporta certificados a otras apps."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un lien a tenté d’envoyer votre certificat ailleurs que dans une app. Feather n’exporte les certificats que vers d’autres apps."
+            "value" : "Un lien a tenté d’envoyer votre certificat ailleurs que dans une app. Quill n’exporte les certificats que vers d’autres apps."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sebuah tautan mencoba mengirim sertifikat Anda ke tempat selain aplikasi. Feather hanya mengekspor sertifikat ke aplikasi lain."
+            "value" : "Sebuah tautan mencoba mengirim sertifikat Anda ke tempat selain aplikasi. Quill hanya mengekspor sertifikat ke aplikasi lain."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un link ha provato a inviare il tuo certificato a qualcosa che non è un’app. Feather esporta i certificati solo verso altre app."
+            "value" : "Un link ha provato a inviare il tuo certificato a qualcosa che non è un’app. Quill esporta i certificati solo verso altre app."
           }
         },
         "ko" : {
@@ -1307,31 +1307,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Link próbował wysłać Twój certyfikat gdzieś indziej niż do aplikacji. Feather eksportuje certyfikaty tylko do innych aplikacji."
+            "value" : "Link próbował wysłać Twój certyfikat gdzieś indziej niż do aplikacji. Quill eksportuje certyfikaty tylko do innych aplikacji."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ссылка попыталась отправить ваш сертификат не в приложение. Feather экспортирует сертификаты только в другие приложения."
+            "value" : "Ссылка попыталась отправить ваш сертификат не в приложение. Quill экспортирует сертификаты только в другие приложения."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bir bağlantı sertifikanı uygulama dışında bir yere göndermeye çalıştı. Feather sertifikaları yalnızca diğer uygulamalara aktarır."
+            "value" : "Bir bağlantı sertifikanı uygulama dışında bir yere göndermeye çalıştı. Quill sertifikaları yalnızca diğer uygulamalara aktarır."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Một liên kết đã cố gửi chứng chỉ của bạn tới nơi không phải ứng dụng. Feather chỉ xuất chứng chỉ sang ứng dụng khác."
+            "value" : "Một liên kết đã cố gửi chứng chỉ của bạn tới nơi không phải ứng dụng. Quill chỉ xuất chứng chỉ sang ứng dụng khác."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有链接试图将你的证书发送到 App 以外的地方。Feather 只会将证书导出到其他 App。"
+            "value" : "有链接试图将你的证书发送到 App 以外的地方。Quill 只会将证书导出到其他 App。"
           }
         }
       }
@@ -1514,19 +1514,19 @@
         }
       }
     },
-    "A link wants to add the certificate \"%@\" to Feather. Only add certificates you trust." : {
+    "A link wants to add the certificate \"%@\" to Quill. Only add certificates you trust." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A link wants to add the certificate \"%@\" to Feather. Only add certificates you trust."
+            "value" : "A link wants to add the certificate \"%@\" to Quill. Only add certificates you trust."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يريد رابط إضافة الشهادة \"%@\" إلى Feather. أضف فقط الشهادات التي تثق بها."
+            "value" : "يريد رابط إضافة الشهادة \"%@\" إلى Quill. أضف فقط الشهادات التي تثق بها."
           }
         },
         "cs" : {
@@ -1538,31 +1538,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ein Link möchte das Zertifikat „%@“ zu Feather hinzufügen. Füge nur Zertifikate hinzu, denen du vertraust."
+            "value" : "Ein Link möchte das Zertifikat „%@“ zu Quill hinzufügen. Füge nur Zertifikate hinzu, denen du vertraust."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un enlace quiere añadir el certificado \"%@\" a Feather. Añade solo certificados de confianza."
+            "value" : "Un enlace quiere añadir el certificado \"%@\" a Quill. Añade solo certificados de confianza."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un lien veut ajouter le certificat « %@ » à Feather. N’ajoutez que des certificats de confiance."
+            "value" : "Un lien veut ajouter le certificat « %@ » à Quill. N’ajoutez que des certificats de confiance."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sebuah tautan ingin menambahkan sertifikat \"%@\" ke Feather. Tambahkan hanya sertifikat yang Anda percayai."
+            "value" : "Sebuah tautan ingin menambahkan sertifikat \"%@\" ke Quill. Tambahkan hanya sertifikat yang Anda percayai."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un link vuole aggiungere il certificato \"%@\" a Feather. Aggiungi solo certificati di cui ti fidi."
+            "value" : "Un link vuole aggiungere il certificato \"%@\" a Quill. Aggiungi solo certificati di cui ti fidi."
           }
         },
         "ko" : {
@@ -1574,31 +1574,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Link chce dodać certyfikat „%@” do Feather. Dodawaj tylko zaufane certyfikaty."
+            "value" : "Link chce dodać certyfikat „%@” do Quill. Dodawaj tylko zaufane certyfikaty."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ссылка хочет добавить сертификат «%@» в Feather. Добавляйте только сертификаты, которым доверяете."
+            "value" : "Ссылка хочет добавить сертификат «%@» в Quill. Добавляйте только сертификаты, которым доверяете."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bir bağlantı Feather’a \"%@\" sertifikasını eklemek istiyor. Yalnızca güvendiğin sertifikaları ekle."
+            "value" : "Bir bağlantı Quill’a \"%@\" sertifikasını eklemek istiyor. Yalnızca güvendiğin sertifikaları ekle."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Một liên kết muốn thêm chứng chỉ \"%@\" vào Feather. Chỉ thêm chứng chỉ bạn tin tưởng."
+            "value" : "Một liên kết muốn thêm chứng chỉ \"%@\" vào Quill. Chỉ thêm chứng chỉ bạn tin tưởng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有链接想将证书“%@”添加到 Feather。只添加你信任的证书。"
+            "value" : "有链接想将证书“%@”添加到 Quill。只添加你信任的证书。"
           }
         }
       }
@@ -1870,19 +1870,19 @@
         }
       }
     },
-    "Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Feather's install server." : {
+    "Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Quill's install server." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Feather's install server."
+            "value" : "Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Quill's install server."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "شبكتك أو خادم DNS يحظر العنوان الذي يستخدمه Fully Local، لذلك لا يستطيع iOS الوصول إلى خادم التثبيت في Feather."
+            "value" : "شبكتك أو خادم DNS يحظر العنوان الذي يستخدمه Fully Local، لذلك لا يستطيع iOS الوصول إلى خادم التثبيت في Quill."
           }
         },
         "cs" : {
@@ -1894,31 +1894,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dein Netzwerk oder DNS blockiert die Adresse, die Fully Local verwendet, daher erreicht iOS den Installationsserver von Feather nicht."
+            "value" : "Dein Netzwerk oder DNS blockiert die Adresse, die Fully Local verwendet, daher erreicht iOS den Installationsserver von Quill nicht."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tu red o DNS está bloqueando la dirección que usa Fully Local, así que iOS no puede llegar al servidor de instalación de Feather."
+            "value" : "Tu red o DNS está bloqueando la dirección que usa Fully Local, así que iOS no puede llegar al servidor de instalación de Quill."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Votre réseau ou DNS bloque l’adresse utilisée par Fully Local, donc iOS ne peut pas joindre le serveur d’installation de Feather."
+            "value" : "Votre réseau ou DNS bloque l’adresse utilisée par Fully Local, donc iOS ne peut pas joindre le serveur d’installation de Quill."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jaringan atau DNS Anda memblokir alamat yang digunakan Fully Local, jadi iOS tidak dapat menjangkau server instalasi Feather."
+            "value" : "Jaringan atau DNS Anda memblokir alamat yang digunakan Fully Local, jadi iOS tidak dapat menjangkau server instalasi Quill."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La tua rete o il DNS blocca l’indirizzo usato da Fully Local, quindi iOS non riesce a raggiungere il server di installazione di Feather."
+            "value" : "La tua rete o il DNS blocca l’indirizzo usato da Fully Local, quindi iOS non riesce a raggiungere il server di installazione di Quill."
           }
         },
         "ko" : {
@@ -1930,48 +1930,48 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Twoja sieć lub DNS blokuje adres używany przez Fully Local, więc iOS nie może połączyć się z serwerem instalacji Feather."
+            "value" : "Twoja sieć lub DNS blokuje adres używany przez Fully Local, więc iOS nie może połączyć się z serwerem instalacji Quill."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ваша сеть или DNS блокирует адрес, который использует Fully Local, поэтому iOS не может связаться с сервером установки Feather."
+            "value" : "Ваша сеть или DNS блокирует адрес, который использует Fully Local, поэтому iOS не может связаться с сервером установки Quill."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ağın veya DNS’in Fully Local’ın kullandığı adresi engelliyor, bu yüzden iOS Feather’ın yükleme sunucusuna ulaşamıyor."
+            "value" : "Ağın veya DNS’in Fully Local’ın kullandığı adresi engelliyor, bu yüzden iOS Quill’ın yükleme sunucusuna ulaşamıyor."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mạng hoặc DNS của bạn đang chặn địa chỉ mà Fully Local dùng, nên iOS không thể kết nối tới máy chủ cài đặt của Feather."
+            "value" : "Mạng hoặc DNS của bạn đang chặn địa chỉ mà Fully Local dùng, nên iOS không thể kết nối tới máy chủ cài đặt của Quill."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你的网络或 DNS 阻止了 Fully Local 使用的地址，因此 iOS 无法连接 Feather 的安装服务器。"
+            "value" : "你的网络或 DNS 阻止了 Fully Local 使用的地址，因此 iOS 无法连接 Quill 的安装服务器。"
           }
         }
       }
     },
-    "iOS didn't start the install from Feather's local server." : {
+    "iOS didn't start the install from Quill's local server." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS didn't start the install from Feather's local server."
+            "value" : "iOS didn't start the install from Quill's local server."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لم يبدأ iOS التثبيت من الخادم المحلي في Feather."
+            "value" : "لم يبدأ iOS التثبيت من الخادم المحلي في Quill."
           }
         },
         "cs" : {
@@ -1983,31 +1983,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS hat die Installation über den lokalen Server von Feather nicht gestartet."
+            "value" : "iOS hat die Installation über den lokalen Server von Quill nicht gestartet."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS no inició la instalación desde el servidor local de Feather."
+            "value" : "iOS no inició la instalación desde el servidor local de Quill."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS n’a pas lancé l’installation depuis le serveur local de Feather."
+            "value" : "iOS n’a pas lancé l’installation depuis le serveur local de Quill."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS tidak memulai instalasi dari server lokal Feather."
+            "value" : "iOS tidak memulai instalasi dari server lokal Quill."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS non ha avviato l’installazione dal server locale di Feather."
+            "value" : "iOS non ha avviato l’installazione dal server locale di Quill."
           }
         },
         "ko" : {
@@ -2019,31 +2019,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS nie rozpoczął instalacji z lokalnego serwera Feather."
+            "value" : "iOS nie rozpoczął instalacji z lokalnego serwera Quill."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS не начала установку с локального сервера Feather."
+            "value" : "iOS не начала установку с локального сервера Quill."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS, Feather’ın yerel sunucusundan yüklemeyi başlatmadı."
+            "value" : "iOS, Quill’ın yerel sunucusundan yüklemeyi başlatmadı."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS không bắt đầu cài đặt từ máy chủ cục bộ của Feather."
+            "value" : "iOS không bắt đầu cài đặt từ máy chủ cục bộ của Quill."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS 没有从 Feather 的本地服务器开始安装。"
+            "value" : "iOS 没有从 Quill 的本地服务器开始安装。"
           }
         }
       }
@@ -2760,55 +2760,55 @@
         }
       }
     },
-    "Feather needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept." : {
+    "Quill needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept."
+            "value" : "Quill needs to reinstall itself once so Home Screen widgets and Live Activities can run. Your apps, sources and settings are kept."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يحتاج Feather إلى إعادة تثبيت نفسه مرة واحدة حتى تعمل أدوات الشاشة الرئيسية والأنشطة المباشرة. سيتم الاحتفاظ بتطبيقاتك ومصادرك وإعداداتك."
+            "value" : "يحتاج Quill إلى إعادة تثبيت نفسه مرة واحدة حتى تعمل أدوات الشاشة الرئيسية والأنشطة المباشرة. سيتم الاحتفاظ بتطبيقاتك ومصادرك وإعداداتك."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather se musí jednou přeinstalovat, aby mohly fungovat widgety na ploše a živé aktivity. Vaše aplikace, zdroje a nastavení zůstanou zachovány."
+            "value" : "Quill se musí jednou přeinstalovat, aby mohly fungovat widgety na ploše a živé aktivity. Vaše aplikace, zdroje a nastavení zůstanou zachovány."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather muss sich einmal neu installieren, damit Home-Bildschirm-Widgets und Live-Aktivitäten funktionieren. Deine Apps, Quellen und Einstellungen bleiben erhalten."
+            "value" : "Quill muss sich einmal neu installieren, damit Home-Bildschirm-Widgets und Live-Aktivitäten funktionieren. Deine Apps, Quellen und Einstellungen bleiben erhalten."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather necesita reinstalarse una vez para que funcionen los widgets de la pantalla de inicio y las Actividades en vivo. Se conservan tus apps, fuentes y ajustes."
+            "value" : "Quill necesita reinstalarse una vez para que funcionen los widgets de la pantalla de inicio y las Actividades en vivo. Se conservan tus apps, fuentes y ajustes."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather doit se réinstaller une fois pour que les widgets de l’écran d’accueil et les activités en direct fonctionnent. Vos apps, sources et réglages sont conservés."
+            "value" : "Quill doit se réinstaller une fois pour que les widgets de l’écran d’accueil et les activités en direct fonctionnent. Vos apps, sources et réglages sont conservés."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather perlu menginstal ulang dirinya sekali agar widget Layar Utama dan Aktivitas Langsung dapat berjalan. Aplikasi, sumber, dan pengaturan Anda tetap tersimpan."
+            "value" : "Quill perlu menginstal ulang dirinya sekali agar widget Layar Utama dan Aktivitas Langsung dapat berjalan. Aplikasi, sumber, dan pengaturan Anda tetap tersimpan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather deve reinstallarsi una volta perché i widget della schermata Home e le Attività in tempo reale possano funzionare. App, sorgenti e impostazioni vengono mantenute."
+            "value" : "Quill deve reinstallarsi una volta perché i widget della schermata Home e le Attività in tempo reale possano funzionare. App, sorgenti e impostazioni vengono mantenute."
           }
         },
         "ko" : {
@@ -2820,31 +2820,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather musi się raz zainstalować ponownie, aby widżety na ekranie początkowym i aktywności na żywo mogły działać. Twoje aplikacje, źródła i ustawienia zostaną zachowane."
+            "value" : "Quill musi się raz zainstalować ponownie, aby widżety na ekranie początkowym i aktywności na żywo mogły działać. Twoje aplikacje, źródła i ustawienia zostaną zachowane."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather нужно один раз переустановить, чтобы заработали виджеты на экране «Домой» и Live Activities. Ваши приложения, источники и настройки сохранятся."
+            "value" : "Quill нужно один раз переустановить, чтобы заработали виджеты на экране «Домой» и Live Activities. Ваши приложения, источники и настройки сохранятся."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ana Ekran widget’larının ve Canlı Etkinliklerin çalışması için Feather’ın kendini bir kez yeniden yüklemesi gerekiyor. Uygulamaların, kaynakların ve ayarların korunur."
+            "value" : "Ana Ekran widget’larının ve Canlı Etkinliklerin çalışması için Quill’ın kendini bir kez yeniden yüklemesi gerekiyor. Uygulamaların, kaynakların ve ayarların korunur."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather cần tự cài đặt lại một lần để tiện ích Màn hình chính và Hoạt động trực tiếp có thể chạy. Ứng dụng, nguồn và cài đặt của bạn vẫn được giữ nguyên."
+            "value" : "Quill cần tự cài đặt lại một lần để tiện ích Màn hình chính và Hoạt động trực tiếp có thể chạy. Ứng dụng, nguồn và cài đặt của bạn vẫn được giữ nguyên."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 需要重新安装一次，主屏幕小组件和实时活动才能运行。你的 App、源和设置都会保留。"
+            "value" : "Quill 需要重新安装一次，主屏幕小组件和实时活动才能运行。你的 App、源和设置都会保留。"
           }
         }
       }
@@ -4783,19 +4783,19 @@
         }
       }
     },
-    "A new version of Feather is available." : {
+    "A new version of Quill is available." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A new version of Feather is available."
+            "value" : "A new version of Quill is available."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يتوفر إصدار جديد من Feather."
+            "value" : "يتوفر إصدار جديد من Quill."
           }
         },
         "cs" : {
@@ -4807,31 +4807,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine neue Version von Feather ist verfügbar."
+            "value" : "Eine neue Version von Quill ist verfügbar."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hay una nueva versión de Feather disponible."
+            "value" : "Hay una nueva versión de Quill disponible."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Une nouvelle version de Feather est disponible."
+            "value" : "Une nouvelle version de Quill est disponible."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Versi baru Feather tersedia."
+            "value" : "Versi baru Quill tersedia."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "È disponibile una nuova versione di Feather."
+            "value" : "È disponibile una nuova versione di Quill."
           }
         },
         "ko" : {
@@ -4843,31 +4843,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dostępna jest nowa wersja Feather."
+            "value" : "Dostępna jest nowa wersja Quill."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Доступна новая версия Feather."
+            "value" : "Доступна новая версия Quill."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather'ın yeni bir sürümü mevcut."
+            "value" : "Quill'ın yeni bir sürümü mevcut."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đã có phiên bản Feather mới."
+            "value" : "Đã có phiên bản Quill mới."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 有新版本可用。"
+            "value" : "Quill 有新版本可用。"
           }
         }
       }
@@ -5940,55 +5940,55 @@
         }
       }
     },
-    "Betas get new features first but may have bugs or crash. You can turn this off at any time, and Feather will wait for the next full release." : {
+    "Betas get new features first but may have bugs or crash. You can turn this off at any time, and Quill will wait for the next full release." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Betas get new features first but may have bugs or crash. You can turn this off at any time, and Feather will wait for the next full release."
+            "value" : "Betas get new features first but may have bugs or crash. You can turn this off at any time, and Quill will wait for the next full release."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تحصل إصدارات بيتا على الميزات الجديدة أولًا لكنها قد تحتوي على أخطاء أو تتعطل. يمكنك إيقاف هذا في أي وقت، وسينتظر Feather الإصدار الكامل التالي."
+            "value" : "تحصل إصدارات بيتا على الميزات الجديدة أولًا لكنها قد تحتوي على أخطاء أو تتعطل. يمكنك إيقاف هذا في أي وقت، وسينتظر Quill الإصدار الكامل التالي."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta verze dostávají novinky jako první, ale mohou obsahovat chyby nebo padat. Kdykoli to můžete vypnout a Feather počká na další plné vydání."
+            "value" : "Beta verze dostávají novinky jako první, ale mohou obsahovat chyby nebo padat. Kdykoli to můžete vypnout a Quill počká na další plné vydání."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Betas erhalten neue Funktionen zuerst, können aber Fehler haben oder abstürzen. Du kannst das jederzeit ausschalten, dann wartet Feather auf die nächste Vollversion."
+            "value" : "Betas erhalten neue Funktionen zuerst, können aber Fehler haben oder abstürzen. Du kannst das jederzeit ausschalten, dann wartet Quill auf die nächste Vollversion."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Las betas reciben las novedades antes, pero pueden tener errores o cerrarse. Puedes desactivarlo cuando quieras y Feather esperará a la siguiente versión completa."
+            "value" : "Las betas reciben las novedades antes, pero pueden tener errores o cerrarse. Puedes desactivarlo cuando quieras y Quill esperará a la siguiente versión completa."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les bêtas reçoivent les nouveautés en premier mais peuvent contenir des bugs ou planter. Vous pouvez désactiver cette option à tout moment, et Feather attendra la prochaine version complète."
+            "value" : "Les bêtas reçoivent les nouveautés en premier mais peuvent contenir des bugs ou planter. Vous pouvez désactiver cette option à tout moment, et Quill attendra la prochaine version complète."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Versi beta mendapat fitur baru lebih dulu tetapi bisa berisi bug atau crash. Kamu bisa mematikannya kapan saja, dan Feather akan menunggu rilis penuh berikutnya."
+            "value" : "Versi beta mendapat fitur baru lebih dulu tetapi bisa berisi bug atau crash. Kamu bisa mematikannya kapan saja, dan Quill akan menunggu rilis penuh berikutnya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le beta ricevono le novità per prime ma possono contenere bug o arrestarsi. Puoi disattivarlo in qualsiasi momento e Feather aspetterà la prossima versione completa."
+            "value" : "Le beta ricevono le novità per prime ma possono contenere bug o arrestarsi. Puoi disattivarlo in qualsiasi momento e Quill aspetterà la prossima versione completa."
           }
         },
         "ko" : {
@@ -6000,31 +6000,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wersje beta dostają nowości jako pierwsze, ale mogą zawierać błędy lub się zawieszać. Możesz to w każdej chwili wyłączyć, a Feather poczeka na kolejne pełne wydanie."
+            "value" : "Wersje beta dostają nowości jako pierwsze, ale mogą zawierać błędy lub się zawieszać. Możesz to w każdej chwili wyłączyć, a Quill poczeka na kolejne pełne wydanie."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета-версии первыми получают новые функции, но могут содержать ошибки или вылетать. Это можно отключить в любой момент, и Feather дождётся следующего полного выпуска."
+            "value" : "Бета-версии первыми получают новые функции, но могут содержать ошибки или вылетать. Это можно отключить в любой момент, и Quill дождётся следующего полного выпуска."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta sürümler yeni özellikleri önce alır ama hata içerebilir veya çökebilir. Bunu istediğin zaman kapatabilirsin; Feather bir sonraki tam sürümü bekler."
+            "value" : "Beta sürümler yeni özellikleri önce alır ama hata içerebilir veya çökebilir. Bunu istediğin zaman kapatabilirsin; Quill bir sonraki tam sürümü bekler."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bản beta có tính năng mới trước nhưng có thể có lỗi hoặc bị thoát. Bạn có thể tắt bất cứ lúc nào và Feather sẽ chờ bản phát hành chính thức tiếp theo."
+            "value" : "Bản beta có tính năng mới trước nhưng có thể có lỗi hoặc bị thoát. Bạn có thể tắt bất cứ lúc nào và Quill sẽ chờ bản phát hành chính thức tiếp theo."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta 版会率先获得新功能，但可能有错误或崩溃。你可以随时关闭，Feather 会等待下一个正式版本。"
+            "value" : "Beta 版会率先获得新功能，但可能有错误或崩溃。你可以随时关闭，Quill 会等待下一个正式版本。"
           }
         }
       }
@@ -8165,19 +8165,19 @@
         }
       }
     },
-    "Each launch gets its own log with signing, install, download and update errors, plus Feather's system log." : {
+    "Each launch gets its own log with signing, install, download and update errors, plus Quill's system log." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Each launch gets its own log with signing, install, download and update errors, plus Feather's system log."
+            "value" : "Each launch gets its own log with signing, install, download and update errors, plus Quill's system log."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لكل تشغيل سجل خاص به يتضمن أخطاء التوقيع والتثبيت والتنزيل والتحديث، بالإضافة إلى سجل نظام Feather."
+            "value" : "لكل تشغيل سجل خاص به يتضمن أخطاء التوقيع والتثبيت والتنزيل والتحديث، بالإضافة إلى سجل نظام Quill."
           }
         },
         "cs" : {
@@ -8189,67 +8189,67 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jeder Start hat ein eigenes Protokoll mit Signatur-, Installations-, Download- und Update-Fehlern sowie dem Systemprotokoll von Feather."
+            "value" : "Jeder Start hat ein eigenes Protokoll mit Signatur-, Installations-, Download- und Update-Fehlern sowie dem Systemprotokoll von Quill."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cada inicio tiene su propio registro con errores de firma, instalación, descarga y actualización, además del registro del sistema de Feather."
+            "value" : "Cada inicio tiene su propio registro con errores de firma, instalación, descarga y actualización, además del registro del sistema de Quill."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chaque lancement a son propre journal avec les erreurs de signature, d’installation, de téléchargement et de mise à jour, ainsi que le journal système de Feather."
+            "value" : "Chaque lancement a son propre journal avec les erreurs de signature, d’installation, de téléchargement et de mise à jour, ainsi que le journal système de Quill."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Setiap kali dibuka punya log sendiri berisi galat tanda tangan, instalasi, unduhan, dan pembaruan, plus log sistem Feather."
+            "value" : "Setiap kali dibuka punya log sendiri berisi galat tanda tangan, instalasi, unduhan, dan pembaruan, plus log sistem Quill."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ogni avvio ha il proprio log con gli errori di firma, installazione, download e aggiornamento, più il log di sistema di Feather."
+            "value" : "Ogni avvio ha il proprio log con gli errori di firma, installazione, download e aggiornamento, più il log di sistema di Quill."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "실행할 때마다 서명, 설치, 다운로드, 업데이트 오류와 Feather 시스템 로그가 담긴 별도 로그가 생성됩니다."
+            "value" : "실행할 때마다 서명, 설치, 다운로드, 업데이트 오류와 Quill 시스템 로그가 담긴 별도 로그가 생성됩니다."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Każde uruchomienie ma własny dziennik z błędami podpisywania, instalacji, pobierania i aktualizacji oraz dziennikiem systemowym Feather."
+            "value" : "Każde uruchomienie ma własny dziennik z błędami podpisywania, instalacji, pobierania i aktualizacji oraz dziennikiem systemowym Quill."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "У каждого запуска свой журнал с ошибками подписи, установки, загрузки и обновления, а также системный журнал Feather."
+            "value" : "У каждого запуска свой журнал с ошибками подписи, установки, загрузки и обновления, а также системный журнал Quill."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Her açılışın imzalama, kurulum, indirme ve güncelleme hatalarını ve Feather'ın sistem kaydını içeren kendi kaydı vardır."
+            "value" : "Her açılışın imzalama, kurulum, indirme ve güncelleme hatalarını ve Quill'ın sistem kaydını içeren kendi kaydı vardır."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mỗi lần mở có nhật ký riêng gồm lỗi ký, cài đặt, tải xuống và cập nhật, cùng nhật ký hệ thống của Feather."
+            "value" : "Mỗi lần mở có nhật ký riêng gồm lỗi ký, cài đặt, tải xuống và cập nhật, cùng nhật ký hệ thống của Quill."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "每次启动都有独立的日志，包含签名、安装、下载和更新错误，以及 Feather 的系统日志。"
+            "value" : "每次启动都有独立的日志，包含签名、安装、下载和更新错误，以及 Quill 的系统日志。"
           }
         }
       }
@@ -8966,55 +8966,55 @@
         }
       }
     },
-    "Feather Closed Unexpectedly" : {
+    "Quill Closed Unexpectedly" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather Closed Unexpectedly"
+            "value" : "Quill Closed Unexpectedly"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أُغلق Feather بشكل غير متوقع"
+            "value" : "أُغلق Quill بشكل غير متوقع"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather se neočekávaně ukončil"
+            "value" : "Quill se neočekávaně ukončil"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather wurde unerwartet beendet"
+            "value" : "Quill wurde unerwartet beendet"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather se cerró inesperadamente"
+            "value" : "Quill se cerró inesperadamente"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather s’est fermé de façon inattendue"
+            "value" : "Quill s’est fermé de façon inattendue"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather Tertutup Tiba-tiba"
+            "value" : "Quill Tertutup Tiba-tiba"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather si è chiuso inaspettatamente"
+            "value" : "Quill si è chiuso inaspettatamente"
           }
         },
         "ko" : {
@@ -9026,84 +9026,84 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather nieoczekiwanie się zamknął"
+            "value" : "Quill nieoczekiwanie się zamknął"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather неожиданно закрылся"
+            "value" : "Quill неожиданно закрылся"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather Beklenmedik Şekilde Kapandı"
+            "value" : "Quill Beklenmedik Şekilde Kapandı"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather đã thoát đột ngột"
+            "value" : "Quill đã thoát đột ngột"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 意外退出"
+            "value" : "Quill 意外退出"
           }
         }
       }
     },
-    "Feather couldn't start its install server. Close and reopen Feather, then try again." : {
+    "Quill couldn't start its install server. Close and reopen Quill, then try again." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather couldn't start its install server. Close and reopen Feather, then try again."
+            "value" : "Quill couldn't start its install server. Close and reopen Quill, then try again."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تعذّر على Feather تشغيل خادم التثبيت. أغلق Feather وأعد فتحه، ثم حاول مرة أخرى."
+            "value" : "تعذّر على Quill تشغيل خادم التثبيت. أغلق Quill وأعد فتحه، ثم حاول مرة أخرى."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Featheru se nepodařilo spustit instalační server. Zavřete a znovu otevřete Feather a zkuste to znovu."
+            "value" : "Featheru se nepodařilo spustit instalační server. Zavřete a znovu otevřete Quill a zkuste to znovu."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather konnte seinen Installationsserver nicht starten. Schließe Feather, öffne es erneut und versuche es noch einmal."
+            "value" : "Quill konnte seinen Installationsserver nicht starten. Schließe Quill, öffne es erneut und versuche es noch einmal."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather no pudo iniciar su servidor de instalación. Cierra y vuelve a abrir Feather e inténtalo de nuevo."
+            "value" : "Quill no pudo iniciar su servidor de instalación. Cierra y vuelve a abrir Quill e inténtalo de nuevo."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather n’a pas pu démarrer son serveur d’installation. Fermez et rouvrez Feather, puis réessayez."
+            "value" : "Quill n’a pas pu démarrer son serveur d’installation. Fermez et rouvrez Quill, puis réessayez."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather tidak bisa memulai server instalasinya. Tutup dan buka lagi Feather, lalu coba lagi."
+            "value" : "Quill tidak bisa memulai server instalasinya. Tutup dan buka lagi Quill, lalu coba lagi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather non è riuscito ad avviare il server di installazione. Chiudi e riapri Feather, poi riprova."
+            "value" : "Quill non è riuscito ad avviare il server di installazione. Chiudi e riapri Quill, poi riprova."
           }
         },
         "ko" : {
@@ -9115,84 +9115,84 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather nie mógł uruchomić serwera instalacji. Zamknij i ponownie otwórz Feather, a potem spróbuj jeszcze raz."
+            "value" : "Quill nie mógł uruchomić serwera instalacji. Zamknij i ponownie otwórz Quill, a potem spróbuj jeszcze raz."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather не удалось запустить сервер установки. Закройте и снова откройте Feather, затем повторите попытку."
+            "value" : "Quill не удалось запустить сервер установки. Закройте и снова откройте Quill, затем повторите попытку."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather kurulum sunucusunu başlatamadı. Feather'ı kapatıp yeniden aç, sonra tekrar dene."
+            "value" : "Quill kurulum sunucusunu başlatamadı. Quill'ı kapatıp yeniden aç, sonra tekrar dene."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather không thể khởi động máy chủ cài đặt. Hãy đóng và mở lại Feather rồi thử lại."
+            "value" : "Quill không thể khởi động máy chủ cài đặt. Hãy đóng và mở lại Quill rồi thử lại."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 无法启动安装服务器。请关闭并重新打开 Feather 后重试。"
+            "value" : "Quill 无法启动安装服务器。请关闭并重新打开 Quill 后重试。"
           }
         }
       }
     },
-    "Feather downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept. Beta updates get new features first but may have bugs." : {
+    "Quill downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept. Beta updates get new features first but may have bugs." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept. Beta updates get new features first but may have bugs."
+            "value" : "Quill downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept. Beta updates get new features first but may have bugs."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يقوم Feather بتنزيل أحدث نسخة من GitHub، ويوقّعها بشهادتك المحددة ويثبّتها فوق هذه النسخة. يتم الاحتفاظ بتطبيقاتك ومصادرك وإعداداتك. تحصل تحديثات بيتا على الميزات الجديدة أولًا لكنها قد تحتوي على أخطاء."
+            "value" : "يقوم Quill بتنزيل أحدث نسخة من GitHub، ويوقّعها بشهادتك المحددة ويثبّتها فوق هذه النسخة. يتم الاحتفاظ بتطبيقاتك ومصادرك وإعداداتك. تحصل تحديثات بيتا على الميزات الجديدة أولًا لكنها قد تحتوي على أخطاء."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather stáhne nejnovější sestavení z GitHubu, podepíše ho vybraným certifikátem a nainstaluje přes tuto kopii. Vaše aplikace, zdroje a nastavení zůstanou zachovány. Beta aktualizace dostávají novinky jako první, ale mohou obsahovat chyby."
+            "value" : "Quill stáhne nejnovější sestavení z GitHubu, podepíše ho vybraným certifikátem a nainstaluje přes tuto kopii. Vaše aplikace, zdroje a nastavení zůstanou zachovány. Beta aktualizace dostávají novinky jako první, ale mohou obsahovat chyby."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather lädt die neueste Version von GitHub, signiert sie mit deinem ausgewählten Zertifikat und installiert sie über diese Kopie. Deine Apps, Quellen und Einstellungen bleiben erhalten. Beta-Updates erhalten neue Funktionen zuerst, können aber Fehler haben."
+            "value" : "Quill lädt die neueste Version von GitHub, signiert sie mit deinem ausgewählten Zertifikat und installiert sie über diese Kopie. Deine Apps, Quellen und Einstellungen bleiben erhalten. Beta-Updates erhalten neue Funktionen zuerst, können aber Fehler haben."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather descarga la versión más reciente de GitHub, la firma con tu certificado seleccionado y la instala sobre esta copia. Se conservan tus apps, fuentes y ajustes. Las actualizaciones beta reciben novedades antes, pero pueden tener errores."
+            "value" : "Quill descarga la versión más reciente de GitHub, la firma con tu certificado seleccionado y la instala sobre esta copia. Se conservan tus apps, fuentes y ajustes. Las actualizaciones beta reciben novedades antes, pero pueden tener errores."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather télécharge la dernière version depuis GitHub, la signe avec le certificat sélectionné et l’installe par-dessus cette copie. Vos apps, sources et réglages sont conservés. Les mises à jour bêta reçoivent les nouveautés en premier mais peuvent contenir des bugs."
+            "value" : "Quill télécharge la dernière version depuis GitHub, la signe avec le certificat sélectionné et l’installe par-dessus cette copie. Vos apps, sources et réglages sont conservés. Les mises à jour bêta reçoivent les nouveautés en premier mais peuvent contenir des bugs."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather mengunduh build terbaru dari GitHub, menandatanganinya dengan sertifikat pilihanmu, lalu memasangnya di atas salinan ini. Aplikasi, sumber, dan pengaturanmu tetap tersimpan. Pembaruan beta mendapat fitur baru lebih dulu tetapi bisa berisi bug."
+            "value" : "Quill mengunduh build terbaru dari GitHub, menandatanganinya dengan sertifikat pilihanmu, lalu memasangnya di atas salinan ini. Aplikasi, sumber, dan pengaturanmu tetap tersimpan. Pembaruan beta mendapat fitur baru lebih dulu tetapi bisa berisi bug."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather scarica la build più recente da GitHub, la firma con il certificato selezionato e la installa sopra questa copia. App, sorgenti e impostazioni vengono mantenute. Gli aggiornamenti beta ricevono le novità per primi ma possono contenere bug."
+            "value" : "Quill scarica la build più recente da GitHub, la firma con il certificato selezionato e la installa sopra questa copia. App, sorgenti e impostazioni vengono mantenute. Gli aggiornamenti beta ricevono le novità per primi ma possono contenere bug."
           }
         },
         "ko" : {
@@ -9204,84 +9204,84 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather pobiera najnowszą wersję z GitHuba, podpisuje ją wybranym certyfikatem i instaluje na tej kopii. Twoje aplikacje, źródła i ustawienia zostają. Aktualizacje beta dostają nowości jako pierwsze, ale mogą zawierać błędy."
+            "value" : "Quill pobiera najnowszą wersję z GitHuba, podpisuje ją wybranym certyfikatem i instaluje na tej kopii. Twoje aplikacje, źródła i ustawienia zostają. Aktualizacje beta dostają nowości jako pierwsze, ale mogą zawierać błędy."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather скачивает последнюю сборку с GitHub, подписывает её выбранным сертификатом и устанавливает поверх этой копии. Ваши приложения, источники и настройки сохраняются. Бета-обновления первыми получают новые функции, но могут содержать ошибки."
+            "value" : "Quill скачивает последнюю сборку с GitHub, подписывает её выбранным сертификатом и устанавливает поверх этой копии. Ваши приложения, источники и настройки сохраняются. Бета-обновления первыми получают новые функции, но могут содержать ошибки."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather en yeni sürümü GitHub'dan indirir, seçili sertifikanla imzalar ve bu kopyanın üzerine kurar. Uygulamaların, kaynakların ve ayarların korunur. Beta güncellemeleri yeni özellikleri önce alır ama hata içerebilir."
+            "value" : "Quill en yeni sürümü GitHub'dan indirir, seçili sertifikanla imzalar ve bu kopyanın üzerine kurar. Uygulamaların, kaynakların ve ayarların korunur. Beta güncellemeleri yeni özellikleri önce alır ama hata içerebilir."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather tải bản mới nhất từ GitHub, ký bằng chứng chỉ bạn chọn và cài đè lên bản này. Ứng dụng, nguồn và cài đặt của bạn được giữ nguyên. Bản cập nhật beta có tính năng mới trước nhưng có thể có lỗi."
+            "value" : "Quill tải bản mới nhất từ GitHub, ký bằng chứng chỉ bạn chọn và cài đè lên bản này. Ứng dụng, nguồn và cài đặt của bạn được giữ nguyên. Bản cập nhật beta có tính năng mới trước nhưng có thể có lỗi."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 会从 GitHub 下载最新版本，用你选择的证书签名并覆盖安装到当前版本上。你的应用、源和设置都会保留。Beta 更新会率先获得新功能，但可能有错误。"
+            "value" : "Quill 会从 GitHub 下载最新版本，用你选择的证书签名并覆盖安装到当前版本上。你的应用、源和设置都会保留。Beta 更新会率先获得新功能，但可能有错误。"
           }
         }
       }
     },
-    "Feather is free and open source. A star helps other people find it." : {
+    "Quill is free and open source. A star helps other people find it." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather is free and open source. A star helps other people find it."
+            "value" : "Quill is free and open source. A star helps other people find it."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather مجاني ومفتوح المصدر. النجمة تساعد الآخرين في العثور عليه."
+            "value" : "Quill مجاني ومفتوح المصدر. النجمة تساعد الآخرين في العثور عليه."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather je zdarma a open source. Hvězdička pomůže ostatním ho najít."
+            "value" : "Quill je zdarma a open source. Hvězdička pomůže ostatním ho najít."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather ist kostenlos und Open Source. Ein Stern hilft anderen, es zu finden."
+            "value" : "Quill ist kostenlos und Open Source. Ein Stern hilft anderen, es zu finden."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather es gratuito y de código abierto. Una estrella ayuda a que otros lo encuentren."
+            "value" : "Quill es gratuito y de código abierto. Una estrella ayuda a que otros lo encuentren."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather est gratuit et open source. Une étoile aide les autres à le trouver."
+            "value" : "Quill est gratuit et open source. Une étoile aide les autres à le trouver."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather gratis dan sumber terbuka. Bintang membantu orang lain menemukannya."
+            "value" : "Quill gratis dan sumber terbuka. Bintang membantu orang lain menemukannya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather è gratuito e open source. Una stella aiuta gli altri a trovarlo."
+            "value" : "Quill è gratuito e open source. Una stella aiuta gli altri a trovarlo."
           }
         },
         "ko" : {
@@ -9293,84 +9293,84 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather jest darmowy i otwartoźródłowy. Gwiazdka pomaga innym go znaleźć."
+            "value" : "Quill jest darmowy i otwartoźródłowy. Gwiazdka pomaga innym go znaleźć."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather бесплатный и с открытым исходным кодом. Звезда помогает другим его найти."
+            "value" : "Quill бесплатный и с открытым исходным кодом. Звезда помогает другим его найти."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather ücretsiz ve açık kaynaklıdır. Bir yıldız başkalarının onu bulmasına yardımcı olur."
+            "value" : "Quill ücretsiz ve açık kaynaklıdır. Bir yıldız başkalarının onu bulmasına yardımcı olur."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather miễn phí và mã nguồn mở. Một ngôi sao giúp người khác tìm thấy nó."
+            "value" : "Quill miễn phí và mã nguồn mở. Một ngôi sao giúp người khác tìm thấy nó."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 免费且开源。加星标能帮助更多人找到它。"
+            "value" : "Quill 免费且开源。加星标能帮助更多人找到它。"
           }
         }
       }
     },
-    "Feather is up to date." : {
+    "Quill is up to date." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather is up to date."
+            "value" : "Quill is up to date."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather محدَّث."
+            "value" : "Quill محدَّث."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather je aktuální."
+            "value" : "Quill je aktuální."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather ist auf dem neuesten Stand."
+            "value" : "Quill ist auf dem neuesten Stand."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather está actualizado."
+            "value" : "Quill está actualizado."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather est à jour."
+            "value" : "Quill est à jour."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather sudah versi terbaru."
+            "value" : "Quill sudah versi terbaru."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather è aggiornato."
+            "value" : "Quill è aggiornato."
           }
         },
         "ko" : {
@@ -9382,84 +9382,84 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather jest aktualny."
+            "value" : "Quill jest aktualny."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather обновлён."
+            "value" : "Quill обновлён."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather güncel."
+            "value" : "Quill güncel."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather đã là bản mới nhất."
+            "value" : "Quill đã là bản mới nhất."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 已是最新版本。"
+            "value" : "Quill 已是最新版本。"
           }
         }
       }
     },
-    "Feather notifies you 3 days and 1 day before the certificate in use expires, and checks for revocation in the background." : {
+    "Quill notifies you 3 days and 1 day before the certificate in use expires, and checks for revocation in the background." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather notifies you 3 days and 1 day before the certificate in use expires, and checks for revocation in the background."
+            "value" : "Quill notifies you 3 days and 1 day before the certificate in use expires, and checks for revocation in the background."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يُنبّهك Feather قبل 3 أيام ويوم واحد من انتهاء الشهادة المستخدمة، ويتحقق من الإلغاء في الخلفية."
+            "value" : "يُنبّهك Quill قبل 3 أيام ويوم واحد من انتهاء الشهادة المستخدمة، ويتحقق من الإلغاء في الخلفية."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather vás upozorní 3 dny a 1 den před vypršením používaného certifikátu a na pozadí kontroluje jeho zneplatnění."
+            "value" : "Quill vás upozorní 3 dny a 1 den před vypršením používaného certifikátu a na pozadí kontroluje jeho zneplatnění."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather benachrichtigt dich 3 Tage und 1 Tag vor Ablauf des verwendeten Zertifikats und prüft im Hintergrund auf Widerruf."
+            "value" : "Quill benachrichtigt dich 3 Tage und 1 Tag vor Ablauf des verwendeten Zertifikats und prüft im Hintergrund auf Widerruf."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather te avisa 3 días y 1 día antes de que caduque el certificado en uso, y comprueba su revocación en segundo plano."
+            "value" : "Quill te avisa 3 días y 1 día antes de que caduque el certificado en uso, y comprueba su revocación en segundo plano."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather vous prévient 3 jours et 1 jour avant l’expiration du certificat utilisé, et vérifie sa révocation en arrière-plan."
+            "value" : "Quill vous prévient 3 jours et 1 jour avant l’expiration du certificat utilisé, et vérifie sa révocation en arrière-plan."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather memberi tahu 3 hari dan 1 hari sebelum sertifikat yang digunakan kedaluwarsa, dan memeriksa pencabutan di latar belakang."
+            "value" : "Quill memberi tahu 3 hari dan 1 hari sebelum sertifikat yang digunakan kedaluwarsa, dan memeriksa pencabutan di latar belakang."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather ti avvisa 3 giorni e 1 giorno prima della scadenza del certificato in uso e controlla la revoca in background."
+            "value" : "Quill ti avvisa 3 giorni e 1 giorno prima della scadenza del certificato in uso e controlla la revoca in background."
           }
         },
         "ko" : {
@@ -9471,84 +9471,84 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather powiadomi Cię 3 dni i 1 dzień przed wygaśnięciem używanego certyfikatu i sprawdza jego unieważnienie w tle."
+            "value" : "Quill powiadomi Cię 3 dni i 1 dzień przed wygaśnięciem używanego certyfikatu i sprawdza jego unieważnienie w tle."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather предупредит за 3 дня и за 1 день до истечения используемого сертификата и проверяет отзыв в фоне."
+            "value" : "Quill предупредит за 3 дня и за 1 день до истечения используемого сертификата и проверяет отзыв в фоне."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather, kullanılan sertifikanın süresi dolmadan 3 gün ve 1 gün önce seni uyarır ve arka planda iptal durumunu kontrol eder."
+            "value" : "Quill, kullanılan sertifikanın süresi dolmadan 3 gün ve 1 gün önce seni uyarır ve arka planda iptal durumunu kontrol eder."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather thông báo trước 3 ngày và 1 ngày khi chứng chỉ đang dùng hết hạn, và kiểm tra thu hồi trong nền."
+            "value" : "Quill thông báo trước 3 ngày và 1 ngày khi chứng chỉ đang dùng hết hạn, và kiểm tra thu hồi trong nền."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 会在当前证书到期前 3 天和 1 天提醒你，并在后台检查是否被吊销。"
+            "value" : "Quill 会在当前证书到期前 3 天和 1 天提醒你，并在后台检查是否被吊销。"
           }
         }
       }
     },
-    "Feather signs apps with your own certificate. Get one from Apple or a provider below, then import it here." : {
+    "Quill signs apps with your own certificate. Get one from Apple or a provider below, then import it here." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather signs apps with your own certificate. Get one from Apple or a provider below, then import it here."
+            "value" : "Quill signs apps with your own certificate. Get one from Apple or a provider below, then import it here."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يوقّع Feather التطبيقات بشهادتك الخاصة. احصل على واحدة من Apple أو من أحد المزودين أدناه، ثم استوردها هنا."
+            "value" : "يوقّع Quill التطبيقات بشهادتك الخاصة. احصل على واحدة من Apple أو من أحد المزودين أدناه، ثم استوردها هنا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather podepisuje aplikace vaším vlastním certifikátem. Získejte ho od Applu nebo od poskytovatele níže a pak ho sem importujte."
+            "value" : "Quill podepisuje aplikace vaším vlastním certifikátem. Získejte ho od Applu nebo od poskytovatele níže a pak ho sem importujte."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather signiert Apps mit deinem eigenen Zertifikat. Hol dir eines von Apple oder einem Anbieter unten und importiere es hier."
+            "value" : "Quill signiert Apps mit deinem eigenen Zertifikat. Hol dir eines von Apple oder einem Anbieter unten und importiere es hier."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather firma las apps con tu propio certificado. Consigue uno de Apple o de un proveedor de abajo y luego impórtalo aquí."
+            "value" : "Quill firma las apps con tu propio certificado. Consigue uno de Apple o de un proveedor de abajo y luego impórtalo aquí."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather signe les apps avec votre propre certificat. Obtenez-en un auprès d’Apple ou d’un fournisseur ci-dessous, puis importez-le ici."
+            "value" : "Quill signe les apps avec votre propre certificat. Obtenez-en un auprès d’Apple ou d’un fournisseur ci-dessous, puis importez-le ici."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather menandatangani aplikasi dengan sertifikatmu sendiri. Dapatkan dari Apple atau penyedia di bawah, lalu impor di sini."
+            "value" : "Quill menandatangani aplikasi dengan sertifikatmu sendiri. Dapatkan dari Apple atau penyedia di bawah, lalu impor di sini."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather firma le app con il tuo certificato. Ottienine uno da Apple o da un fornitore qui sotto, poi importalo qui."
+            "value" : "Quill firma le app con il tuo certificato. Ottienine uno da Apple o da un fornitore qui sotto, poi importalo qui."
           }
         },
         "ko" : {
@@ -9560,84 +9560,84 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather podpisuje aplikacje Twoim certyfikatem. Zdobądź go od Apple lub dostawcy poniżej, a potem zaimportuj tutaj."
+            "value" : "Quill podpisuje aplikacje Twoim certyfikatem. Zdobądź go od Apple lub dostawcy poniżej, a potem zaimportuj tutaj."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather подписывает приложения вашим сертификатом. Получите его у Apple или у поставщика ниже, затем импортируйте здесь."
+            "value" : "Quill подписывает приложения вашим сертификатом. Получите его у Apple или у поставщика ниже, затем импортируйте здесь."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather uygulamaları kendi sertifikanla imzalar. Apple'dan veya aşağıdaki bir sağlayıcıdan edin, sonra buraya içe aktar."
+            "value" : "Quill uygulamaları kendi sertifikanla imzalar. Apple'dan veya aşağıdaki bir sağlayıcıdan edin, sonra buraya içe aktar."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather ký ứng dụng bằng chứng chỉ của bạn. Hãy lấy từ Apple hoặc nhà cung cấp bên dưới, rồi nhập vào đây."
+            "value" : "Quill ký ứng dụng bằng chứng chỉ của bạn. Hãy lấy từ Apple hoặc nhà cung cấp bên dưới, rồi nhập vào đây."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 使用你自己的证书为应用签名。请从 Apple 或下方提供商获取，然后在此导入。"
+            "value" : "Quill 使用你自己的证书为应用签名。请从 Apple 或下方提供商获取，然后在此导入。"
           }
         }
       }
     },
-    "Feather will close to finish. Open it again from the Home Screen." : {
+    "Quill will close to finish. Open it again from the Home Screen." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather will close to finish. Open it again from the Home Screen."
+            "value" : "Quill will close to finish. Open it again from the Home Screen."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سيُغلَق Feather لإكمال العملية. افتحه مرة أخرى من الشاشة الرئيسية."
+            "value" : "سيُغلَق Quill لإكمال العملية. افتحه مرة أخرى من الشاشة الرئيسية."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather se pro dokončení zavře. Znovu ho otevřete z plochy."
+            "value" : "Quill se pro dokončení zavře. Znovu ho otevřete z plochy."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather wird zum Abschließen geschlossen. Öffne es danach wieder vom Home-Bildschirm."
+            "value" : "Quill wird zum Abschließen geschlossen. Öffne es danach wieder vom Home-Bildschirm."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather se cerrará para terminar. Vuelve a abrirlo desde la pantalla de inicio."
+            "value" : "Quill se cerrará para terminar. Vuelve a abrirlo desde la pantalla de inicio."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather va se fermer pour terminer. Rouvrez-le depuis l’écran d’accueil."
+            "value" : "Quill va se fermer pour terminer. Rouvrez-le depuis l’écran d’accueil."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather akan ditutup untuk menyelesaikan. Buka lagi dari Layar Utama."
+            "value" : "Quill akan ditutup untuk menyelesaikan. Buka lagi dari Layar Utama."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather si chiuderà per completare. Riaprilo dalla schermata Home."
+            "value" : "Quill si chiuderà per completare. Riaprilo dalla schermata Home."
           }
         },
         "ko" : {
@@ -9649,31 +9649,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather zamknie się, aby dokończyć. Otwórz go ponownie z ekranu początkowego."
+            "value" : "Quill zamknie się, aby dokończyć. Otwórz go ponownie z ekranu początkowego."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather закроется, чтобы завершить. Откройте его снова с экрана «Домой»."
+            "value" : "Quill закроется, чтобы завершить. Откройте его снова с экрана «Домой»."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitirmek için Feather kapanacak. Ana Ekran'dan tekrar aç."
+            "value" : "Bitirmek için Quill kapanacak. Ana Ekran'dan tekrar aç."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather sẽ đóng để hoàn tất. Hãy mở lại từ Màn hình chính."
+            "value" : "Quill sẽ đóng để hoàn tất. Hãy mở lại từ Màn hình chính."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 将关闭以完成操作。请从主屏幕重新打开。"
+            "value" : "Quill 将关闭以完成操作。请从主屏幕重新打开。"
           }
         }
       }
@@ -10390,19 +10390,19 @@
         }
       }
     },
-    "Includes crashes caught by Feather and diagnostic reports from iOS, which can arrive up to a day later." : {
+    "Includes crashes caught by Quill and diagnostic reports from iOS, which can arrive up to a day later." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Includes crashes caught by Feather and diagnostic reports from iOS, which can arrive up to a day later."
+            "value" : "Includes crashes caught by Quill and diagnostic reports from iOS, which can arrive up to a day later."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يشمل الأعطال التي التقطها Feather وتقارير التشخيص من iOS، والتي قد تصل بعد يوم."
+            "value" : "يشمل الأعطال التي التقطها Quill وتقارير التشخيص من iOS، والتي قد تصل بعد يوم."
           }
         },
         "cs" : {
@@ -10414,31 +10414,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enthält von Feather erfasste Abstürze und Diagnoseberichte von iOS, die bis zu einen Tag später eintreffen können."
+            "value" : "Enthält von Quill erfasste Abstürze und Diagnoseberichte von iOS, die bis zu einen Tag später eintreffen können."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Incluye los fallos detectados por Feather y los informes de diagnóstico de iOS, que pueden llegar hasta un día después."
+            "value" : "Incluye los fallos detectados por Quill y los informes de diagnóstico de iOS, que pueden llegar hasta un día después."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Comprend les plantages détectés par Feather et les rapports de diagnostic d’iOS, qui peuvent arriver jusqu’à un jour plus tard."
+            "value" : "Comprend les plantages détectés par Quill et les rapports de diagnostic d’iOS, qui peuvent arriver jusqu’à un jour plus tard."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Termasuk crash yang ditangkap Feather dan laporan diagnostik dari iOS, yang bisa datang hingga sehari kemudian."
+            "value" : "Termasuk crash yang ditangkap Quill dan laporan diagnostik dari iOS, yang bisa datang hingga sehari kemudian."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Include gli arresti anomali rilevati da Feather e i report diagnostici di iOS, che possono arrivare fino a un giorno dopo."
+            "value" : "Include gli arresti anomali rilevati da Quill e i report diagnostici di iOS, che possono arrivare fino a un giorno dopo."
           }
         },
         "ko" : {
@@ -10450,31 +10450,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Obejmuje awarie wychwycone przez Feather i raporty diagnostyczne z iOS, które mogą dotrzeć nawet dzień później."
+            "value" : "Obejmuje awarie wychwycone przez Quill i raporty diagnostyczne z iOS, które mogą dotrzeć nawet dzień później."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Включает сбои, пойманные Feather, и диагностические отчёты iOS, которые могут прийти до суток спустя."
+            "value" : "Включает сбои, пойманные Quill, и диагностические отчёты iOS, которые могут прийти до суток спустя."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather'ın yakaladığı çökmeleri ve bir gün sonra gelebilen iOS tanılama raporlarını içerir."
+            "value" : "Quill'ın yakaladığı çökmeleri ve bir gün sonra gelebilen iOS tanılama raporlarını içerir."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bao gồm sự cố do Feather ghi lại và báo cáo chẩn đoán từ iOS, có thể đến muộn tới một ngày."
+            "value" : "Bao gồm sự cố do Quill ghi lại và báo cáo chẩn đoán từ iOS, có thể đến muộn tới một ngày."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "包括 Feather 捕获的崩溃以及 iOS 的诊断报告，后者可能延迟最多一天送达。"
+            "value" : "包括 Quill 捕获的崩溃以及 iOS 的诊断报告，后者可能延迟最多一天送达。"
           }
         }
       }
@@ -14751,19 +14751,19 @@
         }
       }
     },
-    "These are independent sellers, not part of Feather. Check their prices and refund policy before you buy." : {
+    "These are independent sellers, not part of Quill. Check their prices and refund policy before you buy." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "These are independent sellers, not part of Feather. Check their prices and refund policy before you buy."
+            "value" : "These are independent sellers, not part of Quill. Check their prices and refund policy before you buy."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "هؤلاء بائعون مستقلون وليسوا جزءًا من Feather. تحقّق من أسعارهم وسياسة الاسترداد قبل الشراء."
+            "value" : "هؤلاء بائعون مستقلون وليسوا جزءًا من Quill. تحقّق من أسعارهم وسياسة الاسترداد قبل الشراء."
           }
         },
         "cs" : {
@@ -14775,31 +14775,31 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Das sind unabhängige Verkäufer, die nicht zu Feather gehören. Prüfe Preise und Rückerstattungsbedingungen vor dem Kauf."
+            "value" : "Das sind unabhängige Verkäufer, die nicht zu Quill gehören. Prüfe Preise und Rückerstattungsbedingungen vor dem Kauf."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Son vendedores independientes, no forman parte de Feather. Revisa sus precios y su política de reembolso antes de comprar."
+            "value" : "Son vendedores independientes, no forman parte de Quill. Revisa sus precios y su política de reembolso antes de comprar."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ce sont des vendeurs indépendants, sans lien avec Feather. Vérifiez leurs prix et leur politique de remboursement avant d’acheter."
+            "value" : "Ce sont des vendeurs indépendants, sans lien avec Quill. Vérifiez leurs prix et leur politique de remboursement avant d’acheter."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mereka penjual independen, bukan bagian dari Feather. Periksa harga dan kebijakan pengembalian dana sebelum membeli."
+            "value" : "Mereka penjual independen, bukan bagian dari Quill. Periksa harga dan kebijakan pengembalian dana sebelum membeli."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sono venditori indipendenti, non fanno parte di Feather. Controlla prezzi e politica di rimborso prima di acquistare."
+            "value" : "Sono venditori indipendenti, non fanno parte di Quill. Controlla prezzi e politica di rimborso prima di acquistare."
           }
         },
         "ko" : {
@@ -14811,31 +14811,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To niezależni sprzedawcy, niezwiązani z Feather. Przed zakupem sprawdź ceny i zasady zwrotów."
+            "value" : "To niezależni sprzedawcy, niezwiązani z Quill. Przed zakupem sprawdź ceny i zasady zwrotów."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Это независимые продавцы, не связанные с Feather. Перед покупкой проверьте цены и условия возврата."
+            "value" : "Это независимые продавцы, не связанные с Quill. Перед покупкой проверьте цены и условия возврата."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bunlar Feather'a ait olmayan bağımsız satıcılardır. Satın almadan önce fiyatlarını ve iade politikalarını kontrol et."
+            "value" : "Bunlar Quill'a ait olmayan bağımsız satıcılardır. Satın almadan önce fiyatlarını ve iade politikalarını kontrol et."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đây là người bán độc lập, không thuộc Feather. Hãy kiểm tra giá và chính sách hoàn tiền trước khi mua."
+            "value" : "Đây là người bán độc lập, không thuộc Quill. Hãy kiểm tra giá và chính sách hoàn tiền trước khi mua."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "这些是独立卖家，并非 Feather 的一部分。购买前请查看价格和退款政策。"
+            "value" : "这些是独立卖家，并非 Quill 的一部分。购买前请查看价格和退款政策。"
           }
         }
       }
@@ -17356,7 +17356,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Semua berkas Feather berada di direktori dokumen, berikut beberapa tautan cepat ke berkas-berkas tersebut."
+            "value" : "Semua berkas Quill berada di direktori dokumen, berikut beberapa tautan cepat ke berkas-berkas tersebut."
           }
         },
         "it" : {
@@ -17374,7 +17374,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wszystkie pliki Feather znajdują się w katalogu dokumentów, oto szybkie odnośniki do nich."
+            "value" : "Wszystkie pliki Quill znajdują się w katalogu dokumentów, oto szybkie odnośniki do nich."
           }
         },
         "tr" : {
@@ -17386,7 +17386,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tất cả các file của Feather có thể được tìm thấy trong ứng dụng Tệp, đây là một số liên kết nhanh đến chúng."
+            "value" : "Tất cả các file của Quill có thể được tìm thấy trong ứng dụng Tệp, đây là một số liên kết nhanh đến chúng."
           }
         },
         "zh-Hans" : {
@@ -34505,7 +34505,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bağış yaparak desteğinizi gösterin! Eğer bağış yapamıyorsanız Feather’ı dilden dile yaymak da işe yarar!"
+            "value" : "Bağış yaparak desteğinizi gösterin! Eğer bağış yapamıyorsanız Quill’ı dilden dile yaymak da işe yarar!"
           }
         },
         "vi" : {
@@ -39897,19 +39897,19 @@
         }
       }
     },
-    "Welcome to Feather" : {
+    "Welcome to Quill" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Welcome to Feather"
+            "value" : "Welcome to Quill"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Witaj w Feather"
+            "value" : "Witaj w Quill"
           }
         },
         "ko" : {
@@ -39921,67 +39921,67 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather'a Hoş Geldiniz"
+            "value" : "Quill'a Hoş Geldiniz"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "欢迎使用 Feather"
+            "value" : "欢迎使用 Quill"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مرحبًا بك في Feather"
+            "value" : "مرحبًا بك في Quill"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chào mừng đến với Feather"
+            "value" : "Chào mừng đến với Quill"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Benvenuto in Feather"
+            "value" : "Benvenuto in Quill"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Willkommen bei Feather"
+            "value" : "Willkommen bei Quill"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Selamat Datang di Feather"
+            "value" : "Selamat Datang di Quill"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vítejte ve Feather"
+            "value" : "Vítejte ve Quill"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bienvenue dans Feather"
+            "value" : "Bienvenue dans Quill"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Добро пожаловать в Feather"
+            "value" : "Добро пожаловать в Quill"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Te damos la bienvenida a Feather"
+            "value" : "Te damos la bienvenida a Quill"
           }
         }
       }
@@ -42834,19 +42834,19 @@
         }
       }
     },
-    "Feather downloaded a renewed SSL certificate, so Fully Local can install apps again. Switch the Server Type to Fully Local?" : {
+    "Quill downloaded a renewed SSL certificate, so Fully Local can install apps again. Switch the Server Type to Fully Local?" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather downloaded a renewed SSL certificate, so Fully Local can install apps again. Switch the Server Type to Fully Local?"
+            "value" : "Quill downloaded a renewed SSL certificate, so Fully Local can install apps again. Switch the Server Type to Fully Local?"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather pobrał odnowiony certyfikat SSL, więc tryb W pełni lokalnie znów może instalować aplikacje. Przełączyć typ serwera na W pełni lokalnie?"
+            "value" : "Quill pobrał odnowiony certyfikat SSL, więc tryb W pełni lokalnie znów może instalować aplikacje. Przełączyć typ serwera na W pełni lokalnie?"
           }
         },
         "ko" : {
@@ -42858,67 +42858,67 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather yenilenmiş bir SSL sertifikası indirdi, Tam Yerel yeniden uygulama yükleyebilir. Sunucu Türü Tam Yerel olarak değiştirilsin mi?"
+            "value" : "Quill yenilenmiş bir SSL sertifikası indirdi, Tam Yerel yeniden uygulama yükleyebilir. Sunucu Türü Tam Yerel olarak değiştirilsin mi?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 已下载更新的 SSL 证书，完全本地可再次安装应用。要将服务器类型切换为完全本地吗？"
+            "value" : "Quill 已下载更新的 SSL 证书，完全本地可再次安装应用。要将服务器类型切换为完全本地吗？"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نزّل Feather شهادة SSL مجددة، لذا يمكن للوضع المحلي بالكامل تثبيت التطبيقات مجددًا. هل تريد تبديل نوع الخادم إلى محلي بالكامل؟"
+            "value" : "نزّل Quill شهادة SSL مجددة، لذا يمكن للوضع المحلي بالكامل تثبيت التطبيقات مجددًا. هل تريد تبديل نوع الخادم إلى محلي بالكامل؟"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather đã tải chứng chỉ SSL mới, nên Hoàn toàn cục bộ có thể cài ứng dụng trở lại. Chuyển Loại máy chủ sang Hoàn toàn cục bộ?"
+            "value" : "Quill đã tải chứng chỉ SSL mới, nên Hoàn toàn cục bộ có thể cài ứng dụng trở lại. Chuyển Loại máy chủ sang Hoàn toàn cục bộ?"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather ha scaricato un certificato SSL rinnovato, quindi Completamente locale può di nuovo installare app. Impostare il tipo di server su Completamente locale?"
+            "value" : "Quill ha scaricato un certificato SSL rinnovato, quindi Completamente locale può di nuovo installare app. Impostare il tipo di server su Completamente locale?"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather hat ein erneuertes SSL-Zertifikat geladen, „Vollständig lokal“ kann wieder Apps installieren. Servertyp auf „Vollständig lokal“ umstellen?"
+            "value" : "Quill hat ein erneuertes SSL-Zertifikat geladen, „Vollständig lokal“ kann wieder Apps installieren. Servertyp auf „Vollständig lokal“ umstellen?"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather mengunduh sertifikat SSL yang diperbarui, jadi Sepenuhnya Lokal dapat memasang aplikasi lagi. Ubah Jenis Server ke Sepenuhnya Lokal?"
+            "value" : "Quill mengunduh sertifikat SSL yang diperbarui, jadi Sepenuhnya Lokal dapat memasang aplikasi lagi. Ubah Jenis Server ke Sepenuhnya Lokal?"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather stáhl obnovený certifikát SSL, takže Plně lokální může znovu instalovat aplikace. Přepnout typ serveru na Plně lokální?"
+            "value" : "Quill stáhl obnovený certifikát SSL, takže Plně lokální může znovu instalovat aplikace. Přepnout typ serveru na Plně lokální?"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather a téléchargé un certificat SSL renouvelé : Entièrement local peut de nouveau installer des apps. Passer le type de serveur sur Entièrement local ?"
+            "value" : "Quill a téléchargé un certificat SSL renouvelé : Entièrement local peut de nouveau installer des apps. Passer le type de serveur sur Entièrement local ?"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather загрузил обновлённый SSL-сертификат, и режим «Полностью локально» снова может устанавливать приложения. Переключить тип сервера на «Полностью локально»?"
+            "value" : "Quill загрузил обновлённый SSL-сертификат, и режим «Полностью локально» снова может устанавливать приложения. Переключить тип сервера на «Полностью локально»?"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather ha descargado un certificado SSL renovado, así que Totalmente local puede volver a instalar apps. ¿Cambiar el tipo de servidor a Totalmente local?"
+            "value" : "Quill ha descargado un certificado SSL renovado, así que Totalmente local puede volver a instalar apps. ¿Cambiar el tipo de servidor a Totalmente local?"
           }
         }
       }
@@ -44258,19 +44258,19 @@
         }
       }
     },
-    "GitHub is limiting how often Feather can check right now. Try again in a few minutes." : {
+    "GitHub is limiting how often Quill can check right now. Try again in a few minutes." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub is limiting how often Feather can check right now. Try again in a few minutes."
+            "value" : "GitHub is limiting how often Quill can check right now. Try again in a few minutes."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub ogranicza teraz, jak często Feather może sprawdzać. Spróbuj ponownie za kilka minut."
+            "value" : "GitHub ogranicza teraz, jak często Quill może sprawdzać. Spróbuj ponownie za kilka minut."
           }
         },
         "ko" : {
@@ -44282,67 +44282,67 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub şu anda Feather'ın ne sıklıkla kontrol edebileceğini sınırlıyor. Birkaç dakika sonra tekrar deneyin."
+            "value" : "GitHub şu anda Quill'ın ne sıklıkla kontrol edebileceğini sınırlıyor. Birkaç dakika sonra tekrar deneyin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub 目前限制了 Feather 的检查频率。请几分钟后再试。"
+            "value" : "GitHub 目前限制了 Quill 的检查频率。请几分钟后再试。"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يحدّ GitHub حاليًا من عدد مرات تحقق Feather. حاول مجددًا بعد بضع دقائق."
+            "value" : "يحدّ GitHub حاليًا من عدد مرات تحقق Quill. حاول مجددًا بعد بضع دقائق."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub đang giới hạn tần suất Feather kiểm tra. Hãy thử lại sau vài phút."
+            "value" : "GitHub đang giới hạn tần suất Quill kiểm tra. Hãy thử lại sau vài phút."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub sta limitando la frequenza dei controlli di Feather. Riprova tra qualche minuto."
+            "value" : "GitHub sta limitando la frequenza dei controlli di Quill. Riprova tra qualche minuto."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub begrenzt gerade, wie oft Feather prüfen darf. Versuche es in ein paar Minuten erneut."
+            "value" : "GitHub begrenzt gerade, wie oft Quill prüfen darf. Versuche es in ein paar Minuten erneut."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub sedang membatasi seberapa sering Feather dapat memeriksa. Coba lagi dalam beberapa menit."
+            "value" : "GitHub sedang membatasi seberapa sering Quill dapat memeriksa. Coba lagi dalam beberapa menit."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub teď omezuje, jak často může Feather kontrolovat. Zkuste to za pár minut."
+            "value" : "GitHub teď omezuje, jak často může Quill kontrolovat. Zkuste to za pár minut."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub limite actuellement la fréquence des vérifications de Feather. Réessayez dans quelques minutes."
+            "value" : "GitHub limite actuellement la fréquence des vérifications de Quill. Réessayez dans quelques minutes."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub сейчас ограничивает частоту проверок Feather. Повторите попытку через несколько минут."
+            "value" : "GitHub сейчас ограничивает частоту проверок Quill. Повторите попытку через несколько минут."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub está limitando la frecuencia con la que Feather puede comprobar. Inténtalo de nuevo en unos minutos."
+            "value" : "GitHub está limitando la frecuencia con la que Quill puede comprobar. Inténtalo de nuevo en unos minutos."
           }
         }
       }
@@ -44614,19 +44614,19 @@
         }
       }
     },
-    "This IPA doesn't contain an app Feather can install." : {
+    "This IPA doesn't contain an app Quill can install." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This IPA doesn't contain an app Feather can install."
+            "value" : "This IPA doesn't contain an app Quill can install."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ten plik IPA nie zawiera aplikacji, którą Feather może zainstalować."
+            "value" : "Ten plik IPA nie zawiera aplikacji, którą Quill może zainstalować."
           }
         },
         "ko" : {
@@ -44638,67 +44638,67 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bu IPA, Feather'ın yükleyebileceği bir uygulama içermiyor."
+            "value" : "Bu IPA, Quill'ın yükleyebileceği bir uygulama içermiyor."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此 IPA 不包含 Feather 可安装的应用。"
+            "value" : "此 IPA 不包含 Quill 可安装的应用。"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لا يحتوي ملف IPA هذا على تطبيق يمكن لـ Feather تثبيته."
+            "value" : "لا يحتوي ملف IPA هذا على تطبيق يمكن لـ Quill تثبيته."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "IPA này không chứa ứng dụng mà Feather có thể cài."
+            "value" : "IPA này không chứa ứng dụng mà Quill có thể cài."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Questo IPA non contiene un’app che Feather possa installare."
+            "value" : "Questo IPA non contiene un’app che Quill possa installare."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese IPA enthält keine App, die Feather installieren kann."
+            "value" : "Diese IPA enthält keine App, die Quill installieren kann."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "IPA ini tidak berisi aplikasi yang dapat dipasang Feather."
+            "value" : "IPA ini tidak berisi aplikasi yang dapat dipasang Quill."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tento soubor IPA neobsahuje aplikaci, kterou by Feather mohl nainstalovat."
+            "value" : "Tento soubor IPA neobsahuje aplikaci, kterou by Quill mohl nainstalovat."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cet IPA ne contient pas d’app que Feather peut installer."
+            "value" : "Cet IPA ne contient pas d’app que Quill peut installer."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Этот IPA не содержит приложения, которое Feather может установить."
+            "value" : "Этот IPA не содержит приложения, которое Quill может установить."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este IPA no contiene una app que Feather pueda instalar."
+            "value" : "Este IPA no contiene una app que Quill pueda instalar."
           }
         }
       }
@@ -45237,19 +45237,19 @@
         }
       }
     },
-    "A link wants to add this source to Feather. Only add sources you trust." : {
+    "A link wants to add this source to Quill. Only add sources you trust." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A link wants to add this source to Feather. Only add sources you trust."
+            "value" : "A link wants to add this source to Quill. Only add sources you trust."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Link chce dodać to źródło do Feather. Dodawaj tylko źródła, którym ufasz."
+            "value" : "Link chce dodać to źródło do Quill. Dodawaj tylko źródła, którym ufasz."
           }
         },
         "ko" : {
@@ -45261,67 +45261,67 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bir bağlantı bu kaynağı Feather'a eklemek istiyor. Yalnızca güvendiğiniz kaynakları ekleyin."
+            "value" : "Bir bağlantı bu kaynağı Quill'a eklemek istiyor. Yalnızca güvendiğiniz kaynakları ekleyin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有链接想将此源添加到 Feather。请只添加你信任的源。"
+            "value" : "有链接想将此源添加到 Quill。请只添加你信任的源。"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يريد رابط إضافة هذا المصدر إلى Feather. أضف فقط المصادر التي تثق بها."
+            "value" : "يريد رابط إضافة هذا المصدر إلى Quill. أضف فقط المصادر التي تثق بها."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Một liên kết muốn thêm nguồn này vào Feather. Chỉ thêm nguồn bạn tin tưởng."
+            "value" : "Một liên kết muốn thêm nguồn này vào Quill. Chỉ thêm nguồn bạn tin tưởng."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un link vuole aggiungere questa fonte a Feather. Aggiungi solo fonti di cui ti fidi."
+            "value" : "Un link vuole aggiungere questa fonte a Quill. Aggiungi solo fonti di cui ti fidi."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ein Link möchte diese Quelle zu Feather hinzufügen. Füge nur Quellen hinzu, denen du vertraust."
+            "value" : "Ein Link möchte diese Quelle zu Quill hinzufügen. Füge nur Quellen hinzu, denen du vertraust."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sebuah tautan ingin menambahkan sumber ini ke Feather. Tambahkan hanya sumber yang kamu percayai."
+            "value" : "Sebuah tautan ingin menambahkan sumber ini ke Quill. Tambahkan hanya sumber yang kamu percayai."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Odkaz chce přidat tento zdroj do Feather. Přidávejte jen zdroje, kterým důvěřujete."
+            "value" : "Odkaz chce přidat tento zdroj do Quill. Přidávejte jen zdroje, kterým důvěřujete."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un lien veut ajouter cette source à Feather. N’ajoutez que des sources de confiance."
+            "value" : "Un lien veut ajouter cette source à Quill. N’ajoutez que des sources de confiance."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ссылка хочет добавить этот источник в Feather. Добавляйте только источники, которым доверяете."
+            "value" : "Ссылка хочет добавить этот источник в Quill. Добавляйте только источники, которым доверяете."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un enlace quiere añadir esta fuente a Feather. Añade solo fuentes de confianza."
+            "value" : "Un enlace quiere añadir esta fuente a Quill. Añade solo fuentes de confianza."
           }
         }
       }
@@ -45771,19 +45771,19 @@
         }
       }
     },
-    "Feather couldn't reach a sign-in helper server. Check your connection and try again." : {
+    "Quill couldn't reach a sign-in helper server. Check your connection and try again." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather couldn't reach a sign-in helper server. Check your connection and try again."
+            "value" : "Quill couldn't reach a sign-in helper server. Check your connection and try again."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather nie mógł połączyć się z serwerem pomocniczym logowania. Sprawdź połączenie i spróbuj ponownie."
+            "value" : "Quill nie mógł połączyć się z serwerem pomocniczym logowania. Sprawdź połączenie i spróbuj ponownie."
           }
         },
         "ko" : {
@@ -45795,67 +45795,67 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather bir giriş yardımcı sunucusuna ulaşamadı. Bağlantınızı kontrol edip tekrar deneyin."
+            "value" : "Quill bir giriş yardımcı sunucusuna ulaşamadı. Bağlantınızı kontrol edip tekrar deneyin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather 无法连接登录辅助服务器。请检查网络后重试。"
+            "value" : "Quill 无法连接登录辅助服务器。请检查网络后重试。"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تعذّر على Feather الوصول إلى خادم مساعد تسجيل الدخول. تحقق من اتصالك وحاول مرة أخرى."
+            "value" : "تعذّر على Quill الوصول إلى خادم مساعد تسجيل الدخول. تحقق من اتصالك وحاول مرة أخرى."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather không kết nối được máy chủ hỗ trợ đăng nhập. Hãy kiểm tra kết nối và thử lại."
+            "value" : "Quill không kết nối được máy chủ hỗ trợ đăng nhập. Hãy kiểm tra kết nối và thử lại."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather non riesce a raggiungere un server di supporto all'accesso. Controlla la connessione e riprova."
+            "value" : "Quill non riesce a raggiungere un server di supporto all'accesso. Controlla la connessione e riprova."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather konnte keinen Anmelde-Hilfsserver erreichen. Prüfe deine Verbindung und versuche es erneut."
+            "value" : "Quill konnte keinen Anmelde-Hilfsserver erreichen. Prüfe deine Verbindung und versuche es erneut."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather tidak dapat menjangkau server bantuan masuk. Periksa koneksi lalu coba lagi."
+            "value" : "Quill tidak dapat menjangkau server bantuan masuk. Periksa koneksi lalu coba lagi."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather se nemohl spojit s pomocným přihlašovacím serverem. Zkontrolujte připojení a zkuste to znovu."
+            "value" : "Quill se nemohl spojit s pomocným přihlašovacím serverem. Zkontrolujte připojení a zkuste to znovu."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather n’a pas pu joindre un serveur d’aide à la connexion. Vérifiez votre connexion et réessayez."
+            "value" : "Quill n’a pas pu joindre un serveur d’aide à la connexion. Vérifiez votre connexion et réessayez."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather не удалось связаться с вспомогательным сервером входа. Проверьте подключение и попробуйте снова."
+            "value" : "Quill не удалось связаться с вспомогательным сервером входа. Проверьте подключение и попробуйте снова."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feather no pudo conectar con un servidor auxiliar de inicio de sesión. Revisa tu conexión e inténtalo de nuevo."
+            "value" : "Quill no pudo conectar con un servidor auxiliar de inicio de sesión. Revisa tu conexión e inténtalo de nuevo."
           }
         }
       }
@@ -47640,19 +47640,19 @@
         }
       }
     },
-    "This Apple ID already has %lld development certificates and free accounts can't make more. Feather can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening." : {
+    "This Apple ID already has %lld development certificates and free accounts can't make more. Quill can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This Apple ID already has %lld development certificates and free accounts can't make more. Feather can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening."
+            "value" : "This Apple ID already has %lld development certificates and free accounts can't make more. Quill can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To Apple ID ma już certyfikaty deweloperskie (%lld), a darmowe konta nie mogą tworzyć kolejnych. Feather może je unieważnić, aby utworzyć własny, ale aplikacje nimi podpisane, np. przez AltStore lub Sideloadly, przestaną się otwierać."
+            "value" : "To Apple ID ma już certyfikaty deweloperskie (%lld), a darmowe konta nie mogą tworzyć kolejnych. Quill może je unieważnić, aby utworzyć własny, ale aplikacje nimi podpisane, np. przez AltStore lub Sideloadly, przestaną się otwierać."
           }
         },
         "ko" : {
@@ -47664,67 +47664,67 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bu Apple Kimliğinde zaten %lld geliştirme sertifikası var ve ücretsiz hesaplar daha fazlasını oluşturamaz. Feather kendi sertifikasını oluşturmak için bunları iptal edebilir, ancak bunlarla imzalanan uygulamalar (örneğin AltStore veya Sideloadly ile) açılmaz olur."
+            "value" : "Bu Apple Kimliğinde zaten %lld geliştirme sertifikası var ve ücretsiz hesaplar daha fazlasını oluşturamaz. Quill kendi sertifikasını oluşturmak için bunları iptal edebilir, ancak bunlarla imzalanan uygulamalar (örneğin AltStore veya Sideloadly ile) açılmaz olur."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此 Apple ID 已有 %lld 个开发证书，免费账户无法再创建。Feather 可以吊销它们来创建自己的证书，但用它们签名的应用（例如通过 AltStore 或 Sideloadly 签名的）将无法打开。"
+            "value" : "此 Apple ID 已有 %lld 个开发证书，免费账户无法再创建。Quill 可以吊销它们来创建自己的证书，但用它们签名的应用（例如通过 AltStore 或 Sideloadly 签名的）将无法打开。"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لدى معرّف Apple هذا بالفعل %lld من شهادات التطوير ولا يمكن للحسابات المجانية إنشاء المزيد. يمكن لـ Feather إلغاؤها لإنشاء شهادته، لكن التطبيقات الموقّعة بها، مثلًا عبر AltStore أو Sideloadly، ستتوقف عن الفتح."
+            "value" : "لدى معرّف Apple هذا بالفعل %lld من شهادات التطوير ولا يمكن للحسابات المجانية إنشاء المزيد. يمكن لـ Quill إلغاؤها لإنشاء شهادته، لكن التطبيقات الموقّعة بها، مثلًا عبر AltStore أو Sideloadly، ستتوقف عن الفتح."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple ID này đã có %lld chứng chỉ phát triển và tài khoản miễn phí không thể tạo thêm. Feather có thể thu hồi chúng để tạo chứng chỉ riêng, nhưng các ứng dụng đã ký bằng chúng, ví dụ qua AltStore hoặc Sideloadly, sẽ không mở được nữa."
+            "value" : "Apple ID này đã có %lld chứng chỉ phát triển và tài khoản miễn phí không thể tạo thêm. Quill có thể thu hồi chúng để tạo chứng chỉ riêng, nhưng các ứng dụng đã ký bằng chúng, ví dụ qua AltStore hoặc Sideloadly, sẽ không mở được nữa."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Questo ID Apple ha già %lld certificati di sviluppo e gli account gratuiti non possono crearne altri. Feather può revocarli per crearne uno suo, ma le app firmate con essi, ad esempio da AltStore o Sideloadly, non si apriranno più."
+            "value" : "Questo ID Apple ha già %lld certificati di sviluppo e gli account gratuiti non possono crearne altri. Quill può revocarli per crearne uno suo, ma le app firmate con essi, ad esempio da AltStore o Sideloadly, non si apriranno più."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Apple-ID hat bereits %lld Entwicklungszertifikate, und kostenlose Konten können keine weiteren erstellen. Feather kann sie widerrufen, um ein eigenes zu erstellen, aber damit signierte Apps, etwa von AltStore oder Sideloadly, öffnen sich dann nicht mehr."
+            "value" : "Diese Apple-ID hat bereits %lld Entwicklungszertifikate, und kostenlose Konten können keine weiteren erstellen. Quill kann sie widerrufen, um ein eigenes zu erstellen, aber damit signierte Apps, etwa von AltStore oder Sideloadly, öffnen sich dann nicht mehr."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple ID ini sudah punya %lld sertifikat pengembangan dan akun gratis tidak bisa membuat lagi. Feather bisa mencabutnya untuk membuat sertifikat sendiri, tetapi app yang ditandatangani dengannya, misalnya lewat AltStore atau Sideloadly, tidak akan bisa dibuka."
+            "value" : "Apple ID ini sudah punya %lld sertifikat pengembangan dan akun gratis tidak bisa membuat lagi. Quill bisa mencabutnya untuk membuat sertifikat sendiri, tetapi app yang ditandatangani dengannya, misalnya lewat AltStore atau Sideloadly, tidak akan bisa dibuka."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toto Apple ID už má %lld vývojářských certifikátů a bezplatné účty nemohou vytvořit další. Feather je může zneplatnit a vytvořit vlastní, ale aplikace jimi podepsané, například přes AltStore nebo Sideloadly, se přestanou otevírat."
+            "value" : "Toto Apple ID už má %lld vývojářských certifikátů a bezplatné účty nemohou vytvořit další. Quill je může zneplatnit a vytvořit vlastní, ale aplikace jimi podepsané, například přes AltStore nebo Sideloadly, se přestanou otevírat."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cet identifiant Apple possède déjà %lld certificats de développement et les comptes gratuits ne peuvent pas en créer d’autres. Feather peut les révoquer pour créer le sien, mais les apps signées avec eux, par exemple via AltStore ou Sideloadly, ne s’ouvriront plus."
+            "value" : "Cet identifiant Apple possède déjà %lld certificats de développement et les comptes gratuits ne peuvent pas en créer d’autres. Quill peut les révoquer pour créer le sien, mais les apps signées avec eux, par exemple via AltStore ou Sideloadly, ne s’ouvriront plus."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "У этого Apple ID уже есть сертификаты разработчика (%lld), а бесплатные аккаунты не могут создавать новые. Feather может отозвать их и создать свой, но подписанные ими приложения, например через AltStore или Sideloadly, перестанут открываться."
+            "value" : "У этого Apple ID уже есть сертификаты разработчика (%lld), а бесплатные аккаунты не могут создавать новые. Quill может отозвать их и создать свой, но подписанные ими приложения, например через AltStore или Sideloadly, перестанут открываться."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este Apple ID ya tiene %lld certificados de desarrollo y las cuentas gratuitas no pueden crear más. Feather puede revocarlos para crear el suyo, pero las apps firmadas con ellos, por ejemplo con AltStore o Sideloadly, dejarán de abrirse."
+            "value" : "Este Apple ID ya tiene %lld certificados de desarrollo y las cuentas gratuitas no pueden crear más. Quill puede revocarlos para crear el suyo, pero las apps firmadas con ellos, por ejemplo con AltStore o Sideloadly, dejarán de abrirse."
           }
         }
       }

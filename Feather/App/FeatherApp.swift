@@ -62,7 +62,7 @@ struct FeatherApp: App {
 		guard DevLog.shared.takeCrashPrompt() else { return }
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 			UIAlertController.showAlertWithCancel(
-				title: .localized("Feather Closed Unexpectedly"),
+				title: .localized("Quill Closed Unexpectedly"),
 				message: .localized("A crash report was saved. You can report it on GitHub, share the logs, or find them later in Settings → Developer Logs."),
 				actions: [
 					UIAlertAction(title: .localized("Report on GitHub"), style: .default) { _ in
@@ -119,7 +119,7 @@ struct FeatherApp: App {
 				let name = [decoded?.Name, decoded?.TeamName].compactMap { $0 }.first ?? .localized("Unknown")
 				UIAlertController.showAlertWithCancel(
 					title: .localized("Add Certificate?"),
-					message: String(format: .localized("A link wants to add the certificate \"%@\" to Feather. Only add certificates you trust."), name),
+					message: String(format: .localized("A link wants to add the certificate \"%@\" to Quill. Only add certificates you trust."), name),
 					actions: [
 						UIAlertAction(title: .localized("Add"), style: .default) { _ in
 							FR.handleCertificateFiles(
@@ -159,7 +159,7 @@ struct FeatherApp: App {
 			if let fullPath = url.validatedScheme(after: "/source/") {
 				UIAlertController.showAlertWithCancel(
 					title: .localized("Add Source?"),
-					message: .localized("A link wants to add this source to Feather. Only add sources you trust.") + "\n\n\(fullPath)",
+					message: .localized("A link wants to add this source to Quill. Only add sources you trust.") + "\n\n\(fullPath)",
 					actions: [
 						UIAlertAction(title: .localized("Add"), style: .default) { _ in
 							FR.handleSource(fullPath) { }

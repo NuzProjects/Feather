@@ -118,7 +118,7 @@ final class LiveProgressActivity {
 			return
 		}
 		guard ActivityAuthorizationInfo().areActivitiesEnabled else {
-			DevLog.shared.log(.info, "Live Activities are turned off for Feather in iOS Settings", category: "Widgets")
+			DevLog.shared.log(.info, "Live Activities are turned off for Quill in iOS Settings", category: "Widgets")
 			return
 		}
 		do {

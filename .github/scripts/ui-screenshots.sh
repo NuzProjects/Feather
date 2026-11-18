@@ -169,8 +169,8 @@ sleep 3
 shot sources
 tap "All Repositories"; shot all-apps
 tap "Sources"
-tap "Feather (NuzProjects)"; shot source
-tap "last:Feather"; shot app-page
+tap "Quill (NuzProjects)"; shot source
+tap "last:Quill"; shot app-page
 tap "Sources"; tap "Sources"
 tap "LiveContainer"; sleep 4; shot github-source
 tap "Sources"
@@ -193,8 +193,8 @@ if [ "$KIND" = "iPad" ]; then
 	}
 	landscape_shot settings-landscape
 	tap "Sources"; landscape_shot sources-landscape
-	tap "Feather (NuzProjects)"; landscape_shot source-landscape
-	tap "last:Feather"; landscape_shot app-page-landscape
+	tap "Quill (NuzProjects)"; landscape_shot source-landscape
+	tap "last:Quill"; landscape_shot app-page-landscape
 	tap "Sources"; tap "Sources"
 	tap "LiveContainer"; sleep 4; landscape_shot github-source-landscape
 fi

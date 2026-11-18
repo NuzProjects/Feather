@@ -1,8 +1,8 @@
 # Remote settings
 
-Feather downloads [`remote-config.json`](../remote-config.json) from `main` when it opens (and at most every 15 minutes after). Editing that file changes the app for everyone without a new build. GitHub can take up to about 5 minutes to serve the new version.
+Quill downloads [`remote-config.json`](../remote-config.json) from `main` when it opens (and at most every 15 minutes after). Editing that file changes the app for everyone without a new build. GitHub can take up to about 5 minutes to serve the new version.
 
-Every field is optional. Leave one out (or set it to `null`) and Feather uses what's built into the app. If the file has a mistake, Feather keeps using the last good copy.
+Every field is optional. Leave one out (or set it to `null`) and Quill uses what's built into the app. If the file has a mistake, Quill keeps using the last good copy.
 
 | Field | What it does |
 | --- | --- |

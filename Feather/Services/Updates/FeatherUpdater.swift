@@ -97,7 +97,7 @@ final class FeatherUpdater: ObservableObject {
 			}
 			phase = .idle
 		} catch {
-			DevLog.shared.error(error, while: "Checking for Feather updates", category: "Updates")
+			DevLog.shared.error(error, while: "Checking for Quill updates", category: "Updates")
 			phase = .failed(error.localizedDescription)
 		}
 	}
@@ -171,7 +171,7 @@ final class FeatherUpdater: ObservableObject {
 			} catch is CancellationError {
 				phase = .idle
 			} catch {
-				DevLog.shared.error(error, while: "Installing Feather update", category: "Updates")
+				DevLog.shared.error(error, while: "Installing Quill update", category: "Updates")
 				_fail(error.localizedDescription)
 			}
 		}

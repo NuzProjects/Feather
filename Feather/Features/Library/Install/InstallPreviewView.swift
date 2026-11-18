@@ -48,7 +48,7 @@ struct InstallPreviewView: View {
 						DispatchQueue.main.asyncAfter(deadline: .now() + 12) {
 							guard _lifetime.isActive, case .ready = viewModel.status else { return }
 							DevLog.shared.log(.warning, "iOS didn't request the install manifest from \(installer.plistEndpoint.absoluteString)", category: "Install")
-							_offerSemiLocal(String.localized("iOS didn't start the install from Feather's local server."))
+							_offerSemiLocal(String.localized("iOS didn't start the install from Quill's local server."))
 						}
 					} else if _serverMethod == 1 {
 						_openExternalInstallLink()
@@ -241,7 +241,7 @@ struct InstallPreviewView: View {
 							let reachable = ServerInstaller.resolvesToThisDevice(host)
 							DevLog.shared.log(reachable ? .info : .warning, "Fully Local address \(host) \(reachable ? "resolves to this device" : "doesn't resolve to this device")", category: "Install")
 							if !reachable {
-								await MainActor.run { _offerSemiLocal(String.localized("Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Feather's install server.")) }
+								await MainActor.run { _offerSemiLocal(String.localized("Your network or DNS is blocking the address Fully Local uses, so iOS can't reach Quill's install server.")) }
 								return
 							}
 						}

@@ -26,7 +26,7 @@ struct DataTransferView: View {
 					busy = true; defer { busy = false }
 					do {
 						let count = try await FeatherTransfer.restore(url)
-						message = "Restored \(count) items. Close and reopen Feather to load the restored settings."
+						message = "Restored \(count) items. Close and reopen Quill to load the restored settings."
 					} catch { message = error.localizedDescription }
 				}
 			}

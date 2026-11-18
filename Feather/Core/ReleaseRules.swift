@@ -25,11 +25,11 @@ enum ReleaseError: LocalizedError {
 		case .invalidRepository: return NSLocalizedString("Enter a GitHub repository like owner/name, or paste its link.", comment: "")
 		case .noIPA: return NSLocalizedString("This repository has no releases with an IPA file.", comment: "")
 		case .ambiguousAsset: return NSLocalizedString("This release has more than one IPA file. Open it from GitHub again and pick the one you want.", comment: "")
-		case .requestFailed(let code) where code == 403 || code == 429: return NSLocalizedString("GitHub is limiting how often Feather can check right now. Try again in a few minutes.", comment: "")
+		case .requestFailed(let code) where code == 403 || code == 429: return NSLocalizedString("GitHub is limiting how often Quill can check right now. Try again in a few minutes.", comment: "")
 		case .requestFailed(404): return NSLocalizedString("Couldn't find that repository. Check the name, and make sure it's public.", comment: "")
 		case .requestFailed(let code) where (500...599).contains(code): return NSLocalizedString("GitHub is having trouble right now. Try again in a minute.", comment: "")
 		case .requestFailed: return NSLocalizedString("Couldn't reach GitHub. Check your connection and try again.", comment: "")
-		case .invalidApp: return NSLocalizedString("This IPA doesn't contain an app Feather can install.", comment: "")
+		case .invalidApp: return NSLocalizedString("This IPA doesn't contain an app Quill can install.", comment: "")
 		}
 	}
 }

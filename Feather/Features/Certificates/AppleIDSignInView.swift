@@ -166,7 +166,7 @@ extension AppleIDCodePrompt {
 		await withCheckedContinuation { continuation in
 			let alert = UIAlertController(
 				title: .localized("Replace Certificate?"),
-				message: String(format: .localized("This Apple ID already has %lld development certificates and free accounts can't make more. Feather can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening."), count),
+				message: String(format: .localized("This Apple ID already has %lld development certificates and free accounts can't make more. Quill can revoke them to make its own, but apps signed with them, for example by AltStore or Sideloadly, will stop opening."), count),
 				preferredStyle: .alert
 			)
 			alert.addAction(UIAlertAction(title: .localized("Cancel"), style: .cancel) { _ in

@@ -50,7 +50,7 @@ enum AnisetteError: LocalizedError {
 
 	var errorDescription: String? {
 		switch self {
-		case .unreachable: .localized("Feather couldn't reach a sign-in helper server. Check your connection and try again.")
+		case .unreachable: .localized("Quill couldn't reach a sign-in helper server. Check your connection and try again.")
 		case .provisioningFailed(let step): String(format: .localized("Setting up this device with Apple failed (%@). Try again in a moment."), step)
 		}
 	}

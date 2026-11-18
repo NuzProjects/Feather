@@ -16,38 +16,30 @@
 </div>
 
 ## Notice
-**This is a fork of [Feather](https://github.com/claration/Feather) with several UX and signing improvements. I intend for this repository to receive all Feather updates, as well as any modifications I see fit.**
-*__This Feather fork is under the GPL-3.0 license, and we do NOT collect any data from any user__*
+**This is a fork of [Feather](https://github.com/claration/Feather) with several UX and signing improvements. I intend for this repository to receive all Quill updates, as well as any modifications I see fit.**
+*__This Quill fork is under the GPL-3.0 license, and we do NOT collect any data from any user__*
 
 ## What's new in this fork
 
 **Updates and signing**
-- **In-app updates.** Quill downloads, signs and installs its own updates from Settings → Updates, then closes itself so iOS can finish.
-- **Get a Certificate.** Sign in with your Apple ID or use a trusted certificate provider, one tap away in Settings when you don't have one.
-- **Certificate alerts.** Warnings before a certificate expires, and an alert as soon as one is revoked.
-- **Certificate Overview.** Days left, capabilities, devices and signed apps, with a revocation check.
-- **Signing checks.** A warning before signing an app that's still App Store encrypted or needs a newer iOS.
-- **Clearer signing errors.** Plain-language messages instead of raw error codes.
-- **Signing time estimates.** The signing card shows about how long is left.
-- **Smaller apps.** Optional removal of the Apple Watch app and unused languages when signing.
-- **Private installs.** Fully Local uses Quill's own auto-renewing certificate, and Semi Local uses Quill's own install helper instead of a third-party one.
+- **In-app updates.** Quill downloads, signs and installs its own updates from Settings → Updates.
+- **Get a Certificate.** Sign in with your Apple ID or use a trusted provider, right from Settings.
+- **Certificate health.** Expiry and revocation alerts, plus an overview of days left, capabilities, devices and signed apps.
+- **Safer, clearer signing.** Warnings before signing apps that need a newer iOS or are still App Store encrypted, plain-language errors, and time estimates.
+- **Smaller apps and private installs.** Optionally strip the Apple Watch app and unused languages, and install through Quill's own helper and auto-renewing certificate.
 
 **Apps and sources**
 - **GitHub sources.** Add a GitHub repository and install IPAs straight from its releases.
-- **Better Sources.** Search apps across sources and see when each source last updated.
-- **Extensions that work.** Widgets and share sheets inside apps you sign get their own signing profile.
+- **Better sources.** Search apps across sources and see when each one last updated.
+- **Working extensions.** Widgets and share sheets in signed apps get their own signing profile.
 
-**Progress, widgets and Live Activities**
-- **Live progress.** Signing, downloads and imports show in a floating glass panel. Tap it to cancel.
-- **Live Activities.** Signing, download and update progress on the Lock Screen and in the Dynamic Island.
-- **Home Screen widgets.** Certificate and Library widgets in small and medium, in your accent color.
-- **Offline indicator.** A small glass pill above the tab bar when you lose connection.
+**Progress and widgets**
+- **Live progress and Live Activities.** Signing, downloads and updates show as a floating panel, on the Lock Screen and in the Dynamic Island.
+- **Home Screen widgets** for certificates and your library, in your accent color.
 
 **Everything else**
-- **Backup & Transfer.** Back up everything (or everything except apps) and restore it on another device.
-- **Navigator.** Choose, hide and reorder tabs, and show or hide tab labels.
-- **Developer Logs.** Export logs and crash reports, or open a pre-filled bug report on GitHub after a crash.
-- **13 languages.** Including all of the screens above.
+- **Backup & Transfer, Navigator, and Developer Logs.** Back up and restore, customize tabs, and export logs or file a pre-filled bug report after a crash.
+- **13 languages.**
 
 Widgets and Live Activities need a certificate that covers all app IDs.
 
@@ -67,7 +59,7 @@ Widgets and Live Activities need a certificate that covers all app IDs.
 
 ## Download
 
-Visit [releases](https://github.com/NuzProjects/Feather/releases) and get the latest `.ipa`. Once installed, Feather keeps itself up to date from Settings → Updates.
+Visit [releases](https://github.com/NuzProjects/Feather/releases) and get the latest `.ipa`. Once installed, Quill keeps itself up to date from Settings → Updates.
 
 <a href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Feather/refs/heads/main/source.json" target="_blank">
    <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/AltSource_Blue.png?raw=true" alt="Add AltSource" width="200">
@@ -78,7 +70,7 @@ Visit [releases](https://github.com/NuzProjects/Feather/releases) and get the la
 
 ## Translating
 
-Feather now supports translation; all localizations are in `Feather/Resources/Localizable.xcstrings`
+Quill now supports translation; all localizations are in `Feather/Resources/Localizable.xcstrings`
 
 To add a new language, open Xcode and use the interface to add/contribute to languages.
 

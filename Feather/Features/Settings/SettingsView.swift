@@ -102,7 +102,7 @@ struct SettingsView: View {
 						Label(.localized("About"), systemImage: "info.circle")
 					}
 				} footer: {
-					Text("Feather is free and open source. A star helps other people find it.")
+					Text("Quill is free and open source. A star helps other people find it.")
 				}
 
 				Section {

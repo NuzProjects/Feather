@@ -224,7 +224,7 @@ private struct CertificateWidgetView: View {
 				} else {
 					Text("Add a certificate")
 						.font(.headline)
-					Text("Open Feather to sign apps")
+					Text("Open Quill to sign apps")
 						.font(.subheadline)
 						.foregroundStyle(.secondary)
 				}

@@ -51,7 +51,7 @@ struct UpdatesView: View {
 					Button("Turn On") { updater.receiveBetas = true }
 					Button("Cancel", role: .cancel) {}
 				} message: {
-					Text("Betas get new features first but may have bugs or crash. You can turn this off at any time, and Feather will wait for the next full release.")
+					Text("Betas get new features first but may have bugs or crash. You can turn this off at any time, and Quill will wait for the next full release.")
 				}
 				Button {
 					updater.install()
@@ -69,7 +69,7 @@ struct UpdatesView: View {
 					guard !updater.isBusy else { return }
 					Task {
 						await updater.check()
-						if updater.phase == .idle { alert = updater.updateAvailable ? .localized("A new version of Feather is available.") : .localized("Feather is up to date.") }
+						if updater.phase == .idle { alert = updater.updateAvailable ? .localized("A new version of Quill is available.") : .localized("Quill is up to date.") }
 					}
 				} label: {
 					HStack {
@@ -79,7 +79,7 @@ struct UpdatesView: View {
 					}
 				}
 			} footer: {
-				Text("Feather downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept. Beta updates get new features first but may have bugs.")
+				Text("Quill downloads the newest build from GitHub, signs it with your selected certificate and installs it over this copy. Your apps, sources and settings are kept. Beta updates get new features first but may have bugs.")
 			}
 		}
 		.symbolVariant(.fill)

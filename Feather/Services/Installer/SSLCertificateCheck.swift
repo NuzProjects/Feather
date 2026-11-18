@@ -24,7 +24,7 @@ enum SSLCertificateCheck {
 		defaults.set(cert, forKey: offeredKey)
 		let alert = UIAlertController(
 			title: "Fully Local Works Again",
-			message: "Feather downloaded a renewed SSL certificate, so Fully Local can install apps again. Switch the Server Type to Fully Local?",
+			message: "Quill downloaded a renewed SSL certificate, so Fully Local can install apps again. Switch the Server Type to Fully Local?",
 			preferredStyle: .alert
 		)
 		alert.addAction(UIAlertAction(title: "Not Now", style: .cancel))

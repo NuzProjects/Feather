@@ -137,7 +137,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 		return await withCheckedContinuation { continuation in
 			queue.async { [self] in
 				handle?.synchronizeFile()
-				var text = "Feather Developer Logs\n" + Self.deviceSummary + "Exported: \(Self.lineStamp.string(from: Date()))\n"
+				var text = "Quill Developer Logs\n" + Self.deviceSummary + "Exported: \(Self.lineStamp.string(from: Date()))\n"
 				let crashes = crashes
 				text += "\n==================== CRASHES (\(crashes.count)) ====================\n"
 				if crashes.isEmpty { text += "No crashes recorded.\n" }
@@ -203,7 +203,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 	}
 
 	func githubIssueURL() -> URL? {
-		var title = "[Bug] Feather crashed"
+		var title = "[Bug] Quill crashed"
 		var crashText = "No crash report was recorded."
 		if let latest = crashes.first, let text = try? String(contentsOf: latest, encoding: .utf8) {
 			if latest.pathExtension == "json" {
