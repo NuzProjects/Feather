@@ -8,7 +8,7 @@ struct SnapshotEntry: TimelineEntry {
 	static let preview = SnapshotEntry(
 		date: Date(),
 		snapshot: WidgetSnapshot(
-			tint: "#1D4ED8",
+			tint: "#5B85F0",
 			certificate: .init(name: "My Certificate", expiration: Date().addingTimeInterval(86400 * 214), revoked: false),
 			signedCount: 6,
 			importedCount: 3,
@@ -382,7 +382,7 @@ extension Color {
 		if cleaned.count == 6, let value = UInt64(cleaned, radix: 16) {
 			self.init(red: Double((value >> 16) & 0xFF) / 255, green: Double((value >> 8) & 0xFF) / 255, blue: Double(value & 0xFF) / 255)
 		} else {
-			self.init(red: 0.114, green: 0.306, blue: 0.847)
+			self.init(red: 0.357, green: 0.522, blue: 0.941)
 		}
 	}
 

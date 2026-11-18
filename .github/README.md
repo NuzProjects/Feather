@@ -5,10 +5,10 @@
 
 **Sign and install apps on your iPhone or iPad with your own developer certificate. No computer needed, and it updates itself.**
 
-[![Latest release](https://img.shields.io/github/v/release/NuzProjects/Quill?label=release&color=1D4ED8)](https://github.com/NuzProjects/Quill/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/NuzProjects/Quill/total?label=downloads&color=1D4ED8&cacheSeconds=3600)](https://github.com/NuzProjects/Quill/releases)
-[![Stars](https://img.shields.io/github/stars/NuzProjects/Quill?style=flat&color=1D4ED8)](https://github.com/NuzProjects/Quill/stargazers)
-[![License](https://img.shields.io/github/license/NuzProjects/Quill?color=1D4ED8)](https://github.com/NuzProjects/Quill/blob/main/LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/NuzProjects/Quill?label=release&color=5B85F0)](https://github.com/NuzProjects/Quill/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/NuzProjects/Quill/total?label=downloads&color=5B85F0&cacheSeconds=3600)](https://github.com/NuzProjects/Quill/releases)
+[![Stars](https://img.shields.io/github/stars/NuzProjects/Quill?style=flat&color=5B85F0)](https://github.com/NuzProjects/Quill/stargazers)
+[![License](https://img.shields.io/github/license/NuzProjects/Quill?color=5B85F0)](https://github.com/NuzProjects/Quill/blob/main/LICENSE)
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="demo-dark.png"><source media="(prefers-color-scheme: light)" srcset="demo-light.png"><img alt="Quill" src="demo-light.png"></picture></p>
 
