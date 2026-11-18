@@ -156,7 +156,7 @@ final class LiveProgressActivity {
 			detail: snapshot.detail,
 			fraction: snapshot.fraction,
 			symbol: snapshot.symbol,
-			tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9",
+			tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#1D4ED8",
 			others: max(0, snapshot.others),
 			finished: snapshot.finished
 		)

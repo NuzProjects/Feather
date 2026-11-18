@@ -53,7 +53,7 @@ final class WidgetDataWriter {
 		}
 
 		return WidgetSnapshot(
-			tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9",
+			tint: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#1D4ED8",
 			certificate: certificate,
 			signedCount: signed.count,
 			importedCount: importedCount,
