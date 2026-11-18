@@ -77,7 +77,7 @@ body {
   overflow-x: hidden;
 }
 a { color: var(--accent-deep); text-decoration: none; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
 svg { flex-shrink: 0; }
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 [id] { scroll-margin-top: 72px; }
@@ -379,6 +379,7 @@ footer a:hover { color: var(--text); }
 <script>
 const nav = document.querySelector(".nav");
 const progress = document.querySelector(".progress");
+document.addEventListener("dragstart", (e) => { if (e.target instanceof HTMLImageElement) e.preventDefault(); });
 const devices = document.querySelector(".devices");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
