@@ -19,6 +19,12 @@
       ],
       "versions": [
         {
+          "version": "1.3.6",
+          "date": "2026-11-18T16:25:46Z",
+          "size": 14103664,
+          "downloadURL": "https://github.com/NuzProjects/Quill/releases/download/v1.3.6-build163/Quill.ipa"
+        },
+        {
           "version": "1.3.5",
           "date": "2026-11-14T17:24:37Z",
           "size": 14242313,
