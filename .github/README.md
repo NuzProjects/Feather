@@ -61,7 +61,7 @@ Widgets and Live Activities need a certificate that covers all app IDs.
 
 Visit [releases](https://github.com/NuzProjects/Quill/releases) and get the latest `.ipa`. Once installed, Quill keeps itself up to date from Settings → Updates.
 
-<a href="https://celloserenity.github.io/altdirect/?url=https://raw.githubusercontent.com/NuzProjects/Quill/refs/heads/main/source.json" target="_blank">
+<a href="https://altdirect.app/?url=https://raw.githubusercontent.com/NuzProjects/Quill/refs/heads/main/source.json&amp;old=true" target="_blank">
    <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/AltSource_Blue.png?raw=true" alt="Add AltSource" width="200">
 </a>
 <a href="https://github.com/NuzProjects/Quill/releases/latest/download/Feather.ipa" target="_blank">
