@@ -20,7 +20,7 @@ struct AppearanceView: View {
 	]
 
 	@AppStorage("Feather.userTintColor")
-	private var _selectedColorHex: String = "#848ef9"
+	private var _selectedColorHex: String = "#1D4ED8"
 
 	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
 

@@ -47,7 +47,14 @@ struct FeatherApp: App {
 					UIApplication.topViewController()?.view.window?.overrideUserInterfaceStyle = style
 				}
 
-				UIApplication.topViewController()?.view.window?.tintColor = UIColor(Color(hex: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#848ef9"))
+				// Anyone who picked the old purple "Default" moves to the new Quill blue default
+				if !UserDefaults.standard.bool(forKey: "Feather.migratedQuillTint") {
+					if UserDefaults.standard.string(forKey: "Feather.userTintColor")?.lowercased() == "#848ef9" {
+						UserDefaults.standard.removeObject(forKey: "Feather.userTintColor")
+					}
+					UserDefaults.standard.set(true, forKey: "Feather.migratedQuillTint")
+				}
+				UIApplication.topViewController()?.view.window?.tintColor = UIColor(Color(hex: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#1D4ED8"))
 				UIApplication.topViewController()?.view.window?.tintAdjustmentMode = .normal
 				_offerCrashLogsIfNeeded()
 				LiveProgressActivity.shared.start()
