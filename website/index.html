@@ -134,7 +134,7 @@ svg { flex-shrink: 0; }
 .btn:active { transform: scale(0.97); }
 
 .devices { margin: 64px auto 0; max-width: 980px; }
-.devices picture { display: block; transform: translate3d(0, calc(var(--p, 0) * -28px), 0) scale(calc(1 + var(--p, 0) * 0.035)); transform-origin: 50% 0; }
+.devices .carousel { display: block; transform: translate3d(0, calc(var(--p, 0) * -28px), 0) scale(calc(1 + var(--p, 0) * 0.035)); transform-origin: 50% 0; }
 .devices img { width: 100%; height: auto; }
 
 /* Scroll reveals */
@@ -256,9 +256,21 @@ footer a:hover { color: var(--text); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
-  .steps::before, .step .num, .devices picture { transform: none; }
+  .steps::before, .step .num, .devices .carousel { transform: none; }
+  .carousel .slide { transition: none; }
   .progress { display: none; }
 }
+/* Screenshot carousel: slides stack and crossfade */
+.carousel { position: relative; }
+.carousel .slide { display: block; transition: opacity 1.2s ease; }
+.carousel .slide + .slide { position: absolute; inset: 0; }
+.carousel .slide:not(.on) { opacity: 0; pointer-events: none; }
+.carousel .slide img { display: block; width: 100%; height: auto; }
+.carousel .slide + .slide img { height: 100%; object-fit: contain; }
+.dots { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+.dots[hidden] { display: none; }
+.dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: color-mix(in srgb, var(--accent) 30%, transparent); cursor: pointer; transition: width .4s ease, background .4s ease; }
+.dots button[aria-current="true"] { width: 22px; background: var(--accent); }
 </style>
 </head>
 <body>
@@ -287,10 +299,13 @@ footer a:hover { color: var(--text); }
     </div>
     <p class="fork">An unofficial fork of <a href="https://github.com/claration/feather">Feather by Samara</a>, not the official app</p>
     <div class="devices reveal">
-      <picture>
-        <source srcset="assets/screenshot.webp" type="image/webp">
-        <img src="assets/screenshot.png" alt="Quill on three iPhones, showing Sources, Library and Settings" width="2000" height="1189">
-      </picture>
+      <div class="carousel" aria-roledescription="carousel" aria-label="Quill screenshots">
+        <picture class="slide on">
+          <source srcset="assets/screenshot.webp" type="image/webp">
+          <img src="assets/screenshot.png" alt="Quill on three iPhones, showing Sources, Library and Settings" width="2000" height="1189">
+        </picture>
+      </div>
+      <div class="dots" hidden></div>
     </div>
   </div>
 
@@ -362,6 +377,31 @@ const nav = document.querySelector(".nav");
 const progress = document.querySelector(".progress");
 const devices = document.querySelector(".devices");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Screenshot carousel: crossfades to the next slide every 30 seconds
+(() => {
+  const slides = [...document.querySelectorAll(".carousel .slide")];
+  const dots = document.querySelector(".dots");
+  if (slides.length < 2 || !dots) return;
+  let i = 0, timer;
+  const buttons = slides.map((_, n) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Show screenshot " + (n + 1));
+    b.addEventListener("click", () => { show(n); start(); });
+    dots.append(b);
+    return b;
+  });
+  dots.hidden = false;
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => { s.classList.toggle("on", k === i); s.setAttribute("aria-hidden", k === i ? "false" : "true"); });
+    buttons.forEach((b, k) => b.setAttribute("aria-current", k === i ? "true" : "false"));
+  }
+  function start() { clearInterval(timer); timer = setInterval(() => show(i + 1), 30000); }
+  document.addEventListener("visibilitychange", () => document.hidden ? clearInterval(timer) : start());
+  show(0); start();
+})();
 let ticking = false;
 const onScroll = () => {
   const y = window.scrollY;
