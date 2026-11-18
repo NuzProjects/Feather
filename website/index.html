@@ -262,7 +262,7 @@ footer a:hover { color: var(--text); }
 }
 /* Screenshot carousel: slides stack and crossfade */
 .carousel { position: relative; }
-.carousel .slide { display: block; transition: opacity 1.2s ease; }
+.carousel .slide { display: block; transition: opacity 0.6s ease; }
 .carousel .slide + .slide { position: absolute; inset: 0; }
 .carousel .slide:not(.on) { opacity: 0; pointer-events: none; }
 .carousel .slide img { display: block; width: 100%; height: auto; }
@@ -382,7 +382,7 @@ const progress = document.querySelector(".progress");
 const devices = document.querySelector(".devices");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Screenshot carousel: crossfades to the next slide every 30 seconds
+// Screenshot carousel: crossfades to the next slide every 6 seconds
 (() => {
   const slides = [...document.querySelectorAll(".carousel .slide")];
   const dots = document.querySelector(".dots");
@@ -402,7 +402,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     slides.forEach((s, k) => { s.classList.toggle("on", k === i); s.setAttribute("aria-hidden", k === i ? "false" : "true"); });
     buttons.forEach((b, k) => b.setAttribute("aria-current", k === i ? "true" : "false"));
   }
-  function start() { clearInterval(timer); timer = setInterval(() => show(i + 1), 30000); }
+  function start() { clearInterval(timer); timer = setInterval(() => show(i + 1), 6000); }
   document.addEventListener("visibilitychange", () => document.hidden ? clearInterval(timer) : start());
   show(0); start();
 })();
