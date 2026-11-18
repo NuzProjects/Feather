@@ -1,7 +1,7 @@
 
 <div align="center">
 
-<img title="Feather" alt="Feather" height="180" src="landing.png">
+<img title="Quill" alt="Quill" height="180" src="landing.png">
 
 **Sign and install apps on your iPhone or iPad with your own developer certificate. No computer needed, and it updates itself.**
 
@@ -10,7 +10,7 @@
 [![Stars](https://img.shields.io/github/stars/NuzProjects/Feather?style=flat&color=15803D)](https://github.com/NuzProjects/Feather/stargazers)
 [![License](https://img.shields.io/github/license/NuzProjects/Feather?color=15803D)](https://github.com/NuzProjects/Feather/blob/main/LICENSE)
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="demo-dark.png"><source media="(prefers-color-scheme: light)" srcset="demo-light.png"><img alt="Feather" src="demo-light.png"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="demo-dark.png"><source media="(prefers-color-scheme: light)" srcset="demo-light.png"><img alt="Quill" src="demo-light.png"></picture></p>
 
 
 </div>
@@ -21,26 +21,32 @@
 
 ## What's new in this fork
 
-- **In-app updates.** Feather downloads, signs and installs its own updates from Settings → Updates, then closes itself so iOS can finish.
-- **Live progress.** Signing, downloads and imports show in a floating glass panel. Tap it to cancel.
+**Updates and signing**
+- **In-app updates.** Quill downloads, signs and installs its own updates from Settings → Updates, then closes itself so iOS can finish.
+- **Get a Certificate.** Sign in with your Apple ID or use a trusted certificate provider, one tap away in Settings when you don't have one.
 - **Certificate alerts.** Warnings before a certificate expires, and an alert as soon as one is revoked.
-- **Backup & Transfer.** Back up everything (or everything except apps) and restore it on another device.
-- **GitHub sources.** Add a GitHub repository and install IPAs straight from its releases.
-- **Navigator.** Choose, hide and reorder tabs, and show or hide tab labels.
-- **Clearer signing errors.** Plain-language messages instead of raw error codes.
-- **Better Sources.** Search apps across sources and see when each source last updated.
-- **Home Screen widgets.** Certificate and Library widgets in small and medium, in your accent color.
-- **Live Activities.** Signing, download and update progress on the Lock Screen and in the Dynamic Island.
-- **Certificate Overview.** Days left, capabilities, devices and signed apps for your certificate, with a revocation check.
-- **Get a Certificate.** Trusted certificate providers, one tap away in Settings when you don't have one.
+- **Certificate Overview.** Days left, capabilities, devices and signed apps, with a revocation check.
 - **Signing checks.** A warning before signing an app that's still App Store encrypted or needs a newer iOS.
-- **Extensions that work.** Widgets and share sheets inside apps you sign get their own signing profile.
-- **Beta updates.** Turn on Receive Beta Updates to try new features first.
-- **Developer Logs.** Export logs and crash reports, or open a pre-filled bug report on GitHub after a crash.
-- **Smaller apps.** Optional removal of the Apple Watch app and unused languages when signing.
+- **Clearer signing errors.** Plain-language messages instead of raw error codes.
 - **Signing time estimates.** The signing card shows about how long is left.
+- **Smaller apps.** Optional removal of the Apple Watch app and unused languages when signing.
+- **Private installs.** Fully Local uses Quill's own auto-renewing certificate, and Semi Local uses Quill's own install helper instead of a third-party one.
+
+**Apps and sources**
+- **GitHub sources.** Add a GitHub repository and install IPAs straight from its releases.
+- **Better Sources.** Search apps across sources and see when each source last updated.
+- **Extensions that work.** Widgets and share sheets inside apps you sign get their own signing profile.
+
+**Progress, widgets and Live Activities**
+- **Live progress.** Signing, downloads and imports show in a floating glass panel. Tap it to cancel.
+- **Live Activities.** Signing, download and update progress on the Lock Screen and in the Dynamic Island.
+- **Home Screen widgets.** Certificate and Library widgets in small and medium, in your accent color.
 - **Offline indicator.** A small glass pill above the tab bar when you lose connection.
-- **Private installs.** Fully Local uses Feather's own auto-renewing certificate, and Semi Local uses Feather's own install helper instead of a third-party one.
+
+**Everything else**
+- **Backup & Transfer.** Back up everything (or everything except apps) and restore it on another device.
+- **Navigator.** Choose, hide and reorder tabs, and show or hide tab labels.
+- **Developer Logs.** Export logs and crash reports, or open a pre-filled bug report on GitHub after a crash.
 - **13 languages.** Including all of the screens above.
 
 Widgets and Live Activities need a certificate that covers all app IDs.

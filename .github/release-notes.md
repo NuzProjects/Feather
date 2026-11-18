@@ -1,23 +1,6 @@
-## Update 1.3.5
+## Update 1.3.6
 
 **New Features:**
-* Sign in with a free Apple ID: no certificate needed. Go to Settings → Certificates → + → Sign In with Apple ID, and Feather creates a free development certificate and signs each app with its own profile from Apple
-* Find My UDID fills in your device's UDID for the Apple ID sign-in, and two-factor codes are asked for when Apple needs them. Your Apple ID details stay in this device's Keychain
-* Free Apple ID limits apply: signed apps last 7 days, up to 3 can be installed at once, and up to 10 new apps can be added per week. Apps get a bundle ID ending in your team ID
-* GitHub repositories in Sources show their icon, name and latest release, just like other sources
-* Sources open instantly, even offline, and refresh in the background
-* Better on iPad: Settings, app pages and lists keep to a comfortable width
-* Lock Screen certificate widgets: a days-left gauge, a larger card with the expiry date, and a one-line version
-* Feather warns before installing an app signed with an expired or revoked certificate, and offers to re-sign it
-* Signing keeps going when you leave Feather, and you get a notification when it finishes
-* A refreshed update sheet that matches the rest of Feather
-
-**Fixes:**
-* GitHub and download errors explain what went wrong in plain words
-* Leftover files from signing and installing are cleared automatically
-* Subtext no longer flickers between shades when screens open
-
-**Security:**
-* A malicious IPA or .deb tweak can no longer write files outside its own unpack folder
-* Links that add a source now ask you first instead of adding it silently
-* Removed a leftover exception that allowed one website to load over plain HTTP
+* Feather is now Quill. The app name, Live Activity titles, signing progress and alternate icon names use the new name. Your certificates, apps and settings stay where they are
+* Get a Certificate can sign in with your Apple ID, as well as use a trusted certificate provider, from Settings → Certificates
+* New green look across the app icon, alternate icons, widgets and artwork

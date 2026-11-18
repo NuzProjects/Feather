@@ -222,7 +222,7 @@ struct UpdateProgressPanel: View {
 				HStack(spacing: 12) {
 					ProgressPanelIcon(image: icon)
 					VStack(alignment: .leading, spacing: 2) {
-						Text("Feather").font(.subheadline.weight(.semibold)).lineLimit(1)
+						Text("Quill").font(.subheadline.weight(.semibold)).lineLimit(1)
 						Text(state.title).font(.caption).foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 					Spacer(minLength: 8)
