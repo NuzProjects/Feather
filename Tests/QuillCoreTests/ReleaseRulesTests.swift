@@ -1,5 +1,5 @@
 import XCTest
-@testable import FeatherCore
+@testable import QuillCore
 final class ReleaseRulesTests: XCTestCase {
 	func testReplacementPreservesIncomingVersionAndBuild() {
 		let output: NSMutableDictionary = ["CFBundleIdentifier": "new.id", "CFBundleShortVersionString": "2.4", "CFBundleVersion": "2409"]

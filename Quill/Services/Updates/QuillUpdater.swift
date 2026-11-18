@@ -31,14 +31,14 @@ final class QuillUpdater: ObservableObject {
 	private let skippedKey = "Updates.skippedRelease"
 	private init() {
 		let info = Bundle.main.infoDictionary
-		let version = (info?["FeatherVersionLabel"] as? String) ?? (info?["CFBundleShortVersionString"] as? String) ?? ""
+		let version = (info?["QuillVersionLabel"] as? String) ?? (info?["CFBundleShortVersionString"] as? String) ?? ""
 		receiveBetas = UserDefaults.standard.object(forKey: Self.receiveBetasKey) as? Bool
 			?? version.localizedCaseInsensitiveContains("beta")
 	}
 
 	var currentVersion: String {
 		let info = Bundle.main.infoDictionary
-		let label = (info?["FeatherVersionLabel"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+		let label = (info?["QuillVersionLabel"] as? String).flatMap { $0.isEmpty ? nil : $0 }
 		return label ?? info?["CFBundleShortVersionString"] as? String ?? "1.0.0"
 	}
 

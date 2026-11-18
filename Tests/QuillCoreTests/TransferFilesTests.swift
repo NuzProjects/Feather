@@ -1,5 +1,5 @@
 import XCTest
-@testable import FeatherCore
+@testable import QuillCore
 
 final class TransferFilesTests: XCTestCase {
 	func testMergeKeepsExistingFilesAndSource() throws {

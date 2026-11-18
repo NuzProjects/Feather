@@ -1,3 +1,3 @@
 // swift-tools-version: 5.9
 import PackageDescription
-let package = Package(name: "FeatherCore", products: [.library(name: "FeatherCore", targets: ["FeatherCore"])], targets: [.target(name: "FeatherCore", path: "Feather/Core"), .testTarget(name: "FeatherCoreTests", dependencies: ["FeatherCore"], path: "Tests/FeatherCoreTests")])
+let package = Package(name: "QuillCore", products: [.library(name: "QuillCore", targets: ["QuillCore"])], targets: [.target(name: "QuillCore", path: "Quill/Core"), .testTarget(name: "QuillCoreTests", dependencies: ["QuillCore"], path: "Tests/QuillCoreTests")])

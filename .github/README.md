@@ -70,7 +70,7 @@ Visit [releases](https://github.com/NuzProjects/Quill/releases) and get the late
 
 ## Translating
 
-Quill now supports translation; all localizations are in `Feather/Resources/Localizable.xcstrings`
+Quill now supports translation; all localizations are in `Quill/Resources/Localizable.xcstrings`
 
 To add a new language, open Xcode and use the interface to add/contribute to languages.
 

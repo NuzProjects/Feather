@@ -38,30 +38,30 @@ jobs:
         id: simcache
         with:
           path: |
-            ${{ runner.temp }}/Feather
+            ${{ runner.temp }}/Quill
             ~/Library/Caches/org.swift.swiftpm
-          key: feather-simulator-xcode26.3-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+          key: quill-simulator-xcode26.3-${{ runner.arch }}-${{ hashFiles('Quill.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
       - name: Drop cached modules built against an older SDK
-        run: rm -rf "$RUNNER_TEMP/Feather/ModuleCache.noindex" "$RUNNER_TEMP/Feather/SDKStatCaches.noindex" "$RUNNER_TEMP/Feather/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules"
+        run: rm -rf "$RUNNER_TEMP/Quill/ModuleCache.noindex" "$RUNNER_TEMP/Quill/SDKStatCaches.noindex" "$RUNNER_TEMP/Quill/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules"
       - name: Build for the simulator
         run: |
           set -o pipefail
           git config --global http.version HTTP/1.1
-          xcodebuild -workspace Feather.xcworkspace -scheme Feather -configuration Release \
-            -destination 'generic/platform=iOS Simulator' -derivedDataPath "$RUNNER_TEMP/Feather" \
+          xcodebuild -workspace Quill.xcworkspace -scheme Quill -configuration Release \
+            -destination 'generic/platform=iOS Simulator' -derivedDataPath "$RUNNER_TEMP/Quill" \
             -skipPackagePluginValidation -skipMacroValidation \
             ARCHS=arm64 ONLY_ACTIVE_ARCH=NO \
             CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM= PROVISIONING_PROFILE_SPECIFIER= \
-            FEATHER_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.dev.feather \
+            QUILL_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.dev.feather \
             COMPILER_INDEX_STORE_ENABLE=NO DEBUG_INFORMATION_FORMAT=dwarf 2>&1 | tee "$RUNNER_TEMP/build.log" | grep -E "error:|warning: .*deprecated|BUILD (SUCCEEDED|FAILED)" || true
           grep -q "BUILD SUCCEEDED" "$RUNNER_TEMP/build.log"
       - name: Take screenshots
         run: |
           set -uo pipefail
-          APP="$(find _build "$RUNNER_TEMP/Feather/Build/Products" -type d -name Feather.app 2>/dev/null | head -n 1)"
+          APP="$(find _build "$RUNNER_TEMP/Quill/Build/Products" -type d -name Quill.app 2>/dev/null | head -n 1)"
           echo "App: $APP"
           test -n "$APP"
-          lipo -info "$APP/Feather" || true
+          lipo -info "$APP/Quill" || true
           chmod +x .github/scripts/ui-screenshots.sh
           case "${{ inputs.devices }}" in
             both) KINDS="iPad iPhone" ;;
@@ -74,7 +74,7 @@ jobs:
         if: always() && steps.simcache.outputs.cache-hit != 'true'
         with:
           path: |
-            ${{ runner.temp }}/Feather
+            ${{ runner.temp }}/Quill
             ~/Library/Caches/org.swift.swiftpm
           key: ${{ steps.simcache.outputs.cache-primary-key }}
       - name: Save screenshots to the ci-screenshots branch

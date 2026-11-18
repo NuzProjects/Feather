@@ -5,7 +5,7 @@
       location = "group:LICENSE">
    </FileRef>
    <FileRef
-      location = "group:Feather.xcodeproj">
+      location = "group:Quill.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Zsign">

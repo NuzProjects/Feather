@@ -12,7 +12,7 @@ enum ExtensionHealth {
 	private static let promptedKey = "Widgets.promptedState"
 
 	private static var appProfileURL: URL { Bundle.main.bundleURL.appendingPathComponent("embedded.mobileprovision") }
-	private static var widgetsURL: URL? { Bundle.main.builtInPlugInsURL?.appendingPathComponent("FeatherWidgets.appex") }
+	private static var widgetsURL: URL? { Bundle.main.builtInPlugInsURL?.appendingPathComponent("QuillWidgets.appex") }
 
 	private static var hasWidgetsExtension: Bool {
 		guard let widgetsURL else { return false }

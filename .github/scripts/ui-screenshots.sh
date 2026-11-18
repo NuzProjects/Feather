@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: ui-screenshots.sh <path to Feather.app> <output folder> <iPad|iPhone>
+# Usage: ui-screenshots.sh <path to Quill.app> <output folder> <iPad|iPhone>
 set -uo pipefail
 
 APP="$1"
@@ -41,7 +41,7 @@ xcrun simctl install "$UDID" "$APP"
 # Preferences are written through the simulator's own defaults so the app sees them.
 DATA="$(xcrun simctl get_app_container "$UDID" "$BUNDLE" data)"
 PREFS="$DATA/Library/Preferences/$BUNDLE"
-LABEL="$(/usr/libexec/PlistBuddy -c 'Print :FeatherVersionLabel' "$APP/Info.plist" 2>/dev/null || echo none)"
+LABEL="$(/usr/libexec/PlistBuddy -c 'Print :QuillVersionLabel' "$APP/Info.plist" 2>/dev/null || echo none)"
 GITHUB_HEX="$(printf '%s' '[{"owner":"LiveContainer","name":"LiveContainer"}]' | xxd -p | tr -d '\n')"
 xcrun simctl spawn "$UDID" defaults write "$PREFS" Onboarding.seen -bool YES
 xcrun simctl spawn "$UDID" defaults write "$PREFS" WhatsNew.seenVersion -string "$LABEL"
@@ -144,9 +144,9 @@ rotate() {
 		|| echo "Couldn't rotate"
 	sleep 3
 }
-CRASHES_BEFORE="$(ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -c '^Feather' || true)"
+CRASHES_BEFORE="$(ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -c '^Quill' || true)"
 crashed() {
-	[ "$(ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -c '^Feather' || true)" -gt "$CRASHES_BEFORE" ]
+	[ "$(ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -c '^Quill' || true)" -gt "$CRASHES_BEFORE" ]
 }
 
 xcrun simctl launch "$UDID" "$BUNDLE"
@@ -199,9 +199,9 @@ if [ "$KIND" = "iPad" ]; then
 	tap "LiveContainer"; sleep 4; landscape_shot github-source-landscape
 fi
 
-xcrun simctl spawn "$UDID" log show --last 10m --predicate "process == \"Feather\" AND messageType == fault" --style compact > "$OUT/faults.log" 2>/dev/null || true
+xcrun simctl spawn "$UDID" log show --last 10m --predicate "process == \"Quill\" AND messageType == fault" --style compact > "$OUT/faults.log" 2>/dev/null || true
 if crashed; then
-	echo "Feather crashed on the $KIND simulator" | tee "$OUT/CRASHED.txt"
-	cp ~/Library/Logs/DiagnosticReports/Feather* "$OUT/" 2>/dev/null || true
+	echo "Quill crashed on the $KIND simulator" | tee "$OUT/CRASHED.txt"
+	cp ~/Library/Logs/DiagnosticReports/Quill* "$OUT/" 2>/dev/null || true
 fi
 xcrun simctl shutdown "$UDID" || true

@@ -248,7 +248,7 @@ final class DevLog: NSObject, @unchecked Sendable {
 		uname(&system)
 		let model = withUnsafeBytes(of: &system.machine) { String(decoding: $0.prefix { $0 != 0 }, as: UTF8.self) }
 		let info = Bundle.main.infoDictionary
-		let label = info?["FeatherVersionLabel"] as? String ?? ""
+		let label = info?["QuillVersionLabel"] as? String ?? ""
 		let version = info?["CFBundleShortVersionString"] as? String ?? "?"
 		let build = info?["CFBundleVersion"] as? String ?? "?"
 		return """

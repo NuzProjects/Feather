@@ -19,8 +19,8 @@
 		33693A082DC8BF5B00730215 /* AltSourceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 33693A072DC8BF5B00730215 /* AltSourceKit */; };
 		3371F7322DA9ECDD00281AC6 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 3371F7312DA9ECDD00281AC6 /* Zip */; };
 		33CF13392DB5ACFB0021D4C5 /* SWCompression in Frameworks */ = {isa = PBXBuildFile; productRef = 33CF13382DB5ACFB0021D4C5 /* SWCompression */; };
-		570920BE2F98A4F0008C4A83 /* Feather.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 570920BD2F98A4F0008C4A83 /* Feather.xcconfig */; };
-		5A1D000000000000000000AB /* FeatherWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5A1D000000000000000000A1 /* FeatherWidgets.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		570920BE2F98A4F0008C4A83 /* Quill.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 570920BD2F98A4F0008C4A83 /* Quill.xcconfig */; };
+		5A1D000000000000000000AB /* QuillWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5A1D000000000000000000A1 /* QuillWidgets.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +29,7 @@
 			containerPortal = 3379C1B12DA869A1004372DA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5A1D000000000000000000A4;
-			remoteInfo = FeatherWidgets;
+			remoteInfo = QuillWidgets;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -40,7 +40,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5A1D000000000000000000AB /* FeatherWidgets.appex in Embed Foundation Extensions */,
+				5A1D000000000000000000AB /* QuillWidgets.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,31 +48,31 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3379C1B92DA869A1004372DA /* Feather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feather.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		570920BD2F98A4F0008C4A83 /* Feather.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Feather.xcconfig; sourceTree = "<group>"; };
-		5A1D000000000000000000A1 /* FeatherWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeatherWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3379C1B92DA869A1004372DA /* Quill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quill.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		570920BD2F98A4F0008C4A83 /* Quill.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Quill.xcconfig; sourceTree = "<group>"; };
+		5A1D000000000000000000A1 /* QuillWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QuillWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		3371F6492DA92A1800281AC6 /* Exceptions for "Feather" folder in "Feather" target */ = {
+		3371F6492DA92A1800281AC6 /* Exceptions for "Quill" folder in "Quill" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/ellekit.deb,
 				Resources/Info.plist,
 			);
-			target = 3379C1B82DA869A1004372DA /* Feather */;
+			target = 3379C1B82DA869A1004372DA /* Quill */;
 		};
-		5A1D000000000000000000A3 /* Exceptions for "FeatherWidgets" folder in "FeatherWidgets" target */ = {
+		5A1D000000000000000000A3 /* Exceptions for "QuillWidgets" folder in "QuillWidgets" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 5A1D000000000000000000A4 /* FeatherWidgets */;
+			target = 5A1D000000000000000000A4 /* QuillWidgets */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		33CF134C2DB5B9BC0021D4C5 /* Exceptions for "Feather" folder in "Copy Bundle Resources" phase from "Feather" target */ = {
+		33CF134C2DB5B9BC0021D4C5 /* Exceptions for "Quill" folder in "Copy Bundle Resources" phase from "Quill" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 3379C1B72DA869A1004372DA /* Resources */;
 			membershipExceptions = (
@@ -82,21 +82,21 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3379C1BB2DA869A1004372DA /* Feather */ = {
+		3379C1BB2DA869A1004372DA /* Quill */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				3371F6492DA92A1800281AC6 /* Exceptions for "Feather" folder in "Feather" target */,
-				33CF134C2DB5B9BC0021D4C5 /* Exceptions for "Feather" folder in "Copy Bundle Resources" phase from "Feather" target */,
+				3371F6492DA92A1800281AC6 /* Exceptions for "Quill" folder in "Quill" target */,
+				33CF134C2DB5B9BC0021D4C5 /* Exceptions for "Quill" folder in "Copy Bundle Resources" phase from "Quill" target */,
 			);
-			path = Feather;
+			path = Quill;
 			sourceTree = "<group>";
 		};
-		5A1D000000000000000000A2 /* FeatherWidgets */ = {
+		5A1D000000000000000000A2 /* QuillWidgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				5A1D000000000000000000A3 /* Exceptions for "FeatherWidgets" folder in "FeatherWidgets" target */,
+				5A1D000000000000000000A3 /* Exceptions for "QuillWidgets" folder in "QuillWidgets" target */,
 			);
-			path = FeatherWidgets;
+			path = QuillWidgets;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -141,19 +141,19 @@
 		3379C1B02DA869A1004372DA = {
 			isa = PBXGroup;
 			children = (
-				3379C1BB2DA869A1004372DA /* Feather */,
-				5A1D000000000000000000A2 /* FeatherWidgets */,
+				3379C1BB2DA869A1004372DA /* Quill */,
+				5A1D000000000000000000A2 /* QuillWidgets */,
 				3371F7302DA9ECDD00281AC6 /* Frameworks */,
 				3379C1BA2DA869A1004372DA /* Products */,
-				570920BD2F98A4F0008C4A83 /* Feather.xcconfig */,
+				570920BD2F98A4F0008C4A83 /* Quill.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
 		3379C1BA2DA869A1004372DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3379C1B92DA869A1004372DA /* Feather.app */,
-				5A1D000000000000000000A1 /* FeatherWidgets.appex */,
+				3379C1B92DA869A1004372DA /* Quill.app */,
+				5A1D000000000000000000A1 /* QuillWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,9 +161,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3379C1B82DA869A1004372DA /* Feather */ = {
+		3379C1B82DA869A1004372DA /* Quill */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3379C1CD2DA869A3004372DA /* Build configuration list for PBXNativeTarget "Feather" */;
+			buildConfigurationList = 3379C1CD2DA869A3004372DA /* Build configuration list for PBXNativeTarget "Quill" */;
 			buildPhases = (
 				3379C1B52DA869A1004372DA /* Sources */,
 				3379C1B62DA869A1004372DA /* Frameworks */,
@@ -176,9 +176,9 @@
 				5A1D000000000000000000AE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				3379C1BB2DA869A1004372DA /* Feather */,
+				3379C1BB2DA869A1004372DA /* Quill */,
 			);
-			name = Feather;
+			name = Quill;
 			packageProductDependencies = (
 				3371F7312DA9ECDD00281AC6 /* Zip */,
 				33CF13382DB5ACFB0021D4C5 /* SWCompression */,
@@ -193,13 +193,13 @@
 				33693A072DC8BF5B00730215 /* AltSourceKit */,
 				3349E7662DEFB46F00E317ED /* IDeviceSwift */,
 			);
-			productName = Feather;
-			productReference = 3379C1B92DA869A1004372DA /* Feather.app */;
+			productName = Quill;
+			productReference = 3379C1B92DA869A1004372DA /* Quill.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5A1D000000000000000000A4 /* FeatherWidgets */ = {
+		5A1D000000000000000000A4 /* QuillWidgets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5A1D000000000000000000A8 /* Build configuration list for PBXNativeTarget "FeatherWidgets" */;
+			buildConfigurationList = 5A1D000000000000000000A8 /* Build configuration list for PBXNativeTarget "QuillWidgets" */;
 			buildPhases = (
 				5A1D000000000000000000A5 /* Sources */,
 				5A1D000000000000000000A6 /* Frameworks */,
@@ -210,13 +210,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5A1D000000000000000000A2 /* FeatherWidgets */,
+				5A1D000000000000000000A2 /* QuillWidgets */,
 			);
-			name = FeatherWidgets;
+			name = QuillWidgets;
 			packageProductDependencies = (
 			);
-			productName = FeatherWidgets;
-			productReference = 5A1D000000000000000000A1 /* FeatherWidgets.appex */;
+			productName = QuillWidgets;
+			productReference = 5A1D000000000000000000A1 /* QuillWidgets.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -238,7 +238,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3379C1B42DA869A1004372DA /* Build configuration list for PBXProject "Feather" */;
+			buildConfigurationList = 3379C1B42DA869A1004372DA /* Build configuration list for PBXProject "Quill" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -273,8 +273,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3379C1B82DA869A1004372DA /* Feather */,
-				5A1D000000000000000000A4 /* FeatherWidgets */,
+				3379C1B82DA869A1004372DA /* Quill */,
+				5A1D000000000000000000A4 /* QuillWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -284,7 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				570920BE2F98A4F0008C4A83 /* Feather.xcconfig in Resources */,
+				570920BE2F98A4F0008C4A83 /* Quill.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +318,7 @@
 		5A1D000000000000000000AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = 5A1D000000000000000000A4 /* FeatherWidgets */;
+			target = 5A1D000000000000000000A4 /* QuillWidgets */;
 			targetProxy = 5A1D000000000000000000AD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -326,7 +326,7 @@
 /* Begin XCBuildConfiguration section */
 		3379C1CB2DA869A3004372DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Feather.xcconfig */;
+			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Quill.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -390,7 +390,7 @@
 		};
 		3379C1CC2DA869A3004372DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Feather.xcconfig */;
+			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Quill.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -446,13 +446,13 @@
 		};
 		3379C1CE2DA869A3004372DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Feather.xcconfig */;
+			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Quill.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Feather/Supporting Files/Feather.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Quill/Supporting Files/Quill.entitlements";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMPRESS_PNG_FILES = NO;
@@ -466,7 +466,7 @@
 					"$(inherited)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Feather/Resources/Info.plist;
+				INFOPLIST_FILE = Quill/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Quill;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (c) 2024 Samara M";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -484,12 +484,12 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Feather/Resources",
-					"$(PROJECT_DIR)/Feather/Resources/idevice",
+					"$(PROJECT_DIR)/Quill/Resources",
+					"$(PROJECT_DIR)/Quill/Resources/idevice",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = "$(FEATHER_PROJECT_VERSION)-debug";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(FEATHER_PRODUCT_BUNDLE_IDENTIFIER)$(FEATHER_DISAMBIGUATOR)";
+				MARKETING_VERSION = "$(QUILL_PROJECT_VERSION)-debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(QUILL_PRODUCT_BUNDLE_IDENTIFIER)$(QUILL_DISAMBIGUATOR)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -500,7 +500,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Feather/Supporting Files/Feather-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Quill/Supporting Files/Quill-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -511,13 +511,13 @@
 		};
 		3379C1CF2DA869A3004372DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Feather.xcconfig */;
+			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Quill.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Feather/Supporting Files/Feather.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Quill/Supporting Files/Quill.entitlements";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMPRESS_PNG_FILES = NO;
@@ -530,7 +530,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Feather/Resources/Info.plist;
+				INFOPLIST_FILE = Quill/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Quill;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (c) 2024 Samara M";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -548,12 +548,12 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Feather/Resources",
-					"$(PROJECT_DIR)/Feather/Resources/idevice",
+					"$(PROJECT_DIR)/Quill/Resources",
+					"$(PROJECT_DIR)/Quill/Resources/idevice",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = "$(FEATHER_PROJECT_VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(FEATHER_PRODUCT_BUNDLE_IDENTIFIER)";
+				MARKETING_VERSION = "$(QUILL_PROJECT_VERSION)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(QUILL_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -564,7 +564,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Feather/Supporting Files/Feather-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Quill/Supporting Files/Quill-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 16.0;
@@ -574,7 +574,7 @@
 		};
 		5A1D000000000000000000A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Feather.xcconfig */;
+			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Quill.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = "";
@@ -583,7 +583,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FeatherWidgets/Info.plist;
+				INFOPLIST_FILE = QuillWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Quill;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -591,8 +591,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = "$(FEATHER_PROJECT_VERSION)-debug";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(FEATHER_PRODUCT_BUNDLE_IDENTIFIER)$(FEATHER_DISAMBIGUATOR).Widgets";
+				MARKETING_VERSION = "$(QUILL_PROJECT_VERSION)-debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(QUILL_PRODUCT_BUNDLE_IDENTIFIER)$(QUILL_DISAMBIGUATOR).Widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -609,7 +609,7 @@
 		};
 		5A1D000000000000000000AA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Feather.xcconfig */;
+			baseConfigurationReference = 570920BD2F98A4F0008C4A83 /* Quill.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = "";
@@ -618,7 +618,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FeatherWidgets/Info.plist;
+				INFOPLIST_FILE = QuillWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Quill;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -626,8 +626,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = "$(FEATHER_PROJECT_VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(FEATHER_PRODUCT_BUNDLE_IDENTIFIER).Widgets";
+				MARKETING_VERSION = "$(QUILL_PROJECT_VERSION)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(QUILL_PRODUCT_BUNDLE_IDENTIFIER).Widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -643,7 +643,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3379C1B42DA869A1004372DA /* Build configuration list for PBXProject "Feather" */ = {
+		3379C1B42DA869A1004372DA /* Build configuration list for PBXProject "Quill" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3379C1CB2DA869A3004372DA /* Debug */,
@@ -652,7 +652,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3379C1CD2DA869A3004372DA /* Build configuration list for PBXNativeTarget "Feather" */ = {
+		3379C1CD2DA869A3004372DA /* Build configuration list for PBXNativeTarget "Quill" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3379C1CE2DA869A3004372DA /* Debug */,
@@ -661,7 +661,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5A1D000000000000000000A8 /* Build configuration list for PBXNativeTarget "FeatherWidgets" */ = {
+		5A1D000000000000000000A8 /* Build configuration list for PBXNativeTarget "QuillWidgets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5A1D000000000000000000A9 /* Debug */,

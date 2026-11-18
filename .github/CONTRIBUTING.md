@@ -35,11 +35,11 @@ Any contributions should follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 2. Opening with Xcode
     ```sh
-    cd Quill && open Feather.xcworkspace
+    cd Quill && open Quill.xcworkspace
     ```
 
 #### Localizations
-- For localizations, you will need Xcode 15 or higher to edit the `Feather/Resources/Localizable.xcstrings` file, or some alternative software that allows you to edit an `.xcstrings` file. 
+- For localizations, you will need Xcode 15 or higher to edit the `Quill/Resources/Localizable.xcstrings` file, or some alternative software that allows you to edit an `.xcstrings` file. 
 - We use a newer format for convenience, but at the cost of less accessibility when it comes to actually editing it.
   - **Disclaimer: do NOT edit by hand.**
 - Some localizations were imported from V1; if they don't make sense, please feel free to change them.

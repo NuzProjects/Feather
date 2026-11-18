@@ -102,12 +102,12 @@ jobs:
         id: dependencies
         with:
           path: |
-            ${{ runner.temp }}/Feather
+            ${{ runner.temp }}/Quill
             ~/Library/Caches/org.swift.swiftpm
-          key: feather-xcode26.3-v2-${{ runner.arch }}-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
-          restore-keys: feather-xcode26.3-v2-${{ hashFiles('Feather.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+          key: quill-xcode26.3-v2-${{ runner.arch }}-${{ hashFiles('Quill.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
+          restore-keys: quill-xcode26.3-v2-${{ hashFiles('Quill.xcworkspace/xcshareddata/swiftpm/Package.resolved', '.gitmodules') }}
       - name: Drop cached modules built against an older SDK
-        run: rm -rf "$RUNNER_TEMP/Feather/ModuleCache.noindex" "$RUNNER_TEMP/Feather/SDKStatCaches.noindex" "$RUNNER_TEMP/Feather/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules"
+        run: rm -rf "$RUNNER_TEMP/Quill/ModuleCache.noindex" "$RUNNER_TEMP/Quill/SDKStatCaches.noindex" "$RUNNER_TEMP/Quill/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules"
       - name: Prepare install server assets
         run: |
           set -euo pipefail
@@ -123,17 +123,17 @@ jobs:
           set -o pipefail
           git config --global http.version HTTP/1.1
           for attempt in 1 2; do
-            if xcodebuild -resolvePackageDependencies -workspace Feather.xcworkspace -scheme Feather \
-              -derivedDataPath "$RUNNER_TEMP/Feather" 2>&1 | tee "$RUNNER_TEMP/build.log"; then exit 0; fi
+            if xcodebuild -resolvePackageDependencies -workspace Quill.xcworkspace -scheme Quill \
+              -derivedDataPath "$RUNNER_TEMP/Quill" 2>&1 | tee "$RUNNER_TEMP/build.log"; then exit 0; fi
           done
           exit 1
       - name: Build iPhone app
         run: |
           set -o pipefail
-          xcodebuild -workspace Feather.xcworkspace -scheme Feather -configuration Release \
-            -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/Feather" \
+          xcodebuild -workspace Quill.xcworkspace -scheme Quill -configuration Release \
+            -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/Quill" \
             -disableAutomaticPackageResolution -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO \
-            FEATHER_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.dev.feather \
+            QUILL_PRODUCT_BUNDLE_IDENTIFIER=dev.madebynuz.dev.feather \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} \
             ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES \
             COMPILER_INDEX_STORE_ENABLE=NO DEBUG_INFORMATION_FORMAT=dwarf -skipMacroValidation \
@@ -141,11 +141,11 @@ jobs:
       - name: Package IPA for device signing
         run: |
           set -euo pipefail
-          APP="$(find _build -type d -name Feather.app | head -n 1)"
+          APP="$(find _build -type d -name Quill.app | head -n 1)"
           test -n "$APP"
           mkdir -p packages "$RUNNER_TEMP/package/Payload"
-          ditto "$APP" "$RUNNER_TEMP/package/Payload/Feather.app"
-          cp deps/server.crt deps/server.pem deps/commonName.txt "$RUNNER_TEMP/package/Payload/Feather.app/"
+          ditto "$APP" "$RUNNER_TEMP/package/Payload/Quill.app"
+          cp deps/server.crt deps/server.pem deps/commonName.txt "$RUNNER_TEMP/package/Payload/Quill.app/"
           cd "$RUNNER_TEMP/package"
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather.ipa" Payload
           unzip -t "$GITHUB_WORKSPACE/packages/Feather.ipa"
@@ -155,9 +155,11 @@ jobs:
           set -euo pipefail
           HELPER="$RUNNER_TEMP/feather-transfer-files"
           mkdir -p "$HELPER"
-          cp Feather/Features/Settings/Transfer/*.swift "$HELPER/"
-          cp Feather/Core/TransferFiles.swift "$HELPER/"
-          cp Feather/Services/Storage/Storage.swift "$HELPER/"
+          cp Quill/Features/Settings/Transfer/*.swift "$HELPER/"
+          cp Quill/Core/TransferFiles.swift "$HELPER/"
+          cp Quill/Services/Storage/Storage.swift "$HELPER/"
+          # The helper is the old Feather app, built from the old project layout.
+          git restore --source=b7d844e --worktree -- Feather.xcodeproj Feather.xcworkspace Feather.xcconfig FeatherWidgets
           git restore --source=31ab6de --worktree -- Feather
           mkdir -p Feather/Views/Settings/Transfer Feather/Backend/Updates/Core
           cp "$HELPER/DataTransferView.swift" "$HELPER/FeatherTransfer.swift" Feather/Views/Settings/Transfer/
@@ -171,9 +173,9 @@ jobs:
           p.write_text(s)
           PY
           xcodebuild -resolvePackageDependencies -workspace Feather.xcworkspace -scheme Feather \
-            -derivedDataPath "$RUNNER_TEMP/Feather" 2>&1 | tee -a "$RUNNER_TEMP/build.log"
+            -derivedDataPath "$RUNNER_TEMP/FeatherHelper" 2>&1 | tee -a "$RUNNER_TEMP/build.log"
           xcodebuild -workspace Feather.xcworkspace -scheme Feather -configuration Release \
-            -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/Feather" \
+            -destination 'generic/platform=iOS' -derivedDataPath "$RUNNER_TEMP/FeatherHelper" \
             -disableAutomaticPackageResolution -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO \
             FEATHER_PRODUCT_BUNDLE_IDENTIFIER=thewonderofyou.Feather \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES \
@@ -184,7 +186,7 @@ jobs:
           cd "$RUNNER_TEMP/helper-package"
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa" Payload
           unzip -t "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa"
-          cp "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa" "$RUNNER_TEMP/package/Payload/Feather.app/LegacyTransfer.ipa"
+          cp "$GITHUB_WORKSPACE/packages/Feather-Transfer.ipa" "$RUNNER_TEMP/package/Payload/Quill.app/LegacyTransfer.ipa"
           cd "$RUNNER_TEMP/package"
           /usr/bin/zip -qry "$GITHUB_WORKSPACE/packages/Feather.ipa" Payload
       - name: Name the IPA Quill.ipa
@@ -205,7 +207,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          LABEL="$(sed -n 's/^FEATHER_VERSION_LABEL=//p' Feather.xcconfig)"
+          LABEL="$(sed -n 's/^QUILL_VERSION_LABEL=//p' Quill.xcconfig)"
           SLUG="$(echo "$LABEL" | tr '[:upper:]' '[:lower:]' | sed -E 's/ beta ?/-beta/; s/ /-/g')"
           TAG="v${SLUG}-build${{ github.run_number }}"
           PRERELEASE=""
@@ -220,7 +222,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          VERSION="$(sed -n 's/^FEATHER_PROJECT_VERSION=//p' Feather.xcconfig)"
+          VERSION="$(sed -n 's/^QUILL_PROJECT_VERSION=//p' Quill.xcconfig)"
           DATE="$(gh release view "$TAG" --json publishedAt --jq .publishedAt)"
           SIZE="$(stat -f%z packages/Quill.ipa)"
           URL="https://github.com/${{ github.repository }}/releases/download/$TAG/Quill.ipa"
@@ -247,7 +249,7 @@ jobs:
         if: always() && steps.dependencies.outputs.cache-hit != 'true'
         with:
           path: |
-            ${{ runner.temp }}/Feather
+            ${{ runner.temp }}/Quill
             ~/Library/Caches/org.swift.swiftpm
           key: ${{ steps.dependencies.outputs.cache-primary-key }}
       - name: Save build log
