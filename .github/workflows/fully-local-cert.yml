@@ -1,7 +1,7 @@
 name: Fully Local certificate
 
-# Keeps local.feather.madebynuz.dev pointing at 127.0.0.1 and publishes a
-# Let's Encrypt certificate for it at https://feather.madebynuz.dev/pack.json,
+# Keeps local.quill.madebynuz.dev pointing at 127.0.0.1 and publishes a
+# Let's Encrypt certificate for it at https://quill.madebynuz.dev/pack.json,
 # which Feather's Fully Local install server uses. Runs daily and only gets a
 # new certificate when the current one is missing, revoked or close to expiring.
 on:
@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  DOMAIN: local.feather.madebynuz.dev
+  DOMAIN: local.quill.madebynuz.dev
   ZONE_ID: 21214b4eb943b9813749f8f9982b723e
 
 jobs:

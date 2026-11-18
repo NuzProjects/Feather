@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://feather.madebynuz.dev/sitemap.xml
+Sitemap: https://quill.madebynuz.dev/sitemap.xml

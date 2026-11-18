@@ -40,7 +40,7 @@ extension ServerInstaller {
 		var allowed = CharacterSet.urlQueryAllowed
 		allowed.remove(charactersIn: "&=+#?")
 		func encode(_ value: String) -> String { value.addingPercentEncoding(withAllowedCharacters: allowed) ?? "" }
-		let server = RemoteConfig.cached?.plistServer?.absoluteString ?? "https://feather.madebynuz.dev/genPlist"
+		let server = RemoteConfig.cached?.plistServer?.absoluteString ?? "https://quill.madebynuz.dev/genPlist"
 		let baseUrl = "\(server)?bundleid=\(encode(_bundleID))&name=\(encode(_title))&version=\(encode(_bundleVersion))&fetchurl=\(encode(payloadEndpoint.absoluteString))"
 		return baseUrl.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? baseUrl
 	}
