@@ -93,6 +93,7 @@ public struct NBSection<Content, Footer>: View
 			.font(.caption)
 			.foregroundStyle(Color(uiColor: .secondaryLabel))
 			.contentTransition(.numericText())
+			.animation(.snappy, value: text)
 			.padding(.horizontal, 8)
 			.padding(.vertical, 4.4)
 			.background(Color(uiColor: .quaternarySystemFill))

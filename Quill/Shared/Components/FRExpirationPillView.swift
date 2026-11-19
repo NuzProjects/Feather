@@ -21,6 +21,8 @@ struct FRExpirationPillView: View {
 		Text(textLabel)
 			.lineLimit(0)
 			.font(.headline.bold())
+			.contentTransition(.numericText())
+			.animation(.snappy, value: textLabel)
 			.foregroundStyle(textForeground)
 			.padding(.horizontal, 12)
 			.padding(.vertical, 6)

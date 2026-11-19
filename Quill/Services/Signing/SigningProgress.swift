@@ -170,11 +170,17 @@ struct SigningProgressPanel: View {
 					}
 					Spacer(minLength: 8)
 					TimelineView(.periodic(from: .now, by: 1)) { context in
+						let seconds = job.secondsLeft(at: context.date)
 						if let left = _timeLeft(job, at: context.date) {
 							Text(left).font(.subheadline.monospacedDigit()).foregroundStyle(Color(uiColor: .secondaryLabel))
+								.numericRoll(Int(seconds ?? 0))
+								.animation(.snappy, value: Int(seconds ?? 0))
 						}
 					}
-					if progress.visibleJobs.count > 1 { Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit()) }
+					if progress.visibleJobs.count > 1 {
+						Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit())
+							.animatedNumber(progress.visibleJobs.count)
+					}
 				}
 				ProgressView(value: job.stage.fraction)
 					.accessibilityLabel(job.stage.title)

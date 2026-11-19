@@ -124,6 +124,7 @@ private struct CertificateWidgetView: View {
 				Image(systemName: "xmark")
 			} else if let daysLeft {
 				Text(daysLeft < 0 ? "0" : "\(daysLeft)")
+					.numericRoll(max(daysLeft, 0))
 			} else {
 				Image(systemName: "plus")
 			}
@@ -139,7 +140,7 @@ private struct CertificateWidgetView: View {
 			if certificate?.revoked == true {
 				Text("Revoked").font(.subheadline)
 			} else {
-				Text(daysLeftText).font(.subheadline)
+				Text(daysLeftText).font(.subheadline).numericRoll(daysLeft ?? 0)
 			}
 			if let expiration = certificate?.expiration, certificate?.revoked != true {
 				Text("Expires \(expiration.formatted(date: .abbreviated, time: .omitted))")
@@ -152,7 +153,7 @@ private struct CertificateWidgetView: View {
 	private var lockInline: some View {
 		ViewThatFits {
 			Label {
-				if certificate?.revoked == true { Text("Revoked") } else { Text(daysLeftText) }
+				if certificate?.revoked == true { Text("Revoked") } else { Text(daysLeftText).numericRoll(daysLeft ?? 0) }
 			} icon: {
 				Image(systemName: "checkmark.seal.fill")
 			}
@@ -179,6 +180,7 @@ private struct CertificateWidgetView: View {
 				} else if let daysLeft {
 					Text(daysLeft < 0 ? "0" : "\(daysLeft)")
 						.font(.system(size: 30, weight: .bold, design: .rounded))
+						.numericRoll(max(daysLeft, 0))
 						.minimumScaleFactor(0.6)
 						.lineLimit(1)
 					Text(daysLeft == 1 ? "day" : "days")
@@ -237,6 +239,7 @@ private struct CertificateWidgetView: View {
 					if let signed = entry.snapshot?.signedCount, signed > 0 {
 						Text("· \(signed) signed")
 							.font(.caption)
+							.numericRoll(signed)
 							.foregroundStyle(.secondary)
 					}
 				}
@@ -279,6 +282,7 @@ private struct LibraryWidgetView: View {
 			Spacer(minLength: 0)
 			Text("\(entry.snapshot?.signedCount ?? 0)")
 				.font(.system(size: 44, weight: .bold, design: .rounded))
+				.numericRoll(entry.snapshot?.signedCount ?? 0)
 				.minimumScaleFactor(0.6)
 				.lineLimit(1)
 			Text((entry.snapshot?.signedCount ?? 0) == 1 ? "signed app" : "signed apps")
@@ -309,6 +313,7 @@ private struct LibraryWidgetView: View {
 				Spacer()
 				Text("\(entry.snapshot?.signedCount ?? 0) signed · \(entry.snapshot?.importedCount ?? 0) imported")
 					.font(.caption)
+					.numericRoll((entry.snapshot?.signedCount ?? 0) + (entry.snapshot?.importedCount ?? 0))
 					.opacity(0.85)
 					.lineLimit(1)
 			}

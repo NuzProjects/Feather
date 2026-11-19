@@ -152,7 +152,7 @@ struct CertificateValidityRing: View {
 					Text(_value)
 						.font(.system(size: size * 0.26, weight: .bold, design: .rounded))
 						.foregroundStyle(_color)
-						.contentTransition(.numericText())
+						.animatedNumber(Int(_value) ?? 0)
 					Text(_unit)
 						.font(.system(size: max(size * 0.11, 9), weight: .semibold))
 						.foregroundStyle(Color(uiColor: .secondaryLabel))
