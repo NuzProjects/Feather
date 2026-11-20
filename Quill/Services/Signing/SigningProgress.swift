@@ -222,6 +222,8 @@ struct UpdateProgressPanel: View {
 		.task { icon = await Task.detached { iconTest(Bundle.main.bundleURL) }.value }
 	}
 
+	private func _percent(_ fraction: Double) -> Int { Int(min(1, max(0, fraction)) * 100) }
+
 	private func card(_ state: (title: String, fraction: Double)) -> some View {
 		ProgressPanelSurface {
 			VStack(alignment: .leading, spacing: 9) {
@@ -232,9 +234,15 @@ struct UpdateProgressPanel: View {
 						Text(state.title).font(.caption).foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 					Spacer(minLength: 8)
+					Text("\(_percent(state.fraction))%")
+						.font(.caption.monospacedDigit())
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
+						.numericRoll(_percent(state.fraction))
+						.animation(.snappy, value: _percent(state.fraction))
 				}
 				ProgressView(value: min(1, max(0, state.fraction)))
 					.accessibilityLabel(state.title)
+					.accessibilityValue("\(_percent(state.fraction))%")
 			}.padding(16)
 		}
 		.padding(.horizontal, 12)

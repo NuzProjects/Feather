@@ -173,6 +173,7 @@ final class QuillUpdater: ObservableObject {
 				phase = .idle
 			} catch {
 				DevLog.shared.error(error, while: "Installing Quill update", category: "Updates")
+				if case .downloading = phase { UINotificationFeedbackGenerator().notificationOccurred(.error) }
 				_fail(error.localizedDescription)
 			}
 		}
