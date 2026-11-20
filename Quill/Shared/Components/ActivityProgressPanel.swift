@@ -84,14 +84,14 @@ private struct ImportProgressCard: View {
 						Spacer(minLength: 8)
 						Text("\(Int(min(1, max(0, fraction)) * 100))%")
 							.font(.caption.monospacedDigit()).foregroundStyle(Color(uiColor: .secondaryLabel))
-							.contentTransition(.numericText())
+							.numericRoll(Int(min(1, max(0, fraction)) * 100))
 					}
 					ProgressView(value: min(1, max(0, fraction))).progressViewStyle(.linear)
 				}
 			}.padding(14)
 		}
 		.padding(.horizontal, 12)
-		.animation(.smooth(duration: 0.2), value: Int(fraction * 100))
+		.animation(.snappy, value: Int(min(1, max(0, fraction)) * 100))
 		.accessibilityElement(children: .combine)
 	}
 }

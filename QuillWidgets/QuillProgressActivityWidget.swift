@@ -19,7 +19,7 @@ struct QuillProgressActivityWidget: Widget {
 					Text(state.percentText)
 						.font(.title3.weight(.semibold).monospacedDigit())
 						.foregroundStyle(tint)
-						.contentTransition(.numericText())
+						.numericRoll(state.percent)
 						.padding(.trailing, 6)
 				}
 				DynamicIslandExpandedRegion(.center) {
@@ -38,6 +38,7 @@ struct QuillProgressActivityWidget: Widget {
 							if state.others > 0 {
 								Text("+\(state.others)")
 									.font(.caption.weight(.semibold).monospacedDigit())
+									.numericRoll(state.others)
 									.foregroundStyle(.secondary)
 							}
 						}
@@ -88,7 +89,7 @@ private struct LockScreenProgressView: View {
 				Text(state.percentText)
 					.font(.title3.weight(.semibold).monospacedDigit())
 					.foregroundStyle(tint)
-					.contentTransition(.numericText())
+					.numericRoll(state.percent)
 			}
 			ProgressBar(fraction: state.fraction, tint: tint)
 		}
@@ -141,5 +142,6 @@ private struct ProgressRing: View {
 }
 
 private extension QuillProgressAttributes.ContentState {
-	var percentText: String { "\(Int((min(1, max(0, fraction)) * 100).rounded()))%" }
+	var percent: Int { Int((min(1, max(0, fraction)) * 100).rounded()) }
+	var percentText: String { "\(percent)%" }
 }

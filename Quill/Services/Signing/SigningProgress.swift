@@ -170,11 +170,17 @@ struct SigningProgressPanel: View {
 					}
 					Spacer(minLength: 8)
 					TimelineView(.periodic(from: .now, by: 1)) { context in
+						let seconds = job.secondsLeft(at: context.date)
 						if let left = _timeLeft(job, at: context.date) {
 							Text(left).font(.subheadline.monospacedDigit()).foregroundStyle(Color(uiColor: .secondaryLabel))
+								.numericRoll(Int(seconds ?? 0))
+								.animation(.snappy, value: Int(seconds ?? 0))
 						}
 					}
-					if progress.visibleJobs.count > 1 { Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit()) }
+					if progress.visibleJobs.count > 1 {
+						Text("+\(progress.visibleJobs.count - 1)").font(.caption.monospacedDigit())
+							.animatedNumber(progress.visibleJobs.count)
+					}
 				}
 				ProgressView(value: job.stage.fraction)
 					.accessibilityLabel(job.stage.title)
@@ -216,6 +222,8 @@ struct UpdateProgressPanel: View {
 		.task { icon = await Task.detached { iconTest(Bundle.main.bundleURL) }.value }
 	}
 
+	private func _percent(_ fraction: Double) -> Int { Int(min(1, max(0, fraction)) * 100) }
+
 	private func card(_ state: (title: String, fraction: Double)) -> some View {
 		ProgressPanelSurface {
 			VStack(alignment: .leading, spacing: 9) {
@@ -226,9 +234,15 @@ struct UpdateProgressPanel: View {
 						Text(state.title).font(.caption).foregroundStyle(Color(uiColor: .secondaryLabel))
 					}
 					Spacer(minLength: 8)
+					Text("\(_percent(state.fraction))%")
+						.font(.caption.monospacedDigit())
+						.foregroundStyle(Color(uiColor: .secondaryLabel))
+						.numericRoll(_percent(state.fraction))
+						.animation(.snappy, value: _percent(state.fraction))
 				}
 				ProgressView(value: min(1, max(0, state.fraction)))
 					.accessibilityLabel(state.title)
+					.accessibilityValue("\(_percent(state.fraction))%")
 			}.padding(16)
 		}
 		.padding(.horizontal, 12)

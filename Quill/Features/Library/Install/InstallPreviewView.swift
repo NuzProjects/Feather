@@ -38,6 +38,11 @@ struct InstallPreviewView: View {
 	var body: some View {
 		_content()
 		.onReceive(viewModel.$status) { newStatus in
+			switch newStatus {
+			case .completed(.success): UINotificationFeedbackGenerator().notificationOccurred(.success)
+			case .completed(.failure), .broken: UINotificationFeedbackGenerator().notificationOccurred(.error)
+			default: break
+			}
 			if _installationMethod == 0 {
 				if case .ready = newStatus {
 					if _serverMethod == 0 {

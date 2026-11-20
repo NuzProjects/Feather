@@ -29,12 +29,14 @@ struct ScreenshotPreviewView: View {
 					ToolbarItem(placement: .topBarTrailing) {
 						if #available(iOS 26.0, *) {
 							Text(verbatim: "\(currentIndex + 1) / \(screenshotURLs.count)")
-								.font(.subheadline)
+								.font(.subheadline.monospacedDigit())
+								.animatedNumber(currentIndex)
 								.padding(.horizontal, 12)
 								.padding(.vertical, 6)
 						} else {
 							Text(verbatim: "\(currentIndex + 1) / \(screenshotURLs.count)")
-								.font(.subheadline)
+								.font(.subheadline.monospacedDigit())
+								.animatedNumber(currentIndex)
 								.padding(.horizontal, 12)
 								.padding(.vertical, 6)
 								.background(
